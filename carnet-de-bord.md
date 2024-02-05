@@ -18,3 +18,16 @@ Aujourd'hui nous avons prévu de réaliser une partie des wireframes.
 - Sarah : Se charge des wireframes : Login, SignUp, Cart, User account, Delete my account, Reset my password, Private chat & Message to a private chat.
 
 - Lisa : Réalisation de l'arborescence utilisateur (sous forme d'arbre). Se charge des wireframes : Search results, Products page, How it works, 404, My store, Create my store & Faq.
+
+# 05/02/2024 - Sprint 0 
+
+Vendredi, nous avons réalisé les wireframes de toutes nos routes.
+Aujourd'hui nous devons les légender.
+
+## Infos individuelles 
+- Rita : Légende des wireframes : Homepage, About us, Payment, Product page, Sell my Reborn, Terms of sale, Privacy policy & Cookies policy
+  
+- Sarah : Légende des wireframes : Delete, Reset password et Chat 
+  
+- Lisa : Légende des wireframes : Search results, Products page, How it works, 404, My store, Create my store & Faq  
+
