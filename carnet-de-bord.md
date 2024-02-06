@@ -29,5 +29,13 @@ Aujourd'hui nous devons les légender.
   
 - Sarah : Légende des wireframes : Delete, Reset password et Chat 
   
-- Lisa : Légende des wireframes : Search results, Products page, How it works, 404, My store, Create my store & Faq  
+- Lisa : Légende des wireframes : Search results, Products page, How it works, 404, My store, Create my store & Faq
 
+# 06/02/2024 - Sprint 0
+Hier, ajout des légendes sur les wireframes + call avec Etienne à 15h. Changement du MCD. 
+Aujourd'hui on doit revoir les wireframes, changer le dico des données, le recueil des données et les user stories, arborescence utilisateur.
+
+### Infos individuelles 
+- Rita : Dico des données, wireframes : Homepage, Product, Sell my reborn  
+- Sarah : Recueil des données, wireframes : Account, Chat
+- Lisa : Arborescence utilisateur, user stories, wireframes : Reborns, header + footer commentaires. 
