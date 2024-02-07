@@ -1,9 +1,12 @@
 import './App.scss';
-
-const hello = 'world';
+import Footer from '../Footer/Footer';
 
 function App() {
-  return <div className="container">Hello World</div>;
+  return (
+    <div className="container">
+      <Footer />
+    </div>
+  );
 }
 
 export default App;
