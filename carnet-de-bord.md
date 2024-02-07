@@ -47,7 +47,7 @@ Aujourd'hui côté back nous voulons créer la bdd, commencer la création des t
 Chacune crée sa proche branche par feature. 
 
 ### Infos individuelles 
-- Rita : création de la bdd et création d'une partie des tables.
-- Sarah : 
-- Lisa : 
+- Rita : Création de la bdd et création d'une partie des tables.
+- Sarah : Création composants se connecter + sign up + reset password + payment + my account + my store + delete account
+- Lisa : Création composants header + footer + homepage + 404 + create my store
 
