@@ -1,13 +1,12 @@
 
 # 01/02/2024 - Sprint 0 
-
 Hier, nous avons rédigé le cahier des charges toutes les trois. Nous avons défini le MVP, les évolutions potentielles la liste des technologies, la cible, les rôles individuels, la liste des routes, les user stories ainsi que l'arborescence de l'application. 
 Concernant les difficultés, nous ne nous étions pas rendues compte du nombre de pages que notre site allait nécessiter. 
 
 Aujourd'hui nous avons prévu de rédiger le MCD, le MLD ainsi que le dico des données. Nous devons également nous renseigner concernant les obligations légales. 
 
-# 02/02/2024 - Sprint 0 
 
+# 02/02/2024 - Sprint 0 
 Hier, nous avons réalisé le recueil des données, le dico des données le MCD & le MLD. Nous avons travaillé chacune de notre côté puis nous avons mis notre travail en commun. 
 
 Aujourd'hui nous avons prévu de réaliser une partie des wireframes.
@@ -19,8 +18,8 @@ Aujourd'hui nous avons prévu de réaliser une partie des wireframes.
 
 - Lisa : Réalisation de l'arborescence utilisateur (sous forme d'arbre). Se charge des wireframes : Search results, Products page, How it works, 404, My store, Create my store & Faq.
 
-# 05/02/2024 - Sprint 0 
 
+# 05/02/2024 - Sprint 0 
 Vendredi, nous avons réalisé les wireframes de toutes nos routes.
 Aujourd'hui nous devons les légender.
 
@@ -31,6 +30,7 @@ Aujourd'hui nous devons les légender.
   
 - Lisa : Légende des wireframes : Search results, Products page, How it works, 404, My store, Create my store & Faq
 
+
 # 06/02/2024 - Sprint 0
 Hier, ajout des légendes sur les wireframes + call avec Etienne à 15h. Changement du MCD. 
 Aujourd'hui on doit revoir les wireframes, changer le dico des données, le recueil des données et les user stories, arborescence utilisateur.
@@ -38,4 +38,16 @@ Aujourd'hui on doit revoir les wireframes, changer le dico des données, le recu
 ### Infos individuelles 
 - Rita : Dico des données, wireframes : Homepage, Product, Sell my reborn  
 - Sarah : Recueil des données, wireframes : Account, Chat
-- Lisa : Arborescence utilisateur, user stories, wireframes : Reborns, header + footer commentaires. 
+- Lisa : Arborescence utilisateur, user stories, wireframes : Reborns, header + footer commentaires.
+
+
+# 07/02/2024 - Sprint 1
+Hier, nous avons terminé le cahier des charges. Nous avons revu les wireframes, changer le dico des données, le recueil des données, les user stories et l'arborescence utilisateur. 
+Aujourd'hui côté back nous voulons créer la bdd, commencer la création des tables. Côté front création du react-modele, app.jsx, des différents composants sans les interactions.
+Chacune crée sa proche branche par feature. 
+
+### Infos individuelles 
+- Rita : création de la bdd et création d'une partie des tables.
+- Sarah : 
+- Lisa : 
+
