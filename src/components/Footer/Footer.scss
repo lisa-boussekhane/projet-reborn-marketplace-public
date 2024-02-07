@@ -1,25 +1,2 @@
-@use 'src/styles/variables' as v;
 
-.footer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 0px;
-  
-      
-  
-      &-content {
-      display: flex;
-      gap: 100px;
-      border: solid 1px v.$pink;
-      background-color: v.$pink;
-      padding: 5px;
-      align-items: center;
-      }
-  
-      &-content p {
-      font-size: 1.5rem;
-      }
-  }
-  
   
