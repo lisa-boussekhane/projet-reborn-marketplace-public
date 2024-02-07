@@ -19,6 +19,10 @@
         align-items: center;
     }
 
+    &-left {
+        padding-left: 1rem;
+    }
+
     &-right {
     display: flex;
     flex-direction: row;
