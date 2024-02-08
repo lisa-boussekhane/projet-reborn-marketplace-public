@@ -1,0 +1,75 @@
+@use 'src/styles/variables' as v;
+
+.about-us {
+    display: flex;
+    align-items: center;
+    &-img {
+        flex: 0 0 auto; 
+        width: 35%;
+        
+        margin-left: 90px; 
+        margin-right: 90px; 
+        margin-bottom: 50px;
+         
+      }
+      
+      &_text {
+        flex: 1; 
+        font-size: 1.5rem;
+        
+        p {
+            padding: 1.2rem;
+        }
+        
+        h1, h3 {
+            padding: 1rem;
+        }
+      }
+    
+      
+    &-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around; 
+        padding: 10px;
+        margin: 0;
+        gap: 80px;
+        font-size: 1.5rem;
+      }
+    
+      &_button_images {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 50px;
+        padding-bottom: 60px;
+        width: 27%; 
+        gap: 170px;
+      }
+    }
+  
+ 
+
+  #btn-account {
+    background-color: v.$pink;
+    padding: 20px;
+    width: 600px;
+    text-align: center;
+    cursor: pointer;
+
+  }
+  
+  #btn-adopt {
+    background-color: v.$blue;
+    padding: 20px;
+    width: 600px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  #btn-contact {
+    background-color: v.$yellow;
+    padding: 20px;
+    width: 600px;
+    text-align: center;
+    cursor: pointer;
+  }

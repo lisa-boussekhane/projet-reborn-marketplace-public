@@ -1,0 +1,108 @@
+@use 'src/styles/variables' as v;
+
+.contact-us {
+    display: flex;
+    align-items: center;
+    &-img {
+        flex: 0 0 auto; 
+        width: 35%;
+        
+        margin-left: 90px; 
+        margin-right: 90px; 
+        margin-bottom: 50px;
+         
+      }
+      
+      &_form {
+        flex: 1; 
+        font-size: 1.5rem;
+        
+        h1 {
+            margin-top: 2rem;
+            padding: 1rem;
+        }
+
+        &-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        input, textarea {
+         padding: 10px;
+          border: solid 3px lightgray;
+          margin-bottom: 10px;
+        }
+
+        input {
+            margin-right: 60px; 
+            margin-bottom: 40px;
+          }
+
+        button { 
+            border: solid 2px v.$yellow;
+            background: v.$yellow;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 35px;
+            cursor: pointer;
+          }
+          button:hover {
+            background: v.$pink;
+            border: solid 2px v.$pink;
+          }
+
+          textarea {
+            display: flex;
+            height: 500px;
+            width: 1000px;
+          }
+  
+      }
+    
+      
+    &-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around; 
+        padding: 10px;
+        margin: 0;
+        gap: 80px;
+        font-size: 1.5rem;
+      }
+    
+      &_button_images {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 50px;
+        padding-bottom: 60px;
+        width: 27%; 
+        gap: 170px;
+      }
+
+    }
+  
+ 
+
+  #btn-account {
+    background-color: v.$pink;
+    padding: 20px;
+    width: 600px;
+    text-align: center;
+
+  }
+  
+  #btn-adopt {
+    background-color: v.$blue;
+    padding: 20px;
+    width: 600px;
+    text-align: center;
+  }
+  
+  #btn-contact {
+    background-color: v.$yellow;
+    padding: 20px;
+    width: 600px;
+    text-align: center;
+  }
