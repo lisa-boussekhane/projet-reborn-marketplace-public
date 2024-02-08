@@ -12,10 +12,10 @@ export default function ContactUs() {
 
           <form>
             <div className="form-row">
-              <input type="text" placeholder="Name" />
-              <input type="email" placeholder="Email" />
+              <input type="text" placeholder="Name" required />
+              <input type="email" placeholder="Email" required />
             </div>
-            <textarea placeholder="Message" />
+            <textarea placeholder="Message" required />
 
             <button type="submit">Send</button>
           </form>
