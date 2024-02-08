@@ -8,20 +8,22 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MyAccount from '../MyAccount/MyAccount';
 import Homepage from '../Homepage/Homepage';
+import AboutUs from '../AboutUs/AboutUs';
 
 function App() {
   return (
     <div className="app">
       <Header />
-      <Homepage />
-      <Footer />
       <Routes>
+        <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
+        <Route path="/aboutus" element={<AboutUs />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
