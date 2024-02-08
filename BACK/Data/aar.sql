@@ -2,31 +2,74 @@
 -- STRUCTURE de la base de la BDD
 --------------------------------
 
-DROP TABLE IF EXISTS "list", "card", "tag", "card_has_tag";
+DROP TABLE IF EXISTS "user", "media", "detail_product", "product", "message", "shop", "order", "dispatch";
 
-CREATE TABLE "list" (
+CREATE TABLE "user" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  "name" VARCHAR(128) NOT NULL,
-  "position" INTEGER NOT NULL DEFAULT 1,
-  "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP, -- OU DEFAULT NOW()
-  "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE "card" (
-  "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  "content" TEXT NOT NULL,
-  "color" VARCHAR(20) NOT NULL DEFAULT '#FFFFFF',
-  "position" INTEGER NOT NULL DEFAULT 1,
-  "list_id" INTEGER NOT NULL REFERENCES "list"("id") ON DELETE CASCADE, -- ON A UNE ASSOCIATION 11, ce champ est donc obligatoire, et on indique qu'il référence le champ id de al table list
-  -- ON DELETE CASCADE permet de maintenir l'intégrité référentielle entre la table card et la table list. Si une liste est supprimée, toutes les cartes liées à elles seront automatiquement supprimée par le SGBD (Système de Gestion de Base de Donnée - postgres quoi !)
+  "first_name" VARCHAR(128) NOT NULL,
+  "last_name" VARCHAR(128) NOT NULL,
+  "username" VARCHAR(128) NOT NULL,
+  "email" VARCHAR(128) NOT NULL,
+  "date_of_birth" TIMESTAMPTZ NOT NULL,
+  "phone" VARCHAR(11) NOT NULL,
+  "address" VARCHAR(128) NOT NULL,
+  "zip_code" VARCHAR(9) NOT NULL,
+  "city" VARCHAR(128) NOT NULL,
+  "state" VARCHAR(128) NOT NULL,
+  "role" VARCHAR(128) NOT NULL,
+  "duns" INTEGER NOT NULL,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE "tag" (
+CREATE TABLE "media" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  "name" VARCHAR(128) NOT NULL,
-  "color" VARCHAR(20) NOT NULL DEFAULT '#FFFFFF',
+  "photo" PATH NOT NULL,
+  "video" PATH NOT NULL,
+  "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE "product" (
+  "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  "security_code" GUID NOT NULL,
+  "title" VARCHAR(100) NOT NULL,
+  "kit_name" VARCHAR(20) NOT NULL,
+  "sculptor" VARCHAR(50) NOT NULL,
+  "size" INTEGER NOT NULL,
+  "type" VARCHAR(100) NOT NULL,
+  "age_range" VARCHAR(100) NOT NULL,
+  "authenticity_card" BOOLEAN NOT NULL,
+  "price" INTEGER NOT NULL,
+  "shipping_fees" INTEGER,
+  "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE "detail_product" (
+  "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  "localization" VARCHAR(50) NOT NULL,
+  "belly_plate" BOOLEAN NOT NULL,
+  "gender" VARCHAR(10) NOT NULL,
+  "year" INTEGER NOT NULL,
+  "eyes" VARCHAR(100) NOT NULL,
+  "hair" VARCHAR(100) NOT NULL,
+  "status" VARCHAR(50) NOT NULL,
+  "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE "shop" (
+  "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  "name" VARCHAR(50) NOT NULL,
+  "link_seller_profile" PATH NOT NULL DEFAULT '#FFFFFF',
+  "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE "message" (
+  "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  "content" VARCHAR(200) NOT NULL,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -35,10 +78,17 @@ CREATE TABLE "tag" (
 -- Tables de liaison
 --------------------------------
 
-CREATE TABLE "card_has_tag"(
-  "card_id" INTEGER NOT NULL REFERENCES "card"("id") ON DELETE CASCADE,
-  "tag_id" INTEGER NOT NULL REFERENCES "tag"("id") ON DELETE CASCADE,
-  "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY ("card_id", "tag_id") -- ou : UNIQUE ("card_id", "tag_id") 
-  -- On ajoute ici une contrainte d'unicité ou de clé primaire pour s'assurer qu'on ne puisse pas avoir une association en double entre un même tag et une même carte.
-);
+CREATE TABLE "order"(
+  "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
+  "shop_id" INTEGER NOT NULL REFERENCES "shop"("id") ON DELETE CASCADE,
+  "date" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "invoice" PATH,
+  "status" VARCHAR(100) NOT NULL,
+  );
+
+CREATE TABLE "dispatch"(
+  "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  "message_id" INTEGER NOT NULL REFERENCES "message"("id") ON DELETE CASCADE,
+  "product_id" INTEGER NOT NULL REFERENCES "product"("id") ON DELETE CASCADE
+  );
