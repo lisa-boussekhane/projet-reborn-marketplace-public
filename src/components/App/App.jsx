@@ -14,6 +14,7 @@ import ContactUs from '../ContactUs/ContactUs';
 import CookiesPolicy from '../CookiesPolicy/CookiesPolicy';
 import TermsOfSales from '../TermsOfSales/TermsOfSales';
 import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
+import CreateMyStore from '../CreateMyStore/CreateMyStore';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/cookiespolicy" element={<CookiesPolicy />} />
         <Route path="/termsofsale" element={<TermsOfSales />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+        <Route path="/createmystore" element={<CreateMyStore />} />
       </Routes>
       <Footer />
     </div>
