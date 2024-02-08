@@ -7,11 +7,13 @@ import './App.scss';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MyAccount from '../MyAccount/MyAccount';
+import Homepage from '../Homepage/Homepage';
 
 function App() {
   return (
     <div className="app">
       <Header />
+      <Homepage />
       <Footer />
       <Routes>
         <Route path="/login" element={<Login />} />
