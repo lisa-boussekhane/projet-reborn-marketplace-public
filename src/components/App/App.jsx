@@ -11,7 +11,7 @@ import MyAccount from '../MyAccount/MyAccount';
 function App() {
   return (
     <div className="app">
-    <Header />
+      <Header />
       <Footer />
       <Routes>
         <Route path="/login" element={<Login />} />
@@ -20,7 +20,8 @@ function App() {
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
       </Routes>
-
-
+    </div>
+  );
+}
 
 export default App;
