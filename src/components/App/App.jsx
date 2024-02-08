@@ -4,9 +4,12 @@ import SignUp from '../SignUp/SignUp';
 import ResetPassword from '../ResetPassword/ResetPassword';
 import DeleteAccount from '../DeleteAccount/DeleteAccount';
 import './App.scss';
+import 'semantic-ui-css/semantic.min.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MyAccount from '../MyAccount/MyAccount';
+import MyStore from '../MyStore/MyStore';
+import Cart from '../Cart/Cart';
 import Homepage from '../Homepage/Homepage';
 import AboutUs from '../AboutUs/AboutUs';
 import NotFound from '../NotFound/NotFound';
@@ -27,6 +30,8 @@ function App() {
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
+        <Route path="/mystore" element={<MyStore counter={6} />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/contactus" element={<ContactUs />} />
