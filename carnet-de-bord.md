@@ -51,3 +51,13 @@ Chacune crée sa proche branche par feature.
 - Sarah : Création composants se connecter + sign up + reset password + payment + my account + my store + delete account
 - Lisa : Création composants header + footer + homepage + 404 + create my store
 
+# 08/02/2024 - Sprint 1
+Hier, Rita a crée la BDD ainsi que les tables qui la compose. Elle a rencontré 2 soucis : le nom de l'utilisateur étaient en majuscule, cependant celle-ci ne prennent pas en compte les majuscules. Egalement, le type UUID n'existe pas avec postgresql donc elle l'a remplacé par INTEGER.
+
+### Infos individuelles
+- Rita : modifier le wireframe sell my reborn, création des routes.
+  
+- Lisa : création des pages : 404, homepage, create my store, creation terms of sale, création privacy policy, cookies policy, faq, about us, contact us
+  
+- Sarah : 
+
