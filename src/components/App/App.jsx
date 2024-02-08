@@ -1,9 +1,23 @@
+import { Routes, Route } from 'react-router-dom';
+import Login from '../Login/Login';
+import SignUp from '../SignUp/SignUp';
+import ResetPassword from '../ResetPassword/ResetPassword';
+import DeleteAccount from '../DeleteAccount/DeleteAccount';
 import './App.scss';
-
-const hello = 'world';
+import MyAccount from '../MyAccount/MyAccount';
 
 function App() {
-  return <div className="container">Hello World</div>;
+  return (
+    <div className="app">
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/deleteaccount" element={<DeleteAccount />} />
+        <Route path="/myaccount" element={<MyAccount />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
