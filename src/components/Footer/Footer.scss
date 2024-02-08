@@ -1,0 +1,44 @@
+@use 'src/styles/variables' as v;
+
+.footer {
+  background-color: v.$pink;
+  text-align: center;
+  width: 100%;
+
+    &-content {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    padding: 5px;
+    align-items: center;
+    }
+
+    &-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &-left {
+        padding-left: 1rem;
+    }
+
+    &-right {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 40px;
+    }
+
+    &-join-us {
+        padding-left: 9.5rem;
+        margin: 0.5rem;
+      }
+}
+
+.network-logos {
+    display: flex;
+    gap: 10px;
+    width: 60px;
+    align-items: center;
+  }

@@ -1,0 +1,35 @@
+@use 'src/styles/variables' as v;
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+    &-logo {
+    width: 300px;
+     }
+
+    &-content {
+    display: flex;
+    gap: 100px;
+    border: solid 1px v.$yellow;
+    background-color: v.$yellow;
+    padding: 10px;
+    align-items: center;
+    }
+
+    &-content p {
+    font-size: 1.5rem;
+    }
+
+    &-cart {
+    width: 50px;
+    margin-right: 5px;
+    }
+}
+
+.search-input {
+  margin: 2rem;
+  border: solid 3px lightgray;
+  padding: 10px;
+}
