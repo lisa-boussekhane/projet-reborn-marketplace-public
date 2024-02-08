@@ -9,6 +9,7 @@ import Footer from '../Footer/Footer';
 import MyAccount from '../MyAccount/MyAccount';
 import Homepage from '../Homepage/Homepage';
 import AboutUs from '../AboutUs/AboutUs';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
         <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </div>
