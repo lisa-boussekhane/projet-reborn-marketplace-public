@@ -34,7 +34,7 @@ CREATE TABLE "media" (
 
 CREATE TABLE "product" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  "security_code" INTEGER NOT NULL,
+  "security_code" UUID NOT NULL,
   "title" VARCHAR(100) NOT NULL,
   "kit_name" VARCHAR(20) NOT NULL,
   "sculptor" VARCHAR(50) NOT NULL,
