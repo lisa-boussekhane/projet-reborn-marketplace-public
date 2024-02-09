@@ -63,3 +63,7 @@ Sarah a créer les dossiers des composants, rédiger les pages reset my password
   
 - Sarah : réalisation du scss, + terminer my store et payment + reborns + page pdt + cart + how it works + search results
 
+  # 09/02/2024 - Sprint 1
+  Hier, Rita a crée les routes, les modèles et a modifié les tables. Soucis rencontré : au niveau des tables elle s'est rendu compte qu'elle avait ommis les clés étrangères. Erreur : la relation "table" n'existe pas.
+  
+
