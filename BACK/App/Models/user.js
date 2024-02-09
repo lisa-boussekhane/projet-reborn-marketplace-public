@@ -1,4 +1,4 @@
-const { Model, DataTypes, INTEGER, BOOLEAN } = require('sequelize');
+const { Model, DataTypes, INTEGER, BOOLEAN, TIMESTAMPZ } = require('sequelize');
 
 const sequelize = require ('./sequelize');
 
@@ -18,11 +18,11 @@ user.init({
         allowNull: false
       },
       email: {
-        type: INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       date_of_birth: {
-        type: TIMESTAMPTZ,
+        type: DataTypes.TIMESTAMPZ,
         allowNull: false
       },
       phone: {
