@@ -2,7 +2,7 @@
 -- STRUCTURE de la base de la BDD
 --------------------------------
 
-DROP TABLE IF EXISTS "user", "media", "detail_product", "product", "message", "shop", "order", "dispatch";
+DROP TABLE IF EXISTS "user", "media", "detail_product", "product", "message", "shop", "user_order_product";
 
 CREATE TABLE "user" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
