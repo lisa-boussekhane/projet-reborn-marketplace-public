@@ -105,7 +105,7 @@ ALTER TABLE media
     ADD CONSTRAINT fk_media_product FOREIGN KEY (product_id) REFERENCES product (id);
 
 ALTER TABLE message
-ADD CONSTRAINT fk_user_sender FOREIGN KEY (sender_id) REFERENCES user (id);
+    ADD CONSTRAINT fk_user_sender FOREIGN KEY (sender_id) REFERENCES user (id);
 
 ALTER TABLE message
-ADD CONSTRAINT fk_user_receiver FOREIGN KEY (receiver_id) REFERENCES user (id);
+    ADD CONSTRAINT fk_user_receiver FOREIGN KEY (receiver_id) REFERENCES user (id);
