@@ -1,4 +1,4 @@
-const { Model, DataTypes, INTEGER, BOOLEAN } = require('sequelize');
+const { Model, DataTypes, INTEGER, BOOLEAN, UUID } = require('sequelize');
 
 const sequelize = require ('./sequelize');
 
@@ -6,15 +6,15 @@ class product extends Model {}
 
 product.init({  
     security_code: {
-      type: INTEGER,
-      allowNull: false
+        type: DataTypes.UUID,
+        allowNull: false
     },
     title: {
-      type: VARCHAR,
+        type: DataTypes.STRING,
       allowNull: false,
     },
     kit_name: {
-        type: VARCHAR,
+        type: DataTypes.STRING,
         allowNull: false
       },
       sculptor: {
@@ -26,11 +26,11 @@ product.init({
         allowNull: false
       },
       type: {
-        type: VARCHAR,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       age_range: {
-        type: VARCHAR,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       authenticity_card: {
@@ -53,3 +53,5 @@ product.init({
   });
   
   module.exports = product;
+
+  //blabla
