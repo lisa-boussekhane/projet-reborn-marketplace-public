@@ -1,4 +1,4 @@
-const { Model, DataTypes, INTEGER } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require ('./sequelize');
 
@@ -6,15 +6,15 @@ class detail_product extends Model {}
 
 detail_product.init({  
     localization: {
-      type: VARCHAR,
+      type: DataTypes.STRING,
       allowNull: false
     },
     belly_plate: {
-      type: VARCHAR,
-      allowNull: false,
+        type: DataTypes.STRING,      
+        allowNull: false,
     },
     gender: {
-        type: VARCHAR,
+        type: DataTypes.STRING,
         allowNull: false
       },
       year: {
@@ -22,15 +22,15 @@ detail_product.init({
         allowNull: false,
       },
       eyes: {
-        type: VARCHAR,
+        type: DataTypes.STRING,
         allowNull: false
       },
       hair: {
-        type: VARCHAR,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       status: {
-        type: VARCHAR,
+        type: DataTypes.STRING,
         allowNull: false,
       },
   
