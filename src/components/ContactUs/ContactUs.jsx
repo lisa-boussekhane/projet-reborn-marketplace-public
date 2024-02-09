@@ -1,4 +1,5 @@
 import './ContactUs.scss';
+import { NavLink } from 'react-router-dom';
 
 export default function ContactUs() {
   return (
@@ -22,16 +23,22 @@ export default function ContactUs() {
         </div>
       </div>
 
-      <div className="about-us-buttons">
-        <button type="button" id="btn-account">
-          Create an account
-        </button>
-        <button type="button" id="btn-adopt">
-          Adopt a reborn
-        </button>
-        <button type="button" id="btn-contact">
-          Contact us
-        </button>
+      <div className="contact-us-buttons">
+        <NavLink to="/signup">
+          <button type="button" id="btn-account">
+            Create an account
+          </button>
+        </NavLink>
+        <NavLink to="/reborns">
+          <button type="button" id="btn-adopt">
+            Adopt a reborn
+          </button>
+        </NavLink>
+        <NavLink to="/contactus">
+          <button type="button" id="btn-contact">
+            Contact us
+          </button>
+        </NavLink>
       </div>
       <div className="about-us_button_images">
         <img src="./icon-create-account.jpg" alt="adopt a reborn" />

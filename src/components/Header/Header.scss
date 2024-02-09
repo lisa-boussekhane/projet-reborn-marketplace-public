@@ -11,11 +11,12 @@
 
     &-content {
     display: flex;
-    gap: 100px;
+    gap: 120px;
     border: solid 1px v.$yellow;
     background-color: v.$yellow;
-    padding: 10px;
+    padding: 3px;
     align-items: center;
+    font-weight: 700;
     }
 
     &-content p {
@@ -24,16 +25,16 @@
 
     &-cart {
     width: 50px;
-    margin-right: 5px;
+    margin-right: 30px;
     }
 }
 
-#sign-up {
-  font-weight: 700;
+.sign-up {
+  padding-left: 0;
 }
 
 .search-input {
-  margin: 2rem;
+  margin: 2em;
   border: solid 4px lightgray;
   padding: 10px;
 }
