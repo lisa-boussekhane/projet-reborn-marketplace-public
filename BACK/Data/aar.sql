@@ -10,6 +10,7 @@ CREATE TABLE "user" (
   "last_name" VARCHAR(128) NOT NULL,
   "username" VARCHAR(128) NOT NULL,
   "email" VARCHAR(128) NOT NULL,
+  "password" VARCHAR(128) NOT NULL,
   "date_of_birth" TIMESTAMPTZ NOT NULL,
   "phone" VARCHAR(11) NOT NULL,
   "address" VARCHAR(128) NOT NULL,
@@ -84,30 +85,27 @@ CREATE TABLE "message" (
 -- Tables de liaison
 --------------------------------
 
-CREATE TABLE "order"(
+CREATE TABLE "User_Order_Product"(
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
-  "shop_id" INTEGER NOT NULL REFERENCES "shop"("id") ON DELETE CASCADE,
+  "product_id" INTEGER NOT NULL REFERENCES "product"("id") ON DELETE CASCADE,
   "date" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "invoice" PATH,
   "status" VARCHAR(100) NOT NULL
-  );
-
-CREATE TABLE "dispatch"(
-  "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  "message_id" INTEGER NOT NULL REFERENCES "message"("id") ON DELETE CASCADE,
-  "product_id" INTEGER NOT NULL REFERENCES "product"("id") ON DELETE CASCADE
   );
 
   --------------------------------
 -- RAJOUT FK DANS TABLES
 --------------------------------
 
-ALTER TABLE user
-    ADD CONSTRAINT fk_user_shop FOREIGN KEY (shop_id) REFERENCES shop (id);
-
 ALTER TABLE product
     ADD CONSTRAINT fk_product_detail_product FOREIGN KEY (detail_product_id) REFERENCES detail_product (id);
 
 ALTER TABLE media
     ADD CONSTRAINT fk_media_product FOREIGN KEY (product_id) REFERENCES product (id);
+
+ALTER TABLE message
+ADD CONSTRAINT fk_user_sender FOREIGN KEY (sender_id) REFERENCES user (id);
+
+ALTER TABLE message
+ADD CONSTRAINT fk_user_receiver FOREIGN KEY (receiver_id) REFERENCES user (id);
