@@ -1,1 +1,33 @@
-@use '@scssVariables' as v;
+@use 'src/styles/variables' as v;
+
+.products__menu {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid v.$midGrey;
+}
+
+.products__category {
+  font-size: 1.2em;
+  text-align: left;
+  border-bottom: 1px solid v.$midGrey;
+}
+
+.products__item p {
+  font-size: 1.1em;
+  text-align: center;
+  border-bottom: 1px solid v.$midGrey;
+}
+
+.products__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.products__card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 40rem;
+}

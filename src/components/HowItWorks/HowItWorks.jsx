@@ -1,4 +1,5 @@
 import './HowItWorks.scss';
+import { NavLink } from 'react-router-dom';
 
 export default function HowItWorks() {
   return (
@@ -55,7 +56,9 @@ export default function HowItWorks() {
           </p>
         </div>
       </div>
-      <input type="submit" value="Get started now!" className="notice__btn" />
+      <NavLink to="/mystore">
+        <input type="submit" value="Get started now!" className="notice__btn" />
+      </NavLink>
     </>
   );
 }

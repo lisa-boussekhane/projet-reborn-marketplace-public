@@ -32,17 +32,6 @@ export default function Cart() {
           </CardContent>
         </Card>
       </div>
-      <div className="cart__qty">
-        <form action="" method="get" className="cart__button">
-          <select name="qty" id="qty">
-            <option value="item1">1</option>
-            <option value="item2">2</option>
-            <option value="item3">3</option>
-            <option value="item4">4</option>
-            <option value="item5">5</option>
-          </select>
-        </form>
-      </div>
 
       <div className="amount__container">
         <div className="amount">
