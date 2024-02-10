@@ -18,6 +18,8 @@ import CookiesPolicy from '../CookiesPolicy/CookiesPolicy';
 import TermsOfSales from '../TermsOfSales/TermsOfSales';
 import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
 import CreateMyStore from '../CreateMyStore/CreateMyStore';
+import Products from '../Products/Products';
+import SellMyReborn from '../SellMyReborn/SellMyReborn';
 import Faq from '../Faq/Faq';
 
 function App() {
@@ -40,6 +42,8 @@ function App() {
         <Route path="/termsofsale" element={<TermsOfSales />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/createmystore" element={<CreateMyStore />} />
+        <Route path="/product" element={<Products />} />
+        <Route path="/sellmyreborn" element={<SellMyReborn />} />
         <Route path="/faq" element={<Faq />} />
       </Routes>
       <Footer />
