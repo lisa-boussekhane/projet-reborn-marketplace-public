@@ -20,6 +20,7 @@ import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
 import CreateMyStore from '../CreateMyStore/CreateMyStore';
 import Products from '../Products/Products';
 import SellMyReborn from '../SellMyReborn/SellMyReborn';
+import Faq from '../Faq/Faq';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path="/createmystore" element={<CreateMyStore />} />
         <Route path="/product" element={<Products />} />
         <Route path="/sellmyreborn" element={<SellMyReborn />} />
+        <Route path="/faq" element={<Faq />} />
       </Routes>
       <Footer />
     </div>

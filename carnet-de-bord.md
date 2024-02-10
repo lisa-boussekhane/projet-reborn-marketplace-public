@@ -63,3 +63,16 @@ Sarah a créer les dossiers des composants, rédiger les pages reset my password
   
 - Sarah : réalisation du scss, + terminer my store et payment + reborns + page pdt + cart + how it works + search results
 
+  # 09/02/2024 - Sprint 1
+  Hier
+  - Côté back :
+  Rita a crée les routes, les modèles et a modifié les tables. Soucis rencontré : erreur lors de l'ajout des clés étrangères la relation "nom-de-la-table" n'existe pas -> solution : ajouter les clés   étrangères + fois que toutes les tables ont été créée. Impossible pour le front de se connecter à la bdd.
+  - Côté front :
+  Sarah, avec semantic ui, page how it works, payment, my store.
+  Lisa, créations pages 404, homepage, create my store, obligations légales, about us, contact us + du scss version desktop. 
+  
+  
+  ### Infos individuelles
+- Rita : paramètrage user controller.
+- Sarah : création composant reborns + page produit.
+- Lisa : ajout des routes, page faq + version mobile. 

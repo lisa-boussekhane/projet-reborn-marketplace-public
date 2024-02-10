@@ -1,4 +1,5 @@
 import './Footer.scss';
+import { NavLink } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -18,11 +19,21 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-right">
-          <p>Contact us</p>
-          <p>FAQ</p>
-          <p>Terms of sale</p>
-          <p>Privacy policy</p>
-          <p>Cookies policy</p>
+          <NavLink to="/contactus">
+            <p>Contact us</p>
+          </NavLink>
+          <NavLink to="/faq">
+            <p>FAQ</p>
+          </NavLink>
+          <NavLink to="/termsofsale">
+            <p>Terms of sale</p>
+          </NavLink>
+          <NavLink to="/privacypolicy">
+            <p>Privacy policy</p>
+          </NavLink>
+          <NavLink to="/cookiespolicy">
+            <p>Cookies policy</p>
+          </NavLink>
         </div>
       </div>
     </footer>
