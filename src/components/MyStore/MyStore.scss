@@ -1,0 +1,31 @@
+@use 'src/styles/variables' as v;
+
+.seller__container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  align-items: center;
+}
+
+.seller__title h2 {
+  font-size: 1.4em;
+  border-bottom: 1px solid v.$midGrey;
+  line-height: 2;
+  color: #313131;
+}
+
+.seller__cta {
+  float: right;
+  margin-right: 3rem;
+  margin-top: -8rem;
+}
+
+.seller__card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5rem;
+  margin-left: 15rem;
+}

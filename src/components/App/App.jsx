@@ -24,6 +24,7 @@ import HowItWorks from '../HowItWorks/HowItWorks';
 import Result from '../Result/Result';
 import Payment from '../Payment/Payment';
 import Product from '../Product/Product';
+import MyStore from '../MyStore/MyStore';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/mystore" element={<MyStore counter={6} />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/contactus" element={<ContactUs />} />
