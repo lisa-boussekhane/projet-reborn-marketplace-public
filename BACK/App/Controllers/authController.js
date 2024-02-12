@@ -62,10 +62,10 @@ async createUserAccount(req, res){
         const user = new user({ username, password: hashedPassword });
         await user.save();
         res.status(201).json({ message: 'User registered successfully' });
-        } catch (error) {
+    } catch (error) {
         res.status(500).json({ error: 'Registration failed' });
-        }
-        },
+    }
+    },
 
 async logAccount (req, res){
     try {
@@ -84,8 +84,8 @@ async logAccount (req, res){
         res.status(200).json({ token });
     } catch (error) {
        res.status(500).json({ error: 'Login failed' });
-        }
-}
+    }
+    }
 };
 
 module.exports = authController;
