@@ -37,7 +37,6 @@ function App() {
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
-        <Route path="/mystore" element={<MyStore counter={6} />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
