@@ -73,6 +73,7 @@ const userController = {
           res.status(500).json({ message: 'an unexpected error occured...'});
         }   
       },
+      
 }
 
 module.exports = userController;
