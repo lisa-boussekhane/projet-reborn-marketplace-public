@@ -26,8 +26,6 @@ import Result from '../Result/Result';
 import Payment from '../Payment/Payment';
 import Product from '../Product/Product';
 
-
-
 function App() {
   return (
     <div className="app">
@@ -55,7 +53,6 @@ function App() {
         <Route path="/results" element={<Result />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/reborns" element={<Products />} />
-        <Route path="/sellmyreborn" element={<SellMyReborn />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/howitworks" element={<HowItWorks />} />
       </Routes>
