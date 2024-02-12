@@ -1,1 +1,95 @@
 @use 'src/styles/variables' as v;
+
+.cart__box {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+}
+
+.cart__container {
+  width: 30%;
+  background: v.$lightGrey;
+  border: 1px solid v.$midGrey;
+  border-radius: 10px;
+  padding: 2rem;
+  margin-left: 30rem;
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.cart__elem {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  height: auto;
+}
+
+.amount__container {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  background: v.$lightGrey;
+  border: 1px solid v.$midGrey;
+  border-radius: 10px;
+  padding: 2rem;
+  margin-right: 30rem;
+}
+
+.amount {
+  display: inline-block;
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 2.5rem;
+  }
+
+  &__subtotal,
+  &__delay {
+    font-size: 1.3em;
+  }
+
+  &__btn {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 1.4em;
+    background: v.$blue;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  &__btn:hover {
+    background: #7e94e2;
+    transition: background 0.3s ease;
+  }
+}
+
+.amount__total {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.payment__method {
+  display: inline-block;
+
+  h2 {
+    margin-top: 2.5rem;
+    font-size: 2em;
+    text-align: left;
+  }
+}
+
+.payment__list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 20px;
+}

@@ -1,1 +1,58 @@
 @use 'src/styles/variables' as v;
+
+.account__container h1 {
+  font-size: 1.8em;
+  margin-left: 8rem;
+  margin-bottom: 1.1rem;
+}
+
+.account__items {
+  font-size: 1.2em;
+  margin-left: 8rem;
+  line-height: 2;
+}
+
+.profile__information {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: v.$lightGrey;
+  border-radius: 10px;
+  border: 1px solid v.$midGrey;
+  margin-left: 2rem;
+  padding: 40px;
+  width: 20%;
+}
+
+.profile__information h2 {
+  text-align: left;
+}
+
+.profile__elem {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1em;
+  color: #000;
+  background: #fff;
+  border: 1px solid v.$midGrey;
+  padding: 15px;
+}
+
+.save__btn {
+  border-radius: 5px;
+  width: 40%;
+  margin-top: 1.2rem;
+  margin-left: 12rem;
+  background: v.$blue;
+  padding: 6px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.profile__elem input[type='text'],
+.profile__elem input[type='tel'] {
+  border-bottom: 1px solid #000;
+  width: 30%;
+  margin-left: 2rem;
+}

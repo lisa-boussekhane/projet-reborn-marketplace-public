@@ -1,1 +1,26 @@
 @use 'src/styles/variables' as v;
+
+.result__container {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.result__input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.result__box {
+  width: 90%;
+  margin-left: 8rem;
+}
+
+.result__card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}

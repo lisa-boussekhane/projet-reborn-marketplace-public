@@ -21,6 +21,10 @@ import CreateMyStore from '../CreateMyStore/CreateMyStore';
 import Products from '../Products/Products';
 import SellMyReborn from '../SellMyReborn/SellMyReborn';
 import Faq from '../Faq/Faq';
+import HowItWorks from '../HowItWorks/HowItWorks';
+import Result from '../Result/Result';
+import Payment from '../Payment/Payment';
+import Product from '../Product/Product';
 
 function App() {
   return (
@@ -42,9 +46,13 @@ function App() {
         <Route path="/termsofsale" element={<TermsOfSales />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/createmystore" element={<CreateMyStore />} />
-        <Route path="/product" element={<Products />} />
+        <Route path="/product" element={<Product />} />
+        <Route path="/products" element={<Products />} />
         <Route path="/sellmyreborn" element={<SellMyReborn />} />
         <Route path="/faq" element={<Faq />} />
+        <Route path="/howitworks" element={<HowItWorks />} />
+        <Route path="/results" element={<Result />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
       <Footer />
     </div>

@@ -5,18 +5,21 @@
   display: flex;
   flex-direction: column;
   border: 1px solid v.$midGrey;
+  //position: fixed; **ajouter cette propriete une fois qu'il y a l'ensemble des produits**
 }
 
 .products__category {
   font-size: 1.2em;
   text-align: left;
   border-bottom: 1px solid v.$midGrey;
+  padding: 6px;
 }
 
-.products__item p {
+.products__item li {
   font-size: 1.1em;
   text-align: center;
   border-bottom: 1px solid v.$midGrey;
+  padding: 6px;
 }
 
 .products__wrapper {
@@ -25,9 +28,14 @@
 }
 
 .products__card {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.products__card__item {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-bottom: 40rem;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-left: 18rem;
 }

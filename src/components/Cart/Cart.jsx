@@ -11,34 +11,53 @@ import { Icon as Icons } from '@iconify/react';
 
 export default function Cart() {
   return (
-    <div className="cart__container">
-      <h1 className="cart__title">Your shopping cart (X items)</h1>
-      <div className="cart__elem">
-        <Card>
-          <Image
-            src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-            wrapped
-            ui={false}
-          />
-          <CardContent>
-            <CardHeader>Title</CardHeader>
-            <CardMeta>
-              <span className="category">Toddler</span>
-            </CardMeta>
-          </CardContent>
-          <CardContent extra>
-            <Icon name="dollar sign" />
-            price
-          </CardContent>
-        </Card>
+    <div className="cart__box">
+      <div className="cart__container">
+        <h1 className="cart__title">Your shopping cart (X items)</h1>
+        <div className="cart__elem">
+          <Card>
+            <Image
+              src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+              wrapped
+              ui={false}
+            />
+            <CardContent>
+              <CardHeader>Title</CardHeader>
+              <CardMeta>
+                <span className="category">Toddler</span>
+              </CardMeta>
+            </CardContent>
+            <CardContent extra>
+              <Icon name="dollar sign" />
+              price
+            </CardContent>
+          </Card>
+          <Card>
+            <Image
+              src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+              wrapped
+              ui={false}
+            />
+            <CardContent>
+              <CardHeader>Title</CardHeader>
+              <CardMeta>
+                <span className="category">Toddler</span>
+              </CardMeta>
+            </CardContent>
+            <CardContent extra>
+              <Icon name="dollar sign" />
+              price
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       <div className="amount__container">
         <div className="amount">
           <h1>Total</h1>
-          <p className="amount__total">Subtotal</p>
+          <p className="amount__subtotal">Subtotal</p>
           <p className="amount__delay">Delivery</p>
-          <p className="amount__total">Total(VAT included)</p>
+          <p className="amount__total">Total (VAT included)</p>
           <input type="submit" value="Checkout" className="amount__btn" />
         </div>
         <div className="payment__method">
