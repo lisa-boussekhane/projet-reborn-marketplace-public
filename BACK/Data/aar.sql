@@ -1,8 +1,9 @@
 --------------------------------
 -- STRUCTURE de la base de la BDD
 --------------------------------
+BEGIN;
 
-DROP TABLE IF EXISTS "user", "media", "detail_product", "product", "message", "shop", "user_order_product";
+DROP TABLE IF EXISTS "user", "media", "detail_product", "product", "message", "shop", "user_order_product" CASCADE;
 
 CREATE TABLE "user" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -119,3 +120,5 @@ ALTER TABLE message
 
 ALTER TABLE message
     ADD CONSTRAINT fk_user_receiver FOREIGN KEY (receiver_id) REFERENCES user (id);
+
+COMMIT;
