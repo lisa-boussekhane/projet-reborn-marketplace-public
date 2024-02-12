@@ -79,7 +79,7 @@ export default function HowItWorks() {
         </div>
       </div>
       <div className="notice__btn">
-        <NavLink to="/mystore">
+        <NavLink to="/signup">
           <input
             type="submit"
             value="Get started now!"
