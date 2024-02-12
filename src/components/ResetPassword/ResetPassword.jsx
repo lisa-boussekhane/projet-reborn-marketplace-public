@@ -14,8 +14,12 @@ export default function ResetPassword() {
             <input type="email" name="email" id="email" placeholder="Email" />
           </label>
         </div>
-        <input type="submit" value="Reset Password" className="reset__btn" />
-        <NavLink to="/">Cancel</NavLink>
+        <div className="reset__buttons">
+          <input type="submit" value="Reset Password" className="reset__btn" />
+          <NavLink to="/" className="cancel__btn">
+            Cancel
+          </NavLink>
+        </div>
       </form>
     </div>
   );

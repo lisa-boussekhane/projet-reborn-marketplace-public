@@ -1,6 +1,5 @@
 import './MyAccount.scss';
 import { HashLink as Link } from 'react-router-hash-link';
-import { NavLink } from 'react-router-dom';
 
 export default function MyAccount() {
   return (
@@ -19,10 +18,20 @@ export default function MyAccount() {
           <Link to="/mystore">My store</Link>
         </li>
         <li>Chat</li>
+        <li>
+          <Link to="/deleteaccount">Delete account</Link>
+        </li>
       </ul>
 
       <div id="profile">
         <div className="profile__information">
+          {/* Insérer lien sur icon edit */}
+          <img src="./edit-icon.png" alt="" className="edit__icon" />
+
+          <div className="profile__title">
+            <h1>My profile</h1>
+          </div>
+
           <h2>Information</h2>
           <form className="profile__elem">
             <label htmlFor="firstname">
@@ -46,38 +55,44 @@ export default function MyAccount() {
         </div>
 
         <div className="login__information">
-          <h2 className="login__title">Login and Password</h2>
+          <img src="./edit-icon.png" alt="" className="edit__icon__login" />
+
+          <h2>Login and Password</h2>
+
+          <form className="profile__elem__second">
+            <label htmlFor="email">
+              Email address <input type="email" name="email" id="email" />
+            </label>
+            <label htmlFor="password">
+              Password <input type="password" name="password" id="password" />
+            </label>
+            <input
+              type="submit"
+              value="Save Password"
+              className="savepass__btn"
+            />
+          </form>
         </div>
-        <form className="profile__elem__second">
-          <label htmlFor="email">
-            Email address <input type="email" name="email" id="email" />
-          </label>
-          <label htmlFor="password">
-            Password <input type="password" name="password" id="password" />
-          </label>
-          <input
-            type="submit"
-            value="Save Password"
-            className="savepass__btn"
-          />
-        </form>
       </div>
 
       <div id="orders">
         <div>
           <h1>Orders and Returns</h1>
-          <h2>Order id:</h2>
         </div>
+
         <div className="order__container">
-          <p>Date Paid:</p>
-          <p>Total Paid:</p>
-          <p>Order Status:</p>
+          <ul className="order__list">
+            <li>Order id:</li>
+            <li>Date Paid:</li>
+            <li>Total Paid:</li>
+            <li>Order Status:</li>
+          </ul>
         </div>
-        <div className="order__photos">Photos will be added here</div>
+
+        <div className="order__photos">
+          <p className="order__p">Photos will be added here</p>
+        </div>
       </div>
-      <p>
-        <NavLink to="/deleteaccount">Delete Account</NavLink>
-      </p>
     </div>
   );
 }
