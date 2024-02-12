@@ -106,4 +106,3 @@ async createUserAccount(req, res){
 }
 
 module.exports = authController;
-
