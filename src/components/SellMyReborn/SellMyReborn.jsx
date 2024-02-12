@@ -2,13 +2,14 @@ import './SellMyReborn.scss';
 
 export default function SellMyReborn() {
   return (
-    <>
+    <div className="sell__box">
       <div className="sell__container">
         <img
           src="./homepage3.jpeg"
           alt="reborn on sale"
           className="sell__img"
         />
+        {/* Add clickable link */}
         <h3>Add images and videos</h3>
       </div>
 
@@ -114,21 +115,23 @@ export default function SellMyReborn() {
             </select>
           </div>
         </div>
-
         <div className="sell__desc">
-          <label htmlFor="desc">
-            Description:
-            <textarea name="desc" id="desc">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga,
-              rerum. Iure voluptatem, necessitatibus fugit, officia ipsa tempora
-              non facere voluptatibus voluptatum eaque quidem doloribus?
-              Nesciunt porro nisi id consequuntur ratione.
-            </textarea>
-          </label>
+          <textarea
+            name="desc"
+            id="desc"
+            maxLength="250"
+            style={{ resize: 'none' }}
+          >
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga,
+            rerum. Iure voluptatem, necessitatibus fugit, officia ipsa tempora
+            non facere voluptatibus voluptatum eaque quidem doloribus? Nesciunt
+            porro nisi id consequuntur ratione.
+          </textarea>
         </div>
-
-        <input type="submit" value="Save" />
+        <div className="sell__btn">
+          <input type="submit" value="Save" />
+        </div>
       </form>
-    </>
+    </div>
   );
 }

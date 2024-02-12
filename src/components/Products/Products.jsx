@@ -8,71 +8,51 @@ export default function Products() {
         <div className="products__category">
           <h3>Category 1</h3>
         </div>
-        <div className="products__item">
-          <p>Sub-category 1</p>
-          <p>Sub-category 2</p>
-        </div>
+        <ul className="products__item">
+          <li>Sub-category 1</li>
+          <li>Sub-category 2</li>
+        </ul>
         <div className="products__category">
           <h3>Category 2</h3>
         </div>
-        <div className="products__item">
-          <p>Sub-category 1</p>
-          <p>Sub-category 2</p>
-        </div>
+        <ul className="products__item">
+          <li>Sub-category 1</li>
+          <li>Sub-category 2</li>
+        </ul>
         <div className="products__category">
           <h3>Category 3</h3>
         </div>
-        <div className="products__item">
-          <p>Sub-category 1</p>
-          <p>Sub-category 2</p>
-          <p>Sub-category 3</p>
-        </div>
+        <ul className="products__item">
+          <li>Sub-category 1</li>
+          <li>Sub-category 2</li>
+          <li>Sub-category 3</li>
+        </ul>
         <div className="products__category">
           <h3>Category 4</h3>
         </div>
-        <div className="products__item">
-          <p>Sub-category 1</p>
-          <p>Sub-category 2</p>
-          <p>Sub-category 3</p>
-          <p>Sub-category 4</p>
-        </div>
+        <ul className="products__item">
+          <li>Sub-category 1</li>
+          <li>Sub-category 2</li>
+          <li>Sub-category 3</li>
+          <li>Sub-category 4</li>
+        </ul>
       </div>
       <div className="products__wrapper">
         <div className="products__card">
-          <Card>
-            {/* image à modifier plus tard */}
-            <Image
-              src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-              wrapped
-              ui={false}
-            />
-            <CardContent>
-              {/* Ajouter lien qui redirige le user sur la page Product */}
-              <CardHeader>Title</CardHeader>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <Image
-              src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-              wrapped
-              ui={false}
-            />
-            <CardContent>
-              <CardHeader>Title</CardHeader>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <Image
-              src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-              wrapped
-              ui={false}
-            />
-            <CardContent>
-              <CardHeader>Title</CardHeader>
-            </CardContent>
-          </Card>
+          <div className="products__card__item">
+            <Card>
+              {/* image à modifier plus tard */}
+              <Image
+                src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+                wrapped
+                ui={false}
+              />
+              <CardContent>
+                {/* Ajouter lien qui redirige le user sur la page Product */}
+                <CardHeader>Title</CardHeader>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </>

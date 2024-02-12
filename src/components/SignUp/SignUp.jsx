@@ -10,10 +10,8 @@ export default function SignUp() {
 
   return (
     <div className="form__wrapper">
-      <div>
-        <h1>SignUp</h1>
-      </div>
-      <form className="box">
+      <h1>Sign Up</h1>
+      <form action="" method="post">
         <div className="form__items">
           <label htmlFor="firstname">
             First name:
@@ -72,8 +70,12 @@ export default function SignUp() {
             />
           </label>
         </div>
-        <input type="submit" value="SignUp" className="signup__btn" />
-        <NavLink to="/login">Already registered? Click here to login</NavLink>
+        <div>
+          <input type="submit" value="Sign Up" className="signup__btn" />
+          <NavLink to="/login" className="signup__link">
+            Already registered? Click here to login
+          </NavLink>
+        </div>
       </form>
     </div>
   );

@@ -1,1 +1,82 @@
 @use 'src/styles/variables' as v;
+
+.product__container {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin-bottom: 5rem;
+}
+
+.product__box {
+  width: 50%;
+}
+
+.product__img {
+  width: 350px;
+  height: auto;
+  margin: auto;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.product__desc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product__p {
+  font-size: 1.1em;
+  margin-left: 27rem;
+}
+
+.product__wrapper {
+  display: block;
+  margin-right: 30rem;
+}
+
+.product__wrapper h2 {
+  display: block;
+  text-align: center;
+  font-size: 1.4em;
+}
+
+.product__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.product__info h3 {
+  font-size: 1.1em;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.product__group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.product__group__row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.product__fees {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.product__fees p {
+  font-size: 1.4em;
+  font-weight: bold;
+}
