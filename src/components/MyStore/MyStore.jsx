@@ -20,11 +20,11 @@ export default function MyStore({ counter }) {
             <FontAwesomeIcon icon={faStar} />
           </h3>
         </div>
-        <div className="seller__btn">
-          <button type="submit">Add an article</button>
-        </div>
       </div>
-      <div>
+      <div className="seller__button">
+        <button type="submit">Add an article</button>
+      </div>
+      <div className="seller__card">
         <Card>
           {/* image à modifier plus tard */}
           <Image

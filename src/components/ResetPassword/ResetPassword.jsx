@@ -7,7 +7,7 @@ export default function ResetPassword() {
       <div>
         <h1>Reset Password</h1>
       </div>
-      <form className="form__reset">
+      <form className="form__reset" method="post" action="">
         <div className="form__elem">
           <label htmlFor="email">
             Enter your email address to reset your password:
