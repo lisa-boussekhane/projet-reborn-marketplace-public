@@ -19,3 +19,4 @@ app.use(passport.session());
 app.listen(port, () => {
   console.log(`Adopt a Reborn REST API is running on http://localhost:${port}`);
 });
+

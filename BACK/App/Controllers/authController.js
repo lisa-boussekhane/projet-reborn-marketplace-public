@@ -87,7 +87,36 @@ try {
  } catch (error) {
     res.status(500).json({ error: 'Login failed' });
     }
-}
+},
+
+async updatePassword (req, res){
+    try{
+      const userId = req.params.id;
+      const password = await user.password.findByPk(userId);
+
+      if (!password){
+        return res.status(404).json({ message: `password with id ${userId} not found.`});
+      }
+
+      const { newPassword } = req.body;    
+
+      if (newPassword !== undefined && newPassword === ""){
+        return res.status(400).json({ message: 'name should not be an empty string'});
+      }
+
+      if (password){
+        user.password = password;
+      }
+
+      await password.save();
+
+      res.status(200).json(password);
+
+    }catch (error){
+      console.error(error);
+      res.status(500).json({ message: 'an unexpected error occured...'});
+    }  
+  },
 
 };
 

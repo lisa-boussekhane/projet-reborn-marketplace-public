@@ -4,16 +4,18 @@ const searchController = require('../Controllers/searchController');
 const productController = require('../Controllers/productController');
 const chatController = require('../Controllers/chatController');
 const paymentController = require('../Controllers/paymentController');
+const authController = require('../Controllers/authController');
 
 const router = express.Router();
 
 router.get('/user/:id', userController.getUserInfos);
-router.patch('/user/:id', userController.updateAccount);
-router.delete('/user/:id', userController.deleteAccount);
-router.post('/signup', userController.createUserAccount);
-router.post('/login', userController.logAccount);
-router.patch('/login', userController.updatePassword);
 router.get('/myaccount', userController.getUserDashboard);
+
+router.patch('/user/:id', authController.updateAccount);
+router.delete('/user/:id', authController.deleteAccount);
+router.post('/signup', authController.createUserAccount);
+router.post('/login', authController.logAccount);
+router.patch('/login', authController.updatePassword);
 
 router.get('/result', searchController.searchReborns);
 
