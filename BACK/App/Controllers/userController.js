@@ -6,7 +6,7 @@ const userController = {
               
             const userId = req.params.id;
             const user = await user.findByPk(userId, {
-            include: 'first_name', 'last_name': 'username'
+            include: 'first_name', 'last_name', 'username', 'email', 'password', 'date_of_birth', 'phone', 'address', 'zip_code', 'city', 'state', 'role', 'duns', 'rating'
             });
         
             if (!user){
