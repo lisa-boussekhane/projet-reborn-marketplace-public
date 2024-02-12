@@ -127,21 +127,9 @@
   background: #fff;
 }
 
-.pay__btn {
-  width: 15%;
-  display: block;
-  padding: 0.3rem;
-  margin: 10px auto;
-  font-size: 1.4em;
-  color: #fff;
-  text-align: center;
-  background: v.$blue;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.pay__btn:hover {
-  background: #7e94e2;
-  transition: background 0.3s ease;
+.pay__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5rem;
 }
