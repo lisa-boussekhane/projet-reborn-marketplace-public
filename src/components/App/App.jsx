@@ -8,7 +8,6 @@ import 'semantic-ui-css/semantic.min.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MyAccount from '../MyAccount/MyAccount';
-import MyStore from '../MyStore/MyStore';
 import Cart from '../Cart/Cart';
 import Homepage from '../Homepage/Homepage';
 import AboutUs from '../AboutUs/AboutUs';
