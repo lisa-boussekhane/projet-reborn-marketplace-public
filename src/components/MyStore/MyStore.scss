@@ -14,18 +14,34 @@
   color: #313131;
 }
 
-.seller__cta {
-  float: right;
-  margin-right: 3rem;
-  margin-top: -8rem;
+.seller__btn {
+  display: block;
+  width: 8%;
+  padding: 0.3rem;
+  text-align: center;
+  background: v.$blue;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.seller__btn:hover {
+  background: #7e94e2;
+  transition: background 0.3s ease;
+}
+
+.seller__subtitle {
+  font-size: 1.3em;
+  color: #fff;
+  font-weight: 400;
+  cursor: pointer;
 }
 
 .seller__card {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  margin-top: 5rem;
-  margin-left: 15rem;
+  margin-top: 2rem;
+  margin-bottom: 8rem;
 }
