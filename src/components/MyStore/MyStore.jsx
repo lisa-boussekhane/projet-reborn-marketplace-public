@@ -21,12 +21,10 @@ export default function MyStore({ counter }) {
           </h3>
         </div>
         <div className="seller__btn">
-          <button type="submit">
-            <h3 className="seller__subtitle">Add an article</h3>
-          </button>
+          <button type="submit">Add an article</button>
         </div>
       </div>
-      <div className="seller__card">
+      <div>
         <Card>
           {/* image à modifier plus tard */}
           <Image
