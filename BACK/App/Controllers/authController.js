@@ -1,5 +1,8 @@
 const { auth } = require ('../Models/user');
 
+const passport = require('passport');
+require('../configurations/password')(passport);
+
 const authController = {
     async updateAccount (req, res){
         try{
@@ -12,7 +15,6 @@ const authController = {
     
             const { name } = req.body;    
     
-            // on veut, si il est fournit un nom non vide
             if (name !== undefined && name === ""){
                 return res.status(400).json({ message: 'name should not be an empty string'});
             }
@@ -55,25 +57,38 @@ const authController = {
       },
 
 async createUserAccount(req, res){
-        if (!req.body.email || !req.body.password) {
-                res.status(400).send({
-                    status: false,
-                    message: ''
-                });
-     } else {
-                users.create({
-                    email: req.body.email,
-                    password: req.body.password,
-                    first_name: req.body.first_name,
-                    last_name: req.body.last_name,
-                    active: req.body.active,
-                    role: req.body.role
-                }).then((user) => res.status(201).send(user)).catch((error) => {
-                    console.log(error);
-                    res.status(400).send(error);
-                });
-            }
+    try {
+        const { username, password, first_name, last_name } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new user({ username, password: hashedPassword });
+        await user.save();
+        res.status(201).json({ message: 'User registered successfully' });
+
+    } catch (error) {
+        res.status(500).json({ error: 'Registration failed' });
+        }
         },
+
+async logAccount (req, res){
+try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ username });
+    if (!user) {
+    return res.status(401).json({ error: 'Authentication failed' });
+    }
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+    return res.status(401).json({ error: 'Authentication failed' });
+    }
+    const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
+    expiresIn: '1h',
+    });
+    res.status(200).json({ token });
+ } catch (error) {
+    res.status(500).json({ error: 'Login failed' });
+    }
+}
+
 };
 
 module.exports = authController;
