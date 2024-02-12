@@ -10,6 +10,7 @@
       justify-content: space-around;
       margin-bottom: 20px;
       padding-top: 30px;
+      padding-bottom: 30px;
   
       img {
         width: 25%;
@@ -17,12 +18,14 @@
     }
   
     &-text {
-      font-size: 1.5rem;
+      font-size: 2rem;
       border-top: solid 8px lightgray;
       border-bottom: solid 8px lightgray;
       text-align: center;
       padding: 30px;
       margin: 20px;
+      letter-spacing: 0.5px;
+      line-height: 10px;
     }
   
    
@@ -32,8 +35,9 @@
         justify-content: space-around; 
         padding: 10px;
         margin: 0;
+        padding-top: 5rem;
         gap: 80px;
-        font-size: 1.5rem;
+        font-size: 2rem;
         font-weight: 700;
       }
   
