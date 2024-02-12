@@ -21,9 +21,11 @@ export default function MyStore({ counter }) {
           </h3>
         </div>
       </div>
-      <div className="seller__cta">
-        <button type="submit">Add an article</button>
+
+      <div className="seller__button">
+        <input type="submit" value="Add an article" />
       </div>
+
       <div className="seller__card">
         <Card>
           {/* image à modifier plus tard */}

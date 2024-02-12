@@ -14,27 +14,26 @@
   color: #313131;
 }
 
-.seller__btn {
+.seller__cta {
+  display: none;
+}
+
+.seller__button input {
+  float: right;
   display: block;
-  width: 8%;
-  padding: 0.3rem;
-  text-align: center;
+  font-size: 1.3em;
+  color: #fff;
+  margin-right: 3rem;
+  margin-top: -8rem;
   background: v.$blue;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.seller__btn:hover {
+.seller__button input:hover {
   background: #7e94e2;
   transition: background 0.3s ease;
-}
-
-.seller__subtitle {
-  font-size: 1.3em;
-  color: #fff;
-  font-weight: 400;
-  cursor: pointer;
 }
 
 .seller__card {
@@ -42,6 +41,6 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 10rem;
   margin-bottom: 8rem;
 }
