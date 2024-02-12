@@ -26,8 +26,6 @@ import Result from '../Result/Result';
 import Payment from '../Payment/Payment';
 import Product from '../Product/Product';
 
-
-
 function App() {
   return (
     <div className="app">

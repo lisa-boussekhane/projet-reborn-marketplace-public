@@ -1,48 +1,64 @@
 import './Header.scss';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Header() {
+  const [showLinks, setShowLinks] = useState(false);
+
+  const handleShowLinks = () => {
+    setShowLinks(!showLinks);
+  };
   return (
-    <header className="header">
-      <NavLink to="/">
-        <img src="./logo.png" alt="logo du site" className="header-logo" />
-      </NavLink>
-      <div className="header-content">
-        <form>
-          <input
-            type="search"
-            placeholder="Search..."
-            className="search-input"
-          />
-        </form>
+    <nav className={`navbar ${showLinks ? 'show-nav' : 'hide-nav'}`}>
+      <div className="navbar___logo">
         <NavLink to="/">
-          <p>Home</p>
-        </NavLink>
-        <NavLink to="/reborns">
-          <p>Reborns</p>
-        </NavLink>
-        <NavLink to="/howitworks">
-          <p>How it works ?</p>
-        </NavLink>
-        <NavLink to="/aboutus">
-          <p>About us</p>
-        </NavLink>
-        <NavLink to="/faq">
-          <p>FAQ</p>
-        </NavLink>
-        <NavLink to="/contactus">
-          <p>Contact us</p>
-        </NavLink>
-        <NavLink to="/signup">
-          <p className="sign-up">Sign up</p>
-        </NavLink>
-        <NavLink to="/login">
-          <p className="sign-up">Login</p>
-        </NavLink>
-        <NavLink to="/cart">
-          <img src="./cart.png" alt="logo du site" className="header-cart" />
+          <img
+            src="./AdoptAReborn2.png"
+            alt="logo du site"
+            className="navbar-logo"
+          />
         </NavLink>
       </div>
-    </header>
+      <form>
+        <input type="search" placeholder="Search..." className="search-input" />
+      </form>
+      <ul className="navbar__links">
+        <NavLink to="/">
+          <li className="navbar__item">Home</li>
+        </NavLink>
+        <NavLink to="/reborns">
+          <li className="navbar__item">Reborns</li>
+        </NavLink>
+        <NavLink to="/howitworks">
+          <li className="navbar__item">How it works ?</li>
+        </NavLink>
+        <NavLink to="/aboutus">
+          <li className="navbar__item">About us</li>
+        </NavLink>
+        <NavLink to="/faq">
+          <li className="navbar__item">FAQ</li>
+        </NavLink>
+        <NavLink to="/contactus">
+          <li className="navbar__item">Contact us</li>
+        </NavLink>
+        <NavLink to="/signup">
+          <li className="navbar__item">Sign up</li>
+        </NavLink>
+        <NavLink to="/login">
+          <li className="navbar__item">Login</li>
+        </NavLink>
+        <NavLink to="/cart">
+          <img src="./cart.png" alt="logo du site" className="navbar-cart" />
+        </NavLink>
+      </ul>
+      <button
+        type="button"
+        className="navbar__burger"
+        onClick={handleShowLinks}
+      >
+        {' '}
+        <span className="burger-bar" />
+      </button>
+    </nav>
   );
 }
