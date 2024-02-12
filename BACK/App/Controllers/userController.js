@@ -5,9 +5,7 @@ const userController = {
         try{
               
             const userId = req.params.id;
-            const user = await user.findByPk(userId, {
-            include: 'first_name', 'last_name': 'username'
-            });
+            const user = await user.findByPk(userId);
         
             if (!user){
             return res.status(404).json({ message: `user with id ${userId} not found.`});

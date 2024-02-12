@@ -53,22 +53,20 @@ export default function AboutUs() {
           <button type="button" id="btn-account">
             Create an account
           </button>
+          <img src="./icon-create-account.jpg" alt="create account" />
         </NavLink>
         <NavLink to="/reborns">
           <button type="button" id="btn-adopt">
             Adopt a reborn
           </button>
+          <img src="./icon-aar.jpg" alt="adopt a reborn" />
         </NavLink>
         <NavLink to="/contactus">
           <button type="button" id="btn-contact">
             Contact us
           </button>
+          <img src="./icon-contact-us.jpg" alt="contact us" />
         </NavLink>
-      </div>
-      <div className="about-us_button_images">
-        <img src="./icon-create-account.jpg" alt="adopt a reborn" />
-        <img src="./icon-aar.jpg" alt="adopt a reborn" />
-        <img src="./icon-contact-us.jpg" alt="contact us" />
       </div>
     </div>
   );

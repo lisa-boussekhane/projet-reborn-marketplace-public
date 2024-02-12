@@ -1,7 +1,8 @@
 const { auth } = require ('../Models/user');
+const verifyToken = require('../Middlewares/authMiddleware');
 
 const authController = {
-    async updateAccount (req, res){
+async updateAccount (req, res){
         try{
             const userId = req.params.id;
             const user = await user.findByPk(userId);
@@ -35,7 +36,7 @@ const authController = {
         }  
     },
 
-    async deleteAccount (req, res){
+async deleteAccount (req, res){
         try{
           const userId = req.params.id;
           const user = await user.findByPk(userId);
@@ -55,50 +56,36 @@ const authController = {
       },
 
 async createUserAccount(req, res){
-    
-    try{
-      const { content, position, list_id, color } = req.body;    
+    try {
+        const { first_name, last_name, username, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new user({ username, password: hashedPassword });
+        await user.save();
+        res.status(201).json({ message: 'User registered successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Registration failed' });
+    }
+    },
 
-      const card = {};
-
-      if (content === undefined || content === ""){
-        return res.status(400).json({ message: 'content is mandatory'});
-      }
-
-      card.content = content;
-
-      if (color){
-        card.color = color;
-      }
-
-      let positionInt;
-      if (position !== undefined){
-        positionInt = Number(position);
-
-        if (isNaN(positionInt)){
-          return res.status(400).json({ message: 'position should be an integer'});
+async logAccount (req, res){
+    try {
+        const { email, password } = req.body;
+        const user = await user.findOne({ username });
+        if (!user) {
+        return res.status(401).json({ error: 'Authentication failed' });
         }
-        card.position = positionInt;
-      }      
-
-      listIdInt = Number(list_id);
-
-      if (isNaN(listIdInt)){
-        return res.status(400).json({ message: 'list_id should be an integer'});
-      }
-      card.list_id = listIdInt;
-
-      const newCard = await Card.create(card);
-
-      res.status(201).json(newCard);
-
-    }catch (error){
-      console.error(error);
-      res.status(500).json({ message: 'an unexpected error occured...'});
-    }  
-
-  }
-}
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+        return res.status(401).json({ error: 'Authentication failed' });
+        }
+        const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
+        expiresIn: '1h',
+        });
+        res.status(200).json({ token });
+    } catch (error) {
+       res.status(500).json({ error: 'Login failed' });
+    }
+    }
+};
 
 module.exports = authController;
-

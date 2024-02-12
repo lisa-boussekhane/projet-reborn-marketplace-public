@@ -25,3 +25,15 @@ img {
     font-weight: 700;
     font-size: 1.5rem;
 }
+
+@media screen and (max-width: 767px) {
+    .not-found {
+        margin-bottom: 48px;
+        margin-left: 40px;
+        margin-right: 40px;
+        
+        img {
+            width: 60%;
+        }
+        }
+}

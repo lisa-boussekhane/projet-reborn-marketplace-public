@@ -1,14 +1,39 @@
 .terms-text {
-    padding: 50px;
-    padding-top: 0;
+    padding-top: 20px;
     margin: 5rem;
-    font-size: 1.5rem;
 
-    h1, h3 {
-        padding: 1.5rem;
+    h1 {
+        font-size: 4rem;
+    }
+
+   h3{
+        padding: 1rem;
+        font-size: 2.5rem;
     }
 
     p {
-        padding: 0.3rem;
+        padding: 1rem;
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .terms-text {
+        padding-top: 5px;
+        margin: 2rem;
+    
+        h1 {
+            font-size: 3rem;
+        }
+        
+       h3 {
+            padding: 1rem;
+            font-size: 1.8rem;
+        }
+    
+        p {
+            padding: 1rem;
+            font-size: 1.5rem;
+        }
     }
 }
