@@ -9,16 +9,16 @@ CREATE TABLE "user" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "first_name" VARCHAR(128) NOT NULL,
   "last_name" VARCHAR(128) NOT NULL,
-  "username" VARCHAR(128) NOT NULL,
+  "username" VARCHAR(128),
   "email" VARCHAR(128) NOT NULL,
   "password" VARCHAR(128) NOT NULL,
-  "date_of_birth" TIMESTAMPTZ NOT NULL,
-  "phone" VARCHAR(11) NOT NULL,
-  "address" VARCHAR(128) NOT NULL,
-  "zip_code" VARCHAR(9) NOT NULL,
-  "city" VARCHAR(128) NOT NULL,
-  "state" VARCHAR(128) NOT NULL,
-  "role" VARCHAR(128) NOT NULL,
+  "date_of_birth" TIMESTAMPTZ,
+  "phone" VARCHAR(11),
+  "address" VARCHAR(128),
+  "zip_code" VARCHAR(9),
+  "city" VARCHAR(128),
+  "state" VARCHAR(128),
+  "role" VARCHAR(128),
   "duns" INTEGER,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -98,7 +98,7 @@ CREATE TABLE "User_Order_Product"(
   "status" VARCHAR(100) NOT NULL
   );
 
-  --------------------------------
+  ------------------------------
 -- RAJOUT FK DANS TABLES
 --------------------------------
 
