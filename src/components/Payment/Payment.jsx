@@ -146,12 +146,12 @@ export default function Payment() {
             </div>
           </div>
         </div>
+        <div>
+          <button type="submit" className="pay__btn">
+            Pay
+          </button>
+        </div>
       </form>
-      <div>
-        <button type="submit" className="pay__btn">
-          Pay
-        </button>
-      </div>
     </div>
   );
 }
