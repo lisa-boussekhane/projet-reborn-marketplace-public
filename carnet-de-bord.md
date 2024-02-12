@@ -75,4 +75,19 @@ Sarah a créer les dossiers des composants, rédiger les pages reset my password
   ### Infos individuelles
 - Rita : paramètrage user controller.
 - Sarah : création composant reborns + page produit.
-- Lisa : ajout des routes, page faq + version mobile. 
+- Lisa : ajout des routes, page faq + version mobile.
+
+ # 12/02/2024 - Sprint 1
+ Vendredi 
+ - Côté back :
+   Tables, scinder userController + AuthController + 3 fonctions
+- Côté front :
+  Sarah : css composants cart sign up login product products + sell my reborn
+  Lisa : ajout des routes + page faq
+
+### Infos individuelles
+- Rita : paramètrage routes userController + authenController + test routes Insomnnia
+- Sarah : finir le css des composants account, my store, delete, reset 
+- Lisa : css mobile + aide Rita
+  
+  
