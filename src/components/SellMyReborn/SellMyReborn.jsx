@@ -13,7 +13,7 @@ export default function SellMyReborn() {
         <h3>Add images and videos</h3>
       </div>
 
-      <form action="" method="get">
+      <form action="" method="post">
         <div className="sell__wrapper">
           <div className="sell__col1">
             <h3>I want to sell my reborn</h3>

@@ -33,7 +33,7 @@ export default function MyAccount() {
           </div>
 
           <h2>Information</h2>
-          <form className="profile__elem">
+          <form className="profile__elem" method="post" action="">
             <label htmlFor="firstname">
               First name <input type="text" name="firstname" id="firstname" />
             </label>
@@ -59,7 +59,7 @@ export default function MyAccount() {
 
           <h2>Login and Password</h2>
 
-          <form className="profile__elem__second">
+          <form className="profile__elem__second" method="post" action="">
             <label htmlFor="email">
               Email address <input type="email" name="email" id="email" />
             </label>
