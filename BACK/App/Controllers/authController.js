@@ -2,10 +2,6 @@ const { auth } = require ('../Models/user');
 const verifyToken = require('../Middlewares/authMiddleware');
 
 const authController = {
-    function protectedRoute, verifyToken, (req, res){
-        res.status(200).json({ message: 'Protected route accessed' });
-    },
-
 async updateAccount (req, res){
         try{
             const userId = req.params.id;

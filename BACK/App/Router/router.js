@@ -6,9 +6,11 @@ const chatController = require('../Controllers/chatController');
 const paymentController = require('../Controllers/paymentController');
 const authController = require('../Controllers/authController');
 
+const verifyToken = require ('../Middlewares/authMiddleware')
+
 const router = express.Router();
 
-router.get('/user/:id', userController.getUserInfos);
+router.get('/user/:id', verifyToken,userController.getUserInfos);
 router.get('/myaccount', userController.getUserDashboard);
 
 router.patch('/user/:id', authController.updateAccount);
