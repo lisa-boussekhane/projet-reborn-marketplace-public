@@ -17,7 +17,7 @@
 
   &__links {
     display: flex;
-    gap: 40px;
+    gap: 50px;
   }
 
   &__item {
@@ -26,7 +26,8 @@
   }
 
   &-cart {
-    width: 40px;
+    width: 50px;
+    margin-right: 1rem;
   }
 
   &__burger {
