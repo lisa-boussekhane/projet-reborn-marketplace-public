@@ -12,25 +12,6 @@
   line-height: 2;
 }
 
-#profile {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: -5rem;
-}
-
-.profile__title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  margin-top: -6rem;
-  margin-left: -9rem;
-  font-size: 1em;
-  text-transform: uppercase;
-}
-
 .profile__information {
   display: flex;
   flex-direction: column;
@@ -40,35 +21,12 @@
   border-radius: 10px;
   border: 1px solid v.$midGrey;
   margin-left: 2rem;
-  padding: 30px;
+  padding: 40px;
   width: 20%;
 }
 
-.profile__information h2,
 .profile__information h2 {
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 1.3em;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-.profile__information h2::before {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  vertical-align: -0.125em;
-  margin-right: 1rem;
-  content: url('./account-icon.png');
-}
-
-.edit__icon {
-  display: inline-block;
-  position: absolute;
-  vertical-align: -0.125em;
-  left: 80rem;
-  top: 33rem;
-  content: url('./edit-icon.png');
+  text-align: left;
 }
 
 .profile__elem {
@@ -92,101 +50,9 @@
   cursor: pointer;
 }
 
-.save__btn:hover,
-.savepass__btn:hover {
-  background: #7e94e2;
-  transition: background 0.3s ease;
-}
-
 .profile__elem input[type='text'],
-.profile__elem input[type='tel'],
-.profile__elem__second input[type='email'],
-.profile__elem__second input[type='password'] {
-  border: 1px solid v.$midGrey;
-  width: 50%;
-  margin: 5px;
+.profile__elem input[type='tel'] {
+  border-bottom: 1px solid #000;
+  width: 30%;
   margin-left: 2rem;
-}
-
-.login__information {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: v.$lightGrey;
-  border-radius: 10px;
-  border: 1px solid v.$midGrey;
-  margin-left: 2rem;
-  padding: 20px;
-  width: 20%;
-}
-
-.login__information h2::before {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  vertical-align: -0.125em;
-  margin-right: 1.5rem;
-  content: url('./account-icon.png');
-}
-
-.edit__icon__login {
-  display: inline-block;
-  position: absolute;
-  vertical-align: -0.125em;
-  right: 55rem;
-  top: 34rem;
-  content: url('./edit-icon.png');
-}
-
-.profile__elem__second {
-  display: flex;
-  flex-direction: column;
-  font-size: 1.1em;
-  color: #000;
-  background: #fff;
-  border: 1px solid v.$midGrey;
-  padding: 25px;
-}
-
-.savepass__btn {
-  border-radius: 5px;
-  width: 50%;
-  margin-top: 1.2rem;
-  margin-left: 10rem;
-  background: v.$blue;
-  padding: 6px;
-  color: #fff;
-  cursor: pointer;
-}
-
-#orders h1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5rem;
-  margin-left: -50rem;
-  font-size: 1.7em;
-  text-transform: uppercase;
-}
-
-.order__container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
-
-.order__list {
-  font-size: 1.3em;
-  margin-right: 60rem;
-}
-
-.order__photos {
-  display: flex;
-  margin: 0 auto;
-  margin-top: 5rem;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
 }
