@@ -8,7 +8,6 @@ import 'semantic-ui-css/semantic.min.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MyAccount from '../MyAccount/MyAccount';
-import MyStore from '../MyStore/MyStore';
 import Cart from '../Cart/Cart';
 import Homepage from '../Homepage/Homepage';
 import AboutUs from '../AboutUs/AboutUs';
@@ -37,7 +36,6 @@ function App() {
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
-        <Route path="/mystore" element={<MyStore counter={6} />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
