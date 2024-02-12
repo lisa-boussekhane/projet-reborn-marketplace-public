@@ -1,4 +1,5 @@
 const { auth } = require ('../Models/user');
+const verifyToken = require('../Middlewares/authMiddleware');
 
 const authController = {
     async updateAccount (req, res){
