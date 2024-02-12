@@ -69,8 +69,8 @@ async createUserAccount(req, res){
 
 async logAccount (req, res){
     try {
-        const { username, password } = req.body;
-        const user = await User.findOne({ username });
+        const { email, password } = req.body;
+        const user = await user.findOne({ username });
         if (!user) {
         return res.status(401).json({ error: 'Authentication failed' });
         }
