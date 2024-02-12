@@ -77,7 +77,7 @@ Sarah a créer les dossiers des composants, rédiger les pages reset my password
 - Sarah : création composant reborns + page produit.
 - Lisa : ajout des routes, page faq + version mobile.
 
- # 09/02/2024 - Sprint 1
+ # 12/02/2024 - Sprint 1
  Vendredi 
  - Côté back :
    Tables, scinder userController + AuthController + 3 fonctions
