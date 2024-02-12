@@ -2,7 +2,7 @@
 -- STRUCTURE de la base de la BDD
 --------------------------------
 
-DROP TABLE IF EXISTS "user", "media", "detail_product", "product", "message", "shop", "order", "dispatch";
+DROP TABLE IF EXISTS "user", "media", "detail_product", "product", "message", "shop", "user_order_product";
 
 CREATE TABLE "user" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -27,6 +27,7 @@ CREATE TABLE "media" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "photo" PATH NOT NULL,
   "video" PATH,
+  "product_id" INTEGER NOT NULL,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -34,7 +35,7 @@ CREATE TABLE "media" (
 CREATE TABLE "shop" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "name" VARCHAR(50) NOT NULL,
-  "link_seller_profile" PATH NOT NULL,
+  "user_id" INTEGER NOT NULL,
   "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -53,6 +54,9 @@ CREATE TABLE "product" (
   "authenticity_card" BOOLEAN NOT NULL,
   "price" INTEGER NOT NULL,
   "shipping_fees" INTEGER,
+  "user_id" INTEGER NOT NULL,
+  "shop_id" INTEGER NOT NULL,
+  "detail_product_id" INTEGER NOT NULL,
   "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
   "shop_id" INTEGER NOT NULL REFERENCES "shop"("id") ON DELETE CASCADE,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -68,6 +72,7 @@ CREATE TABLE "detail_product" (
   "eyes" VARCHAR(100) NOT NULL,
   "hair" VARCHAR(100) NOT NULL,
   "status" VARCHAR(50) NOT NULL,
+  "product_id" INTEGER NOT NULL,
   "product_id" INTEGER NOT NULL REFERENCES "product"("id") ON DELETE CASCADE,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -76,6 +81,9 @@ CREATE TABLE "detail_product" (
 CREATE TABLE "message" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "content" VARCHAR(200) NOT NULL,
+  "user_id" INTEGER NOT NULL,
+  "sender_id" INTEGER NOT NULL,
+  "receiver_id" INTEGER NOT NULL,
   "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -87,6 +95,8 @@ CREATE TABLE "message" (
 
 CREATE TABLE "User_Order_Product"(
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  "user_id" INTEGER NOT NULL,
+  "product_id" INTEGER NOT NULL,
   "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
   "product_id" INTEGER NOT NULL REFERENCES "product"("id") ON DELETE CASCADE,
   "date" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -104,8 +114,8 @@ ALTER TABLE product
 ALTER TABLE media
     ADD CONSTRAINT fk_media_product FOREIGN KEY (product_id) REFERENCES product (id);
 
-ALTER TABLE message
-ADD CONSTRAINT fk_user_sender FOREIGN KEY (sender_id) REFERENCES user (id);
+ALTER TABLE message 
+    ADD CONSTRAINT fk_user_sender FOREIGN KEY (sender_id) REFERENCES user (id);
 
 ALTER TABLE message
-ADD CONSTRAINT fk_user_receiver FOREIGN KEY (receiver_id) REFERENCES user (id);
+    ADD CONSTRAINT fk_user_receiver FOREIGN KEY (receiver_id) REFERENCES user (id);
