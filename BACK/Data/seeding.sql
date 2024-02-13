@@ -1,6 +1,19 @@
 BEGIN;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+----------------------------------------------
+-- Cleaning
+----------------------------------------------
+
+DELETE FROM "User_Order_Product";
+DELETE FROM "message";
+DELETE FROM "detail_product";
+DELETE FROM "product";
+DELETE FROM "shop";
+--DELETE FROM "media";
+DELETE FROM "user";
+
 ----------------------------------------------
 -- Déchargement des données de la table "user"
 ----------------------------------------------
@@ -31,10 +44,10 @@ INSERT INTO "shop" ("id", "name", "user_id") OVERRIDING SYSTEM VALUE VALUES
 -- Déchargement des données de la table "media"
 ----------------------------------------------
 
-INSERT INTO "product" ("id", "security_code", "title", "kit_name", "sculptor", "size", "type", "weight", "age_range", "authenticity_card", "price", "shipping_fees", "detail_product_id", "user_id", "shop_id") OVERRIDING SYSTEM VALUE VALUES
-(1, uuid_generate_v4(), 'Super Realistic, Lifelike Alina Soft Weighted Body Reborn Baby Doll Girl', 'Alina', 'Linde Scherer', '20', 'Vinyl', '6', 'Baby', 'Yes', '500', '50', 1, 3, 2),
-(2, uuid_generate_v4(), 'Sebastian Realistic Reborn Baby Boy', 'Sebastian', 'Olga Auer', '20', 'Vinyl', '7', 'Baby', 'Yes', '650', '50', 2, 1, 1),
-(3, uuid_generate_v4(), 'Baby Toddler Girl Lottie Has Realistic Skin Blue Eyes and Brown Hair', 'Lottie', 'Laura Lee Eagles', '24', 'Vinyl', '8', 'Toddler', 'Yes', '980', '60', 3, 1, 1);
+INSERT INTO "product" ("id", "security_code", "title", "kit_name", "sculptor", "size", "type", "weight", "age_range", "authenticity_card", "price", "shipping_fees", "user_id", "shop_id") OVERRIDING SYSTEM VALUE VALUES
+(1, uuid_generate_v4(), 'Super Realistic, Lifelike Alina Soft Weighted Body Reborn Baby Doll Girl', 'Alina', 'Linde Scherer', '20', 'Vinyl', '6', 'Baby', 'Yes', '500', '50', 3, 2),
+(2, uuid_generate_v4(), 'Sebastian Realistic Reborn Baby Boy', 'Sebastian', 'Olga Auer', '20', 'Vinyl', '7', 'Baby', 'Yes', '650', '50', 1, 1),
+(3, uuid_generate_v4(), 'Baby Toddler Girl Lottie Has Realistic Skin Blue Eyes and Brown Hair', 'Lottie', 'Laura Lee Eagles', '24', 'Vinyl', '8', 'Toddler', 'Yes', '980', '60', 1, 1);
 
 --------------------------------------------------------
 -- Déchargement des données de la table "detail_product"
@@ -45,28 +58,33 @@ INSERT INTO "detail_product" ("id", "localization", "belly_plate", "gender", "ye
 (2, 'New York', 'Yes', 'Boy', '2024', 'Brown', 'Black', 'New', 2),
 (3, 'New York', 'No', 'Girl', '2022', 'Blue', 'Brown', 'New', 3);
 
+
 ------------------------------------------------
 -- Déchargement des données de la table "message"
 ------------------------------------------------
 
-INSERT INTO "message" ("id", "content", "sender_id", "receiver_id", "user_id") OVERRIDING SYSTEM VALUE VALUES
-(1, "Hi I'm interested in your Sebastian doll, I live in San Diego, how much would be the delivery?", 2, 1),
-(2, "Hi the delivery is $80. Ok for you?", 1, 2);
+INSERT INTO "message" ("id", "content", "sender_id", "receiver_id") OVERRIDING SYSTEM VALUE VALUES
+(1, 'Hi I''m interested in your Sebastian doll, I live in San Diego.', 2, 1),
+(2, 'Hi the delivery is $80. Ok for you?', 1, 2);
+
 
 ------------------------------------------------
 -- Déchargement des données de la table "user_order_product"
 ------------------------------------------------
 
-INSERT INTO "user_order_product" ("id", "product_id", "date", "invoice", "status") OVERRIDING SYSTEM VALUE VALUES
-(1, 1, "2024-02-10", "12JDU87", "Send"),
-(2, 2, "2024-01-27", "73NF9Z", "Delivered"),
-(3, 3, "2024-02-13", "J3UID238", "Paid");
+INSERT INTO "User_Order_Product"("id", "product_id", "date", "invoice", "status", "user_id") OVERRIDING SYSTEM VALUE VALUES
+(1, 1, '2024-02-10', NULL, 'Send', 2),
+(2, 2, '2024-01-27', NULL, 'Delivered', 2),
+(3, 3, '2024-02-13', NULL, 'Paid', 2);
 
 
-ALTER TABLE product
-    ADD CONSTRAINT fk_product_detail_product FOREIGN KEY (detail_product_id) REFERENCES detail_product(id);
-    ALTER TABLE media
-    ADD CONSTRAINT fk_media_product FOREIGN KEY (product_id) REFERENCES product(id);
+
+
+--ALTER TABLE media
+--    ADD CONSTRAINT fk_media_product FOREIGN KEY (product_id) REFERENCES product(id);
+
+ALTER TABLE message DROP CONSTRAINT fk_user_receiver;
+ALTER TABLE message DROP CONSTRAINT fk_user_sender;
 
 ALTER TABLE message 
     ADD CONSTRAINT fk_user_sender FOREIGN KEY (sender_id) REFERENCES "user"(id);

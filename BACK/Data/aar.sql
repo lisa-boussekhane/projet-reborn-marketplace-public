@@ -54,7 +54,6 @@ CREATE TABLE "product" (
   "authenticity_card" BOOLEAN NOT NULL,
   "price" INTEGER NOT NULL,
   "shipping_fees" INTEGER,
-  "detail_product_id" INTEGER NOT NULL,
   "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
   "shop_id" INTEGER NOT NULL REFERENCES "shop"("id") ON DELETE CASCADE,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -65,7 +64,7 @@ CREATE TABLE "detail_product" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "localization" VARCHAR(50) NOT NULL,
   "belly_plate" BOOLEAN NOT NULL,
-  "gender" VARCHAR(10) NOT NULL,
+  "gender" VARCHAR(20) NOT NULL,
   "year" INTEGER NOT NULL,
   "eyes" VARCHAR(100) NOT NULL,
   "hair" VARCHAR(100) NOT NULL,
@@ -80,7 +79,6 @@ CREATE TABLE "message" (
   "content" VARCHAR(200) NOT NULL,
   "sender_id" INTEGER NOT NULL,
   "receiver_id" INTEGER NOT NULL,
-  "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -101,9 +99,6 @@ CREATE TABLE "User_Order_Product"(
   ------------------------------
 -- RAJOUT FK DANS TABLES
 --------------------------------
-
-ALTER TABLE product
-    ADD CONSTRAINT fk_product_detail_product FOREIGN KEY (detail_product_id) REFERENCES detail_product(id);
 
 ALTER TABLE media
     ADD CONSTRAINT fk_media_product FOREIGN KEY (product_id) REFERENCES product(id);
