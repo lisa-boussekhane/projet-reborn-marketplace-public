@@ -1,4 +1,4 @@
-const { Model, DataTypes, INTEGER, BOOLEAN, UUID } = require('sequelize');
+const { Model, DataTypes, BOOLEAN, UUID } = require('sequelize');
 
 const sequelize = require('./sequelize');
 
@@ -15,23 +15,23 @@ product.init(
       allowNull: false,
     },
     kit_name: {
-      type: VARCHAR,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     sculptor: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     size: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     type: {
-      type: VARCHAR,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     age_range: {
-      type: VARCHAR,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     authenticity_card: {
@@ -39,11 +39,11 @@ product.init(
       allowNull: false,
     },
     price: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     shipping_fees: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },

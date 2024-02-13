@@ -6,18 +6,18 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem;
-  margin: 3rem;
+  margin: 1.5rem;
   padding-left: 0;
   padding-top: 0;
   padding-bottom: 0;
   background-color: v.$yellow;
   color: black;
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
 
   &__links {
     display: flex;
-    gap: 50px;
+    gap: 40px;
   }
 
   &__item {
@@ -39,7 +39,7 @@
   }
 
   &-logo {
-    width: 80%;
+    width: 50%;
     background-color: white;
   }
   
@@ -48,7 +48,7 @@
 .search-input {
   width: 100%;
   border: solid 4px lightgray;
-  margin-left: -40px;
+  margin-right: 100px;
 }
 
 @media screen and (max-width: 767px) {
@@ -78,7 +78,7 @@
 
     &-logo {
       width: 60%;
-      margin-left: 2rem;
+      margin-left: 5rem;
     }
   }
   
@@ -93,6 +93,7 @@
     display: block; 
     background-color: lightgrey;
     width: 70px;
+    margin-right: 3rem;
   }
 
   .navbar__burger:hover {
