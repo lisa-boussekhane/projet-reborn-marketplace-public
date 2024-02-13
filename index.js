@@ -10,13 +10,11 @@ const port = process.env.PORT;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(
-  app.use(
-    session({
-      secret: process.env.SECRET,
-      resave: false,
-      saveUninitialized: false,
-    })
-  )
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
 );
 app.use(express.json());
 
