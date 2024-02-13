@@ -22,7 +22,7 @@ router.get('/myorders', verifyToken, userController.getOrdersReturns);
 router.patch('/user/:id', verifyToken, authController.updateAccount);
 router.delete('/user/:id', verifyToken, authController.deleteAccount);
 router.post('/signup', authController.createUserAccount);
-router.post('/login', verifyToken, authController.logAccount);
+router.post('/login', authController.logAccount);
 
 // router.patch('/login', verifyToken, authController.updatePassword);
 
@@ -31,9 +31,9 @@ router.get('/result', searchController.searchReborns);
 // router.post('/payment', paymentController.bankAccount);
 
 router.get('/product/:id', productController.getProductPage);
-router.post('/product/:id', productController.createProduct);
-router.patch('/product/:id', productController.updateProduct);
-router.delete('/product/:id', productController.deleteProduct);
+router.post('/product/:id', verifyToken, productController.createProduct);
+router.patch('/product/:id', verifyToken, productController.updateProduct);
+router.delete('/product/:id', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
 // router.get('/shop/:id', shopController.showStore);
