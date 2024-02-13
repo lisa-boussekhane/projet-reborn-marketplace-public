@@ -11,28 +11,30 @@ const verifyToken = require('../Middlewares/authMiddleware');
 const router = express.Router();
 
 router.get('/user/:id', verifyToken, userController.getUserInfos);
-router.get('/myaccount', verifyToken, userController.getMyAccount);
+// router.get('/myaccount', verifyToken, userController.getMyAccount);
 router.get('/myorders', verifyToken, userController.getOrdersReturns);
 
-router.patch('/user/:id', verifyToken, authController.updateAccount);
-router.delete('/user/:id', verifyToken, authController.deleteAccount);
-router.post('/signup', authController.createUserAccount);
-router.post('/login', verifyToken, authController.logAccount);
-router.patch('/login', verifyToken, authController.updatePassword);
+// router.patch('/user/:id', verifyToken, authController.updateAccount);
+// router.delete('/user/:id', verifyToken, authController.deleteAccount);
+// router.post('/signup', authController.createUserAccount);
+// router.post('/login', verifyToken, authController.logAccount);
+// router.patch('/login', verifyToken, authController.updatePassword);
 
-router.get('/result', searchController.searchReborns);
+// router.get('/result', searchController.searchReborns);
 
-router.post('/payment', paymentController.bankAccount);
+// router.post('/payment', paymentController.bankAccount);
 
-router.get('/product/:id', productController.getProductPage);
-router.post('/product/:id', productController.createProduct);
-router.patch('/product/:id', productController.updateProduct);
-router.delete('/product/:id', productController.deleteProduct);
-router.get('/products', productController.getProductsPage);
+// router.get('/product/:id', productController.getProductPage);
+// router.post('/product/:id', productController.createProduct);
+// router.patch('/product/:id', productController.updateProduct);
+// router.delete('/product/:id', productController.deleteProduct);
+// router.get('/products', productController.getProductsPage);
 
-router.get('/shop/:id', shopController.showStore);
-router.post('/shop/:id', shopController.createShop);
-router.delete('/shop/:id', shopController.deleteShop);
+// router.get('/shop/:id', shopController.showStore);
+// router.post('/shop/:id', shopController.createShop);
+// router.delete('/shop/:id', shopController.deleteShop);
 
-router.get('/chat/:id', chatController.getMessage);
-router.patch('/chat/message/room/:id', chatController.chatRoom);
+// router.get('/chat/:id', chatController.getMessage);
+// router.patch('/chat/message/room/:id', chatController.chatRoom);
+
+module.exports = router;

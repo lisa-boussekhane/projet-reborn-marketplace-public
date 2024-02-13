@@ -1,8 +1,7 @@
 require('dotenv').config();
+const express = require('express');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
-
-const express = require('express');
 const router = require('./BACK/App/Router/router');
 
 const app = express();
