@@ -11,7 +11,7 @@ shop.init(
       allowNull: false,
     },
     link_seller_profile: {
-      type: PATH,
+      type: DataTypes.PATH,
       allowNull: false,
     },
   },
@@ -23,5 +23,3 @@ shop.init(
 );
 
 module.exports = shop;
-
-//bla
