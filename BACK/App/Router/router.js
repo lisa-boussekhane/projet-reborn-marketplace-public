@@ -24,9 +24,9 @@ router.get('/result', searchController.searchReborns);
 
 router.post('/payment', paymentController.bankAccount);
 
-router.get('/product/:id', productController.productPage);
+router.get('/product/:id', productController.getProductPage);
 router.post('/product/:id', productController.createProduct);
-router.get('/product', productController.productsPage);
+router.get('/product', productController.getProductsPage);
 
 router.get('/shop/:id', shopController.showStore);
 router.post('/shop/:id', shopController.createShop);
