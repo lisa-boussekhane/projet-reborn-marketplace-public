@@ -13,7 +13,6 @@ async updateAccount (req, res){
     
             const { name } = req.body;    
     
-            // on veut, si il est fournit un nom non vide
             if (name !== undefined && name === ""){
                 return res.status(400).json({ message: 'name should not be an empty string'});
             }
