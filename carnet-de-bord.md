@@ -89,5 +89,14 @@ Sarah a créer les dossiers des composants, rédiger les pages reset my password
 - Rita : paramètrage routes userController + authenController + test routes Insomnnia
 - Sarah : finir le css des composants account, my store, delete, reset 
 - Lisa : css mobile + aide Rita
-  
+
+# 13/02/2024 - Sprint 1
+Hier, côté back : exécuter la bdd + authController + productController + continuer userController + commencer seeding 
+côté front : Sarah : css my account, my store, delete + reset 
+             Lisa : css mobile de toutes les pages + menu burger 
+
+### Infos individuelles
+- Rita : finir seeding + paramètrage shopController
+- Sarah : scss mobile pas tous + authentification front
+- Lisa : userController + searchController +  test routes insomnnia + produits   
   

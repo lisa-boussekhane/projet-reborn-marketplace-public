@@ -4,10 +4,10 @@ BEGIN;
 -- Déchargement des données de la table "user"
 ----------------------------------------------
 
-INSERT INTO "user" ("id", "first_name", "last_name", "username", "email", "password", "date_of_birth", "phone", "address", "zip_code", "city", "state", "role", "duns" ) VALUES
-(1, 'Gabriela', 'Fernandez', 'GFernandez', 'gabriela.fernandez@gmail.com', 'reborn', '1986-12-21', '555 555 1234', '20 W 34th St.', ' 10001', 'New York', 'New York', 'Seller', '150483782'),
-(2, 'Cynthia', 'Smith', 'cynthiasmith87', 'cynthia.smith@yahoo.com', 'reborn', '1987-05-12', '555 555 5678', '2760 Fifth Avenue', '92103', 'San Diego', 'California', 'Buyer', ''),
-(3, 'Mary', 'Doe', 'marydoe', 'mary.doe@outlook.com', 'reborn', '1976-02-10', '555 657 5678', '1112 Northside Dr NW', '30318', 'Atlanta', 'Georgia', 'Buyer/Seller', ''),
+INSERT INTO "user" ("first_name", "last_name", "username", "email", "password", "date_of_birth", "phone", "address", "zip_code", "city", "state", "role", "duns" ) VALUES
+('Gabriela', 'Fernandez', 'GFernandez', 'gabriela.fernandez@gmail.com', 'reborn', '1986-12-21', '5555551234', '20 W 34th St.', ' 10001', 'New York', 'New York', 'Seller', '150483782'),
+('Cynthia', 'Smith', 'cynthiasmith87', 'cynthia.smith@yahoo.com', 'reborn', '1987-12-05', '5555555678', '2760 Fifth Avenue', '92103', 'San Diego', 'California', 'Buyer', NULL),
+('Mary', 'Doe', 'marydoe', 'mary.doe@outlook.com', 'reborn', '1976-02-10', '5556575678', '1112 Northside Dr NW', '30318', 'Atlanta', 'Georgia', 'Seller/Buyer', NULL);
 
 ----------------------------------------------
 -- Déchargement des données de la table "media"
@@ -60,6 +60,5 @@ INSERT INTO "user_order_product" ("id", "product_id", "date", "invoice", "status
 (1, 1, "2024-02-10", "12JDU87", "Send"),
 (2, 2, "2024-01-27", "73NF9Z", "Delivered"),
 (3, 3, "2024-02-13", "J3UID238", "Paid"),
-
 
 COMMIT;
