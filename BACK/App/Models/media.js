@@ -1,23 +1,25 @@
-const { Model, DataTypes, Path } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
-const sequelize = require ('./sequelize');
+const sequelize = require('./sequelize');
 
 class media extends Model {}
 
-media.init({  
+media.init(
+  {
     photo: {
-      type: PATH,
-      allowNull: false
+      type: DataTypes.PATH,
+      allowNull: false,
     },
     video: {
-      type: PATH,
+      type: DataTypes.PATH,
       allowNull: true,
     },
-  
-  }, {  
+  },
+  {
     sequelize,
     modelName: 'media',
     tableName: 'media',
-  });
-  
-  module.exports = media;
+  }
+);
+
+module.exports = media;
