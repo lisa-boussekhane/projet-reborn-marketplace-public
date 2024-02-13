@@ -11,10 +11,6 @@ const verifyToken = require('../Middlewares/authMiddleware');
 
 const router = express.Router();
 
-router.get('/', verifyToken, (req, res) => {
-    res.status(200).json({ message: 'Protected route accessed' });
-  });
-
 router.get('/user/:id', verifyToken, userController.getUserInfos);
 // router.get('/myaccount', verifyToken, userController.getMyAccount);
 router.get('/myorders', verifyToken, userController.getOrdersReturns);
