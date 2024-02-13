@@ -20,15 +20,15 @@ router.get('/myorders', verifyToken, userController.getOrdersReturns);
 // router.post('/login', verifyToken, authController.logAccount);
 // router.patch('/login', verifyToken, authController.updatePassword);
 
-// router.get('/result', searchController.searchReborns);
+router.get('/result', searchController.searchReborns);
 
 // router.post('/payment', paymentController.bankAccount);
 
-// router.get('/product/:id', productController.getProductPage);
-// router.post('/product/:id', productController.createProduct);
-// router.patch('/product/:id', productController.updateProduct);
-// router.delete('/product/:id', productController.deleteProduct);
-// router.get('/products', productController.getProductsPage);
+router.get('/product/:id', productController.getProductPage);
+router.post('/product/:id', productController.createProduct);
+router.patch('/product/:id', productController.updateProduct);
+router.delete('/product/:id', productController.deleteProduct);
+router.get('/products', productController.getProductsPage);
 
 // router.get('/shop/:id', shopController.showStore);
 // router.post('/shop/:id', shopController.createShop);

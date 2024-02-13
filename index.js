@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const session = require('express-session');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const router = require('./BACK/App/Router/router');
@@ -8,6 +9,15 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  app.use(
+    session({
+      secret: process.env.SECRET,
+      resave: false,
+      saveUninitialized: false,
+    })
+  )
+);
 app.use(express.json());
 
 app.use(router);
