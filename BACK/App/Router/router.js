@@ -1,14 +1,19 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const userController = require('../Controllers/userController');
 const searchController = require('../Controllers/searchController');
 const productController = require('../Controllers/productController');
 const chatController = require('../Controllers/chatController');
 const paymentController = require('../Controllers/paymentController');
 const authController = require('../Controllers/authController');
-
 const verifyToken = require('../Middlewares/authMiddleware');
 
 const router = express.Router();
+
+router.get('/', verifyToken, (req, res) => {
+    res.status(200).json({ message: 'Protected route accessed' });
+  });
 
 router.get('/user/:id', verifyToken, userController.getUserInfos);
 // router.get('/myaccount', verifyToken, userController.getMyAccount);
@@ -18,6 +23,7 @@ router.patch('/user/:id', verifyToken, authController.updateAccount);
 router.delete('/user/:id', verifyToken, authController.deleteAccount);
 router.post('/signup', authController.createUserAccount);
 router.post('/login', verifyToken, authController.logAccount);
+
 // router.patch('/login', verifyToken, authController.updatePassword);
 
 router.get('/result', searchController.searchReborns);

@@ -2,10 +2,13 @@ const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
   const token = req.header('Authorization');
-  if (!token) return res.status(401).json({ error: 'Access denied' });
+
+  if (!token) {
+    return res.status(401).json({ error: 'Access denied - Token missing' });
+  }
 
   try {
-    const decoded = jwt.verify(token, 'your-secret-key');
+    const decoded = jwt.verify(token, process.env.SECRET);
     req.userId = decoded.userId;
     next();
   } catch (error) {
@@ -14,5 +17,3 @@ function verifyToken(req, res, next) {
 }
 
 module.exports = verifyToken;
-
-//blablbl
