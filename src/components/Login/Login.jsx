@@ -1,55 +1,19 @@
 import './Login.scss';
-import { useNavigate, useLocation } from 'react-router';
-import { useState, useContext } from 'react';
-import { useAuth } from 'react-use-auth';
-import axios from 'axios';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Login = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/login';
-  const { auth, setAuth } = useAuth();
-  const [name, setName] = useState('');
+export default function Login() {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
-  const API = axios.create({
-    baseURL: 'http://localhost:3000',
-  });
-
-  const handleSubmit = async (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    try {
-      const res = await API.post('/login', {
-        name,
-        password,
-      }).then((res) => {
-        if (res?.data.name) {
-          const role = res?.data.role;
-          setAuth({ role: `${role}`, name: `${name}` });
-          setName('');
-          setPassword('');
-          navigate(from, { replace: true });
-        } else {
-          console.log('incorrect submission');
-          setError(res.message);
-        }
-      });
-    } catch (err) {
-      if (!err?.response) {
-        setError('no server response');
-      } else {
-        setError('registration failed');
-      }
-    }
-  };
-
+  }
   return (
     <>
       <div className="form__container">
         <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="form__group">
             <label htmlFor="email">
               Email address:
@@ -60,12 +24,13 @@ const Login = () => {
                 value={email}
                 placeholder="Email address"
                 required
+                onChange={(e) => setEmail(e.target.value)}
               />
             </label>
           </div>
           <div className="form__group">
             <label htmlFor="password">
-              Password:
+              Password:{' '}
               <input
                 type="password"
                 name="password"
@@ -73,6 +38,7 @@ const Login = () => {
                 value={password}
                 placeholder="Password"
                 required
+                onChange={(e) => setPassword(e.target.value)}
               />
             </label>
           </div>
@@ -91,6 +57,4 @@ const Login = () => {
       </div>
     </>
   );
-};
-
-export default Login;
+}
