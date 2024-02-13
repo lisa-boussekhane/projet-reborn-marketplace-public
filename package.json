@@ -21,6 +21,7 @@
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
+    "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.0.3",
     "passport": "^0.7.0",
@@ -31,14 +32,13 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.0",
     "react-router-hash-link": "^2.4.3",
-    "react-use-auth": "^2.1.0-14",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
     "sequelize": "^6.36.0",
     "uuid": "^9.0.1",
     "vite": "^4.4.5"
   },
-  "devDependencies": { 
+  "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "eslint": "^8.45.0",
