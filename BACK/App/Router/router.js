@@ -11,7 +11,8 @@ const verifyToken = require ('../Middlewares/authMiddleware')
 const router = express.Router();
 
 router.get('/user/:id', verifyToken,userController.getUserInfos);
-router.get('/myaccount', userController.getUserDashboard);
+router.get('/myaccount', userController.getMyAccount);
+router.get('/myorders', userController.getOrdersReturns);
 
 router.patch('/user/:id', authController.updateAccount);
 router.delete('/user/:id', authController.deleteAccount);
