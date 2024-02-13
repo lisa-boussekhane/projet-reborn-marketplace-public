@@ -26,10 +26,13 @@ router.post('/payment', paymentController.bankAccount);
 
 router.get('/product/:id', productController.getProductPage);
 router.post('/product/:id', productController.createProduct);
-router.get('/product', productController.getProductsPage);
+router.patch('/product/:id', productController.updateProduct);
+router.delete('/product/:id', productController.deleteProduct);
+router.get('/products', productController.getProductsPage);
 
 router.get('/shop/:id', shopController.showStore);
 router.post('/shop/:id', shopController.createShop);
+router.delete('/shop/:id', shopController.deleteShop);
 
 router.get('/chat/:id', chatController.getMessage);
 router.patch('/chat/message/room/:id', chatController.chatRoom);
