@@ -23,7 +23,7 @@ INSERT INTO "user" ("id", "first_name", "last_name", "username", "email", "passw
 -- Déchargement des données de la table "media"
 ----------------------------------------------
 
-INSERT INTO "shop" ("id", "name", "user_id")OVERRIDING SYSTEM VALUE VALUES
+INSERT INTO "shop" ("id", "name", "user_id") OVERRIDING SYSTEM VALUE VALUES
 (1,'Enchanted Reborn Store', 1),
 (2,'Reborn Wonderful', 3);
 
@@ -62,15 +62,27 @@ INSERT INTO "user_order_product" ("id", "product_id", "date", "invoice", "status
 (2, 2, "2024-01-27", "73NF9Z", "Delivered"),
 (3, 3, "2024-02-13", "J3UID238", "Paid");
 
+
+ALTER TABLE product
+    ADD CONSTRAINT fk_product_detail_product FOREIGN KEY (detail_product_id) REFERENCES detail_product(id);
+    ALTER TABLE media
+    ADD CONSTRAINT fk_media_product FOREIGN KEY (product_id) REFERENCES product(id);
+
+ALTER TABLE message 
+    ADD CONSTRAINT fk_user_sender FOREIGN KEY (sender_id) REFERENCES "user"(id);
+
+ALTER TABLE message
+    ADD CONSTRAINT fk_user_receiver FOREIGN KEY (receiver_id) REFERENCES "user"(id);
+    
 COMMIT;
 
-BEGIN;
+-- BEGIN;
 
-SELECT setval('user_id_seq', (SELECT MAX(id) from "user"));
-SELECT setval('product_id_seq', (SELECT MAX(id) from "product"));
-SELECT setval('detail_product_seq', (SELECT MAX(id) from "detail_product"));
-SELECT setval('sender_id_seq', (SELECT MAX(id) from "user"));
-SELECT setval('receiver_id_seq', (SELECT MAX(id) from "user"));
-SELECT setval('shop_id_seq', (SELECT MAX(id) from "shop"));
+-- SELECT setval('user_id_seq', (SELECT MAX(id) from "user"));
+-- SELECT setval('product_id_seq', (SELECT MAX(id) from "product"));
+-- SELECT setval('detail_product_seq', (SELECT MAX(id) from "detail_product"));
+-- SELECT setval('sender_id_seq', (SELECT MAX(id) from "user"));
+-- SELECT setval('receiver_id_seq', (SELECT MAX(id) from "user"));
+-- SELECT setval('shop_id_seq', (SELECT MAX(id) from "shop"));
 
-COMMIT;
+-- COMMIT;
