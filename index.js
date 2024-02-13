@@ -1,4 +1,5 @@
 require('dotenv').config();
+const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 const express = require('express');
@@ -7,8 +8,8 @@ const router = require('./BACK/App/Router/router');
 const app = express();
 const port = process.env.PORT;
 
-app.use(urlencoded({ extended: true }));
-app.use(json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(router);
 

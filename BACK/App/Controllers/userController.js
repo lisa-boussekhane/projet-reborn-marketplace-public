@@ -2,7 +2,7 @@ const { user } = require('../Models/user');
 const { product } = require('../Models/product');
 
 const userController = {
-  async getUserInfos(req, res) {
+  getUserInfos: async (req, res) => {
     try {
       const userId = req.params.id;
       const targetedUser = await user.findByPk(userId);
