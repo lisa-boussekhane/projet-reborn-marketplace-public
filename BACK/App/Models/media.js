@@ -7,11 +7,11 @@ class media extends Model {}
 media.init(
   {
     photo: {
-      type: DataTypes.PATH,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     video: {
-      type: DataTypes.PATH,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
   },

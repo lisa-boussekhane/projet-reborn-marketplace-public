@@ -14,10 +14,10 @@ router.get('/user/:id', verifyToken, userController.getUserInfos);
 // router.get('/myaccount', verifyToken, userController.getMyAccount);
 router.get('/myorders', verifyToken, userController.getOrdersReturns);
 
-// router.patch('/user/:id', verifyToken, authController.updateAccount);
-// router.delete('/user/:id', verifyToken, authController.deleteAccount);
-// router.post('/signup', authController.createUserAccount);
-// router.post('/login', verifyToken, authController.logAccount);
+router.patch('/user/:id', verifyToken, authController.updateAccount);
+router.delete('/user/:id', verifyToken, authController.deleteAccount);
+router.post('/signup', authController.createUserAccount);
+router.post('/login', verifyToken, authController.logAccount);
 // router.patch('/login', verifyToken, authController.updatePassword);
 
 router.get('/result', searchController.searchReborns);
