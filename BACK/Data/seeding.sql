@@ -62,3 +62,14 @@ INSERT INTO "user_order_product" ("id", "product_id", "date", "invoice", "status
 (3, 3, "2024-02-13", "J3UID238", "Paid"),
 
 COMMIT;
+
+BEGIN;
+
+SELECT setval('user_id_seq', (SELECT MAX(id) from "user"));
+SELECT setval('product_id_seq', (SELECT MAX(id) from "product"));
+SELECT setval('detail_product_seq', (SELECT MAX(id) from "detail_product"));
+SELECT setval('sender_id_seq', (SELECT MAX(id) from "user"));
+SELECT setval('receiver_id_seq', (SELECT MAX(id) from "user"));
+SELECT setval('shop_id_seq', (SELECT MAX(id) from "shop"));
+
+COMMIT;
