@@ -1,6 +1,4 @@
-const authProduct = require('../Models/product');
-const detail_product = require('../Models/detail_product');
-const media = require('../Models/media');
+const { product } = require ('../Models/product');
 
 const productController = {
   async getProductPage(req, res) {
