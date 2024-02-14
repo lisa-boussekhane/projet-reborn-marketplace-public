@@ -65,21 +65,9 @@ export default function Products() {
               <Card>
                 <Image src="./reborn1.jpg" wrapped ui={false} />
                 <Card.Content>
-                  <NavLink to={`/product/${product.id}`} />
-                  <Card.Header>{product.title}</Card.Header>
-                </Card.Content>
-              </Card>
-            </div>
-          </div>
-        ))}
-        {products.map((product) => (
-          <div key={product.id} className="products__card">
-            <div className="products__card__item">
-              <Card>
-                <Image src="./reborn1.jpg" wrapped ui={false} />
-                <Card.Content>
-                  {/* Ajouter lien qui redirige le user sur la page Product */}
-                  <Card.Header>{product.title}</Card.Header>
+                  <NavLink to={`/product/${product.id}`}>
+                    <Card.Header>{product.title}</Card.Header>
+                  </NavLink>
                 </Card.Content>
               </Card>
             </div>
