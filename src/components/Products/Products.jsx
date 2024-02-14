@@ -1,23 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Card, Image } from 'semantic-ui-react';
-import axios from 'axios';
-
 import './Products.scss';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/products');
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    fetchProducts();
+    fetch('http://localhost:3000/products')
+      .then((response) => response.json())
+      .then((data) => setProducts(data));
   }, []);
 
   return (
