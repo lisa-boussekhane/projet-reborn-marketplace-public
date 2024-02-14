@@ -33,7 +33,7 @@ export default function MyAccount() {
           </div>
 
           <h2>Information</h2>
-          <form className="profile__elem" method="post" action="">
+          <form className="profile__elem" method="get">
             <label htmlFor="firstname">
               First name <input type="text" name="firstname" id="firstname" />
             </label>

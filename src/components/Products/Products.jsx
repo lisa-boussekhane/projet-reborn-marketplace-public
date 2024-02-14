@@ -69,6 +69,19 @@ export default function Products() {
             </div>
           </div>
         ))}
+        {products.map((product) => (
+          <div key={product.id} className="products__card">
+            <div className="products__card__item">
+              <Card>
+                <Image src="./reborn1.jpg" wrapped ui={false} />
+                <Card.Content>
+                  {/* Ajouter lien qui redirige le user sur la page Product */}
+                  <Card.Header>{product.title}</Card.Header>
+                </Card.Content>
+              </Card>
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );
