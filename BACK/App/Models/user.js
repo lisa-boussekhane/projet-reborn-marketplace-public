@@ -81,10 +81,10 @@ user.init(
   }
 );
 
-user.beforeSave((User) => {
-  if (User.changed('password') || User.isNewRecord) {
-   User.password = bcrypt.hashSync(
-      User.password,
+user.beforeSave((user) => {
+  if (user.changed('password') || user.isNewRecord) {
+    user.password = bcrypt.hashSync(
+      user.password,
       bcrypt.genSaltSync(10),
       null
     );

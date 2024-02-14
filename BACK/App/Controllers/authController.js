@@ -72,7 +72,6 @@ const authController = {
       }
       const hashedPassword = await bcrypt.hash(password, 10);
       console.log('Mot de passe haché :', hashedPassword);
-      // Utilisez le modèle User pour créer un nouvel utilisateur
       const user = await authUser.create({
         first_name,
         last_name,
@@ -106,6 +105,7 @@ const authController = {
       if (user) {
         const isPasswordMatch = await bcrypt.compare(password, user.password);
         console.log('Résultat de la comparaison :', isPasswordMatch);
+
         if (isPasswordMatch) {
           console.log('Mot de passe correct');
           const token = jwt.sign({ user_id: user.id }, process.env.SECRET, {
@@ -113,17 +113,13 @@ const authController = {
           });
           return res.status(200).json({ token });
         }
+        console.log('Mot de passe reçu :', password);
+        console.log('Mot de passe enregistré :', user.password);
         console.log('Mot de passe incorrect');
       } else {
         console.log('Utilisateur non trouvé');
       }
-      if (password === user.password) {
-        console.log('Les mots de passe sont identiques.');
-      } else {
-        console.log('Les mots de passe ne correspondent pas.');
-      }
-      console.log('Mot de passe reçu :', password);
-      console.log('Mot de passe enregistré :', user.password);
+
       return res.status(401).json({ message: 'Identifiants invalides' });
     } catch (error) {
       console.error("Erreur lors de l'authentification :", error);

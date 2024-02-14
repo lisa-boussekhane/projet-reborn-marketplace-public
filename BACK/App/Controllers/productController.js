@@ -1,10 +1,10 @@
-const { product } = require('../Models/product');
+const authProduct = require('../Models/product');
 
 const productController = {
   async getProductPage(req, res) {
     try {
       const productId = req.params.id;
-      const product = await product.findByPk(productId);
+      const product = await authProduct.findByPk(productId);
 
       if (!product) {
         return res
@@ -31,7 +31,7 @@ const productController = {
 
       product.title = title;
 
-      const newProduct = await product.create(product);
+      const newProduct = await authProduct.create(product);
 
       res.status(201).json(newProduct);
     } catch (error) {
@@ -43,7 +43,7 @@ const productController = {
   async updateProduct(req, res) {
     try {
       const productId = req.params.id;
-      const product = await product.findByPk(productId);
+      const product = await authProduct.findByPk(productId);
 
       if (!product) {
         return res
@@ -140,7 +140,7 @@ const productController = {
   async deleteProduct(req, res) {
     try {
       const productId = req.params.id;
-      const product = await product.findByPk(productId);
+      const product = await authProduct.findByPk(productId);
 
       if (!product) {
         return res
@@ -159,7 +159,7 @@ const productController = {
 
   async getProductsPage(req, res) {
     try {
-      const products = await product.findAll({
+      const products = await authProduct.findAll({
         order: [['title']],
       });
       res.status(200).json(products);
