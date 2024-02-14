@@ -101,8 +101,11 @@ côté front : Sarah : css my account, my store, delete + reset
 - Lisa : userController + searchController +  test routes insomnnia + produits
   
 # 14/02/2024 - Sprint 1  
+
 Hier, côté back : Rita, seeding, authController, shopController, userController, jointure productController 
-Lisa : searchController, getOrdersReturn, signUp front + back 
+Lisa : searchController, getOrdersReturn, signUp front + back, products front 
+
+Journée compliquée, recherche infructueuses pour régler notre problème d'authentification /login.
 
 Coté front : Sarah : authentification front, quelques problèmes
 - Rita : finir 2 jointures, paramètrage shopController + lister catégories et sous-catégorie.
