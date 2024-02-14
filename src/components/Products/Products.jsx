@@ -65,10 +65,7 @@ export default function Products() {
                 <Image src="./reborn1.jpg" wrapped ui={false} />
                 <Card.Content>
                   <NavLink to={`/product/${product.id}`} />
-
-                  <NavLink to={`/product/${product.id}`}>
-                    <Card.Header>{product.title}</Card.Header>
-                  </NavLink>
+                  <Card.Header>{product.title}</Card.Header>
                 </Card.Content>
               </Card>
             </div>
