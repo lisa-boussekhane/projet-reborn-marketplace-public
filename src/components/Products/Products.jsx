@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Card, Image } from 'semantic-ui-react';
-
 import './Products.scss';
 
 export default function Products() {
