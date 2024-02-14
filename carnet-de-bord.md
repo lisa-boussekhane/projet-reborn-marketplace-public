@@ -98,5 +98,13 @@ côté front : Sarah : css my account, my store, delete + reset
 ### Infos individuelles
 - Rita : finir seeding + paramètrage shopController
 - Sarah : scss mobile pas tous + authentification front
-- Lisa : userController + searchController +  test routes insomnnia + produits   
+- Lisa : userController + searchController +  test routes insomnnia + produits
   
+# 14/02/2024 - Sprint 1  
+Hier, côté back : Rita, seeding, authController, shopController, userController, jointure productController 
+Lisa : searchController, getOrdersReturn, signUp front + back 
+
+Coté front : Sarah : authentification front, quelques problèmes
+- Rita : finir 2 jointures, paramètrage shopController + lister catégories et sous-catégorie.
+- Sarah : searchResult front, se renseigner sur multer.
+- Lisa : product:id front, vérifier controller getUserInfos + ajout des jointures, login 
