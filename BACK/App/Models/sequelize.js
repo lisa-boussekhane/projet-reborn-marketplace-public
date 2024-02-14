@@ -8,11 +8,11 @@ const { Sequelize } = require('sequelize');
  // }
 //});
 
-const sequelize = new Sequelize('database', 'user', 'password', {
+const sequelize = new Sequelize(process.env.PG_URL, {
   underscored: true,
-  createdAt: 'created_at',
-  updatedAt: 'updated_at',
-  dialect: 'postgres'
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  dialect: 'postgres',
 });
 
 module.exports = sequelize;

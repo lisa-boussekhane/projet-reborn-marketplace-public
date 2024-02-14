@@ -1,17 +1,38 @@
 import './SignUp.scss';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 export default function SignUp() {
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:3000/signup', {
+        first_name: firstname,
+        last_name: lastname,
+        email,
+        password,
+      });
+      setRegistrationSuccess(true);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error during sign-up:', error);
+    }
+  };
   return (
     <div className="form__wrapper">
       <h1>Sign Up</h1>
-      <form action="" method="post">
+      {registrationSuccess && (
+        <p className="success-message">Utilisateur enregistré avec succès !</p>
+      )}
+      <form onSubmit={handleSignUp}>
         <div className="form__items">
           <label htmlFor="firstname">
             First name:

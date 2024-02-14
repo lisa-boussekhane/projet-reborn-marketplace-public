@@ -11,13 +11,17 @@ user.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     last_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     username: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     email: {
       type: DataTypes.STRING,
@@ -25,64 +29,60 @@ user.init(
     },
     date_of_birth: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     phone: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     zip_code: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     city: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     state: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     duns: {
       type: DataTypes.INTEGER,
       allowNull: true,
+    },
+
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: 'created_at',
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: 'updated_at',
     },
   },
   {
     sequelize,
     modelName: 'user',
     tableName: 'user',
-  }
-);
-
-const User = sequelize.define(
-  'User',
-  {
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    username: DataTypes.STRING,
-    active: DataTypes.BOOLEAN,
-    role: DataTypes.STRING,
-  },
-  {
-    timestamps: false,
-    createdAt: true,
-    updatedAt: true,
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   }
 );
 
 user.beforeSave((user) => {
-  if (user.changed('password')) {
+  if (user.changed('password') || user.isNewRecord) {
     user.password = bcrypt.hashSync(
       user.password,
       bcrypt.genSaltSync(10),
@@ -98,8 +98,7 @@ user.prototype.comparePassword = function (password, cb) {
     }
     cb(null, isMatch);
   });
-
-  // full method from this link: https://stackoverflow.com/questions/54288226/how-correct-create-new-entry-in-sequelize-js-orm //
 };
+// full method from this link: https://stackoverflow.com/questions/54288226/how-correct-create-new-entry-in-sequelize-js-orm //
 
 module.exports = user;

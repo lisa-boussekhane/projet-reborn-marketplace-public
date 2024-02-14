@@ -1,7 +1,25 @@
+import { useState, useEffect } from 'react';
+import { Card, Image } from 'semantic-ui-react';
+import axios from 'axios';
+
 import './Products.scss';
-import { CardHeader, CardContent, Card, Image } from 'semantic-ui-react';
 
 export default function Products() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/products');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <>
       <div className="products__menu">
@@ -38,22 +56,19 @@ export default function Products() {
         </ul>
       </div>
       <div className="products__wrapper">
-        <div className="products__card">
-          <div className="products__card__item">
-            <Card>
-              {/* image à modifier plus tard */}
-              <Image
-                src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-                wrapped
-                ui={false}
-              />
-              <CardContent>
-                {/* Ajouter lien qui redirige le user sur la page Product */}
-                <CardHeader>Title</CardHeader>
-              </CardContent>
-            </Card>
+        {products.map((product) => (
+          <div key={product.id} className="products__card">
+            <div className="products__card__item">
+              <Card>
+                <Image src="./reborn1.jpg" wrapped ui={false} />
+                <Card.Content>
+                  {/* Ajouter lien qui redirige le user sur la page Product */}
+                  <Card.Header>{product.title}</Card.Header>
+                </Card.Content>
+              </Card>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </>
   );
