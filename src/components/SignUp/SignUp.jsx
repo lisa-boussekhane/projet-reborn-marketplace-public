@@ -1,7 +1,6 @@
 import './SignUp.scss';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 
 export default function SignUp() {
   const [firstname, setFirstname] = useState('');
@@ -14,14 +13,26 @@ export default function SignUp() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/signup', {
-        first_name: firstname,
-        last_name: lastname,
-        email,
-        password,
+      const response = await fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          first_name: firstname,
+          last_name: lastname,
+          email,
+          password,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error('Error during sign-up');
+      }
+
+      const data = await response.json();
       setRegistrationSuccess(true);
-      console.log(response.data);
+      console.log(data);
     } catch (error) {
       console.error('Error during sign-up:', error);
     }
