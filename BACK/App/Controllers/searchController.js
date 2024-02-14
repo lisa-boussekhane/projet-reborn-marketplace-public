@@ -9,7 +9,7 @@ const searchController = {
       const results = await product.findAll({
         where: {
           title: { [Op.iLike]: `%${searchTerm}%` },
-          // kit_name: { [Op.iLike]: `%${searchTerm}%` },
+          kit_name: { [Op.iLike]: `%${searchTerm}%` },
         },
       });
 
