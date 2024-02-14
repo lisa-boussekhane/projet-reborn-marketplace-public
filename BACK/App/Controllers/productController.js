@@ -1,173 +1,227 @@
-const authProduct = require('../Models/product');
+const { product } = require ('../Models/product');
 
 const productController = {
-  async getProductPage(req, res) {
-    try {
-      const productId = req.params.id;
-      const product = await authProduct.findByPk(productId);
-
-      if (!product) {
-        return res
-          .status(404)
-          .json({ message: `product with id ${productId} not found.` });
-      }
-
-      res.status(200).json(product);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'an unexpected error occured...' });
+async getProductPage (req, res){
+    try{
+              
+        const productId = req.params.id;
+        const product = await product.findByPk({productId,
+          include: [
+            { model: detail_product, required: true },
+            { model: media, required: false }
+          ]
+        }).then(product => {
+          console.log(product);
+        });
+        
+        if (!product){
+        return res.status(404).json({ message: `product with id ${productId} not found.`});
+        }
+        
+        res.status(200).json(product);
+        
+    }catch (error){
+        console.error(error);
+        res.status(500).json({ message: 'an unexpected error occured...'});
     }
-  },
+    },
 
-  async createProduct(req, res) {
-    try {
-      const { title } = req.body;
+async createProduct(req, res){
+    
+    try{
+          const { title, kit_name, sculptor, size, type, weight, age_range, authenticity_card, price, shipping_fees } = req.body;    
+    
+          const product = {};
+    
+        if (title === undefined || title === ""){
+            return res.status(400).json({ message: 'title is mandatory'});
+          }
+    
+          product.title = title;
 
-      const product = {};
+          if (title){
+            product.title = title;
+          }
+    
+          if (kit_name){
+            product.kit_name = kit_name;
+          }
 
-      if (title === undefined || title === '') {
-        return res.status(400).json({ message: 'title is mandatory' });
-      }
+          if (sculptor){
+            product.sculptor = sculptor;
+          }
 
-      product.title = title;
+          if (size){
+            product.size = size;
+          }
 
-      const newProduct = await authProduct.create(product);
+          if (type){
+            product.type = type;
+          }
 
-      res.status(201).json(newProduct);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'an unexpected error occured...' });
-    }
-  },
+          if (weight){
+            product.weight = weight;
+          }
 
-  async updateProduct(req, res) {
-    try {
-      const productId = req.params.id;
-      const product = await authProduct.findByPk(productId);
+          if (age_range){
+            product.age_range = age_range;
+          }
 
-      if (!product) {
-        return res
-          .status(404)
-          .json({ message: `product with id ${productId} not found.` });
-      }
+          if (authenticity_card){
+            product.authenticity_card = authenticity_card;
+          }
 
-      const {
-        title,
-        kit_name,
-        sculptor,
-        size,
-        type,
-        weight,
-        age_range,
-        authenticity_card,
-        price,
-        shipping_fees,
-      } = req.body;
+        let priceInt;
+        if (price !== undefined){
+            priceInt = Number(price);
 
-      if (title !== undefined && title === '') {
-        return res
-          .status(400)
-          .json({ message: 'name should not be an empty string' });
-      }
+        if (isNaN(priceInt)){
+          return res.status(400).json({ message: 'price should be an integer'});
+        }
 
-      if (title) {
-        product.title = title;
-      }
+          if (price){
+            product.price = price;
+          }
 
-      if (kit_name) {
-        product.kit_name = kit_name;
-      }
+        let shippingFeesInt;
+          if (shipping_fees !== undefined){
+            shippingFeesInt = Number(shipping_fees);
+  
+          if (isNaN(shippingFeesInt)){
+            return res.status(400).json({ message: 'shipping fees should be an integer'});
+          }
 
-      if (sculptor) {
-        product.sculptor = sculptor;
-      }
+          if (shipping_fees){
+            product.shipping_fees = shipping_fees;
+          }
+    
+          const newProduct = await product.create(product);
+    
+          res.status(201).json(newProduct);
+    
+    }catch (error){
+          console.error(error);
+          res.status(500).json({ message: 'an unexpected error occured...'});
+    }  
+    
+      }}},
 
-      if (size) {
-        product.size = size;
-      }
+async updateProduct(req, res){
+    try{
+          const productId = req.params.id;
+          const product = await product.findByPk(productId);
+    
+          if (!product){
+            return res.status(404).json({ message: `product with id ${productId} not found.`});
+          }
+    
+          const { title, kit_name, sculptor, size, type, weight, age_range, authenticity_card, price, shipping_fees } = req.body;    
 
-      if (type) {
-        product.type = type;
-      }
+          if (title !== undefined && title === ""){
+            return res.status(400).json({ message: 'name should not be an empty string'});
+          }
+    
+          if (title){
+            product.title = title;
+          }
+    
+          if (kit_name){
+            product.kit_name = kit_name;
+          }
 
-      if (weight) {
-        product.weight = weight;
-      }
+          if (sculptor){
+            product.sculptor = sculptor;
+          }
 
-      if (age_range) {
-        product.age_range = age_range;
-      }
+          if (size){
+            product.size = size;
+          }
 
-      if (authenticity_card) {
-        product.authenticity_card = authenticity_card;
-      }
+          if (type){
+            product.type = type;
+          }
 
-      let priceInt;
-      if (price !== undefined) {
-        priceInt = Number(price);
-      }
-      if (isNaN(priceInt)) {
-        return res.status(400).json({ message: 'price should be an integer' });
-      }
+          if (weight){
+            product.weight = weight;
+          }
 
-      if (price) {
-        product.price = price;
-      }
+          if (age_range){
+            product.age_range = age_range;
+          }
 
-      let shippingFeesInt;
-      if (shipping_fees !== undefined) {
-        shippingFeesInt = Number(shipping_fees);
-      }
-      if (isNaN(shippingFeesInt)) {
-        return res
-          .status(400)
-          .json({ message: 'shipping fees should be an integer' });
-      }
+          if (authenticity_card){
+            product.authenticity_card = authenticity_card;
+          }
 
-      if (shipping_fees) {
-        product.shipping_fees = shipping_fees;
-      }
+        let priceInt;
+        if (price !== undefined){
+            priceInt = Number(price);
 
-      await product.save();
+        if (isNaN(priceInt)){
+          return res.status(400).json({ message: 'price should be an integer'});
+        }
 
-      res.status(200).json(product);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'an unexpected error occured...' });
-    }
-  },
+          if (price){
+            product.price = price;
+          }
 
-  async deleteProduct(req, res) {
-    try {
-      const productId = req.params.id;
-      const product = await authProduct.findByPk(productId);
+        let shippingFeesInt;
+          if (shipping_fees !== undefined){
+            shippingFeesInt = Number(shipping_fees);
+  
+          if (isNaN(shippingFeesInt)){
+            return res.status(400).json({ message: 'shipping fees should be an integer'});
+          }
 
-      if (!product) {
-        return res
-          .status(404)
-          .json({ message: `product with id ${productId} not found.` });
-      }
+          if (shipping_fees){
+            product.shipping_fees = shipping_fees;
+          }
+    
+        await product.save();
+    
+          res.status(200).json(product);
+        }
+    
+    }catch (error){
+          console.error(error);
+          res.status(500).json({ message: 'an unexpected error occured...'});
+        }
+      }},
+    
+async deleteProduct(req, res){
+    try{
+          const productId = req.params.id;
+          const product = await product.findByPk(productId);
+    
+          if (!product){
+            return res.status(404).json({ message: `product with id ${productId} not found.`});
+          }
+    
+          await product.destroy();
+    
+          res.status(204).json();
+    
+    }catch (error){
+          console.error(error);
+          res.status(500).json({ message: 'an unexpected error occured...'});
+        }   
+    },
 
-      await product.destroy();
+async getProductsPage(req, res){
+    try{
+          const products = await product.findAll({        
+            order: [
+              ['title'],
+            ],
+          });
+          res.status(200).json(products);
 
-      res.status(204).json();
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'an unexpected error occured...' });
-    }
-  },
+    }catch (error){
+          console.error(error);
+          res.status(500).json({ message: 'an unexpected error occured...'});
+        }
+      },
 
-  async getProductsPage(req, res) {
-    try {
-      const products = await authProduct.findAll({
-        order: [['title']],
-      });
-      res.status(200).json(products);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'an unexpected error occured...' });
-    }
-  },
 };
 
 module.exports = productController;
