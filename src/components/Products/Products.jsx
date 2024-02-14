@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Card, Image } from 'semantic-ui-react';
-import axios from 'axios';
 
 import './Products.scss';
 
@@ -10,8 +10,12 @@ export default function Products() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/products');
-        setProducts(response.data);
+        const response = await fetch('http://localhost:3000/products');
+        if (!response.ok) {
+          throw new Error('Error fetching products');
+        }
+        const data = await response.json();
+        setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -62,7 +66,7 @@ export default function Products() {
               <Card>
                 <Image src="./reborn1.jpg" wrapped ui={false} />
                 <Card.Content>
-                  {/* Ajouter lien qui redirige le user sur la page Product */}
+                  <NavLink to={`/product/${product.id}`} />
                   <Card.Header>{product.title}</Card.Header>
                 </Card.Content>
               </Card>

@@ -3,7 +3,7 @@ const { product } = require('../Models/product');
 const verifyToken = require('../Middlewares/authMiddleware');
 
 const userController = {
-  getUserInfos: async (req, res) => {
+  async getUserInfos(req, res) {
     try {
       const userId = req.params.id;
       const targetedUser = await user.findByPk(userId);
@@ -21,7 +21,7 @@ const userController = {
     }
   },
 
-  getOrdersReturns: async (req, res) => {
+  async getOrdersReturns(req, res) {
     try {
       const userId = req.user.id;
 

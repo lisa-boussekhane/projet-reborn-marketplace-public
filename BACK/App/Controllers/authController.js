@@ -115,7 +115,6 @@ const authController = {
         }
         console.log('Mot de passe reçu :', password);
         console.log('Mot de passe enregistré :', user.password);
-        console.log('Mot de passe incorrect');
       } else {
         console.log('Utilisateur non trouvé');
       }

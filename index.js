@@ -4,7 +4,6 @@ const session = require('express-session');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
-const cors = require('cors');
 const router = require('./BACK/App/Router/router');
 
 
@@ -26,9 +25,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(cors());
 app.use(router);
-
 app.use(passport.initialize());
 app.use(passport.session());
 // https://www.npmjs.com/package/passport //
