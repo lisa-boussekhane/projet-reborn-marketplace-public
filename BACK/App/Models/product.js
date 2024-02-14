@@ -61,6 +61,7 @@ product.init(
     sequelize,
     modelName: 'product',
     tableName: 'product',
+    timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
   }

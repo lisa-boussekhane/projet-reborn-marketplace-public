@@ -100,7 +100,7 @@ côté front : Sarah : css my account, my store, delete + reset
 - Sarah : scss mobile pas tous + authentification front
 - Lisa : userController + searchController +  test routes insomnnia + produits
   
-# 14/02/2024 - Sprint 1  
+# 14/02/2024 - Sprint 2  
 
 Hier, côté back : Rita, seeding, authController, shopController, userController, jointure productController 
 Lisa : searchController, getOrdersReturn, signUp front + back, products front 
