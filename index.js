@@ -6,7 +6,6 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const router = require('./BACK/App/Router/router');
 
-
 const app = express();
 const port = process.env.PORT;
 
