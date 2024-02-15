@@ -10,7 +10,7 @@ async getProductPage(req, res) {
           const { productId } = req.params.id;
   
           // Fetch the product from the database, including its detail_product and media
-          const product = await Product.findByPk(productId, {
+          const product = await product.findByPk(productId, {
               include: [
                   {
                       model: detail_product,
