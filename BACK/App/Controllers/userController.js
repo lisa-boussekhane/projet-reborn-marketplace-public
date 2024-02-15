@@ -1,6 +1,7 @@
 const { user } = require('../Models/user');
 const { product } = require('../Models/product');
 const verifyToken = require('../Middlewares/authMiddleware');
+const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const userController = {
   async getUserInfos(req, res) {
