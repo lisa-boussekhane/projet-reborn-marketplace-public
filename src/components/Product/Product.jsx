@@ -31,10 +31,6 @@ export default function Product() {
         <div className="product__details">
           <div className="product__desc">
             <p className="product__p">
-              Description: Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Inventore omnis modi tenetur expedita veritatis perferendis
-              eius quo debitis quibusdam, voluptatem minus ipsa repellendus illo
-              nulla voluptate ex dignissimos hic saepe?
             </p>
           </div>
         </div>
@@ -72,6 +68,7 @@ export default function Product() {
           </div>
 
           <div className="product__group__row">
+          {product ? product.detail_product.description : 'Loading...'}
             <p>Weight: </p>
           </div>
 

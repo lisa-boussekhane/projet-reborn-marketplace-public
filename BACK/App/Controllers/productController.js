@@ -10,7 +10,7 @@ const productController = {
     try {
       // Extract the product ID from the request parameters
       const productId = req.params.id;
-      console.log(productId );
+      console.log(productId);
 
       // Fetch the product from the database, including its detail_product and media
       const product = await authProduct.findByPk(productId, {
@@ -61,8 +61,14 @@ const productController = {
       mediaData.product_id = product.id;
 
       // Create detailProduct and media associated with the product
-      const detailProduct = await detail_product.create(detailProductData, { transaction: t });
-      const media = await Promise.all(mediaData.map(mediaItem => media.create(mediaItem, { transaction: t })));
+      const detailProduct = await detail_product.create(detailProductData, {
+        transaction: t,
+      });
+      const media = await Promise.all(
+        mediaData.map((mediaItem) =>
+          media.create(mediaItem, { transaction: t })
+        )
+      );
 
       // If everything goes well, commit the transaction
       await t.commit();
@@ -161,7 +167,7 @@ const productController = {
     }
   },
 
-async createNewRecord(data) {
+  async createNewRecord(data) {
     try {
       const newRecord = await product.create(data);
       console.log('Record created with unique ID:', newRecord.uniqueId);
@@ -171,7 +177,7 @@ async createNewRecord(data) {
     }
   },
 
-async createNewRecordWithRetry(data, retryCount = 0) {
+  async createNewRecordWithRetry(data, retryCount = 0) {
     try {
       const newRecord = await product.create(data);
       return newRecord;
@@ -183,7 +189,7 @@ async createNewRecordWithRetry(data, retryCount = 0) {
         throw error; // Rethrow error if not a unique constraint error or retries exceeded
       }
     }
-  }
+  },
 };
 
 module.exports = productController;
