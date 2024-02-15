@@ -3,18 +3,19 @@ import './SellMyReborn.scss';
 export default function SellMyReborn() {
   return (
     <div className="sell__box">
-      <div className="sell__container">
-        <img
-          src="./homepage3.jpeg"
-          alt="reborn on sale"
-          className="sell__img"
-        />
-        {/* Add clickable link */}
-        <h3>Add images and videos</h3>
-      </div>
-
-      <form action="" method="post">
+      <form action="/product/create" method="post">
         <div className="sell__wrapper">
+          <form
+            method="post"
+            action="/product/create"
+            encType="multipart/form-data"
+            className="sell__container"
+          >
+            <input type="file" name="image" />
+            <input type="submit" />
+            {/* <h3>Add images and videos</h3> */}
+          </form>
+
           <div className="sell__col1">
             <h3>I want to sell my reborn</h3>
             <input
