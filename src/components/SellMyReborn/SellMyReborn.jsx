@@ -3,11 +3,11 @@ import './SellMyReborn.scss';
 export default function SellMyReborn() {
   return (
     <div className="sell__box">
-      <form action="/sellmyreborn" method="post">
+      <form action="/product/create" method="post">
         <div className="sell__wrapper">
           <form
             method="post"
-            action="/sellmyreborn"
+            action="/product/create"
             encType="multipart/form-data"
             className="sell__container"
           >
