@@ -3,7 +3,7 @@ const product = require('../Models/product');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const shopController = {
-async showStore(req, res) {
+async showShop(req, res) {
         try {
             // Extract shop ID from request parameters
             const { shopId } = req.params.id;

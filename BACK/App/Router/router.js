@@ -7,6 +7,7 @@ const productController = require('../Controllers/productController');
 const chatController = require('../Controllers/chatController');
 const paymentController = require('../Controllers/paymentController');
 const authController = require('../Controllers/authController');
+const shopController = require('../Controllers/shopController');
 const verifyToken = require('../Middlewares/authMiddleware');
 
 const router = express.Router();
