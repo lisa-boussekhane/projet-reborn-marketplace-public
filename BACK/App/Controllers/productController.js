@@ -4,8 +4,6 @@ const media = require('../Models/media');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const productController = {
-  const { Product, DetailProduct, Media } = require('../models'); // Adjust the path as necessary
-
 async getProductPage(req, res) {
       try {
           // Extract the product ID from the request parameters
@@ -159,3 +157,4 @@ async getProductPage(req, res) {
 };
 
 module.exports = productController;
+
