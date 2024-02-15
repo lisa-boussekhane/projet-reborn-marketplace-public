@@ -46,7 +46,7 @@ function App() {
         <Route path="/termsofsale" element={<TermsOfSales />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/createmystore" element={<CreateMyStore />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="/product/:id" element={<Product />} />
         <Route path="/sellmyreborn" element={<SellMyReborn />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/howitworks" element={<HowItWorks />} />
