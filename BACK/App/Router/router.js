@@ -20,7 +20,6 @@ router.patch('/user/:id', verifyToken, authController.updateAccount);
 router.delete('/user/:id', verifyToken, authController.deleteAccount);
 router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
-
 // router.patch('/login', verifyToken, authController.updatePassword);
 
 router.get('/result', searchController.searchReborns);
@@ -37,7 +36,7 @@ router.get('/shop/:id', shopController.showShop);
 router.post('/shop/:id', shopController.createShop);
 router.delete('/shop/:id', shopController.deleteShop);
 
-// router.get('/chat/:id', chatController.getMessage);
-// router.post('/chat/message/room/:id', chatController.chatRoom);
+router.get('/chat/:id', verifyToken, chatController.getMessage);
+router.post('/chat/message/room/:id',verifyToken, chatController.sendMessage);
 
 module.exports = router;

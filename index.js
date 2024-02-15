@@ -23,6 +23,7 @@ app.use(
     saveUninitialized: false,
   })
 );
+
 app.use(express.json());
 app.use(router);
 app.use(passport.initialize());
