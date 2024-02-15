@@ -21,6 +21,7 @@
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
@@ -38,6 +39,7 @@
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
     "sequelize": "^6.36.0",
+    "short-unique-id": "^5.0.3",
     "uuid": "^9.0.1",
     "validator": "^13.11.0",
     "vite": "^4.4.5"

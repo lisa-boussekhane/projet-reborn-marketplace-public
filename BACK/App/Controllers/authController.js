@@ -17,48 +17,41 @@ const authController = {
         error: error.message,
       });
     }
-  },
 
-  async createUserAccount(req, res) {
-    // Create a password schema with password-validator
-    const passwordSchema = new passwordValidator();
-    passwordSchema
-      .is()
-      .min(8) // Minimum length 8 characters
-      .has()
-      .uppercase() // Must have uppercase letters
-      .has()
-      .lowercase() // Must have lowercase letters
-      .has()
-      .digits(2) // Must have at least 2 digits
-      .has()
-      .not()
-      .spaces() // Should not have spaces
-      .is()
-      .not()
-      .oneOf(['Passw0rd', 'Password123', '1234']); // Blocklist common passwords
-    try {
-      const { first_name, last_name, email, password } = req.body;
+},
 
-      // Validate the email
-      if (!validator.isEmail(email)) {
-        return res.status(400).json({
-          message: 'Invalid email address.',
-        });
-      }
-
-      // Validate the password
-      if (!passwordSchema.validate(password)) {
-        return res.status(400).json({
-          message: 'Password does not meet the requirements.',
-        });
-      }
-
-      // Hash the password
-      const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-      // Create the user in the database
+async createUserAccount(req, res) {
+  // Create a password schema with password-validator
+  const passwordSchema = new passwordValidator();
+  passwordSchema
+    .is().min(8)                               // Minimum length 8 characters
+    .has().uppercase()                         // Must have uppercase letters
+    .has().lowercase()                         // Must have lowercase letters
+    .has().digits(2)                           // Must have at least 2 digits
+    .has().not().spaces()                      // Should not have spaces
+    .is().not().oneOf(['Passw0rd', 'Password123', '1234']); // Blocklist common passwords
+  try {
+        const { first_name, last_name, email, password } = req.body;
+  
+          // Validate the email
+          if (!validator.isEmail(email)) {
+              return res.status(400).json({
+                  message: 'Invalid email address.',
+              });
+          }
+  
+          // Validate the password
+          if (!passwordSchema.validate(password)) {
+              return res.status(400).json({
+                  message: 'Password does not meet the requirements.',
+              });
+          }
+  
+          // Hash the password
+          const saltRounds = 10;
+          const hashedPassword = await bcrypt.hash(password, saltRounds);
+  
+          // Create the user in the database
       const newUser = await User.create({
         firstName: first_name,
         lastName: last_name,
@@ -78,6 +71,7 @@ const authController = {
       res.status(500).json({ message: 'Failed to create account' });
     }
   },
+
 
   async logAccount(req, res) {
     try {

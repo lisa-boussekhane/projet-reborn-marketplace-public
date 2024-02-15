@@ -27,7 +27,7 @@ router.get('/result', searchController.searchReborns);
 // router.post('/payment', paymentController.bankAccount);
 
 router.get('/product/:id', productController.getProductPage);
-router.post('/product/:id', verifyToken, productController.createProduct);
+router.post('/product/create', verifyToken, productController.createProduct);
 router.patch('/product/:id', verifyToken, productController.updateProduct);
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);

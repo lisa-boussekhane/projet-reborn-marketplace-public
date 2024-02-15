@@ -43,7 +43,7 @@ CREATE TABLE "shop" (
 
 CREATE TABLE "product" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  "security_code" UUID NOT NULL,
+  "unique_id" VARCHAR(6) NOT NULL UNIQUE,
   "title" VARCHAR(100) NOT NULL,
   "kit_name" VARCHAR(20) NOT NULL,
   "sculptor" VARCHAR(50) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE "product" (
   "type" VARCHAR(100) NOT NULL,
   "weight" INTEGER NOT NULL,
   "age_range" VARCHAR(100) NOT NULL,
-  "authenticity_card" BOOLEAN NOT NULL,
+  "authenticity_card" VARCHAR(5) NOT NULL,
   "price" INTEGER NOT NULL,
   "shipping_fees" INTEGER,
   "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
@@ -63,11 +63,12 @@ CREATE TABLE "product" (
 CREATE TABLE "detail_product" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "localization" VARCHAR(50) NOT NULL,
-  "belly_plate" BOOLEAN NOT NULL,
+  "belly_plate" VARCHAR(5) NOT NULL,
   "gender" VARCHAR(20) NOT NULL,
   "year" INTEGER NOT NULL,
   "eyes" VARCHAR(100) NOT NULL,
   "hair" VARCHAR(100) NOT NULL,
+  "description" VARCHAR(300) NOT NULL,
   "status" VARCHAR(50) NOT NULL,
   "product_id" INTEGER NOT NULL REFERENCES "product"("id") ON DELETE CASCADE,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
