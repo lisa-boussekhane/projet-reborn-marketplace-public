@@ -32,11 +32,11 @@ router.patch('/product/:id', verifyToken, productController.updateProduct);
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
-// router.get('/shop/:id', shopController.showStore);
-// router.post('/shop/:id', shopController.createShop);
-// router.delete('/shop/:id', shopController.deleteShop);
+router.get('/shop/:id', shopController.showShop);
+router.post('/shop/:id', shopController.createShop);
+router.delete('/shop/:id', shopController.deleteShop);
 
 // router.get('/chat/:id', chatController.getMessage);
-// router.patch('/chat/message/room/:id', chatController.chatRoom);
+// router.post('/chat/message/room/:id', chatController.chatRoom);
 
 module.exports = router;
