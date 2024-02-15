@@ -48,7 +48,7 @@ const productController = {
       const { productData, detailProductData, mediaData } = req.body;
 
       // Create product
-      const product = await product.create(productData, { transaction: t });
+      const product = await authProduct.create(productData, { transaction: t });
 
       // Add product ID to detailProductData and mediaData
       detailProductData.product_id = product.id;

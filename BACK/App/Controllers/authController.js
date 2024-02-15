@@ -51,7 +51,7 @@ async createUserAccount(req, res) {
           const hashedPassword = await bcrypt.hash(password, saltRounds);
   
           // Create the user in the database
-          const newUser = await User.create({
+          const newUser = await user.create({
               firstName: first_name,
               lastName: last_name,
               email: email,
