@@ -13,7 +13,8 @@ const searchController = {
           title: { [Op.iLike]: `%${searchTerm}%` },
           kit_name: { [Op.iLike]: `%${searchTerm}%` },
         },
-        include: [{ model: detail_product }],
+        include: [{ model: detail_product,
+          as: 'detail_product', }],
       });
 
       res.status(200).json({ results });
