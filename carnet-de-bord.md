@@ -110,4 +110,14 @@ Journée compliquée, recherche infructueuses pour régler notre problème d'aut
 Coté front : Sarah : authentification front, quelques problèmes
 - Rita : finir 2 jointures, paramètrage shopController + lister catégories et sous-catégorie.
 - Sarah : searchResult front, se renseigner sur multer.
-- Lisa : product:id front, vérifier controller getUserInfos + ajout des jointures, login 
+- Lisa : product:id front, vérifier controller getUserInfos + ajout des jointures, login
+
+  # 15/02/2024 - Sprint 2
+  Hier, côté back : Rita :  finir 2 jointures, paramètrage shopController + lister catégories et sous-catégorie + régler soucis
+  Lisa : tenter de faire le login back + ajouts jointures + tenter de faire product:id front
+  coté front : Sarah : login front
+
+   Infos individuelles :
+  - Rita : chatController, password validator et validator js
+  - Sarah : authentification front, searchResult, multer, catégories et sous-catégories
+  - Lisa : authentification back, searchResult, product/:id front, getUserInfos
