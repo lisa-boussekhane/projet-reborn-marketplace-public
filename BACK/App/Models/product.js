@@ -6,7 +6,7 @@ const sequelize = require ('./sequelize');
 class product extends Model {}
 
 product.init({  
-  uniqueId: {
+  unique_id: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true, // Ensure uniqueness at the database level
