@@ -43,7 +43,7 @@ CREATE TABLE "shop" (
 
 CREATE TABLE "product" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  "security_code" UUID NOT NULL,
+  "unique_id" VARCHAR(6) NOT NULL UNIQUE,
   "title" VARCHAR(100) NOT NULL,
   "kit_name" VARCHAR(20) NOT NULL,
   "sculptor" VARCHAR(50) NOT NULL,
