@@ -69,7 +69,6 @@ export default function Product() {
 
           <div className="product__group__row">
           {product ? product.detail_product.description : 'Loading...'}
-            <p>Weight: </p>
           </div>
 
           <div className="product__group__col">

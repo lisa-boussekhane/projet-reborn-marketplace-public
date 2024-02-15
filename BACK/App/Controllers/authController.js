@@ -60,8 +60,8 @@ const authController = {
 
       // Create the user in the database
       const newUser = await authUser.create({
-        firstName: first_name,
-        lastName: last_name,
+        first_name: first_name,
+        last_name: last_name,
         email: email,
         password: hashedPassword,
       });
@@ -69,8 +69,8 @@ const authController = {
       // Respond with the created user (excluding the password for security)
       res.status(201).json({
         id: newUser.id,
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
+        first_name: newUser.first_name,
+        last_name: newUser.last_name,
         email: newUser.email,
       });
     } catch (error) {
