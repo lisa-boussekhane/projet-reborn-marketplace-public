@@ -1,9 +1,11 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+
 const router = require('./BACK/App/Router/router');
 const path = require('path');
 const multer = require('multer');
@@ -16,6 +18,7 @@ const port = process.env.PORT;
 // app.use(express.json());
 // app.use('/router', authRoutes);
 // app.use('/protected', protectedRoute);
+app.use(cors());
 
 app.set('view engine', 'ejs');
 

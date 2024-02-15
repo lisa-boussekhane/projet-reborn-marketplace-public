@@ -14,11 +14,24 @@ media.init(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: 'created_at',
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: 'updated_at',
+    },
   },
   {
     sequelize,
     modelName: 'media',
     tableName: 'media',
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   }
 );
 
