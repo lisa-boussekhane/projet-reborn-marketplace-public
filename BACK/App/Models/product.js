@@ -48,12 +48,13 @@ product.init({
         allowNull: false,
       },
   
-  }), 
+  }, 
   {  
     sequelize,
     modelName: 'product',
     tableName: 'product',
   }
+),
 
   product.beforeCreate((yourModelInstance, options) => {
     const uid = new ShortUniqueId({ length: 6 }); // Adjust length as needed
