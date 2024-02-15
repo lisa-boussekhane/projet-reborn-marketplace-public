@@ -50,7 +50,7 @@ INSERT INTO "product" ("id", "unique_id", "title", "kit_name", "sculptor", "size
 (3, 'erlU3t', 'Baby Toddler Girl Lottie Has Realistic Skin Blue Eyes and Brown Hair', 'Lottie', 'Laura Lee Eagles', '24', 'Vinyl', '8', 'Toddler', 'Yes', '980', '60', 1, 1);
 (4, 'iM3i2Y', 'Baby Full Silicone Girl Johnnie Closed Eyes', 'Johnnie', 'Ina Volprich', '19.5', 'Silicone', '7', 'Baby', 'Yes', '1200', '60', 3, 1);
 
-ON CONFLICT (unique_id) DO UPDATE;
+--ON CONFLICT (unique_id) DO UPDATE;
 
 --------------------------------------------------------
 -- Déchargement des données de la table "detail_product"
