@@ -7,7 +7,8 @@ const productController = {
   async getProductPage(req, res) {
     try {
       // Extract the product ID from the request parameters
-      const { productId } = req.params.id;
+      const productId = req.params.id;
+      console.log(productId );
 
       // Fetch the product from the database, including its detail_product and media
       const product = await authProduct.findByPk(productId, {

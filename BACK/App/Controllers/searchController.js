@@ -1,6 +1,7 @@
 const { Op } = require('sequelize');
 const product = require('../Models/product');
 const detail_product = require('../Models/detail_product');
+const media = require('../Models/media');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const searchController = {
@@ -34,7 +35,8 @@ const searchController = {
           {
             model: product,
             as: 'product',
-            attributes: ['id', 'title'], // uniquement les colonnes qui nous intéressent de product
+            attributes: ['id', 'title'],
+            include: [{ model: media, as: 'media' }],
           },
         ],
       });
