@@ -68,6 +68,7 @@ CREATE TABLE "detail_product" (
   "year" INTEGER NOT NULL,
   "eyes" VARCHAR(100) NOT NULL,
   "hair" VARCHAR(100) NOT NULL,
+  "description" VARCHAR(300) NOT NULL,
   "status" VARCHAR(50) NOT NULL,
   "product_id" INTEGER NOT NULL REFERENCES "product"("id") ON DELETE CASCADE,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
