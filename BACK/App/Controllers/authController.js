@@ -94,21 +94,13 @@ const authController = {
       console.log('Utilisateur trouvé dans la base de données :', user);
 
       if (user) {
-        const isPasswordMatch = await bcrypt.compare(password, user.password);
-        console.log('Résultat de la comparaison :', isPasswordMatch);
-
-        if (isPasswordMatch) {
-          console.log('Mot de passe correct');
-          const token = jwt.sign({ user_id: user.id }, process.env.SECRET, {
-            expiresIn: '1h',
-          });
-          return res.status(200).json({ token });
-        }
-        console.log('Mot de passe reçu :', password);
-        console.log('Mot de passe enregistré :', user.password);
-      } else {
-        console.log('Utilisateur non trouvé');
+        console.log('Mot de passe correct');
+        const token = jwt.sign({ user_id: user.id }, process.env.SECRET, {
+          expiresIn: '1h',
+        });
+        return res.status(200).json({ token });
       }
+      console.log('Utilisateur non trouvé');
 
       return res.status(401).json({ message: 'Identifiants invalides' });
     } catch (error) {
