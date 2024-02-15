@@ -24,9 +24,9 @@
   text-align: center;
   border: 1px solid v.$blue;
   border-radius: 3px;
-  width: 60%;
-  padding: 4px 3px;
-  margin: 20px auto;
+  width: 90%;
+  padding: 6px 6px;
+  margin-right: 10rem;
   cursor: pointer;
 }
 
@@ -56,6 +56,7 @@
 
 .sell__col1 h3 {
   font-size: 1.1em;
+  margin-top: 3rem;
 }
 
 .sell__col1 input[type='text'],
@@ -64,7 +65,7 @@
 }
 
 .sell__col2 {
-  margin-top: 4rem;
+  margin-top: 7rem;
   margin-left: 2.1rem;
 }
 
@@ -84,8 +85,8 @@
 }
 
 .sell__col3 {
-  margin-top: -2.5rem;
   margin-left: 2.1rem;
+  padding-top: 0.5rem;
 }
 
 .sell__desc,
@@ -96,10 +97,12 @@
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  margin-left: 4rem;
+  padding-bottom: 5rem;
 }
 
 .sell__desc {
-  margin-left: -2rem;
+  margin-right: -5rem;
 }
 
 .sell__btn input {
@@ -110,7 +113,6 @@
   border-radius: 3px;
   padding: 8px;
   width: 180px;
-  margin-left: -3rem;
   margin-bottom: -5rem;
   cursor: pointer;
 }
