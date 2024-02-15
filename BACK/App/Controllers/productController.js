@@ -2,6 +2,8 @@ const authProduct = require('../Models/product');
 const detail_product = require('../Models/detail_product');
 const media = require('../Models/media');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
+const ShortUniqueId = require('short-unique-id');
+const uid = new ShortUniqueId({ length: 6 });
 
 const productController = {
   async getProductPage(req, res) {
@@ -47,6 +49,9 @@ const productController = {
       // Extract product, detailProduct, and media data from request body
       const { productData, detailProductData, mediaData } = req.body;
 
+      // Generate a unique ID for the product
+      productData.customId = uid();
+
       // Create product
       const product = await authProduct.create(productData, { transaction: t });
 
@@ -55,10 +60,8 @@ const productController = {
       mediaData.product_id = product.id;
 
       // Create detailProduct and media associated with the product
-      const detailProduct = await detail_product.create(detailProductData, {
-        transaction: t,
-      });
-      const media = await media.create(mediaData, { transaction: t });
+      const detailProduct = await detail_product.create(detailProductData, { transaction: t });
+      const media = await Promise.all(mediaData.map(mediaItem => media.create(mediaItem, { transaction: t })));
 
       // If everything goes well, commit the transaction
       await t.commit();
@@ -156,6 +159,30 @@ const productController = {
       res.status(500).json({ message: 'an unexpected error occured...' });
     }
   },
+
+async createNewRecord(data) {
+    try {
+      const newRecord = await product.create(data);
+      console.log('Record created with unique ID:', newRecord.uniqueId);
+      // Handle the newly created record as needed
+    } catch (error) {
+      console.error('Error creating new record:', error);
+    }
+  },
+
+async createNewRecordWithRetry(data, retryCount = 0) {
+    try {
+      const newRecord = await product.create(data);
+      return newRecord;
+    } catch (error) {
+      if (error.name === 'SequelizeUniqueConstraintError' && retryCount < 5) {
+        console.log('Unique ID collision detected, retrying...');
+        return createNewRecordWithRetry(data, retryCount + 1);
+      } else {
+        throw error; // Rethrow error if not a unique constraint error or retries exceeded
+      }
+    }
+  }
 };
 
 module.exports = productController;
