@@ -1,11 +1,13 @@
 import './Login.scss';
 import { useState } from 'react';
+import { useAuth } from '../AuthContext';
 import { NavLink } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const { setIsLoggedIn } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +25,7 @@ export default function Login() {
 
       if (data.success) {
         setLoginSuccess(true);
+        setIsLoggedIn(true);
       } else {
         console.error('Échec de la connexion');
       }

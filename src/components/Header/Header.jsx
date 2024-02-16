@@ -1,12 +1,28 @@
 import './Header.scss';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import { useAuth } from '../AuthContext';
 
 export default function Header() {
   const [showLinks, setShowLinks] = useState(false);
+  const { isLoggedIn } = useAuth();
 
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
+  };
+  const renderLoginOrAccountLink = () => {
+    if (isLoggedIn) {
+      return (
+        <NavLink to="/myaccount">
+          <li className="navbar__item">My Account</li>
+        </NavLink>
+      );
+    }
+    return (
+      <NavLink to="/login">
+        <li className="navbar__item">Login</li>
+      </NavLink>
+    );
   };
   return (
     <nav className={`navbar ${showLinks ? 'show-nav' : 'hide-nav'}`}>
@@ -44,9 +60,7 @@ export default function Header() {
         <NavLink to="/signup">
           <li className="navbar__item">Sign up</li>
         </NavLink>
-        <NavLink to="/login">
-          <li className="navbar__item">Login</li>
-        </NavLink>
+        <NavLink to="/login">{renderLoginOrAccountLink()}</NavLink>
         <NavLink to="/cart">
           <img src="./cart.png" alt="logo du site" className="navbar-cart" />
         </NavLink>
