@@ -2,7 +2,6 @@ import './Payment.scss';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import fetchToken from '../token';
 
 export default function Payment() {
   const stripe = useStripe();
@@ -37,19 +36,21 @@ export default function Payment() {
     } else {
       const paymentMethodId = paymentMethod.id;
 
+      // éléments à envoyer au back
       const formData = {
         paymentMethodId,
         amount: amount,
       };
 
-      const fetchToken = localStorage.getItem('jwtToken');
+      // récupérer le token stocké dans localStorage
+      const token = localStorage.getItem('jwtToken');
 
       try {
         const response = await fetch('/process-payment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${fetchToken}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(formData),
         });
@@ -60,7 +61,7 @@ export default function Payment() {
 
           const { clientSecret, amount } = data;
 
-          // Utilisez le clientSecret pour confirmer le paiement du côté client
+          // clientSecret pour confirmer le paiement du côté client
           const { paymentIntent, error } = await stripe.confirmCardPayment(
             clientSecret,
             {
@@ -92,6 +93,11 @@ export default function Payment() {
   return (
     <div className="payment__container">
       <h1 className="payment__title">Payment</h1>
+      {loading && <div>Loading...</div>}
+      {successMessage && (
+        <div className="success-message">{successMessage}</div>
+      )}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
       <form onSubmit={handleSubmit}>
         <div className="payment__box">
           <h2>Personal information</h2>
