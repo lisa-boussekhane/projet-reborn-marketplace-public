@@ -1,25 +1,24 @@
 const verifyToken = require('../../Middlewares/authMiddleware');
 
-const payment = {
+const paymentController = {
 async addStripePayment(req, res) {
-    const { amount, currency, token } = req.body;
-  
-    try {
-      // Create a payment intent using the Stripe API
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount,
-        currency,
-        payment_method: token,
-        confirm: true,
-      });
-  
-      // Return the payment intent status to the client
-      res.json({ status: paymentIntent.status });
-  
-    } catch (error) {
-      res.status(500).json({ error: 'An error occurred while processing the payment.' });
-    }
+  try {
+    const { amount } = req.body; 
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: 'usd', 
+      payment_method: token,
+      confirm: true,
+     });
+
+    res.json({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
+};
 
-module.exports = payment;
+module.exports = paymentController;
