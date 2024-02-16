@@ -117,7 +117,17 @@ Coté front : Sarah : authentification front, quelques problèmes
   Lisa : tenter de faire le login back + ajouts jointures + tenter de faire product:id front
   coté front : Sarah : login front
 
-   Infos individuelles :
+   ### Infos individuelles
   - Rita : chatController, password validator et validator js
   - Sarah : authentification front, searchResult, multer, catégories et sous-catégories
   - Lisa : authentification back, searchResult, product/:id front, getUserInfos
+ 
+   # 15/02/2024 - Sprint 2
+    Hier, côté back : Rita : rajout de seeding, paramètrage, chatController, méthode updatePasswword, validatorJs + passwordValidator, shortUniqueId
+                      Lisa : authentification back, searchResult, product/:id front 
+  côté front Sarah : login, multer, searchResult
+
+  ### Infos individuelles 
+- Rita : finir add seeding, stripe, paramètrage paiementController, route pour le chat
+- Sarah : régler le problème du login, searchResult, multer, étoiles vendeur + page sellMyReborn, category 
+- Lisa : panier, passwordValidator + validatorJs + shortUniqueIdpourlefront + page paiement
