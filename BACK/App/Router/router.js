@@ -24,8 +24,7 @@ router.patch('/login', verifyToken, authController.updatePassword);
 
 router.get('/result', searchController.searchReborns);
 
-// router.post('/payment', paymentController.bankAccount);
-// router.post('/cart', paymentController.addProduct);
+router.post('/payment', paymentController.bankAccount);
 
 router.get('/product/:id', productController.getProductPage);
 router.post('/product/create', verifyToken, productController.createProduct);
@@ -38,6 +37,7 @@ router.post('/shop/:id', shopController.createShop);
 router.delete('/shop/:id', shopController.deleteShop);
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);
+router.get('/chat/:id', verifyToken, chatController.getAllMessages);
 router.post('/chat/message/room/:id',verifyToken, chatController.sendMessage);
 
 module.exports = router;
