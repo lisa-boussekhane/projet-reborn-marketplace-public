@@ -22,6 +22,8 @@ export default function Login() {
       });
       const data = await response.json();
       console.log('API Response:', data);
+      const { token } = data;
+      localStorage.setItem('jwtToken', token);
 
       if (data.success) {
         setLoginSuccess(true);

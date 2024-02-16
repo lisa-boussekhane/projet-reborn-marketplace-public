@@ -8,11 +8,13 @@ import {
   Image,
 } from 'semantic-ui-react';
 import { Icon as Icons } from '@iconify/react';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 import { useCart } from '../React-Context/CartContext';
 
 export default function Cart() {
   const { cart, removeFromCart } = useCart();
+  const navigate = useNavigate();
 
   const handleRemoveFromCart = (itemId) => {
     removeFromCart(itemId);
@@ -28,6 +30,11 @@ export default function Cart() {
 
   const calculateTotal = () => {
     return calculateSubtotal() + calculateTotalDeliveryFees();
+  };
+
+  const handleCheckout = () => {
+    const totalAmount = calculateTotal();
+    navigate(`/payment?amount=${totalAmount}`);
   };
 
   return (
@@ -73,8 +80,11 @@ export default function Cart() {
           <p className="amount__total">
             Total (VAT included) : ${calculateTotal()}
           </p>
-
-          <input type="submit" value="Checkout" className="amount__btn" />
+          <div className="checkout-button-container">
+            <button type="submit" value="Checkout" onClick={handleCheckout}>
+              Checkout
+            </button>
+          </div>
         </div>
         <div className="payment__method">
           <h2>We accept</h2>
