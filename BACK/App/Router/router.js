@@ -22,7 +22,7 @@ router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
 router.patch('/login', verifyToken, authController.updatePassword);
 
-router.get('/result', searchController.searchReborns);
+router.get('/results', searchController.searchReborns);
 
 // router.post('/payment', paymentController.bankAccount);
 // router.post('/cart', paymentController.addProduct);
@@ -38,6 +38,6 @@ router.post('/shop/:id', shopController.createShop);
 router.delete('/shop/:id', shopController.deleteShop);
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);
-router.post('/chat/message/room/:id',verifyToken, chatController.sendMessage);
+router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
 
 module.exports = router;
