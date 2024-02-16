@@ -9,6 +9,10 @@ shop.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    rating: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+  },
   
   }, {  
     sequelize,
