@@ -20,11 +20,12 @@ router.patch('/user/:id', verifyToken, authController.updateAccount);
 router.delete('/user/:id', verifyToken, authController.deleteAccount);
 router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
-// router.patch('/login', verifyToken, authController.updatePassword);
+router.patch('/login', verifyToken, authController.updatePassword);
 
 router.get('/result', searchController.searchReborns);
 
 // router.post('/payment', paymentController.bankAccount);
+// router.post('/cart', paymentController.addProduct);
 
 router.get('/product/:id', productController.getProductPage);
 router.post('/product/create', verifyToken, productController.createProduct);
