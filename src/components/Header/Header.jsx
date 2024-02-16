@@ -1,7 +1,7 @@
 import './Header.scss';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import { useAuth } from '../AuthContext';
+import { useAuth } from '../React-Context/AuthContext';
 
 export default function Header() {
   const [showLinks, setShowLinks] = useState(false);

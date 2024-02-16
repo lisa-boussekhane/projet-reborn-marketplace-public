@@ -71,12 +71,22 @@
 
 .product__fees {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-right: 1rem;
 }
 
 .product__fees p {
   font-size: 1.4em;
   font-weight: bold;
+}
+
+#cart-button {
+  background-color: v.$blue;
+  padding : 15px;
+  font-size: 1.5rem;
+  padding-left: 20px;
+  padding-right: 20px;
+  cursor: pointer;
+  
 }

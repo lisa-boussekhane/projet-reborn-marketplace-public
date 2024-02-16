@@ -54,7 +54,6 @@
 
   &__btn {
     width: 100%;
-    padding: 0.6rem;
     font-size: 1.4em;
     background: v.$blue;
     color: #fff;
@@ -70,9 +69,15 @@
   }
 }
 
-.amount__total {
+.amount__total, .amount__subtotal , .amount__delay {
   font-size: 1.3em;
   font-weight: bold;
+}
+.checkout-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px; 
 }
 
 .payment__method {
@@ -92,4 +97,9 @@
   align-items: center;
   margin-top: 2rem;
   gap: 20px;
+}
+
+.price-trash {
+  display: flex;
+  justify-content: space-evenly;
 }

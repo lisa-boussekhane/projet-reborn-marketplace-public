@@ -1,6 +1,6 @@
 import './Login.scss';
 import { useState } from 'react';
-import { useAuth } from '../AuthContext';
+import { useAuth } from '../React-Context/AuthContext';
 import { NavLink } from 'react-router-dom';
 
 export default function Login() {
@@ -22,6 +22,10 @@ export default function Login() {
       });
       const data = await response.json();
       console.log('API Response:', data);
+      const { token } = data;
+
+      // stocker le token dans localStorage
+      localStorage.setItem('jwtToken', token);
 
       if (data.success) {
         setLoginSuccess(true);
@@ -38,6 +42,7 @@ export default function Login() {
     <>
       <div className="form__container">
         <h1>Login</h1>
+        {loginSuccess && <p>Vous êtes bien connecté !</p>}
         <form onSubmit={handleSubmit}>
           <div className="form__group">
             <label htmlFor="email">
@@ -70,7 +75,6 @@ export default function Login() {
             <NavLink to="/resetpassword">Forgotten your password?</NavLink>
           </div>
         </form>
-        {loginSuccess && <p>Vous êtes bien connecté !</p>}
       </div>
       <div className="signup__box">
         <div className="sign__btn">
