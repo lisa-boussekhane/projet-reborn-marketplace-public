@@ -34,9 +34,9 @@ INSERT INTO "user" ("id", "first_name", "last_name", "username", "email", "passw
 -- Déchargement des données de la table "media"
 ----------------------------------------------
 
-INSERT INTO "shop" ("id", "name", "user_id") OVERRIDING SYSTEM VALUE VALUES
-(1,'Enchanted Reborn Store', 1),
-(2,'Reborn Wonderful', 3);
+INSERT INTO "shop" ("id", "name", "rating", "user_id") OVERRIDING SYSTEM VALUE VALUES
+(1,'Enchanted Reborn Store',NULL, 1),
+(2,'Reborn Wonderful', NULL, 3);
 
 ----------------------------------------------
 -- Déchargement des données de la table "media"
