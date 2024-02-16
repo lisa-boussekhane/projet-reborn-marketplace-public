@@ -21,6 +21,7 @@ INSERT INTO "user" ("id", "first_name", "last_name", "username", "email", "passw
 (2, 'Cynthia', 'Smith', 'cynthiasmith87', 'cynthia.smith@yahoo.com', 'reborn', '1987-12-05', '5555555678', '2760 Fifth Avenue', '92103', 'San Diego', 'California', 'Buyer', NULL),
 (3, 'Mary', 'Doe', 'marydoe', 'mary.doe@outlook.com', 'reborn', '1976-02-10', '5556575678', '1112 Northside Dr NW', '30318', 'Atlanta', 'Georgia', 'Seller/Buyer', NULL);
 
+SELECT setval('"user_id_seq"', (SELECT MAX(id) + 1 FROM "user"));
 ----------------------------------------------
 -- Déchargement des données de la table "media"
 ----------------------------------------------
