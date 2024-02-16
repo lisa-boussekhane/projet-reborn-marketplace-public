@@ -6,14 +6,28 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  }
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      setEmail(response.data);
+    } catch (error) {
+      console.error('Cannot log in', error);
+    }
+  };
+
   return (
     <>
       <div className="form__container">
         <h1>Login</h1>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="form__group">
             <label htmlFor="email">
               Email address:
@@ -21,7 +35,6 @@ export default function Login() {
                 type="email"
                 name="email"
                 id="email"
-                value={email}
                 placeholder="Email address"
                 required
                 onChange={(e) => setEmail(e.target.value)}
@@ -35,7 +48,6 @@ export default function Login() {
                 type="password"
                 name="password"
                 id="password"
-                value={password}
                 placeholder="Password"
                 required
                 onChange={(e) => setPassword(e.target.value)}

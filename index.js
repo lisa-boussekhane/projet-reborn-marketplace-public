@@ -7,6 +7,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 const router = require('./BACK/App/Router/router');
+
 const path = require('path');
 const multer = require('multer');
 
@@ -20,7 +21,7 @@ const port = process.env.PORT;
 // app.use('/protected', protectedRoute);
 app.use(cors());
 
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -33,8 +34,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-app.post('/sellmyreborn', upload.single('image'), (req, res) => {
+app.post('/product/create', upload.single('image'), (req, res) => {
   res.send('Image uploaded');
 });
 

@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   border: 1px solid v.$midGrey;
-  //position: fixed; **ajouter cette propriete une fois qu'il y a l'ensemble des produits**
+  position: fixed;
 }
 
 .products__category {
@@ -24,7 +24,7 @@
 
 .products__wrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .products__card {
