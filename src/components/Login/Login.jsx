@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +18,14 @@ export default function Login() {
           password,
         }),
       });
-      setEmail(response.data);
+      const data = await response.json();
+      console.log('API Response:', data);
+
+      if (data.success) {
+        setLoginSuccess(true);
+      } else {
+        console.error('Échec de la connexion');
+      }
     } catch (error) {
       console.error('Cannot log in', error);
     }
@@ -59,6 +67,7 @@ export default function Login() {
             <NavLink to="/resetpassword">Forgotten your password?</NavLink>
           </div>
         </form>
+        {loginSuccess && <p>Vous êtes bien connecté !</p>}
       </div>
       <div className="signup__box">
         <div className="sign__btn">
