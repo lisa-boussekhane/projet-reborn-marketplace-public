@@ -1,17 +1,43 @@
 import './SignUp.scss';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import validator from 'validator';
+import passwordValidator from 'password-validator';
 
 export default function SignUp() {
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
+    const passwordSchema = new passwordValidator();
+    passwordSchema
+      .is()
+      .min(8) // Minimum length 8 characters
+      .has()
+      .uppercase() // Must have uppercase letters
+      .has()
+      .lowercase() // Must have lowercase letters
+      .has()
+      .digits(2); // Must have at least 2 digits
+
+    if (!validator.isEmail(email)) {
+      // Validate the email using validator
+      console.error('Invalid email address');
+      return;
+    }
+    if (!passwordSchema.validate(password)) {
+      // Password does not meet the requirements
+      setPasswordError(
+        'Le mot de passe doit faire au moins 8 caractères, contenir au moins une majuscule et 2 chiffres.'
+      );
+      return;
+    }
     try {
       const response = await fetch('http://localhost:3000/signup', {
         method: 'POST',
@@ -96,11 +122,14 @@ export default function SignUp() {
               value={password}
               placeholder="Password"
               min={8}
-              max={12}
               required
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswordError('');
+              }}
             />
           </label>
+          {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
         </div>
         <div>
           <input type="submit" value="Sign Up" className="signup__btn" />
