@@ -24,7 +24,7 @@ router.patch('/login', verifyToken, authController.updatePassword);
 
 router.get('/result', searchController.searchReborns);
 
-router.post('/payment', verifyToken,paymentController.addStripePayment);
+router.post('/process-payment', verifyToken,paymentController.addStripePayment);
 
 router.get('/product/:id', productController.getProductPage);
 router.post('/product/create', verifyToken, productController.createProduct);
