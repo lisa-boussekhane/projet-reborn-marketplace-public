@@ -70,7 +70,7 @@
   }
 }
 
-.amount__total {
+.amount__total, .amount__subtotal, .amount__delay {
   font-size: 1.3em;
   font-weight: bold;
 }
@@ -92,4 +92,9 @@
   align-items: center;
   margin-top: 2rem;
   gap: 20px;
+}
+
+.price-trash {
+  display: flex;
+  justify-content: space-evenly;
 }

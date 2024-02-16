@@ -34,7 +34,7 @@ export default function SignUp() {
     if (!passwordSchema.validate(password)) {
       // Password does not meet the requirements
       setPasswordError(
-        'Le mot de passe doit faire au moins 8 caractères, contenir au moins une majuscule et 2 chiffres.'
+        'The password must be at least 8 characters long, contain at least one uppercase letter, and 2 digits.'
       );
       return;
     }

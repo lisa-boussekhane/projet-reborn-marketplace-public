@@ -1,13 +1,15 @@
 import './Product.scss';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { Icon as Icons } from '@iconify/react';
+import { useCart } from '../React-Context/CartContext';
 
 export default function Product() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -24,16 +26,14 @@ export default function Product() {
     };
     fetchProductDetail();
   }, [id]);
+
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
   return (
     <div className="product__container">
       <div className="product__box">
         <img src="./homepage1.jpeg" alt="reborn" className="product__img" />
-        <div className="product__details">
-          <div className="product__desc">
-            <p className="product__p">
-            </p>
-          </div>
-        </div>
       </div>
 
       <div className="product__wrapper">
@@ -47,6 +47,10 @@ export default function Product() {
             <FontAwesomeIcon icon={faStar} />
             <FontAwesomeIcon icon={faStar} />
           </div>
+          <Icons
+            icon="la:comments"
+            style={{ color: '#a3a3a3', fontSize: '3.5em' }}
+          />
         </div>
         <div className="product__group">
           <div className="product__group__col">
@@ -68,7 +72,7 @@ export default function Product() {
           </div>
 
           <div className="product__group__row">
-          {product ? product.detail_product.description : 'Loading...'}
+            {product ? product.detail_product.description : 'Loading...'}
           </div>
 
           <div className="product__group__col">
@@ -98,13 +102,14 @@ export default function Product() {
 
       <div className="product__fees">
         <p>
-          Price {product ? product.price : 'Loading...'}$ + Shipping fees{' '}
+          Price ${product ? product.price : 'Loading...'} + Shipping fees $
           {product ? product.shipping_fees : 'Loading...'}$
         </p>
-        <Icons
-          icon="la:comments"
-          style={{ color: '#a3a3a3', fontSize: '3.5em' }}
-        />
+        <NavLink to="/cart">
+          <button id="cart-button" type="button" onClick={handleAddToCart}>
+            Add to cart
+          </button>
+        </NavLink>
       </div>
     </div>
   );
