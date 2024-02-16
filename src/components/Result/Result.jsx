@@ -19,26 +19,6 @@ export default function Result() {
               <CardHeader>Title</CardHeader>
             </CardContent>
           </Card>
-          <Card>
-            <Image
-              src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-              wrapped
-              ui={false}
-            />
-            <CardContent>
-              <CardHeader>Title</CardHeader>
-            </CardContent>
-          </Card>
-          <Card>
-            <Image
-              src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-              wrapped
-              ui={false}
-            />
-            <CardContent>
-              <CardHeader>Title</CardHeader>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
