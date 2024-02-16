@@ -5,7 +5,7 @@ const userController = require('../Controllers/userController');
 const searchController = require('../Controllers/searchController');
 const productController = require('../Controllers/productController');
 const chatController = require('../Controllers/chatController');
-const paymentController = require('../Controllers/paymentController');
+const paymentController = require('../Controllers/Stripe/paymentController');
 const authController = require('../Controllers/authController');
 const shopController = require('../Controllers/shopController');
 const verifyToken = require('../Middlewares/authMiddleware');
@@ -24,8 +24,7 @@ router.patch('/login', verifyToken, authController.updatePassword);
 
 router.get('/results', searchController.searchReborns);
 
-// router.post('/payment', paymentController.bankAccount);
-// router.post('/cart', paymentController.addProduct);
+router.post('/process-payment', verifyToken,paymentController.addStripePayment);
 
 router.get('/product/:id', productController.getProductPage);
 router.post('/product/create', verifyToken, productController.createProduct);
@@ -38,6 +37,11 @@ router.post('/shop/:id', shopController.createShop);
 router.delete('/shop/:id', shopController.deleteShop);
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);
+<<<<<<< HEAD
 router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
+=======
+router.get('/chat/:id', verifyToken, chatController.getAllMessages);
+router.post('/chat/message/room/:id',verifyToken, chatController.sendMessage);
+>>>>>>> 082aad16c09d423e32367382c5951d75a2a6afc6
 
 module.exports = router;

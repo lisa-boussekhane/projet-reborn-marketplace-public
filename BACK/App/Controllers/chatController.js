@@ -77,8 +77,30 @@ async sendMessage(req, res) {
                 error: error.message
             });
         }
-    }
+    },
 
+async getAllMessages(req, res) {
+        try {
+            const userId = req.user.id; 
+            
+            const messages = await message.findAll({
+                where: {
+                    [Sequelize.Op.or]: [{senderId: userId}, {receiverId: userId}]
+                },
+                include: [
+                    { model: user, as: 'Sender', attributes: ['id', 'username'] },
+                    { model: user, as: 'Receiver', attributes: ['id', 'username'] }
+                ],
+                order: [['created_at', 'DESC']] 
+            });
+    
+            res.json(messages);
+        } catch (error) {
+            console.error('Failed to retrieve messages:', error);
+            res.status(500).json({ message: 'Failed to get messages', error: error.message });
+        }
+    }
+    
   };
   
   module.exports = chatController;

@@ -98,7 +98,7 @@ const authController = {
         const token = jwt.sign({ user_id: user.id }, process.env.SECRET, {
           expiresIn: '1h',
         });
-        return res.status(200).json({ token });
+        return res.status(200).json({ success: true, token });
       }
       console.log('Utilisateur non trouvé');
 
