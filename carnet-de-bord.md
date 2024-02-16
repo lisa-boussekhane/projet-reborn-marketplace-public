@@ -122,7 +122,7 @@ Coté front : Sarah : authentification front, quelques problèmes
   - Sarah : authentification front, searchResult, multer, catégories et sous-catégories
   - Lisa : authentification back, searchResult, product/:id front, getUserInfos
  
-   # 15/02/2024 - Sprint 2
+   # 16/02/2024 - Sprint 2
     Hier, côté back : Rita : rajout de seeding, paramètrage, chatController, méthode updatePasswword, validatorJs + passwordValidator, shortUniqueId
                       Lisa : authentification back, searchResult, product/:id front 
   côté front Sarah : login, multer, searchResult
