@@ -5,7 +5,7 @@ const userController = require('../Controllers/userController');
 const searchController = require('../Controllers/searchController');
 const productController = require('../Controllers/productController');
 const chatController = require('../Controllers/chatController');
-const paymentController = require('../Controllers/paymentController');
+const paymentController = require('../Controllers/Stripe/paymentController');
 const authController = require('../Controllers/authController');
 const shopController = require('../Controllers/shopController');
 const verifyToken = require('../Middlewares/authMiddleware');
@@ -24,7 +24,7 @@ router.patch('/login', verifyToken, authController.updatePassword);
 
 router.get('/result', searchController.searchReborns);
 
-// router.post('/payment', paymentController.bankAccount);
+router.post('/process-payment', verifyToken,paymentController.addStripePayment);
 
 router.get('/product/:id', productController.getProductPage);
 router.post('/product/create', verifyToken, productController.createProduct);

@@ -5,6 +5,7 @@ const session = require('express-session');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const router = require('./BACK/App/Router/router');
 
