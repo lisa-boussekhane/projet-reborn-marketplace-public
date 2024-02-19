@@ -4,6 +4,7 @@ const media = require('../Models/media');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 const ShortUniqueId = require('short-unique-id');
 const uid = new ShortUniqueId({ length: 6 });
+const multer = require('multer');
 
 const productController = {
   async getProductPage(req, res) {
@@ -190,6 +191,61 @@ const productController = {
       }
     }
   },
+
+// MULTER //
+
+// Single file upload
+async fileUpload(req, res) {
+  try {
+        await new Promise((resolve, reject) => {
+        upload.single('myFile')(req, res, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    // After the promise resolves, the file has been uploaded and is accessible via req.file
+    console.log(req.file); // `req.file` is the `myFile` file
+    // `req.body` will hold the text fields, if there were any
+
+    res.send('File uploaded successfully!');
+  } catch (error) {
+    // Handle any errors that occurred during file upload
+    console.error(error);
+    res.status(500).send('An error occurred during the file upload.');
+  }
+},
+
+// Multiple file uploads
+async multipleFilesUpload(req, res) {
+  try {
+    await new Promise((resolve, reject) => {
+      upload.array('myFiles', 12)(req, res, (err) => {
+        if (err) {
+          // If an error occurs, reject the promise
+          reject(err);
+        } else {
+          // Otherwise, resolve the promise indicating successful file upload
+          resolve();
+        }
+      });
+    });
+
+    // After the promise resolves, the files have been uploaded and are accessible via req.files
+    console.log(req.files); // `req.files` is the array of `myFiles` files
+    // `req.body` will contain the text fields, if there were any
+
+    res.send('Multiple Files uploaded successfully!');
+  } catch (error) {
+    // Handle any errors that occurred during the file uploads
+    console.error(error);
+    res.status(500).send('An error occurred during the file uploads.');
+  }
+}
+
 };
 
 module.exports = productController;

@@ -9,6 +9,8 @@ const paymentController = require('../Controllers/Stripe/paymentController');
 const authController = require('../Controllers/authController');
 const shopController = require('../Controllers/shopController');
 const verifyToken = require('../Middlewares/authMiddleware');
+const multerMiddleware = require('../Middlewares/multerMiddleware');
+
 
 const router = express.Router();
 
@@ -24,11 +26,7 @@ router.patch('/login', verifyToken, authController.updatePassword);
 
 router.get('/result', searchController.searchReborns);
 
-router.post(
-  '/process-payment',
-  verifyToken,
-  paymentController.addStripePayment
-);
+router.post('/process-payment', verifyToken, paymentController.addStripePayment);
 
 router.get('/product/:id', productController.getProductPage);
 router.post('/product/create', verifyToken, productController.createProduct);
@@ -43,5 +41,9 @@ router.delete('/shop/:id', shopController.deleteShop);
 router.get('/chat/:id', verifyToken, chatController.getMessage);
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);
 router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
+
+router.post('/upload', multerMiddleware, productController.fileUpload);
+router.post('/uploadmultiple', multerMiddleware, productController.multipleFilesUpload);
+
 
 module.exports = router;
