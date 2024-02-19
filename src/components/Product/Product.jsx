@@ -11,6 +11,20 @@ export default function Product() {
   const [product, setProduct] = useState(null);
   const { addToCart } = useCart();
 
+  const stars = document.querySelectorAll('#star__items');
+
+  stars.forEach((star, index1) => {
+    star.addEventListener('click', () => {
+      console.log(index1);
+
+      stars.forEach((star, index2) => {
+        index1 >= index2
+          ? star.classList.add('active')
+          : star.classList.remove('active');
+      });
+    });
+  });
+
   useEffect(() => {
     const fetchProductDetail = async () => {
       try {
@@ -40,12 +54,12 @@ export default function Product() {
         <h2>{product ? product.title : 'Loading...'}</h2>
         <div className="product__info">
           <h3>Seller Username</h3>
-          <div className="lala">
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
+          <div className="star__box">
+            <FontAwesomeIcon icon={faStar} id="star__items" />
+            <FontAwesomeIcon icon={faStar} id="star__items" />
+            <FontAwesomeIcon icon={faStar} id="star__items" />
+            <FontAwesomeIcon icon={faStar} id="star__items" />
+            <FontAwesomeIcon icon={faStar} id="star__items" />
           </div>
           <Icons
             icon="la:comments"
@@ -61,7 +75,7 @@ export default function Product() {
               Gender: {product ? product.detail_product.gender : 'Loading...'}
             </p>
             <p>Age range: {product ? product.age_range : 'Loading...'}</p>
-            <p>Eye: {product ? product.detail_product.eyes : 'Loading...'}</p>
+            <p>Eyes: {product ? product.detail_product.eyes : 'Loading...'}</p>
             <p>Hair: {product ? product.detail_product.hair : 'Loading...'}</p>
             <p>Size: {product ? product.size : 'Loading...'}</p>
             <p>Weight: {product ? product.weight : 'Loading...'}</p>

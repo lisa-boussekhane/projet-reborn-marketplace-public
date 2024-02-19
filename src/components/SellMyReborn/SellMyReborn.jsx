@@ -3,7 +3,7 @@ import './SellMyReborn.scss';
 export default function SellMyReborn() {
   return (
     <div className="sell__box">
-      <form action="/product/create" method="post">
+      <form action="" method="post">
         <div className="sell__wrapper">
           <form
             method="post"
@@ -13,7 +13,6 @@ export default function SellMyReborn() {
           >
             <input type="file" name="image" />
             <input type="submit" />
-            {/* <h3>Add images and videos</h3> */}
           </form>
 
           <div className="sell__col1">

@@ -5,6 +5,13 @@ import './Products.scss';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const handleFilter = (e) => {
+    const value = e.target.value;
+    const filtered = products.filter((product) =>
+      product.type.includes('Vinyl')
+    );
+    setProducts(filtered);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,37 +33,50 @@ export default function Products() {
     <>
       <div className="products__menu">
         <div className="products__category">
-          <h3>Category 1</h3>
+          <h3>Vinyl</h3>
         </div>
-        <ul className="products__item">
-          <li>Sub-category 1</li>
-          <li>Sub-category 2</li>
-        </ul>
+
+        {/* <ul className="products__item" onClick={handleFilter}>
+          {products.map((product) => (
+            <>
+              <li>{product.sculptor}</li>
+              <li>{product.gender}</li>
+              <li>{product.age_range}</li>
+              <li>{product.eyes}</li>
+              <li>{product.hair}</li>
+              <li>{product.belly_plate}</li>
+              <li>{product.authenticity_card}</li>
+            </>
+          ))}
+        </ul> */}
+
         <div className="products__category">
-          <h3>Category 2</h3>
+          <h3>Silicone</h3>
         </div>
         <ul className="products__item">
-          <li>Sub-category 1</li>
-          <li>Sub-category 2</li>
+          <li>Kit Sculptor</li>
+          <li>Gender</li>
+          <li>Age range</li>
+          <li>Eyes</li>
+          <li>Hair</li>
+          <li>Belly plate</li>
+          <li>Authenticity card</li>
         </ul>
+
         <div className="products__category">
-          <h3>Category 3</h3>
+          <h3>Cuddle</h3>
         </div>
         <ul className="products__item">
-          <li>Sub-category 1</li>
-          <li>Sub-category 2</li>
-          <li>Sub-category 3</li>
-        </ul>
-        <div className="products__category">
-          <h3>Category 4</h3>
-        </div>
-        <ul className="products__item">
-          <li>Sub-category 1</li>
-          <li>Sub-category 2</li>
-          <li>Sub-category 3</li>
-          <li>Sub-category 4</li>
+          <li>Kit Sculptor</li>
+          <li>Gender</li>
+          <li>Age range</li>
+          <li>Eyes</li>
+          <li>Hair</li>
+          <li>Belly plate</li>
+          <li>Authenticity card</li>
         </ul>
       </div>
+
       <div className="products__wrapper">
         {products.map((product) => (
           <div key={product.id} className="products__card">

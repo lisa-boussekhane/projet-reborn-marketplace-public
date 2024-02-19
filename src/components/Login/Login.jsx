@@ -1,13 +1,20 @@
 import './Login.scss';
 import { useState } from 'react';
-import { useAuth } from '../React-Context/AuthContext';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../React-Context/AuthContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginSuccess, setLoginSuccess] = useState(false);
   const { setIsLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  // if login successful, user gets redirected to my account page
+  const handleClick = () => {
+    setTimeout(() => navigate('/myaccount', { replace: true }), 1000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +49,7 @@ export default function Login() {
     <>
       <div className="form__container">
         <h1>Login</h1>
-        {loginSuccess && <p>Vous êtes bien connecté !</p>}
+        {loginSuccess && <p>Login successful!</p>}
         <form onSubmit={handleSubmit}>
           <div className="form__group">
             <label htmlFor="email">
@@ -71,7 +78,12 @@ export default function Login() {
             </label>
           </div>
           <div>
-            <input type="submit" value="Login" className="login__btn" />
+            <input
+              type="submit"
+              value="Login"
+              onClick={handleClick}
+              className="login__btn"
+            />
             <NavLink to="/resetpassword">Forgotten your password?</NavLink>
           </div>
         </form>

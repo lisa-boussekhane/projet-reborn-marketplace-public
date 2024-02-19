@@ -31,8 +31,10 @@ export default function MyAccount() {
           <div className="profile__title">
             <h1>My profile</h1>
           </div>
+          <div className="profile__subtitle">
+            <h2>Information</h2>
+          </div>
 
-          <h2>Information</h2>
           <form className="profile__elem" method="get">
             <label htmlFor="firstname">
               First name <input type="text" name="firstname" id="firstname" />
@@ -56,8 +58,10 @@ export default function MyAccount() {
 
         <div className="login__information">
           <img src="./edit-icon.png" alt="" className="edit__icon__login" />
-
-          <h2>Login and Password</h2>
+          <div className="login__subtitle">
+            {' '}
+            <h2>Login and Password</h2>
+          </div>
 
           <form className="profile__elem__second" method="post" action="">
             <label htmlFor="email">

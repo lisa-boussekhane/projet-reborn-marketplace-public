@@ -57,6 +57,8 @@
 .sell__col1 h3 {
   font-size: 1.1em;
   margin-top: 3rem;
+  margin-right: 4rem;
+  font-weight: bold;
 }
 
 .sell__col1 input[type='text'],
@@ -65,7 +67,7 @@
 }
 
 .sell__col2 {
-  margin-top: 7rem;
+  margin-top: 6.2rem;
   margin-left: 2.1rem;
 }
 
@@ -84,9 +86,19 @@
   background: #fff;
 }
 
+#gender,
+#status,
+#authenticity,
+#type,
+#age,
+#eyes,
+#hair {
+  width: 240px;
+}
+
 .sell__col3 {
   margin-left: 2.1rem;
-  padding-top: 0.5rem;
+  margin-top: -0.5rem;
 }
 
 .sell__desc,

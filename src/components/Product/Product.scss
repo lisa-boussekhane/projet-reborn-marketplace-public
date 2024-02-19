@@ -83,10 +83,26 @@
 
 #cart-button {
   background-color: v.$blue;
-  padding : 15px;
+  padding: 15px;
   font-size: 1.5rem;
   padding-left: 20px;
   padding-right: 20px;
   cursor: pointer;
-  
+}
+
+.star__box {
+  display: flex;
+  gap: 5px;
+  font-size: 1.2em;
+}
+
+#star__items {
+  color: #e6e6e6;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+#star__items.active {
+  color: #ff9c1a;
+  cursor: pointer;
 }
