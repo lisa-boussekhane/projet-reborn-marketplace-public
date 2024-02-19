@@ -41,9 +41,6 @@ router.post('/shop/:id', shopController.createShop);
 router.delete('/shop/:id', shopController.deleteShop);
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);
-
-router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
-
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);
 router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
 
