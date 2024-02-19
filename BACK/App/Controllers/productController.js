@@ -168,6 +168,7 @@ const productController = {
     }
   },
 
+  // SHORT UNIQUE ID //
   async createNewRecord(data) {
     try {
       const newRecord = await product.create(data);
@@ -193,7 +194,6 @@ const productController = {
   },
 
 // MULTER //
-
 // Single file upload
 async fileUpload(req, res) {
   try {
