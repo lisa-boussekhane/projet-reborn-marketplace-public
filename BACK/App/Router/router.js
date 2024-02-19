@@ -8,12 +8,13 @@ const chatController = require('../Controllers/chatController');
 const paymentController = require('../Controllers/Stripe/paymentController');
 const authController = require('../Controllers/authController');
 const shopController = require('../Controllers/shopController');
+const contactController = require('../Controllers/contactController');
 const verifyToken = require('../Middlewares/authMiddleware');
 const multerMiddleware = require('../Middlewares/multerMiddleware');
 
-
 const router = express.Router();
 
+router.post('/contactus', contactController.sendEmail);
 router.get('/user/:id', verifyToken, userController.getUserInfos);
 router.get('/myorders', verifyToken, userController.getOrdersReturns);
 
