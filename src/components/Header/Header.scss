@@ -43,7 +43,6 @@
     width: 50%;
     background-color: white;
   }
-  
 }
 
 .search-input {
@@ -51,6 +50,10 @@
   border: solid 4px lightgray;
   margin-right: 250px;
   margin-left: -100px;
+}
+
+.logout__btn {
+  font-size: 1.4rem;
 }
 
 @media screen and (max-width: 767px) {
@@ -62,7 +65,6 @@
     margin: 0rem;
     max-height: 10rem;
 
-
     &__links {
       flex-direction: column;
       background-color: lightgray;
@@ -71,7 +73,7 @@
       gap: 3px;
       padding: 1rem;
       padding-top: 0;
-      }
+    }
 
     &__item {
       font-size: 1.3rem;
@@ -86,16 +88,15 @@
       margin-left: 5rem;
     }
   }
-  
+
   .show-nav .navbar__links {
     width: 40vw;
     visibility: visible;
     transform: translateY(135px);
   }
 
-
   .navbar__burger {
-    display: block; 
+    display: block;
     background-color: lightgrey;
     width: 70px;
     margin-right: 3rem;
@@ -116,31 +117,31 @@
 
     &::before,
     &::after {
-        content: "";
-        position: absolute;
-        width: 50px;
-        height: 4px;
-        border-radius: 3px;
-        background-color: grey;
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 4px;
+      border-radius: 3px;
+      background-color: grey;
     }
 
     &::before {
-        top: -12px;
+      top: -12px;
     }
 
     &::after {
-        bottom: -12px;
+      bottom: -12px;
     }
-}
+  }
 
-.search-input {
-  display: flex;
-  font-size: 1.5rem;
-  width: 70%;
-  margin-left: 10rem;
-}
+  .search-input {
+    display: flex;
+    font-size: 1.5rem;
+    width: 70%;
+    margin-left: 10rem;
+  }
 
-.navbar-cart {
-  width: 25px;
-}
+  .navbar-cart {
+    width: 25px;
+  }
 }

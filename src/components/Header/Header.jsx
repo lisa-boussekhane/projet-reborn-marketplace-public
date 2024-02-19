@@ -1,9 +1,21 @@
 import './Header.scss';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { Nav, NavDropdown } from 'react-bootstrap';
 import { useAuth } from '../React-Context/AuthContext';
 
 export default function Header() {
+  // on récupère le token dans le localStorage
+  const user = localStorage.getItem('jwtToken');
+  const navigate = useNavigate();
+  console.log(user);
+
+  // on efface l'élément dans le localStorage
+  const logOut = () => {
+    localStorage.clear();
+    navigate('/login');
+  };
+
   const [showLinks, setShowLinks] = useState(false);
   const { isLoggedIn } = useAuth();
 
@@ -24,6 +36,7 @@ export default function Header() {
       </NavLink>
     );
   };
+
   return (
     <nav className={`navbar ${showLinks ? 'show-nav' : 'hide-nav'}`}>
       <div className="navbar___logo">
@@ -65,12 +78,21 @@ export default function Header() {
           <img src="./cart.png" alt="logo du site" className="navbar-cart" />
         </NavLink>
       </ul>
+      {localStorage.getItem('jwtToken') ? (
+        <div className="logout__btn">
+          <Nav>
+            <NavDropdown title="Logout">
+              <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </div>
+      ) : null}
+
       <button
         type="button"
         className="navbar__burger"
         onClick={handleShowLinks}
       >
-        {' '}
         <span className="burger-bar" />
       </button>
     </nav>

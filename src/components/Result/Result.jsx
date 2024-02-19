@@ -4,7 +4,7 @@ import { Input, CardHeader, CardContent, Card, Image } from 'semantic-ui-react';
 
 export default function Result() {
   useEffect(() => {
-    fetch('http://localhost:3000/results')
+    fetch('http://localhost:3000/result')
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => console.log(error));
