@@ -29,3 +29,6 @@ detail_product.belongsTo(product, { foreignKey: 'product_id' });
 // Product and Media (One-to-Many)
 product.hasMany(media, { foreignKey: 'product_id' });
 media.belongsTo(product, { foreignKey: 'product_id' });
+
+
+module.exports = { user, detail_product, shop, product, media };

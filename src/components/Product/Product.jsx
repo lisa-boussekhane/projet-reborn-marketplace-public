@@ -33,11 +33,13 @@ export default function Product() {
           throw new Error('Error fetching products');
         }
         const data = await response.json();
+        console.log(data);
         setProduct(data);
       } catch (error) {
         console.error('Error fetching product:', error);
       }
     };
+    
     fetchProductDetail();
   }, [id]);
 

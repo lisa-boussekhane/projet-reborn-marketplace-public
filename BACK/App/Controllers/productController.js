@@ -1,7 +1,4 @@
-const authProduct = require('../Models/product');
-const detail_product = require('../Models/detail_product');
-const media = require('../Models/media');
-const { sequelize } = require('../Models/index'); // Import Sequelize instance
+const { product, detail_product, media } = require('../Models/');
 const ShortUniqueId = require('short-unique-id');
 const uid = new ShortUniqueId({ length: 6 });
 const multer = require('multer');
@@ -14,7 +11,7 @@ const productController = {
       console.log(productId);
 
       // Fetch the product from the database, including its detail_product and media
-      const product = await authProduct.findByPk(productId, {
+      const product = await product.findByPk(productId, {
         include: [
           {
             model: detail_product,
@@ -46,7 +43,6 @@ const productController = {
   },
 
   async createProduct(req, res) {
-    const t = await sequelize.transaction(); // Start a new transaction
     try {
       // Extract product, detailProduct, and media data from request body
       const { productData, detailProductData, mediaData } = req.body;
@@ -55,24 +51,20 @@ const productController = {
       productData.customId = uid();
 
       // Create product
-      const product = await authProduct.create(productData, { transaction: t });
+      const product = await product.create(productData);
 
       // Add product ID to detailProductData and mediaData
       detailProductData.product_id = product.id;
       mediaData.product_id = product.id;
 
       // Create detailProduct and media associated with the product
-      const detailProduct = await detail_product.create(detailProductData, {
-        transaction: t,
-      });
+      const detailProduct = await detail_product.create(detailProductData);
       const media = await Promise.all(
-        mediaData.map((mediaItem) =>
-          media.create(mediaItem, { transaction: t })
-        )
+        mediaData.map((mediaItem) => media.create(mediaItem))
       );
 
       // If everything goes well, commit the transaction
-      await t.commit();
+      // await t.commit();
 
       // Respond with created product, its details, and media
       res.status(201).json({
@@ -83,7 +75,7 @@ const productController = {
       });
     } catch (error) {
       // If there's an error, rollback the transaction
-      await t.rollback();
+      // await t.rollback();
 
       // Respond with error message
       res.status(500).json({
@@ -94,25 +86,23 @@ const productController = {
   },
 
   async updateProduct(req, res) {
-    const t = await sequelize.transaction(); // Start a new transaction
     try {
       const { productId } = req.params.id;
       // Extract product, detailProduct, and media data from request body
       const { productData, detailProductData, mediaData } = req.body;
 
       // Update product
-      const product = await Product.update(productData, {
+      const product = await product.update(productData, {
         where: { id: productId },
-        transaction: t,
       });
 
       // Update detailProduct and media associated with the product
-      const detailProduct = await DetailProduct.update(detailProductData, {
+      const detailProduct = await detail_product.update(detailProductData, {
         where: { product_id: productId },
         transaction: t,
       });
 
-      const media = await Media.update(mediaData, {
+      const media = await media.update(mediaData, {
         where: { product_id: productId },
         transaction: t,
       });
@@ -139,7 +129,7 @@ const productController = {
   async deleteProduct(req, res) {
     try {
       const productId = req.params.id;
-      const product = await authProduct.findByPk(productId);
+      const product = await product.findByPk(productId);
 
       if (!product) {
         return res
@@ -158,7 +148,7 @@ const productController = {
 
   async getProductsPage(req, res) {
     try {
-      const products = await authProduct.findAll({
+      const products = await product.findAll({
         order: [['title']],
       });
       res.status(200).json(products);
@@ -192,60 +182,59 @@ const productController = {
     }
   },
 
-// MULTER //
+  // MULTER //
 
-// Single file upload
-async fileUpload(req, res) {
-  try {
-        await new Promise((resolve, reject) => {
+  // Single file upload
+  async fileUpload(req, res) {
+    try {
+      await new Promise((resolve, reject) => {
         upload.single('myFile')(req, res, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
       });
-    });
 
-    // After the promise resolves, the file has been uploaded and is accessible via req.file
-    console.log(req.file); // `req.file` is the `myFile` file
-    // `req.body` will hold the text fields, if there were any
+      // After the promise resolves, the file has been uploaded and is accessible via req.file
+      console.log(req.file); // `req.file` is the `myFile` file
+      // `req.body` will hold the text fields, if there were any
 
-    res.send('File uploaded successfully!');
-  } catch (error) {
-    // Handle any errors that occurred during file upload
-    console.error(error);
-    res.status(500).send('An error occurred during the file upload.');
-  }
-},
+      res.send('File uploaded successfully!');
+    } catch (error) {
+      // Handle any errors that occurred during file upload
+      console.error(error);
+      res.status(500).send('An error occurred during the file upload.');
+    }
+  },
 
-// Multiple file uploads
-async multipleFilesUpload(req, res) {
-  try {
-    await new Promise((resolve, reject) => {
-      upload.array('myFiles', 12)(req, res, (err) => {
-        if (err) {
-          // If an error occurs, reject the promise
-          reject(err);
-        } else {
-          // Otherwise, resolve the promise indicating successful file upload
-          resolve();
-        }
+  // Multiple file uploads
+  async multipleFilesUpload(req, res) {
+    try {
+      await new Promise((resolve, reject) => {
+        upload.array('myFiles', 12)(req, res, (err) => {
+          if (err) {
+            // If an error occurs, reject the promise
+            reject(err);
+          } else {
+            // Otherwise, resolve the promise indicating successful file upload
+            resolve();
+          }
+        });
       });
-    });
 
-    // After the promise resolves, the files have been uploaded and are accessible via req.files
-    console.log(req.files); // `req.files` is the array of `myFiles` files
-    // `req.body` will contain the text fields, if there were any
+      // After the promise resolves, the files have been uploaded and are accessible via req.files
+      console.log(req.files); // `req.files` is the array of `myFiles` files
+      // `req.body` will contain the text fields, if there were any
 
-    res.send('Multiple Files uploaded successfully!');
-  } catch (error) {
-    // Handle any errors that occurred during the file uploads
-    console.error(error);
-    res.status(500).send('An error occurred during the file uploads.');
-  }
-}
-
+      res.send('Multiple Files uploaded successfully!');
+    } catch (error) {
+      // Handle any errors that occurred during the file uploads
+      console.error(error);
+      res.status(500).send('An error occurred during the file uploads.');
+    }
+  },
 };
 
 module.exports = productController;
