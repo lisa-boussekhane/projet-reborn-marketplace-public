@@ -16,10 +16,12 @@ product.belongsTo(shop, { foreignKey: 'shop_id' });
 product.belongsToMany(user, {
   through: 'User_Order_Product',
   foreignKey: 'product_id',
+  timestamps: false,
 });
 user.belongsToMany(product, {
   through: 'User_Order_Product',
   foreignKey: 'user_id',
+  timestamps: false,
 });
 
 // Product and DetailProduct (One-to-One)
