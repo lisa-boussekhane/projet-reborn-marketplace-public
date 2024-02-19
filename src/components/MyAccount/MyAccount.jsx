@@ -19,7 +19,7 @@ export default function MyAccount() {
         const { token } = data;
 
         // stocker le token dans localStorage
-        localStorage.setItem('jwtToken', token);
+        localStorage.getItemtItem('jwtToken', token);
       } catch (error) {
         console.error('Cannot fetch data', error);
       }

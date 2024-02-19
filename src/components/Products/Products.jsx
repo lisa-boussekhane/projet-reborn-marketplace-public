@@ -5,13 +5,6 @@ import './Products.scss';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
-  const handleFilter = (e) => {
-    const value = e.target.value;
-    const filtered = products.filter((product) =>
-      product.type.includes('Vinyl')
-    );
-    setProducts(filtered);
-  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,51 +24,22 @@ export default function Products() {
 
   return (
     <>
-      <div className="products__menu">
-        <div className="products__category">
-          <h3>Vinyl</h3>
-        </div>
-
-        <ul className="products__item" onClick={handleFilter}>
-          {products.map((product) => (
-            <>
+      {/* <div className="products__menu">
+        {products.map((product) => (
+          <div key={product.id} className="products__category">
+            <h3>{product.type}</h3>
+            <ul className="products__item">
               <li>{product.sculptor}</li>
-              <li>{product.gender}</li>
+              <li>{product.detail_product.gender}</li>
               <li>{product.age_range}</li>
-              <li>{product.eyes}</li>
-              <li>{product.hair}</li>
-              <li>{product.belly_plate}</li>
+              <li>{product.detail_product.eyes}</li>
+              <li>{product.detail_product.hair}</li>
+              <li>{product.detail_product.belly_plate}</li>
               <li>{product.authenticity_card}</li>
-            </>
-          ))}
-        </ul>
-
-        <div className="products__category">
-          <h3>Silicone</h3>
-        </div>
-        <ul className="products__item">
-          <li>Kit Sculptor</li>
-          <li>Gender</li>
-          <li>Age range</li>
-          <li>Eyes</li>
-          <li>Hair</li>
-          <li>Belly plate</li>
-          <li>Authenticity card</li>
-        </ul>
-
-        <div className="products__category">
-          <h3>Cuddle</h3>
-        </div>
-        <ul className="products__item">
-          <li>Kit Sculptor</li>
-          <li>Gender</li>
-          <li>Age range</li>
-          <li>Eyes</li>
-          <li>Hair</li>
-          <li>Belly plate</li>
-          <li>Authenticity card</li>
-        </ul>
-      </div>
+            </ul>
+          </div>
+        ))}
+      </div> */}
 
       <div className="products__wrapper">
         {products.map((product) => (
