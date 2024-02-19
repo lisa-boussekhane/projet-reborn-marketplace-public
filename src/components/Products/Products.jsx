@@ -36,7 +36,7 @@ export default function Products() {
           <h3>Vinyl</h3>
         </div>
 
-        {/* <ul className="products__item" onClick={handleFilter}>
+        <ul className="products__item" onClick={handleFilter}>
           {products.map((product) => (
             <>
               <li>{product.sculptor}</li>
@@ -48,7 +48,7 @@ export default function Products() {
               <li>{product.authenticity_card}</li>
             </>
           ))}
-        </ul> */}
+        </ul>
 
         <div className="products__category">
           <h3>Silicone</h3>
