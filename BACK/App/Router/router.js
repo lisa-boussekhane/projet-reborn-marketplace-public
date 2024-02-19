@@ -15,7 +15,6 @@ const multerMiddleware = require('../Middlewares/multerMiddleware');
 const router = express.Router();
 
 router.get('/user/:id', verifyToken, userController.getUserInfos);
-// router.get('/myaccount', verifyToken, userController.getMyAccount);
 router.get('/myorders', verifyToken, userController.getOrdersReturns);
 
 router.patch('/user/:id', verifyToken, authController.updateAccount);
