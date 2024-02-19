@@ -158,6 +158,7 @@ const productController = {
     }
   },
 
+  // SHORT UNIQUE ID //
   async createNewRecord(data) {
     try {
       const newRecord = await product.create(data);
@@ -182,12 +183,11 @@ const productController = {
     }
   },
 
-  // MULTER //
-
-  // Single file upload
-  async fileUpload(req, res) {
-    try {
-      await new Promise((resolve, reject) => {
+// MULTER //
+// Single file upload
+async fileUpload(req, res) {
+  try {
+        await new Promise((resolve, reject) => {
         upload.single('myFile')(req, res, (err) => {
           if (err) {
             reject(err);
