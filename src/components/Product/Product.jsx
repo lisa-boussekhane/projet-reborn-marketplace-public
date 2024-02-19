@@ -80,36 +80,29 @@ export default function Product() {
             <p>Size: {product ? product.size : 'Loading...'}</p>
             <p>Weight: {product ? product.weight : 'Loading...'}</p>
             <p>
-              Belly plate:
+              Belly plate: {' '}
               {product ? product.detail_product.belly_plate : 'Loading...'}
             </p>
-          </div>
+            <p>Unique ID: {product ? product.unique_id : 'Loading...'}</p>
 
-          <div className="product__group__row">
-            {product ? product.detail_product.description : 'Loading...'}
-          </div>
+            <p>{product ? product.detail_product.description : 'Loading...'}</p>
 
-          <div className="product__group__col">
-            <p>
-              Created : {product ? product.detail_product.year : 'Loading...'}
-            </p>
-          </div>
-
-          <div className="product__group__row">
-            <p>
-              Status: {product ? product.detail_product.status : 'Loading...'}
-            </p>
-            <p>
-              Authenticity card:{' '}
-              {product ? product.authenticity_card : 'Loading...'}{' '}
-            </p>
-          </div>
-
-          <div className="product__group__col">
-            <p>
-              Location:{' '}
-              {product ? product.detail_product.localization : 'Loading...'}
-            </p>
+            <div className="product__group__row">
+              <p>
+                Created : {product ? product.detail_product.year : 'Loading...'}
+              </p>
+              <p>
+                Status: {product ? product.detail_product.status : 'Loading...'}
+              </p>
+              <p>
+                Authenticity card:{' '}
+                {product ? product.authenticity_card : 'Loading...'}{' '}
+              </p>
+              <p>
+                Location:{' '}
+                {product ? product.detail_product.localization : 'Loading...'}
+              </p>
+            </div>
           </div>
         </div>
       </div>

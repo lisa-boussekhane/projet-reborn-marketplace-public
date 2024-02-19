@@ -17,9 +17,8 @@ export default function Payment() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!stripe || !elements) {
-      return;
-    }
+    if (!stripe || !elements) return;
+
     const cardElement = elements.getElement(CardElement);
 
     setLoading(true);
@@ -30,55 +29,68 @@ export default function Payment() {
     });
 
     if (error) {
-      console.error(error);
       setLoading(false);
       setErrorMessage('Payment failed. Please try again.');
     } else {
       const paymentMethodId = paymentMethod.id;
 
-      // éléments à envoyer au back
-      const formData = {
-        paymentMethodId,
-        amount: amount,
-      };
-
-      // récupérer le token stocké dans localStorage
       const token = localStorage.getItem('jwtToken');
 
+      const formData = {
+        paymentMethodId,
+        amount,
+      };
+
       try {
-        const response = await fetch('/process-payment', {
+        const response = await fetch('http://localhost:3000/process-payment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, // token récupéré dans le local storage
           },
           body: JSON.stringify(formData),
         });
 
+        if (!token) {
+          setErrorMessage('Token not available. Please log in.'); // message si la personne n'est pas connectée
+          return;
+        }
+
         if (response.ok) {
           const data = await response.json();
-          console.log('Payment successful:', data);
+          console.log('paiement effectué:', data);
 
-          const { clientSecret, amount } = data;
+          const { clientSecret } = data;
+          console.log('secret client :', clientSecret);
 
-          // clientSecret pour confirmer le paiement du côté client
           const { paymentIntent, error } = await stripe.confirmCardPayment(
             clientSecret,
             {
               payment_method: paymentMethodId,
             }
           );
+
+          // réponse de stripe après confirmation du paiement
+          console.log('réponse de stripe après confirmation:', {
+            paymentIntent,
+            error,
+          });
+
           if (error) {
-            console.error(error);
+            console.error('erreur dans la confirmation du paiement:', error);
             setLoading(false);
             setErrorMessage('Payment failed. Please try again.');
-          } else {
-            console.log('Payment successful:', paymentIntent);
+          } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+            console.log('payment confirmé', paymentIntent);
             setLoading(false);
-            setSuccessMessage('Payment successful. Thank you!');
+            setSuccessMessage('Payment successful. Thank you!'); // message succès pour l'utilisateur
+          } else {
+            console.error('PaymentIntent status n\'est pas succeeded');
+            setLoading(false);
+            setErrorMessage('Payment failed. Please try again.');
           }
         } else {
-          console.error('Error processing payment:', response.statusText);
+          console.error('Server error:', response.status);
           setLoading(false);
           setErrorMessage('Payment failed. Please try again.');
         }

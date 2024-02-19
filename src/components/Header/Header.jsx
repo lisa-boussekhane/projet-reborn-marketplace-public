@@ -6,9 +6,8 @@ import { useAuth } from '../React-Context/AuthContext';
 
 export default function Header() {
   // on récupère le token dans le localStorage
-  const user = localStorage.getItem('jwtToken');
+  localStorage.getItem('jwtToken');
   const navigate = useNavigate();
-  console.log(user);
 
   // on efface l'élément dans le localStorage
   const logOut = () => {

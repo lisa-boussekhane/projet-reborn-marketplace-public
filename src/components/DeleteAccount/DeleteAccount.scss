@@ -21,7 +21,7 @@
   margin-top: 1.8rem;
 }
 
-button[type='submit'] {
+.delete__btn {
   display: block;
   width: 200px;
   margin-top: 2rem;
@@ -37,7 +37,7 @@ button[type='submit'] {
   cursor: pointer;
 }
 
-button[type='submit']:hover {
+.delete__btn:hover {
   background: #7e94e2;
   transition: background 0.3s ease;
 }
