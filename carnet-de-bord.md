@@ -131,3 +131,14 @@ Coté front : Sarah : authentification front, quelques problèmes
 - Rita : finir add seeding, stripe, paramètrage paiementController, route pour le chat
 - Sarah : régler le problème du login, searchResult, multer, étoiles vendeur + page sellMyReborn, category 
 - Lisa : panier, passwordValidator + validatorJs + shortUniqueIdpourlefront + page paiement
+
+  # 19/02/2024 - Sprint 2
+  Vendredi, côté back : Rita : stripe back, rajout de données de seeding + modifs base de données, routes pour le chat
+  coté front :
+  Sarah : multer front, logout, evaluation vendeur, liste catégories et sous-categories
+  Lisa : panier, password validator et validatorJs, page paiement
+
+   ### Infos individuelles
+  - Rita : multer, implémenter socket io back, trouver package rating back+front
+  - Lisa : voir page paiement, short uniqueId + sellmyreborn, seller username, supprimer compte et contact us 
+  - Sarah : my account, regler page reborns, faire la page result, catégories et sous-categories
