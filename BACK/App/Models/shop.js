@@ -1,23 +1,38 @@
 const { Model, DataTypes } = require('sequelize');
 
-const sequelize = require ('./sequelize');
+const sequelize = require('./sequelize');
 
 class shop extends Model {}
 
-shop.init({  
+shop.init(
+  {
     name: {
-        type: DataTypes.STRING,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     rating: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: 'created_at',
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: 'updated_at',
+    },
   },
-  
-  }, {  
+  {
     sequelize,
     modelName: 'shop',
     tableName: 'shop',
-  });
-  
-  module.exports = shop;
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+  }
+);
+
+module.exports = shop;

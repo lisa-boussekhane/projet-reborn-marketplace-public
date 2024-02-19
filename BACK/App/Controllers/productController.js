@@ -1,4 +1,4 @@
-const { product, detail_product, media } = require('../Models/');
+const { product, detail_product, media, user } = require('../Models/');
 const ShortUniqueId = require('short-unique-id');
 const uid = new ShortUniqueId({ length: 6 });
 const multer = require('multer');
@@ -11,7 +11,7 @@ const productController = {
       console.log(productId);
 
       // Fetch the product from the database, including its detail_product and media
-      const product = await product.findByPk(productId, {
+      const theProduct = await product.findByPk(productId, {
         include: [
           {
             model: detail_product,
@@ -21,10 +21,14 @@ const productController = {
             model: media,
             as: 'media',
           },
+          {
+            model: user,
+            as: 'users',
+          },
         ],
       });
 
-      if (!product) {
+      if (!theProduct) {
         // If the product is not found, return a 404 Not Found response
         return res.status(404).json({
           message: 'Product not found',
@@ -32,7 +36,7 @@ const productController = {
       }
 
       // If the product is found, return it along with its detailed information and media
-      res.status(200).json(product);
+      res.status(200).json(theProduct);
     } catch (error) {
       // If there's an error, respond with a 500 status code and the error message
       res.status(500).json({
@@ -129,15 +133,15 @@ const productController = {
   async deleteProduct(req, res) {
     try {
       const productId = req.params.id;
-      const product = await product.findByPk(productId);
+      const theProduct = await product.findByPk(productId);
 
-      if (!product) {
+      if (!theProduct) {
         return res
           .status(404)
           .json({ message: `product with id ${productId} not found.` });
       }
 
-      await product.destroy();
+      await theProduct.destroy();
 
       res.status(204).json();
     } catch (error) {

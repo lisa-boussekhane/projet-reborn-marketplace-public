@@ -1,23 +1,26 @@
-const shop = require('../Models/shop');
+const Shop = require('../Models/shop');
 const product = require('../Models/product');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const shopController = {
+
+  // ne touche pas à showShop stp
   async showShop(req, res) {
     try {
-      // Extract shop ID from request parameters
-      const { shopId } = req.params.id;
-
-      // Find the shop by ID and include its products
-      const shop = await shop.findByPk(shopId, {
+      const userId = req.params.id;
+      console.log(userId);
+      // Trouver le shop associé à l'utilisateur connecté
+      const shop = await Shop.findOne({
+        where: {
+          user_id: userId,
+        },
         include: [
           {
             model: product,
-            as: 'products', // Use the correct association alias
+            as: 'Products',
           },
         ],
       });
-
       if (!shop) {
         // If the shop is not found, return a 404 response
         return res.status(404).json({
