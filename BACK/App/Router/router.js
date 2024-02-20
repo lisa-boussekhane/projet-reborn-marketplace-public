@@ -36,7 +36,7 @@ router.get('/products', productController.getProductsPage);
 
 router.get('/shop/:id', verifyToken, shopController.showShop);
 router.post('/createshop/:id', verifyToken, shopController.createShop);
-router.delete('/shop/:id', shopController.deleteShop);
+router.delete('/shop/:id', verifyToken, shopController.deleteShop);
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);

@@ -8,6 +8,7 @@ const shop = require('./shop');
 user.hasMany(shop, { foreignKey: 'user_id' });
 shop.belongsTo(user, { foreignKey: 'user_id' });
 
+
 // Product and Shop (Many-to-One)
 shop.hasMany(product, { foreignKey: 'shop_id' });
 product.belongsTo(shop, { foreignKey: 'shop_id' });

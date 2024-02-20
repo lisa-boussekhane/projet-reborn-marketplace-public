@@ -6,7 +6,7 @@ export default function CreateMyStore() {
   const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
-    userType: '',
+    pro: '',
   });
   const [message, setMessage] = useState('');
   const handleInputChange = (e) => {
@@ -34,7 +34,7 @@ export default function CreateMyStore() {
       if (response.ok) {
         const result = await response.json();
         setMessage('Congratulations! Your store has been created.');
-        console.log(result); // Handle the response as needed
+        console.log(result);
       } else {
         setMessage('Error. Please try again.');
         console.error('Failed to create shop');
@@ -73,32 +73,32 @@ export default function CreateMyStore() {
           </div>
 
           <div className="cms-form_item cms-form_item_right">
-            <h2>Are you a professional or an individual?</h2>
+            <h2>Are you a professional ?</h2>
 
             <label htmlFor="professional">
               <input
                 type="radio"
                 id="professional"
-                name="userType"
-                value="professional"
+                name="pro"
+                value="yes"
                 required
-                checked={formData.userType === 'professional'}
+                checked={formData.pro === 'yes'}
                 onChange={handleInputChange}
               />
-              Professional
+              Yes
             </label>
 
-            <label htmlFor="individual">
+            <label htmlFor="professional">
               <input
                 type="radio"
-                id="individual"
-                name="userType"
-                value="individual"
+                id="professional"
+                name="pro"
+                value="no"
                 required
-                checked={formData.userType === 'individual'}
+                checked={formData.pro === 'no'}
                 onChange={handleInputChange}
               />
-              Individual
+              No
             </label>
           </div>
         </div>

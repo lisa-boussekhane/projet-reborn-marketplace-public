@@ -8,7 +8,7 @@
 }
 
 .seller__title h2 {
-  margin-top: 5rem;
+  
   font-size: 2rem;
   border-bottom: 1px solid v.$midGrey;
   line-height: 2;
@@ -19,13 +19,18 @@
 .seller__cta {
   display: none;
 }
+.seller__buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem; 
+  margin-top: 5rem;
+}
 
 .seller__button input {
   float: right;
-  display: block;
   font-size: 1.3em;
   color: #fff;
-  margin-right: 3rem;
+  margin-right: 1rem;
   margin-top: -4rem;
   background: v.$blue;
   border: none;

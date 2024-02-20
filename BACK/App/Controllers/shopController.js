@@ -3,7 +3,6 @@ const product = require('../Models/product');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const shopController = {
-
   // ne touche pas à showShop stp
   async showShop(req, res) {
     try {
@@ -67,13 +66,16 @@ const shopController = {
 
   async deleteShop(req, res) {
     try {
-      // Extract shop ID from request parameters
-      const { shopId } = req.params;
+      const userId = req.params.id;
+      console.log(userId);
 
-      // Find the shop by its ID
-      const shop = await shop.findByPk(shopId);
+      // trouver le shop associé au user
+      const shop = await Shop.findOne({
+        where: {
+          user_id: userId,
+        },
+      });
 
-      // If the shop doesn't exist, return a 404 Not Found response
       if (!shop) {
         return res.status(404).json({
           message: 'Shop not found',
@@ -81,19 +83,15 @@ const shopController = {
       }
 
       // Delete the shop from the database
-      await shop.destroy({
-        where: {
-          id: shopId,
-        },
-      });
+      await shop.destroy();
 
       // Return a success response
-      res.status(200).json({
+      return res.status(200).json({
         message: 'Shop deleted successfully',
       });
     } catch (error) {
       // If there's an error during the deletion, return an error message
-      res.status(500).json({
+      return res.status(500).json({
         message: 'Failed to delete shop',
         error: error.message,
       });
