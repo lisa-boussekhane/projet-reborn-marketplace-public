@@ -142,3 +142,15 @@ Coté front : Sarah : authentification front, quelques problèmes
   - Rita : multer, implémenter socket io back, trouver package rating back+front
   - Lisa : voir page paiement, short uniqueId + sellmyreborn, seller username, supprimer compte et contact us 
   - Sarah : my account, regler page reborns, faire la page result, catégories et sous-categories
+
+    # 20/02/2024 - Sprint 2
+    Hier, Rita multer, implémenter socket io back.
+    Sarah : voir categories et my account
+    Lisa : seller username, supprimer compte, contact us, my shop, supprimer un article, conditianal rendering
+
+     ### Infos individuelles
+    - Rita : réparer le seeding, cleaner productController + majuscules models et index, rating si le temps le permet
+    - Sarah : logout, categories, myaccount, result
+    - Lisa : create shop, sellmyreborn, edit an article, ne plus se déconnecter lors du refresh + paiement si y a le temps 
+
+    
