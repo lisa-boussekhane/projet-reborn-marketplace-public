@@ -1,9 +1,8 @@
 import './MyAccount.scss';
-import { useState, useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
-import { useParams } from 'react-router-dom';
 
 export default function MyAccount() {
+
   const [user, setUser] = useState('');
   const { id } = useParams();
 
@@ -66,43 +65,23 @@ export default function MyAccount() {
           </div>
 
           <form className="profile__elem" method="get">
-            {user && (
-              <>
-                <label htmlFor="firstname">
-                  Firstname:{' '}
-                  <input
-                    type="text"
-                    name="firstname"
-                    id="firstname"
-                    value={user.first_name}
-                    onChange={handleInputValue}
-                  />
-                </label>
-                <label htmlFor="last name">
-                  Last name:{' '}
-                  <input
-                    type="text"
-                    name="lastname"
-                    id="lastname"
-                    value={user.last_name}
-                    onChange={handleInputValue}
-                  />
-                </label>
-                <label htmlFor="phone">
-                  Phone number
-                  <input
-                    type="tel"
-                    name="phone"
-                    id="phone"
-                    value={user.phone}
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                    required
-                    onChange={handleInputValue}
-                  />
-                </label>
-                <input type="submit" value="Save" className="save__btn" />
-              </>
-            )}
+            <label htmlFor="firstname">
+              First name <input type="text" name="firstname" id="firstname" />
+            </label>
+            <label htmlFor="last name">
+              Last name <input type="text" name="lastname" id="lastname" />
+            </label>
+            <label htmlFor="phone">
+              Phone number
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required
+              />
+            </label>
+            <input type="submit" value="Save" className="save__btn" />
           </form>
         </div>
 

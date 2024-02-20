@@ -1,7 +1,49 @@
 import './ContactUs.scss';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function ContactUs() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [sent, setSent] = useState(false);
+  const [sendingError, setSendingError] = useState('');
+
+  const sendForm = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: name,
+      email: email,
+      message: message,
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/contactus', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        setSent(true);
+        setSendingError('');
+      } else {
+        setSent(false);
+        setSendingError(
+          data.message || "Une erreur s'est produite lors de l'envoi."
+        );
+      }
+    } catch (erreur) {
+      console.error("Erreur lors de l'envoi du formulaire:", erreur);
+      setSent(false);
+      setSendingError("Une erreur s'est produite lors de l'envoi.");
+    }
+  };
+
   return (
     <div>
       <div className="contact-us">
@@ -11,13 +53,34 @@ export default function ContactUs() {
         <div className="contact-us_form">
           <h1>Contact us</h1>
 
-          <form>
+          <form onSubmit={sendForm}>
             <div className="form-row">
-              <input type="text" placeholder="Name" required />
-              <input type="email" placeholder="Email" required />
+              <input
+                type="text"
+                placeholder="Name"
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </div>
-            <textarea placeholder="Message" required />
-
+            <textarea
+              placeholder="Message"
+              onChange={(e) => setMessage(e.target.value)}
+              required
+            />
+            {sent && (
+              <p style={{ color: 'green' }}>Message sent successfully !</p>
+            )}
+            {sendingError && (
+              <p style={{ color: 'red' }}>
+                Error in sending the message, please try again...
+              </p>
+            )}
             <button type="submit">Send</button>
           </form>
         </div>

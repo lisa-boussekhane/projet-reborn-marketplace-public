@@ -33,11 +33,13 @@ export default function Product() {
           throw new Error('Error fetching products');
         }
         const data = await response.json();
+        console.log(data);
         setProduct(data);
       } catch (error) {
         console.error('Error fetching product:', error);
       }
     };
+
     fetchProductDetail();
   }, [id]);
 
@@ -53,7 +55,11 @@ export default function Product() {
       <div className="product__wrapper">
         <h2>{product ? product.title : 'Loading...'}</h2>
         <div className="product__info">
-          <h3>Seller Username</h3>
+          <h3>
+            {product && product.users && product.users[0]
+              ? product.users[0].username
+              : 'Details not provided by the seller yet.'}
+          </h3>
           <div className="star__box">
             <FontAwesomeIcon icon={faStar} id="star__items" />
             <FontAwesomeIcon icon={faStar} id="star__items" />
@@ -66,50 +72,78 @@ export default function Product() {
             style={{ color: '#a3a3a3', fontSize: '3.5em' }}
           />
         </div>
+
         <div className="product__group">
           <div className="product__group__col">
             <p>Type: {product ? product.type : 'Loading...'}</p>
             <p>Kit-name : {product ? product.kit_name : 'Loading...'}</p>
             <p>Sculptor : {product ? product.sculptor : 'Loading...'}</p>
             <p>
-              Gender: {product ? product.detail_product.gender : 'Loading...'}
+              Gender:{' '}
+              {product && product.detail_product
+                ? product.detail_product.gender
+                : 'Details not provided by the seller yet.'}
             </p>
             <p>Age range: {product ? product.age_range : 'Loading...'}</p>
-            <p>Eyes: {product ? product.detail_product.eyes : 'Loading...'}</p>
-            <p>Hair: {product ? product.detail_product.hair : 'Loading...'}</p>
+            <p>
+              Eyes:{' '}
+              {product && product.detail_product
+                ? product.detail_product.eyes
+                : 'Details not provided by the seller yet.'}
+            </p>
+            <p>
+              Hair:{' '}
+              {product && product.detail_product
+                ? product.detail_product.hair
+                : 'Details not provided by the seller yet.'}
+            </p>
             <p>Size: {product ? product.size : 'Loading...'}</p>
             <p>Weight: {product ? product.weight : 'Loading...'}</p>
             <p>
-              Belly plate:
-              {product ? product.detail_product.belly_plate : 'Loading...'}
-            </p>
-          </div>
-
-          <div className="product__group__row">
-            {product ? product.detail_product.description : 'Loading...'}
-          </div>
-
-          <div className="product__group__col">
-            <p>
-              Created : {product ? product.detail_product.year : 'Loading...'}
-            </p>
-          </div>
-
-          <div className="product__group__row">
-            <p>
-              Status: {product ? product.detail_product.status : 'Loading...'}
+              Belly plate:{' '}
+              {product && product.detail_product
+                ? product.detail_product.belly_plate
+                : 'Details not provided by the seller yet.'}
             </p>
             <p>
-              Authenticity card:{' '}
-              {product ? product.authenticity_card : 'Loading...'}{' '}
+              Unique ID:{' '}
+              {product && product.detail_product
+                ? product.detail_product.unique_id
+                : 'Details not provided by the seller yet.'}
             </p>
-          </div>
 
-          <div className="product__group__col">
             <p>
-              Location:{' '}
-              {product ? product.detail_product.localization : 'Loading...'}
+              <p>
+                {product && product.detail_product
+                  ? product.detail_product.description
+                  : 'Details not provided by the seller yet.'}
+              </p>
             </p>
+
+            <div className="product__group__row">
+              <p>
+                Created :{' '}
+                {product && product.detail_product
+                  ? product.detail_product.year
+                  : 'Details not provided by the seller yet.'}
+              </p>
+              <p>
+                Status:{' '}
+                {product && product.detail_product
+                  ? product.detail_product.status
+                  : 'Details not provided by the seller yet.'}
+              </p>
+              <p>
+                Authenticity card:{' '}
+                {product ? product.authenticity_card : 'Loading...'}{' '}
+              </p>
+              <p>
+                Location:{' '}
+                {product && product.detail_product
+                  ? product.detail_product.localization
+                  : 'Details not provided by the seller yet.'}
+              </p>
+            </div>
           </div>
         </div>
       </div>

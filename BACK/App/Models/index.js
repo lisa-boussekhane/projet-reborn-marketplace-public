@@ -16,10 +16,12 @@ product.belongsTo(shop, { foreignKey: 'shop_id' });
 product.belongsToMany(user, {
   through: 'User_Order_Product',
   foreignKey: 'product_id',
+  timestamps: false,
 });
 user.belongsToMany(product, {
   through: 'User_Order_Product',
   foreignKey: 'user_id',
+  timestamps: false,
 });
 
 // Product and DetailProduct (One-to-One)
@@ -29,3 +31,6 @@ detail_product.belongsTo(product, { foreignKey: 'product_id' });
 // Product and Media (One-to-Many)
 product.hasMany(media, { foreignKey: 'product_id' });
 media.belongsTo(product, { foreignKey: 'product_id' });
+
+
+module.exports = { user, detail_product, shop, product, media };

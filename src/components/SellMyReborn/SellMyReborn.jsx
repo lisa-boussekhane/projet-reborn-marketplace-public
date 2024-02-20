@@ -1,11 +1,39 @@
 import './SellMyReborn.scss';
+import { useState } from 'react';
 
 export default function SellMyReborn() {
+  const [productId, setProductId] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const token = localStorage.getItem('jwtToken');
+    try {
+      const response = await fetch('http://localhost:3000/product/create', {
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // token récupéré dans le local storage
+        },
+      });
+      const formDataJSON = {};
+      formData.forEach((value, key) => {
+        formDataJSON[key] = value;
+      });
+      const productData = await response.json();
+      // Set the unique ID in state to display it
+      setProductId(productData.id);
+    } catch (error) {
+      console.error('Failed to create product', error);
+    }
+  };
   return (
     <div className="sell__box">
       <form action="" method="post">
         <div className="sell__wrapper">
           <form
+            onSubmit={handleSubmit}
             method="post"
             action="/product/create"
             encType="multipart/form-data"
@@ -57,12 +85,11 @@ export default function SellMyReborn() {
               id="sculptor"
               placeholder="Sculptor of the kit"
             />
-            <input
-              type="number"
-              name="belly"
-              id="belly"
-              placeholder="Belly plate"
-            />
+            <select name="belly" id="authenticity">
+              <option value="auth">Belly plate?</option>
+              <option value="new">Yes</option>
+              <option value="resell">No</option>
+            </select>
             <select name="gender" id="gender">
               <option value="gen">Gender</option>
               <option value="boy">Boy</option>

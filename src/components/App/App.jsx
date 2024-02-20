@@ -28,6 +28,7 @@ import Product from '../Product/Product';
 import MyStore from '../MyStore/MyStore';
 
 function App() {
+
   return (
     <div className="app">
       <Header />

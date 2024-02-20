@@ -8,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginSuccess, setLoginSuccess] = useState(false);
-  const { setIsLoggedIn } = useAuth();
+  const { setIsLoggedIn, setUser } = useAuth();
   const navigate = useNavigate();
 
   // if login successful, user gets redirected to my account page
@@ -29,7 +29,7 @@ export default function Login() {
       });
       const data = await response.json();
       console.log('API Response:', data);
-      const { token } = data;
+      const { token, user } = data;
 
       // stocker le token dans localStorage
       localStorage.setItem('jwtToken', token);
@@ -37,6 +37,7 @@ export default function Login() {
       if (data.success) {
         setLoginSuccess(true);
         setIsLoggedIn(true);
+        setUser(user);
       } else {
         console.error('Échec de la connexion');
       }
