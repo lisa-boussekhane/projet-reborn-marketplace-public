@@ -6,42 +6,25 @@ BEGIN;
 
 DELETE FROM "User_Order_Product";
 DELETE FROM "message";
+DELETE FROM "media";
 DELETE FROM "detail_product";
 DELETE FROM "product";
 DELETE FROM "shop";
---DELETE FROM "media";
 DELETE FROM "user";
 
 ----------------------------------------------
 -- Déchargement des données de la table "user"
 ----------------------------------------------
 
-INSERT INTO "user" ("id", "first_name", "last_name", "username", "email", "password", "date_of_birth", "phone", "address", "zip_code", "city", "state", "role", "duns" ) OVERRIDING SYSTEM VALUE VALUES
-(1, 'Gabriela', 'Fernandez', 'GFernandez', 'gabriela.fernandez@gmail.com', 'reborn', '1986-12-21', '5555551234', '20 W 34th St.', ' 10001', 'New York', 'New York', 'Seller', '150483782'),
-(2, 'Cynthia', 'Smith', 'cynthiasmith87', 'cynthia.smith@yahoo.com', 'reborn', '1987-12-05', '5555555678', '2760 Fifth Avenue', '92103', 'San Diego', 'California', 'Buyer', NULL),
-(3, 'Mary', 'Doe', 'marydoe', 'mary.doe@outlook.com', 'reborn', '1976-02-10', '5556575678', '1112 Northside Dr NW', '30318', 'Atlanta', 'Georgia', 'Seller/Buyer', NULL);
+INSERT INTO "user" ("id", "first_name", "last_name", "username", "email", "password", "date_of_birth", "phone", "address", "zip_code", "city", "state", "role", "pro", "duns" ) OVERRIDING SYSTEM VALUE VALUES
+(1, 'Gabriela', 'Fernandez', 'GFernandez', 'gabriela.fernandez@gmail.com', 'reborn', '1986-12-21', '5555551234', '20 W 34th St.', ' 10001', 'New York', 'New York', 'Seller', 'Yes', '150483782'),
+(2, 'Cynthia', 'Smith', 'cynthiasmith87', 'cynthia.smith@yahoo.com', 'reborn', '1987-12-05', '5555555678', '2760 Fifth Avenue', '92103', 'San Diego', 'California', 'Buyer', 'No', NULL),
+(3, 'Mary', 'Doe', 'marydoe', 'mary.doe@outlook.com', 'reborn', '1976-02-10', '5556575678', '1112 Northside Dr NW', '30318', 'Atlanta', 'Georgia', 'Seller/Buyer', 'No', NULL);
 
 SELECT setval('"user_id_seq"', (SELECT MAX(id) + 1 FROM "user"));
-----------------------------------------------
--- Déchargement des données de la table "media"
-----------------------------------------------
-
--- INSERT INTO "media" ("id", "photo", "video", "product_id") VALUES
--- (1, /uploads/uniqueFileName.jpg, '', 1),
--- (2, /uploads/uniqueFileName.jpg, '', 2),
--- (3, /uploads/uniqueFileName.jpg, '', 3),
--- (4, /uploads/uniqueFileName.jpg, '', 4),
--- (5, /uploads/uniqueFileName.jpg, '', 5),
--- (6, /uploads/uniqueFileName.jpg, '', 6),
--- (7, /uploads/uniqueFileName.jpg, '', 7),
--- (8, /uploads/uniqueFileName.jpg, '', 8),
--- (9, /uploads/uniqueFileName.jpg, '', 9),
--- (10, /uploads/uniqueFileName.jpg, '', 10),
--- (11, /uploads/uniqueFileName.jpg, '', 11),
--- (12, /uploads/uniqueFileName.jpg, '', 12);
 
 ----------------------------------------------
--- Déchargement des données de la table "media"
+-- Déchargement des données de la table "shop"
 ----------------------------------------------
 
 INSERT INTO "shop" ("id", "name", "rating", "user_id") OVERRIDING SYSTEM VALUE VALUES
@@ -49,7 +32,7 @@ INSERT INTO "shop" ("id", "name", "rating", "user_id") OVERRIDING SYSTEM VALUE V
 (2,'Reborn Wonderful', NULL, 3);
 
 ----------------------------------------------
--- Déchargement des données de la table "media"
+-- Déchargement des données de la table "product"
 ----------------------------------------------
 
 INSERT INTO "product" ("id", "unique_id", "title", "kit_name", "sculptor", "size", "type", "weight", "age_range", "authenticity_card", "price", "shipping_fees", "user_id", "shop_id") OVERRIDING SYSTEM VALUE VALUES
@@ -66,8 +49,6 @@ INSERT INTO "product" ("id", "unique_id", "title", "kit_name", "sculptor", "size
 (11, 'wD4TaR', 'Baby Toddler Girl Lottie Has Realistic Skin Blue Eyes and Brown Hair', 'Lottie', 'Laura Lee Eagles', '24', 'Vinyl', 8, 'Toddler', 'Yes', '980', '60', 1, 1),
 (12, 'zdH5Iv', 'Baby Full Silicone Girl Johnnie Closed Eyes', 'Johnnie', 'Ina Volprich', '20', 'Silicone', 7, 'Baby', 'Yes', '1200', '60', 3, 1);
 
---ON CONFLICT (unique_id) DO UPDATE;
-
 --------------------------------------------------------
 -- Déchargement des données de la table "detail_product"
 --------------------------------------------------------
@@ -77,15 +58,34 @@ INSERT INTO "detail_product" ("id", "localization", "belly_plate", "gender", "ye
 (2, 'New York', 'Yes', 'Boy', '2024', 'Brown', 'Black','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.' , 'New', 2),
 (3, 'New York', 'No', 'Girl', '2022', 'Blue', 'Brown', 'Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 3),
 (4, 'New York', 'No', 'Girl', '2023', 'Closed','Brown','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 4),
-(5, 'Atlanta', 'No', 'None', '2023', 'Blue','Brown','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'Resell', 1),
-(6, 'New York', 'Yes', 'Boy', '2024', 'Brown', 'Black','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.' , 'New', 2),
-(7, 'New York', 'No', 'Girl', '2022', 'Blue', 'Brown', 'Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 3),
-(8, 'New York', 'No', 'Girl', '2023', 'Closed','Brown','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 4),
-(9, 'Atlanta', 'No', 'None', '2023', 'Blue','Brown','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'Resell', 1),
-(10, 'New York', 'Yes', 'Boy', '2024', 'Brown', 'Black','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.' , 'New', 2),
-(11, 'New York', 'No', 'Girl', '2022', 'Blue', 'Brown', 'Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 3),
-(12, 'New York', 'No', 'Girl', '2023', 'Closed','Brown','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 4);
+(5, 'Atlanta', 'No', 'None', '2023', 'Blue','Brown','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'Resell', 5),
+(6, 'New York', 'Yes', 'Boy', '2024', 'Brown', 'Black','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.' , 'New', 6),
+(7, 'New York', 'No', 'Girl', '2022', 'Blue', 'Brown', 'Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 7),
+(8, 'New York', 'No', 'Girl', '2023', 'Closed','Brown','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 8),
+(9, 'Atlanta', 'No', 'None', '2023', 'Blue','Brown','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'Resell', 9),
+(10, 'New York', 'Yes', 'Boy', '2024', 'Brown', 'Black','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.' , 'New', 10),
+(11, 'New York', 'No', 'Girl', '2022', 'Blue', 'Brown', 'Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 11),
+(12, 'New York', 'No', 'Girl', '2023', 'Closed','Brown','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 12);
 
+----------------------------------------------
+-- Déchargement des données de la table "media"
+----------------------------------------------
+
+INSERT INTO "media" ("id", "photo", "video", "product_id") OVERRIDING SYSTEM VALUE VALUES
+(1, './App/uploads/Alina.jpg', NULL, 1),
+(2, './App/uploads/Johnnie.jpg', NULL, 2),
+(3, './App/uploads/Lottie.jpg', NULL, 3),
+(4, './App/uploads/Sebastian.jpg', NULL, 4),
+(5, './App/uploads/Alina.jpg', NULL, 5),
+(6, './App/uploads/Johnnie.jpg', NULL, 6),
+(7, './App/uploads/Lottie.jpg', NULL, 7),
+(8, './App/uploads/Sebastian.jpg', NULL, 8),
+(9, './App/uploads/Alina.jpg', NULL, 9),
+(10, './App/uploads/Johnnie.jpg', NULL, 10),
+(11, './App/uploads/Lottie.jpg', NULL, 11),
+(12, './App/uploads/Sebastian.jpg', NULL, 12);
+
+-- SELECT setval('"media_id_seq"', (SELECT MAX(id) + 1 FROM "media"));
 
 ------------------------------------------------
 -- Déchargement des données de la table "message"
@@ -113,8 +113,10 @@ INSERT INTO "User_Order_Product"("id", "product_id", "date", "invoice", "status"
 (11, 3, '2024-02-13', NULL, 'Paid', 2),
 (12, 1, '2024-02-10', NULL, 'Send', 2);
 
---ALTER TABLE media
---    ADD CONSTRAINT fk_media_product FOREIGN KEY (product_id) REFERENCES product(id);
+ALTER TABLE media DROP CONSTRAINT fk_media_product;
+
+ALTER TABLE media
+    ADD CONSTRAINT fk_media_product FOREIGN KEY (product_id) REFERENCES "product"(id);
 
 ALTER TABLE message DROP CONSTRAINT fk_user_receiver;
 ALTER TABLE message DROP CONSTRAINT fk_user_sender;
@@ -126,12 +128,3 @@ ALTER TABLE message
     ADD CONSTRAINT fk_user_receiver FOREIGN KEY (receiver_id) REFERENCES "user"(id);
     
 COMMIT;
-
--- BEGIN;
-
--- SELECT setval('id_seq', (SELECT MAX(id) from "user"));
--- SELECT setval('id_seq', (SELECT MAX(id) from "product"));
--- SELECT setval('id_seq', (SELECT MAX(id) from "user"));
--- SELECT setval('id_seq', (SELECT MAX(id) from "shop"));
-
--- COMMIT;

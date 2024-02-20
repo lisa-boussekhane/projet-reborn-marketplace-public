@@ -19,6 +19,7 @@ CREATE TABLE "user" (
   "city" VARCHAR(128),
   "state" VARCHAR(128),
   "role" VARCHAR(128),
+  "pro" VARCHAR(12),
   "duns" INTEGER,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -26,8 +27,8 @@ CREATE TABLE "user" (
 
 CREATE TABLE "media" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  "photo" PATH NOT NULL,
-  "video" PATH,
+  "photo" VARCHAR NOT NULL,
+  "video" VARCHAR,
   "product_id" INTEGER NOT NULL,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -103,7 +104,7 @@ CREATE TABLE "User_Order_Product"(
 --------------------------------
 
 ALTER TABLE media
-    ADD CONSTRAINT fk_media_product FOREIGN KEY (product_id) REFERENCES product(id);
+    ADD CONSTRAINT fk_media_product FOREIGN KEY (product_id) REFERENCES "product"(id);
 
 ALTER TABLE message 
     ADD CONSTRAINT fk_user_sender FOREIGN KEY (sender_id) REFERENCES "user"(id);

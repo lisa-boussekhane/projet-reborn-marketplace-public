@@ -55,6 +55,10 @@ user.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    pro: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     duns: {
       type: DataTypes.INTEGER,
       allowNull: true,
