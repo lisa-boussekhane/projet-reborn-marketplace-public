@@ -1,72 +1,113 @@
 import './SellMyReborn.scss';
 import { useState } from 'react';
+import { useAuth } from '../React-Context/AuthContext';
 
 export default function SellMyReborn() {
+  const { user } = useAuth();
+  const [formData, setFormData] = useState({
+    kit_name: '',
+    year: '',
+    size: '',
+    title: '',
+    sculptor: '',
+    type: '',
+    weight: '',
+    age_range: '',
+    authenticity_card: '',
+    price: '',
+    shipping_fees: '',
+  });
   const [productId, setProductId] = useState('');
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const token = localStorage.getItem('jwtToken');
+
     try {
-      const response = await fetch('http://localhost:3000/product/create', {
-        method: 'POST',
-        body: JSON.stringify(Object.fromEntries(formData)),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // token récupéré dans le local storage
-        },
-      });
-      const formDataJSON = {};
-      formData.forEach((value, key) => {
-        formDataJSON[key] = value;
-      });
+      const token = localStorage.getItem('jwtToken');
+      const response = await fetch(
+        `http://localhost:3000/createproduct/${user.id}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to create product. HTTP status: ${response.status}`
+        );
+      }
+      console.log('Form Data:', formData);
       const productData = await response.json();
-      // Set the unique ID in state to display it
       setProductId(productData.id);
     } catch (error) {
-      console.error('Failed to create product', error);
+      console.error('Failed to create product', error.message);
     }
   };
   return (
     <div className="sell__box">
-      <form action="" method="post">
+      <form
+        onSubmit={handleSubmit}
+        method="post"
+        encType="multipart/form-data"
+        className="sell__container"
+      >
         <div className="sell__wrapper">
-          <form
-            onSubmit={handleSubmit}
-            method="post"
-            action="/product/create"
-            encType="multipart/form-data"
-            className="sell__container"
-          >
-            <input type="file" name="image" />
-            <input type="submit" />
-          </form>
+          <input type="file" name="image" />
+          <input type="submit" />
 
           <div className="sell__col1">
             <h3>I want to sell my reborn</h3>
             <input
               type="text"
-              name="kitname"
+              name="title"
+              id="title"
+              value={formData.title}
+              onChange={handleChange}
+              placeholder="Title"
+            />
+            <input
+              type="text"
+              name="kit_name"
               id="kitname"
+              value={formData.kit_name}
+              onChange={handleChange}
               placeholder="Name of the kit"
             />
             <input
               type="number"
               name="year"
               id="year"
+              value={formData.year}
+              onChange={handleChange}
               placeholder="Creation Year"
             />
             <input
               type="text"
               name="size"
               id="size"
+              value={formData.size}
+              onChange={handleChange}
               placeholder="Size (in inches)"
             />
             <input
               type="text"
               name="weight"
               id="weight"
+              value={formData.weight}
+              onChange={handleChange}
               placeholder="Weight (in pounds)"
             />
             <input
@@ -75,14 +116,22 @@ export default function SellMyReborn() {
               id="localization"
               placeholder="Localization"
             />
-            <input type="text" name="price" id="price" placeholder="Price" />
+            <input
+              type="text"
+              name="price"
+              id="price"
+              value={formData.price}
+              onChange={handleChange}
+              placeholder="Price"
+            />
           </div>
-
           <div className="sell__col2">
             <input
               type="text"
               name="sculptor"
               id="sculptor"
+              value={formData.sculptor}
+              onChange={handleChange}
               placeholder="Sculptor of the kit"
             />
             <select name="belly" id="authenticity">
@@ -107,20 +156,31 @@ export default function SellMyReborn() {
             </select>
             <input
               type="text"
-              name="fees"
+              name="shipping_fees"
               id="fees"
               placeholder="Shipping fees"
+              value={formData.shipping_fees}
+              onChange={handleChange}
             />
           </div>
-
           <div className="sell__col3">
-            <select name="type" id="type">
+            <select
+              name="type"
+              id="type"
+              value={formData.type}
+              onChange={handleChange}
+            >
               <option value="material">Type</option>
               <option value="vinyl">Vinyl</option>
               <option value="silicone">Silicone</option>
               <option value="cuddle">Cuddle</option>
             </select>
-            <select name="age" id="age">
+            <select
+              name="age_range"
+              id="age"
+              value={formData.age_range}
+              onChange={handleChange}
+            >
               <option value="range">Age range</option>
               <option value="baby">Baby</option>
               <option value="toddler">Toddler</option>
@@ -155,6 +215,7 @@ export default function SellMyReborn() {
             porro nisi id consequuntur ratione.
           </textarea>
         </div>
+
         <div className="sell__btn">
           <input type="submit" value="Save" />
         </div>

@@ -1,6 +1,5 @@
-const { product, detail_product, media, user } = require('../Models/');
-const ShortUniqueId = require('short-unique-id');
-const uid = new ShortUniqueId({ length: 6 });
+const { product, detail_product, media, user, shop } = require('../Models/');
+const { randomId } = require('../Middlewares/randomIdMaison');
 const multer = require('multer');
 
 const productController = {
@@ -46,49 +45,6 @@ const productController = {
     }
   },
 
-  async createProduct(req, res) {
-    try {
-      // Extract product, detailProduct, and media data from request body
-      const { productData, detailProductData, mediaData } = req.body;
-
-      // Generate a unique ID for the product
-      productData.customId = uid();
-
-      // Create product
-      const product = await product.create(productData);
-
-      // Add product ID to detailProductData and mediaData
-      detailProductData.product_id = product.id;
-      mediaData.product_id = product.id;
-
-      // Create detailProduct and media associated with the product
-      const detailProduct = await detail_product.create(detailProductData);
-      const media = await Promise.all(
-        mediaData.map((mediaItem) => media.create(mediaItem))
-      );
-
-      // If everything goes well, commit the transaction
-      // await t.commit();
-
-      // Respond with created product, its details, and media
-      res.status(201).json({
-        message: 'Product created successfully',
-        product: product,
-        detail_product: detailProduct,
-        media: media,
-      });
-    } catch (error) {
-      // If there's an error, rollback the transaction
-      // await t.rollback();
-
-      // Respond with error message
-      res.status(500).json({
-        message: 'Failed to create product',
-        error: error.message,
-      });
-    }
-  },
-
   async updateProduct(req, res) {
     try {
       const { productId } = req.params.id;
@@ -129,6 +85,53 @@ const productController = {
       });
     }
   },
+  async createProduct(req, res) {
+    const userId = req.params.id;
+    const newid = randomId();
+    try {
+      const theUser = await user.findByPk(userId);
+      console.log('le user : ', theUser);
+
+      if (!theUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Assuming you have the shop instance available (maybe from middleware)
+      const usershop = await shop.findOne({
+        where: {
+          user_id: userId,
+        },
+      });
+
+      if (!usershop) {
+        return res.status(404).json({ error: 'Shop not found' });
+      }
+      // const uidValue = uid.rnd();
+      // const productData = req.body user_id : userId ;
+      const productData = {
+        user_id: userId, // Corrected to use theUser.id
+        kit_name: req.body.kit_name,
+        year: req.body.year,
+        size: req.body.size,
+        title: req.body.title,
+        sculptor: req.body.sculptor,
+        type: req.body.type,
+        weight: req.body.weight,
+        age_range: req.body.age_range,
+        authenticity_card: req.body.authenticity_card,
+        price: req.body.price,
+        shipping_fees: req.body.shipping_fees,
+      };
+      productData.unique_id = newid;
+
+      const newProduct = await product.create(productData);
+
+      return res.status(201).json(newProduct);
+    } catch (error) {
+      console.error('Error creating product:', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  },
 
   async deleteProduct(req, res) {
     try {
@@ -162,36 +165,36 @@ const productController = {
     }
   },
 
-  // SHORT UNIQUE ID //
-  async createNewRecord(data) {
-    try {
-      const newRecord = await product.create(data);
-      console.log('Record created with unique ID:', newRecord.uniqueId);
-      // Handle the newly created record as needed
-    } catch (error) {
-      console.error('Error creating new record:', error);
-    }
-  },
+  // // SHORT UNIQUE ID //
+  // async createNewRecord(data) {
+  //   try {
+  //     const newRecord = await product.create(data);
+  //     console.log('Record created with unique ID:', newRecord.uniqueId);
+  //     // Handle the newly created record as needed
+  //   } catch (error) {
+  //     console.error('Error creating new record:', error);
+  //   }
+  // },
 
-  async createNewRecordWithRetry(data, retryCount = 0) {
-    try {
-      const newRecord = await product.create(data);
-      return newRecord;
-    } catch (error) {
-      if (error.name === 'SequelizeUniqueConstraintError' && retryCount < 5) {
-        console.log('Unique ID collision detected, retrying...');
-        return createNewRecordWithRetry(data, retryCount + 1);
-      } else {
-        throw error; // Rethrow error if not a unique constraint error or retries exceeded
-      }
-    }
-  },
+  // async createNewRecordWithRetry(data, retryCount = 0) {
+  //   try {
+  //     const newRecord = await product.create(data);
+  //     return newRecord;
+  //   } catch (error) {
+  //     if (error.name === 'SequelizeUniqueConstraintError' && retryCount < 5) {
+  //       console.log('Unique ID collision detected, retrying...');
+  //       return createNewRecordWithRetry(data, retryCount + 1);
+  //     } else {
+  //       throw error; // Rethrow error if not a unique constraint error or retries exceeded
+  //     }
+  //   }
+  // },
 
-// MULTER //
-// Single file upload
-async fileUpload(req, res) {
-  try {
-        await new Promise((resolve, reject) => {
+  // MULTER //
+  // Single file upload
+  async fileUpload(req, res) {
+    try {
+      await new Promise((resolve, reject) => {
         upload.single('myFile')(req, res, (err) => {
           if (err) {
             reject(err);
@@ -242,3 +245,48 @@ async fileUpload(req, res) {
 };
 
 module.exports = productController;
+
+// async createProduct(req, res) {
+//   try {
+
+//     // Extract product, detailProduct, and media data from request body
+//     const productData = req.body;
+//     const userId = req.params.id;
+
+//     productData.user_id = userId;
+//     // Generate a unique ID for the product
+//     productData.customId = uid();
+
+//     // Create product
+//     const newProduct = await product.create(productData);
+
+//     // Add product ID to detailProductData and mediaData
+//     // detailProductData.product_id = theproduct.id;
+//     // mediaData.product_id = theproduct.id;
+
+//     // Create detailProduct and media associated with the product
+//     // const detailProduct = await detail_product.create(detailProductData);
+//     // const media = await Promise.all(
+//     //   mediaData.map((mediaItem) => media.create(mediaItem))
+//     // );
+
+//     // If everything goes well, commit the transaction
+//     // await t.commit();
+
+//     // Respond with created product, its details, and media
+//     res.status(201).json({
+//       message: 'Product created successfully',
+//       product: newProduct,
+//       // detail_product: detailProduct,
+//       // media: media,
+//     });
+//   } catch (error) {
+//     // If there's an error, rollback the transaction
+//     // await t.rollback();
+
+//     // Respond with error message
+//     res.status(500).json({
+//       message: 'Failed to create product',
+//       error: error.message,
+//     });
+//   }

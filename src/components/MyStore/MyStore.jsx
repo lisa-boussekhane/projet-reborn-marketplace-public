@@ -8,7 +8,7 @@ import {
   Button,
   Modal,
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
@@ -141,8 +141,8 @@ export default function MyStore() {
     setDeleteShopModalOpen(false);
   };
 
-  const confirmDeleteShop = async () => {
-    await deleteShop(); // Utilisez await pour vous assurer que la suppression est effectuée avant de fermer la modale
+  const confirmDeleteShop = () => {
+    deleteShop(); // Utilisez await pour vous assurer que la suppression est effectuée avant de fermer la modale
     closeDeleteShopModal();
   };
 
@@ -168,7 +168,9 @@ export default function MyStore() {
             </div>
             <div className="seller__buttons">
               <div className="seller__button">
-                <input type="submit" value="Add an article" />
+                <NavLink to="/sellmyreborn">
+                  <input type="submit" value="Add an article" />
+                </NavLink>
               </div>
               <div className="seller__button">
                 <input

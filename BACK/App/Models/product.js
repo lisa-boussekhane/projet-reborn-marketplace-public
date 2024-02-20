@@ -73,9 +73,9 @@ product.init(
   }
 );
 
-product.beforeCreate((yourModelInstance, options) => {
-  const uid = new ShortUniqueId({ length: 6 }); // Adjust length as needed
-  yourModelInstance.unique_id = uid(); // Fix the property name here
-});
+// product.beforeCreate((yourModelInstance, options) => {
+//   const uid = new ShortUniqueId({ length: 6 }); // Adjust length as needed
+//   yourModelInstance.unique_id = uid(); // Fix the property name here
+// });
 
 module.exports = product;

@@ -29,7 +29,7 @@ router.get('/result', searchController.searchReborns);
 router.post('/process-payment', verifyToken, paymentController.addStripePayment);
 
 router.get('/product/:id', productController.getProductPage);
-router.post('/product/create', verifyToken, multerMiddleware, productController.createProduct);
+router.post('/createproduct/:id', verifyToken, productController.createProduct);
 router.patch('/product/:id', verifyToken, multerMiddleware, productController.updateProduct);
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
