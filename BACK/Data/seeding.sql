@@ -27,9 +27,18 @@ SELECT setval('"user_id_seq"', (SELECT MAX(id) + 1 FROM "user"));
 ----------------------------------------------
 
 -- INSERT INTO "media" ("id", "photo", "video", "product_id") VALUES
--- (1, '', '', 1),
--- (2, '', '', 2),
--- (3, '', '', 3);
+-- (1, /uploads/uniqueFileName.jpg, '', 1),
+-- (2, /uploads/uniqueFileName.jpg, '', 2),
+-- (3, /uploads/uniqueFileName.jpg, '', 3),
+-- (4, /uploads/uniqueFileName.jpg, '', 4),
+-- (5, /uploads/uniqueFileName.jpg, '', 5),
+-- (6, /uploads/uniqueFileName.jpg, '', 6),
+-- (7, /uploads/uniqueFileName.jpg, '', 7),
+-- (8, /uploads/uniqueFileName.jpg, '', 8),
+-- (9, /uploads/uniqueFileName.jpg, '', 9),
+-- (10, /uploads/uniqueFileName.jpg, '', 10),
+-- (11, /uploads/uniqueFileName.jpg, '', 11),
+-- (12, /uploads/uniqueFileName.jpg, '', 12);
 
 ----------------------------------------------
 -- Déchargement des données de la table "media"
