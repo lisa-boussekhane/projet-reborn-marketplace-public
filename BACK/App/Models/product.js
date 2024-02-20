@@ -1,5 +1,5 @@
-const { Model, DataTypes, INTEGER, BOOLEAN, UUID } = require('sequelize');
-const ShortUniqueId = require('short-unique-id');
+const { Model, DataTypes, INTEGER, BOOLEAN} = require('sequelize');
+
 
 const sequelize = require('./sequelize');
 
@@ -10,7 +10,7 @@ product.init(
     unique_id: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true, // Ensure uniqueness at the database level
+      unique: true,
     },
     title: {
       type: DataTypes.STRING,
@@ -52,6 +52,10 @@ product.init(
       type: INTEGER,
       allowNull: false,
     },
+    user_id: {
+      type: INTEGER,
+      allowNull: false,
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: true,
@@ -72,10 +76,5 @@ product.init(
     updatedAt: 'updated_at',
   }
 );
-
-// product.beforeCreate((yourModelInstance, options) => {
-//   const uid = new ShortUniqueId({ length: 6 }); // Adjust length as needed
-//   yourModelInstance.unique_id = uid(); // Fix the property name here
-// });
 
 module.exports = product;

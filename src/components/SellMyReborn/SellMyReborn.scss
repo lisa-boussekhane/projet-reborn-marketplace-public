@@ -17,17 +17,17 @@
   position: relative;
 }
 
-.sell__container h3 {
-  font-size: 1.1em;
+h3 {
+  font-size: 3rem;
   font-weight: 400;
   color: #000;
-  text-align: center;
-  border: 1px solid v.$blue;
+  border-bottom: 1px solid v.$blue;
   border-radius: 3px;
   width: 90%;
   padding: 6px 6px;
-  margin-right: 10rem;
-  cursor: pointer;
+ margin-left: 5rem;
+ 
+
 }
 
 .sell__wrapper {
@@ -127,4 +127,18 @@
   width: 180px;
   margin-bottom: -5rem;
   cursor: pointer;
+}
+
+.message {
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: 50rem;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
 }

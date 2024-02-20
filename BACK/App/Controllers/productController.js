@@ -85,18 +85,18 @@ const productController = {
       });
     }
   },
+
   async createProduct(req, res) {
     const userId = req.params.id;
     const newid = randomId();
+
     try {
       const theUser = await user.findByPk(userId);
-      console.log('le user : ', theUser);
 
       if (!theUser) {
         return res.status(404).json({ error: 'User not found' });
       }
 
-      // Assuming you have the shop instance available (maybe from middleware)
       const usershop = await shop.findOne({
         where: {
           user_id: userId,
@@ -106,29 +106,36 @@ const productController = {
       if (!usershop) {
         return res.status(404).json({ error: 'Shop not found' });
       }
-      // const uidValue = uid.rnd();
-      // const productData = req.body user_id : userId ;
+
       const productData = {
-        user_id: userId, // Corrected to use theUser.id
-        kit_name: req.body.kit_name,
-        year: req.body.year,
-        size: req.body.size,
-        title: req.body.title,
-        sculptor: req.body.sculptor,
-        type: req.body.type,
-        weight: req.body.weight,
-        age_range: req.body.age_range,
-        authenticity_card: req.body.authenticity_card,
-        price: req.body.price,
-        shipping_fees: req.body.shipping_fees,
+        user_id: userId,
+        shop_id: usershop.id,
+        unique_id: newid,
+        ...req.body,
       };
-      productData.unique_id = newid;
+      console.log('productData :', productData);
+      const detailProductData = {
+        ...req.body,
+      };
 
-      const newProduct = await product.create(productData);
+      try {
+        // création du produit
+        const newProduct = await product.create(productData);
+        console.log(newProduct.id);
+        await detail_product.create({
+          product_id: newProduct.id,
+          ...detailProductData,
+        });
 
-      return res.status(201).json(newProduct);
+        // Log and return the response after successful product creation
+        console.log('Product created successfully:', newProduct);
+        return res.status(201).json(newProduct);
+      } catch (error) {
+        console.error('Error creating product or details_product:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
     } catch (error) {
-      console.error('Error creating product:', error);
+      console.error('Error finding user or shop:', error);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
