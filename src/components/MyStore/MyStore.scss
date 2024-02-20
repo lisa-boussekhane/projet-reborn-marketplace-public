@@ -37,10 +37,9 @@
 }
 
 .seller__card {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 10rem;
-  margin-bottom: 8rem;
+  display: grid;
+  grid-template-columns: 350px 350px 350px 350px;
+  margin-top: 5rem;
+  margin-left: 28rem;
+  gap: 20px;
 }

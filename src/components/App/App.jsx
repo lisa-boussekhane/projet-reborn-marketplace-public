@@ -28,7 +28,6 @@ import Product from '../Product/Product';
 import MyStore from '../MyStore/MyStore';
 
 function App() {
-
   return (
     <div className="app">
       <Header />
@@ -40,7 +39,7 @@ function App() {
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/mystore" element={<MyStore counter={6} />} />
+        <Route path="/mystore" element={<MyStore />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/contactus" element={<ContactUs />} />

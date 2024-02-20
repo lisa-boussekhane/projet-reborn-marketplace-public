@@ -1,40 +1,43 @@
-import './MyAccount.scss';
-import { useState, useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../React-Context/AuthContext';
 
 export default function MyAccount() {
-  const [user, setUser] = useState('');
-  const { id } = useParams();
+  const { user } = useAuth();
+  const [userInfo, setUserInfo] = useState('');
 
   useEffect(() => {
     const handleInfo = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/user/${id}`);
-        if (!response.ok) {
-          throw new Error('Error fetching user data');
-        }
-        const data = await response.json();
-        setUser(data);
-        const { token } = data;
+        if (!user) return;
 
-        // stocker le token dans localStorage
-        localStorage.setItem('jwtToken', token);
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch(`http://localhost:3000/user/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUserInfo(userData);
+        } else {
+          throw new Error('Cannot fetch user data');
+        }
       } catch (error) {
-        console.error('Cannot fetch data', error);
+        console.error('Failed to fetch data', error);
       }
     };
-    handleInfo();
-  }, [id]);
 
-  const handleInputValue = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-  };
+    if (user) {
+      handleInfo();
+    }
+  }, [user]);
 
   return (
     <div className="account__container">
       <div>
+        
         <h1>My Account</h1>
       </div>
       <ul className="account__items">
@@ -52,83 +55,63 @@ export default function MyAccount() {
           <Link to="/deleteaccount">Delete account</Link>
         </li>
       </ul>
-
       <div id="profile">
-        <div className="profile__information">
-          {/* Insérer lien sur icon edit */}
-          <img src="./edit-icon.png" alt="" className="edit__icon" />
+        <><div className="profile__information">
+      {userInfo ? (
 
-          <div className="profile__title">
-            <h1>My profile</h1>
-          </div>
-          <div className="profile__subtitle">
-            <h2>Information</h2>
-          </div>
+            {/* Insérer lien sur icon edit */}
+            <img src="./edit-icon.png" alt="" className="edit__icon" />
 
-          <form className="profile__elem" method="get">
-            {user && (
-              <>
-                <label htmlFor="firstname">
-                  Firstname:{' '}
-                  <input
-                    type="text"
-                    name="firstname"
-                    id="firstname"
-                    value={user.first_name}
-                    onChange={handleInputValue}
-                  />
+            <div className="profile__title">
+              <h1>My profile</h1>
+            </div>
+            <div className="profile__subtitle">
+              <h2>Information</h2>
+            </div>
+
+            <form className="profile__elem" method="get">
+              <label htmlFor="firstname">
+                First name <input type="text" name="firstname" id="firstname" />
+              </label>
+              <label htmlFor="last name">
+                Last name <input type="text" name="lastname" id="lastname" />
+              </label>
+              <label htmlFor="phone">
+                Phone number
+                <input
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  required />
+             
+              </label>
+              ) : (
+              <p>Loading...</p>
+              )}
+              <input type="submit" value="Save" className="save__btn" />
+              
+            </form>
+          </div><div className="login__information">
+              <img src="./edit-icon.png" alt="" className="edit__icon__login" />
+              <div className="login__subtitle">
+                <h2>Login and Password</h2>
+              </div>
+
+              <form className="profile__elem__second" method="post" action="">
+                <label htmlFor="email">
+                  Email address <input type="email" name="email" id="email" />
                 </label>
-                <label htmlFor="last name">
-                  Last name:{' '}
-                  <input
-                    type="text"
-                    name="lastname"
-                    id="lastname"
-                    value={user.last_name}
-                    onChange={handleInputValue}
-                  />
+                <label htmlFor="password">
+                  Password <input type="password" name="password" id="password" />
                 </label>
-                <label htmlFor="phone">
-                  Phone number
-                  <input
-                    type="tel"
-                    name="phone"
-                    id="phone"
-                    value={user.phone}
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                    required
-                    onChange={handleInputValue}
-                  />
-                </label>
-                <input type="submit" value="Save" className="save__btn" />
-              </>
-            )}
-          </form>
-        </div>
-
-        <div className="login__information">
-          <img src="./edit-icon.png" alt="" className="edit__icon__login" />
-          <div className="login__subtitle">
-            {' '}
-            <h2>Login and Password</h2>
-          </div>
-
-          <form className="profile__elem__second" method="post" action="">
-            <label htmlFor="email">
-              Email address <input type="email" name="email" id="email" />
-            </label>
-            <label htmlFor="password">
-              Password <input type="password" name="password" id="password" />
-            </label>
-            <input
-              type="submit"
-              value="Save Password"
-              className="savepass__btn"
-            />
-          </form>
-        </div>
+                <input
+                  type="submit"
+                  value="Save Password"
+                  className="savepass__btn" />
+              </form>
+            </div></>
       </div>
-
       <div id="orders">
         <div>
           <h1>Orders and Returns</h1>
