@@ -3,9 +3,9 @@ const ShortUniqueId = require('short-unique-id');
 
 const sequelize = require('./sequelize');
 
-class product extends Model {}
+class Product extends Model {}
 
-product.init(
+Product.init(
   {
     unique_id: {
       type: DataTypes.STRING,
@@ -73,9 +73,9 @@ product.init(
   }
 );
 
-product.beforeCreate((yourModelInstance, options) => {
+Product.beforeCreate((yourModelInstance, options) => {
   const uid = new ShortUniqueId({ length: 6 }); // Adjust length as needed
   yourModelInstance.unique_id = uid(); // Fix the property name here
 });
 
-module.exports = product;
+module.exports = Product;

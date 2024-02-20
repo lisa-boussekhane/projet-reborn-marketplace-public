@@ -1,5 +1,4 @@
-const { user } = require('../Models/user');
-const { product } = require('../Models/product');
+const { Product, User } = require('../Models/');
 const verifyToken = require('../Middlewares/authMiddleware');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 

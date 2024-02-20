@@ -1,7 +1,5 @@
 const { Op } = require('sequelize');
-const product = require('../Models/product');
-const detail_product = require('../Models/detail_product');
-const media = require('../Models/media');
+const { Product, Detail_product, Media } = require('../Models/');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const searchController = {

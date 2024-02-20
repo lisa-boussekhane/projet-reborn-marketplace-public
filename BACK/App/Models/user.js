@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 
 const sequelize = require('./sequelize');
 
-class user extends Model {}
+class User extends Model {}
 
-user.init(
+User.init(
   {
     first_name: {
       type: DataTypes.STRING,
@@ -77,7 +77,7 @@ user.init(
   },
   {
     sequelize,
-    modelName: 'user',
+    modelName: 'User',
     tableName: 'user',
     timestamps: true,
     createdAt: 'created_at',
@@ -85,7 +85,7 @@ user.init(
   }
 );
 
-user.beforeSave((user) => {
+User.beforeSave((user) => {
   if (user.changed('password') || user.isNewRecord) {
     user.password = bcrypt.hashSync(
       user.password,
@@ -95,7 +95,7 @@ user.beforeSave((user) => {
   }
 });
 
-user.prototype.comparePassword = function (password, cb) {
+User.prototype.comparePassword = function (password, cb) {
   bcrypt.compare(password, this.password, function (err, isMatch) {
     if (err) {
       return cb(err);
@@ -105,4 +105,4 @@ user.prototype.comparePassword = function (password, cb) {
 };
 // full method from this link: https://stackoverflow.com/questions/54288226/how-correct-create-new-entry-in-sequelize-js-orm //
 
-module.exports = user;
+module.exports = User;
