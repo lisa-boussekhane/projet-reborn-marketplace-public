@@ -108,20 +108,13 @@ const productController = {
 
       const media = await media.update(mediaData, {
         where: { product_id: productId },
-        transaction: t,
       });
-
-      // If everything goes well, commit the transaction
-      await t.commit();
 
       // Respond with a message indicating success
       res.status(200).json({
         message: 'Product updated successfully',
       });
     } catch (error) {
-      // If there's an error, rollback the transaction
-      await t.rollback();
-
       // Respond with error message
       res.status(500).json({
         message: 'Failed to update product',
