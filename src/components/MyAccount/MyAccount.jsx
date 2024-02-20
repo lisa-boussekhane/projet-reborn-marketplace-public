@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { HashLink as Link } from 'react-router-hash-link';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../React-Context/AuthContext';
@@ -34,6 +35,12 @@ export default function MyAccount() {
     }
   }, [user]);
 
+=======
+import './MyAccount.scss';
+import { HashLink as Link } from 'react-router-hash-link';
+
+export default function MyAccount() {
+>>>>>>> ff80a2b0fc9a83104f43ccef14b011e60e971dba
   return (
     <div className="account__container">
       <div>
@@ -62,12 +69,35 @@ export default function MyAccount() {
             {/* Insérer lien sur icon edit */}
             <img src="./edit-icon.png" alt="" className="edit__icon" />
 
+<<<<<<< HEAD
             <div className="profile__title">
               <h1>My profile</h1>
             </div>
             <div className="profile__subtitle">
               <h2>Information</h2>
             </div>
+=======
+          <form className="profile__elem" method="get">
+            <label htmlFor="firstname">
+              First name <input type="text" name="firstname" id="firstname" />
+            </label>
+            <label htmlFor="last name">
+              Last name <input type="text" name="lastname" id="lastname" />
+            </label>
+            <label htmlFor="phone">
+              Phone number
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required
+              />
+            </label>
+            <input type="submit" value="Save" className="save__btn" />
+          </form>
+        </div>
+>>>>>>> ff80a2b0fc9a83104f43ccef14b011e60e971dba
 
             <form className="profile__elem" method="get">
               <label htmlFor="firstname">

@@ -8,12 +8,13 @@ const chatController = require('../Controllers/chatController');
 const paymentController = require('../Controllers/Stripe/paymentController');
 const authController = require('../Controllers/authController');
 const shopController = require('../Controllers/shopController');
+const contactController = require('../Controllers/contactController');
 const verifyToken = require('../Middlewares/authMiddleware');
 const multerMiddleware = require('../Middlewares/multerMiddleware');
 
-
 const router = express.Router();
 
+router.post('/contactus', contactController.sendEmail);
 router.get('/user/:id', verifyToken, userController.getUserInfos);
 router.get('/myorders', verifyToken, userController.getOrdersReturns);
 
@@ -33,7 +34,7 @@ router.patch('/product/:id', verifyToken, multerMiddleware, productController.up
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
-router.get('/shop/:id', shopController.showShop);
+router.get('/shop/:id', verifyToken, shopController.showShop);
 router.post('/shop/:id', shopController.createShop);
 router.delete('/shop/:id', shopController.deleteShop);
 

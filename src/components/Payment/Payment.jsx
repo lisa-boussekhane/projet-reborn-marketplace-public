@@ -63,32 +63,32 @@ export default function Payment() {
           const { clientSecret } = data;
           console.log('secret client :', clientSecret);
 
-          const { paymentIntent, error } = await stripe.confirmCardPayment(
-            clientSecret,
-            {
-              payment_method: paymentMethodId,
-            }
-          );
+          // const { paymentIntent, error } = await stripe.confirmCardPayment(
+          //   clientSecret,
+          //   {
+          //     payment_method: paymentMethodId,
+          //   }
+          // );
 
-          // réponse de stripe après confirmation du paiement
-          console.log('réponse de stripe après confirmation:', {
-            paymentIntent,
-            error,
-          });
+          // // réponse de stripe après confirmation du paiement
+          // console.log('réponse de stripe après confirmation:', {
+          //   paymentIntent,
+          //   error,
+          // });
 
-          if (error) {
-            console.error('erreur dans la confirmation du paiement:', error);
-            setLoading(false);
-            setErrorMessage('Payment failed. Please try again.');
-          } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-            console.log('payment confirmé', paymentIntent);
-            setLoading(false);
-            setSuccessMessage('Payment successful. Thank you!'); // message succès pour l'utilisateur
-          } else {
-            console.error('PaymentIntent status n\'est pas succeeded');
-            setLoading(false);
-            setErrorMessage('Payment failed. Please try again.');
-          }
+          // if (error) {
+          //   console.error('erreur dans la confirmation du paiement:', error);
+          //   setLoading(false);
+          //   setErrorMessage('Payment failed. Please try again.');
+          // } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+          //   console.log('payment confirmé', paymentIntent);
+          //   setLoading(false);
+          //   setSuccessMessage('Payment successful. Thank you!'); // message succès pour l'utilisateur
+          // } else {
+          //   console.error('PaymentIntent status n\'est pas succeeded');
+          //   setLoading(false);
+          //   setErrorMessage('Payment failed. Please try again.');
+          // }
         } else {
           console.error('Server error:', response.status);
           setLoading(false);
