@@ -57,7 +57,7 @@ export default function SellMyReborn() {
         );
       }
       // afficher produit crée en console
-      setMessage('Congratulations! Your product has been created.');
+      setMessage('Congratulations ! Your product has been created.');
       console.log('Form Data:', formData);
     } catch (error) {
       setMessage('Failed to create product. Please try again.');
