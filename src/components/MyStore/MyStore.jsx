@@ -47,6 +47,8 @@ export default function MyStore() {
             setShop(shopData);
           } else {
             console.error('Failed to fetch shop details');
+            // si le magasin n'est pas disponible, rediriger vers la page de création du magasin
+            navigate('/createmystore');
           }
         } catch (error) {
           console.error('An unexpected error occurred', error);

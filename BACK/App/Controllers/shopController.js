@@ -44,10 +44,12 @@ const shopController = {
       // Extract shop data from request body
       const shopData = req.body;
 
-      // Optionally, validate the shopData here (or use middleware for validation)
+      const userId = req.params.id;
 
+      // Add user_id to shopData
+      shopData.user_id = userId;
       // Create the shop record in the database
-      const newShop = await shop.create(shopData);
+      const newShop = await Shop.create(shopData);
 
       // If the shop is successfully created, return the new shop data
       res.status(201).json({
