@@ -6,8 +6,9 @@ export default function CreateMyStore() {
   const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
-    userType: 'professional', // Default value for radio button
+    userType: '',
   });
+  const [message, setMessage] = useState('');
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -32,11 +33,14 @@ export default function CreateMyStore() {
 
       if (response.ok) {
         const result = await response.json();
+        setMessage('Congratulations! Your store has been created.');
         console.log(result); // Handle the response as needed
       } else {
+        setMessage('Error. Please try again.');
         console.error('Failed to create shop');
       }
     } catch (error) {
+      setMessage('Error. Please try again.');
       console.error('Error:', error);
     }
   };
@@ -44,6 +48,15 @@ export default function CreateMyStore() {
   return (
     <div className="cms">
       <h1>Create my store</h1>
+      {message && (
+        <p
+          className={`message ${
+            message.includes('Error') ? 'error' : 'success'
+          }`}
+        >
+          {message}
+        </p>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="cms-form">
           <div className="cms-form_item cms-form_item_left">
@@ -66,7 +79,7 @@ export default function CreateMyStore() {
               <input
                 type="radio"
                 id="professional"
-                name="user-type"
+                name="userType"
                 value="professional"
                 required
                 checked={formData.userType === 'professional'}
@@ -79,7 +92,7 @@ export default function CreateMyStore() {
               <input
                 type="radio"
                 id="individual"
-                name="user-type"
+                name="userType"
                 value="individual"
                 required
                 checked={formData.userType === 'individual'}
