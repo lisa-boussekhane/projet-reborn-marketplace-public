@@ -1,4 +1,4 @@
-const { product, detail_product, media, user } = require('../Models/');
+const { Product, Detail_product, Media, User } = require('../Models/');
 const ShortUniqueId = require('short-unique-id');
 const uid = new ShortUniqueId({ length: 6 });
 const multer = require('multer');
@@ -11,24 +11,24 @@ const productController = {
       console.log(productId);
 
       // Fetch the product from the database, including its detail_product and media
-      const theProduct = await product.findByPk(productId, {
+      const product = await Product.findByPk(productId, {
         include: [
           {
-            model: detail_product,
+            model: Detail_product,
             as: 'detail_product',
           },
           {
-            model: media,
+            model: Media,
             as: 'media',
           },
           {
-            model: user,
+            model: User,
             as: 'users',
           },
         ],
       });
 
-      if (!theProduct) {
+      if (!product) {
         // If the product is not found, return a 404 Not Found response
         return res.status(404).json({
           message: 'Product not found',
@@ -36,7 +36,7 @@ const productController = {
       }
 
       // If the product is found, return it along with its detailed information and media
-      res.status(200).json(theProduct);
+      res.status(200).json(product);
     } catch (error) {
       // If there's an error, respond with a 500 status code and the error message
       res.status(500).json({
@@ -55,20 +55,17 @@ const productController = {
       productData.customId = uid();
 
       // Create product
-      const product = await product.create(productData);
+      const product = await Product.create(productData);
 
       // Add product ID to detailProductData and mediaData
       detailProductData.product_id = product.id;
       mediaData.product_id = product.id;
 
       // Create detailProduct and media associated with the product
-      const detailProduct = await detail_product.create(detailProductData);
+      const detailProduct = await Detail_product.create(detailProductData);
       const media = await Promise.all(
         mediaData.map((mediaItem) => media.create(mediaItem))
       );
-
-      // If everything goes well, commit the transaction
-      // await t.commit();
 
       // Respond with created product, its details, and media
       res.status(201).json({
@@ -78,9 +75,6 @@ const productController = {
         media: media,
       });
     } catch (error) {
-      // If there's an error, rollback the transaction
-      // await t.rollback();
-
       // Respond with error message
       res.status(500).json({
         message: 'Failed to create product',
@@ -96,17 +90,16 @@ const productController = {
       const { productData, detailProductData, mediaData } = req.body;
 
       // Update product
-      const product = await product.update(productData, {
+      const product = await Product.update(productData, {
         where: { id: productId },
       });
 
       // Update detailProduct and media associated with the product
-      const detailProduct = await detail_product.update(detailProductData, {
+      const detailProduct = await Detail_product.update(detailProductData, {
         where: { product_id: productId },
-        transaction: t,
       });
 
-      const media = await media.update(mediaData, {
+      const media = await Media.update(mediaData, {
         where: { product_id: productId },
       });
 
@@ -126,15 +119,15 @@ const productController = {
   async deleteProduct(req, res) {
     try {
       const productId = req.params.id;
-      const theProduct = await product.findByPk(productId);
+      const product = await Product.findByPk(productId);
 
-      if (!theProduct) {
+      if (!product) {
         return res
           .status(404)
           .json({ message: `product with id ${productId} not found.` });
       }
 
-      await theProduct.destroy();
+      await product.destroy();
 
       res.status(204).json();
     } catch (error) {
@@ -145,7 +138,7 @@ const productController = {
 
   async getProductsPage(req, res) {
     try {
-      const products = await product.findAll({
+      const products = await Product.findAll({
         order: [['title']],
       });
       res.status(200).json(products);
@@ -158,7 +151,7 @@ const productController = {
   // SHORT UNIQUE ID //
   async createNewRecord(data) {
     try {
-      const newRecord = await product.create(data);
+      const newRecord = await Product.create(data);
       console.log('Record created with unique ID:', newRecord.uniqueId);
       // Handle the newly created record as needed
     } catch (error) {
@@ -168,7 +161,7 @@ const productController = {
 
   async createNewRecordWithRetry(data, retryCount = 0) {
     try {
-      const newRecord = await product.create(data);
+      const newRecord = await Product.create(data);
       return newRecord;
     } catch (error) {
       if (error.name === 'SequelizeUniqueConstraintError' && retryCount < 5) {
