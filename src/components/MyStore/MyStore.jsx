@@ -153,7 +153,12 @@ export default function MyStore() {
         onClose={closeDeleteModal}
         size="tiny"
         dimmer="blurring"
-        style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+        style={{
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          height: '300px',
+        }}
       >
         <Modal.Header>Confirm Deletion</Modal.Header>
         <Modal.Content>
