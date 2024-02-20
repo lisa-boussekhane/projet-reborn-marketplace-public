@@ -40,7 +40,39 @@ import './MyAccount.scss';
 import { HashLink as Link } from 'react-router-hash-link';
 
 export default function MyAccount() {
+<<<<<<< HEAD
 >>>>>>> ff80a2b0fc9a83104f43ccef14b011e60e971dba
+=======
+
+  const [user, setUser] = useState('');
+  const { id } = useParams();
+
+  useEffect(() => {
+    const handleInfo = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/user/${id}`);
+        if (!response.ok) {
+          throw new Error('Error fetching user data');
+        }
+        const data = await response.json();
+        setUser(data);
+        const { token } = data;
+
+        // stocker le token dans localStorage
+        localStorage.getItemtItem('jwtToken', token);
+      } catch (error) {
+        console.error('Cannot fetch data', error);
+      }
+    };
+    handleInfo();
+  }, [id]);
+
+  const handleInputValue = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+
+
   return (
     <div className="account__container">
       <div>
@@ -64,40 +96,20 @@ export default function MyAccount() {
       </ul>
       <div id="profile">
         <><div className="profile__information">
-      {userInfo ? (
+
 
             {/* Insérer lien sur icon edit */}
             <img src="./edit-icon.png" alt="" className="edit__icon" />
 
-<<<<<<< HEAD
+
             <div className="profile__title">
               <h1>My profile</h1>
             </div>
             <div className="profile__subtitle">
               <h2>Information</h2>
             </div>
-=======
-          <form className="profile__elem" method="get">
-            <label htmlFor="firstname">
-              First name <input type="text" name="firstname" id="firstname" />
-            </label>
-            <label htmlFor="last name">
-              Last name <input type="text" name="lastname" id="lastname" />
-            </label>
-            <label htmlFor="phone">
-              Phone number
-              <input
-                type="tel"
-                name="phone"
-                id="phone"
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                required
-              />
-            </label>
-            <input type="submit" value="Save" className="save__btn" />
-          </form>
-        </div>
->>>>>>> ff80a2b0fc9a83104f43ccef14b011e60e971dba
+
+
 
             <form className="profile__elem" method="get">
               <label htmlFor="firstname">
@@ -116,13 +128,11 @@ export default function MyAccount() {
                   required />
              
               </label>
-              ) : (
-              <p>Loading...</p>
-              )}
+          
               <input type="submit" value="Save" className="save__btn" />
               
             </form>
-          </div><div className="login__information">
+          <div className="login__information">
               <img src="./edit-icon.png" alt="" className="edit__icon__login" />
               <div className="login__subtitle">
                 <h2>Login and Password</h2>
