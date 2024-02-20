@@ -191,7 +191,9 @@ export default function MyStore() {
                   <Card>
                     <Image src="./reborn1.jpg" wrapped ui={false} />
                     <Card.Content>
-                      <Card.Header>{product.title}</Card.Header>
+                      <NavLink to={`/product/${product.id}`}>
+                        <Card.Header>{product.title}</Card.Header>
+                      </NavLink>
                     </Card.Content>
                     <Card.Content extra className="card-content">
                       <Button
@@ -216,7 +218,7 @@ export default function MyStore() {
         <Modal
           open={deleteModalOpen}
           onClose={closeDeleteModal}
-          size="tiny"
+          size="mini"
           dimmer="blurring"
           style={{
             top: '50%',
@@ -242,7 +244,7 @@ export default function MyStore() {
       <Modal
         open={isDeleteShopModalOpen}
         onClose={closeDeleteShopModal}
-        size="tiny"
+        size="mini"
         dimmer="blurring"
         style={{
           top: '50%',

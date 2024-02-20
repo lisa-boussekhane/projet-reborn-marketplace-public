@@ -57,7 +57,7 @@ export default function Product() {
         <div className="product__info">
           <h3>
             {product && product.users && product.users[0]
-              ? product.users[0].username
+              ? product.users[0].first_name
               : 'Details not provided by the seller yet.'}
           </h3>
           <div className="star__box">
@@ -105,12 +105,7 @@ export default function Product() {
                 ? product.detail_product.belly_plate
                 : 'Details not provided by the seller yet.'}
             </p>
-            <p>
-              Unique ID:{' '}
-              {product && product.detail_product
-                ? product.detail_product.unique_id
-                : 'Details not provided by the seller yet.'}
-            </p>
+            <p>Unique ID: {product ? product.unique_id : 'Loading...'}</p>
 
             <p>
               <p>

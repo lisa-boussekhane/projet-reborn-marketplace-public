@@ -161,8 +161,8 @@ export default function SellMyReborn() {
                 onChange={handleChange}
               >
                 <option value="auth">Belly plate?</option>
-                <option value="new">Yes</option>
-                <option value="resell">No</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
               <select
                 name="gender"
