@@ -4,40 +4,94 @@ import { useAuth } from '../React-Context/AuthContext';
 
 export default function MyAccount() {
   const { user } = useAuth();
-  const [userInfo, setUserInfo] = useState('');
 
+  const [userInfo, setUserInfo] = useState(null);
+  const [updateInfo, setUpdateInfo] = useState(null);
+  const [getOrder, setOrder] = useState(null);
+
+  // fetch user info
   useEffect(() => {
     const handleInfo = async () => {
       try {
-        if (!user) return;
-
         const token = localStorage.getItem('jwtToken');
         const response = await fetch(`http://localhost:3000/user/${user.id}`, {
           headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
         });
 
-        if (response.ok) {
+        if (response.status === 200) {
           const userData = await response.json();
           setUserInfo(userData);
         } else {
-          throw new Error('Cannot fetch user data');
+          console.error('Cannot fetch user data');
         }
       } catch (error) {
         console.error('Failed to fetch data', error);
       }
     };
 
-    if (user) {
-      handleInfo();
-    }
+    handleInfo();
   }, [user]);
+
+  // update user info
+  useEffect(() => {
+    const handleUpdateInfo = async () => {
+      try {
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch(`http://localhost:3000/user/${user.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updateInfo),
+        });
+
+        if (response.status === 200) {
+          const userUpdateData = await response.json();
+          setUserInfo(userUpdateData);
+        } else {
+          console.error('Cannot edit user data');
+        }
+      } catch (error) {
+        console.error('Failed to edit data', error);
+      }
+    };
+
+    handleUpdateInfo();
+  }, [user, updateInfo]);
 
   const handleInputValue = (e) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setUpdateInfo({ ...user, [name]: value });
   };
+
+  // get order info
+  useEffect(() => {
+    const handleOrder = async () => {
+      try {
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch('http://localhost:3000/myorders', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.status === 200) {
+          const userOrderData = await response.json();
+          setOrder(userOrderData);
+        } else {
+          console.error('Cannot fetch order');
+        }
+      } catch (error) {
+        console.error('Failed to fetch order', error);
+      }
+    };
+
+    handleOrder();
+  }, []);
 
   return (
     <div className="account__container">
@@ -73,6 +127,30 @@ export default function MyAccount() {
 
           <form className="profile__elem" method="get">
             <label htmlFor="firstname">
+              Firstname
+              <input
+                type="text"
+                name="firstname"
+                id="firstname"
+                value={user.first_name}
+                onChange={handleInputValue}
+              />
+            </label>
+            <label htmlFor="last name">
+              Lastname
+              <input
+                type="text"
+                name="lastname"
+                id="lastname"
+                value={user.last_name}
+                onChange={handleInputValue}
+              />
+            </label>
+            <label htmlFor="phone">
+              Phone
+
+          <form className="profile__elem" method="get">
+            <label htmlFor="firstname">
               First name <input type="text" name="firstname" id="firstname" /> 
             </label>
             <label htmlFor="last name">
@@ -80,12 +158,15 @@ export default function MyAccount() {
             </label>
             <label htmlFor="phone">
               Phone number
+
               <input
                 type="tel"
                 name="phone"
                 id="phone"
                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 required
+                value={user.phone}
+                onChange={handleInputValue}
               />
             </label>
 
@@ -100,10 +181,25 @@ export default function MyAccount() {
 
           <form className="profile__elem__second" method="post" action="">
             <label htmlFor="email">
-              Email address <input type="email" name="email" id="email" />
+              Email
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={user.email}
+                onChange={handleInputValue}
+              />
             </label>
             <label htmlFor="password">
-              Password <input type="password" name="password" id="password" />
+              Password
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={user.password}
+                onChange={handleInputValue}
+              />
+
             </label>
             <input
               type="submit"
@@ -119,12 +215,14 @@ export default function MyAccount() {
         </div>
 
         <div className="order__container">
-          <ul className="order__list">
-            <li>Order id:</li>
-            <li>Date Paid:</li>
-            <li>Total Paid:</li>
-            <li>Order Status:</li>
-          </ul>
+          {getOrder.map((order) => (
+            <ul key={order.id} className="order__list">
+              <li>{order.id} </li>
+              <li>{order.created_at} </li>
+              <li>{order.price} </li>
+              <li>{order.status} </li>
+            </ul>
+          ))}
         </div>
 
         <div className="order__photos">
