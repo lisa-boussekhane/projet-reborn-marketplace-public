@@ -15,6 +15,7 @@ const multerMiddleware = require('../Middlewares/multerMiddleware');
 const router = express.Router();
 
 router.post('/contactus', contactController.sendEmail);
+
 router.get('/user/:id', verifyToken, userController.getUserInfos);
 router.get('/myorders', verifyToken, userController.getOrdersReturns);
 
