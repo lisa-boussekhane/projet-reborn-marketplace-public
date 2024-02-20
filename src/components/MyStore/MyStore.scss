@@ -40,10 +40,18 @@
 
 .seller__card {
   display: grid;
-  grid-template-columns: 350px 350px 350px 350px;
+  grid-template-columns:  350px 350px 350px;
+  margin-left: 15rem;
   margin-top: 5rem;
-  margin-left: 28rem;
-  gap: 20px;
+  margin-bottom: 8rem;
+}
+
+.products__card__item .card-content {
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .trash-icon {
