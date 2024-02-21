@@ -2,9 +2,9 @@ const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('./sequelize');
 
-class media extends Model {}
+class Media extends Model {}
 
-media.init(
+Media.init(
   {
     photo: {
       type: DataTypes.TEXT,
@@ -27,7 +27,7 @@ media.init(
   },
   {
     sequelize,
-    modelName: 'media',
+    modelName: 'Media',
     tableName: 'media',
     timestamps: true,
     createdAt: 'created_at',
@@ -35,4 +35,4 @@ media.init(
   }
 );
 
-module.exports = media;
+module.exports = Media;

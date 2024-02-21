@@ -123,7 +123,7 @@ async createProduct(req, res) {
             product_id: product.id,
             // Specify other media fields based on your file and what data multer provides
             // For example, using the file path and possibly a URL if serving the files
-            photo: file.path,
+            photo: file.path, // or generate a URL/path as needed
         }));
         const media = await Promise.all(
             mediaData.map((mediaItem) => Media.create(mediaItem)) // Ensure Media model is correctly referenced

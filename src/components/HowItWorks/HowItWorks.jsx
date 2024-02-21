@@ -9,72 +9,61 @@ export default function HowItWorks() {
         <div className="notice__sell">
           <h2>Why should I sell on Adopt a Reborn?</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad,
-            dignissimos recusandae in alias laborum pariatur quas. Officiis quos
-            laboriosam repudiandae magni, rerum possimus quae soluta voluptates,
-            eum nihil quibusdam suscipit. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
+            Selling on Adopt a Reborn offers benefits such as reaching a
+            targeted audience interested in these lifelike dolls, benefiting
+            from a supportive community, safer transaction processes, valuable
+            feedback and reviews from knowledgeable buyers, and user-friendly
+            platform navigation.
           </p>
         </div>
         <div className="notice__buy">
           <h2>Why should I buy on Adopt a Reborn?</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-            molestias reprehenderit repudiandae! Earum voluptas exercitationem
-            accusamus error, libero ut, nam illum rec usandae consequuntur,
-            cupiditate sapiente eligendi voluptatibus adipisci dignissiuuygimos
-            ipsum!Fieri, inquam, Triari, nullo pacto potest, ut non dicas, quid
-            non probes eius, a quo dissentias. quid enim me prohiberet Epicureum
-            esse, si probarem, quae ille diceret? cum praesertim illa perdiscere
-            ludus esset. Quam ob rem dissentientium inter se reprehensiones non
-            sunt vituperandae, maledicta, contumeliae, tum iracundiae,
-            contentiones concertationesque in disputando pertinaces indignae
-            philosophia mihi videri solent.
+            Purchasing from Adopt a Reborn offers several benefits for reborn
+            doll enthusiasts, including access to a high-quality selection of
+            handcrafted dolls, connection with a niche community of collectors
+            and experts, guaranteed authenticity and quality, secure
+            transactions, expertise from knowledgeable sellers, availability of
+            exclusive and rare finds, personalized customer service, and
+            valuable educational resources on collecting and caring for reborn
+            dolls. Buyers are advised to review seller reputations and platform
+            policies to ensure a satisfying purchase experience.
           </p>
         </div>
       </div>
 
       <div className="notice__wrapper">
         <div className="notice__group">
-          <h2>Step 1</h2>
+          <h2>Step 1 - Browse and Select</h2>
           <p className="notice__item">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-            ipsam doloremque perferendis sed veritatis debitis aperiam culpa
-            sunt doloribus, impedit iste ipsa consequatur, a odit aliquid non
-            accusantium libero vitae.Illud tamen te esse admonitum volo, primum
-            ut qualis es talem te esse omnes existiment ut, quantum a rerum
-            turpitudine abes, tantum te a verborum libertate seiungas.
+            Start by exploring the selection of reborn dolls available on the
+            platform. Use filters and search functions to narrow down your
+            options based on your preferences, such as doll size, gender, hair
+            type, or artist. Once you find a doll that captures your interest,
+            review the listing details carefully. This includes the doll's
+            specifications, artist information, and price.
           </p>
         </div>
         <div className="notice__group">
-          <h2>Step 2</h2>
+          <h2>Step 2 - Contact Seller</h2>
           <p className="notice__item">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-            ipsam doloremque perferendis sed veritatis debitis aperiam culpa
-            sunt doloribus, impedit iste ipsa consequatur, a odit aliquid non
-            accusantium libero vitae.Illud tamen te esse admonitum volo, primum
-            ut qualis es talem te esse omnes existiment ut, quantum a rerum
-            turpitudine abes, tantum te a verborum libertate seiungas; deinde ut
-            ea in alterum ne dicas, quae cum tibi falso responsa sint,
-            erubescas.
+            If you have questions about the doll, contact the seller directly
+            through the platform's messaging system. This step is crucial for
+            clarifying any doubts and ensuring the doll meets your expectations.
+            It's also an opportunity to inquire about the shipping costs,
+            delivery times, and return policies.
           </p>
         </div>
         <div className="notice__group">
-          <h2>Step 3</h2>
+          <h2>Step 3 - Make a Purchase</h2>
           <p className="notice__item">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-            ipsam doloremque perferendis sed veritatis debitis aperiam culpa
-            sunt doloribus, impedit iste ipsa consequatur, a odit aliquid non
-            accusantium libero vitae.Illud tamen te esse admonitum volo, primum
-            ut qualis es talem te esse omnes existiment ut, quantum a rerum
-            turpitudine abes, tantum te a verborum libertate seiungas; deinde ut
-            ea in alterum ne dicas.
+            Once you're satisfied with your choice, proceed to purchase the
+            doll. This will typically involve adding the doll to your cart,
+            choosing a payment method, and providing shipping information. Adopt
+            a Reborn platforms usually offer secure payment options to protect
+            your transaction. After completing your purchase, you'll receive a
+            confirmation email with the details of your order and expected
+            delivery date.
           </p>
         </div>
       </div>

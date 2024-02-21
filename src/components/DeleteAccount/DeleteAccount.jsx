@@ -2,10 +2,12 @@ import './DeleteAccount.scss';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../React-Context/AuthContext';
+import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 
 export default function DeleteAccount() {
   const { user } = useAuth();
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,7 +17,7 @@ export default function DeleteAccount() {
       navigate('/login');
     }
   }, [user, navigate]);
-  const handleDeleteClick = async () => {
+  const confirmDelete = async () => {
     try {
       const token = localStorage.getItem('jwtToken');
       const response = await fetch(`http://localhost:3000/user/${user.id}`, {
@@ -34,7 +36,18 @@ export default function DeleteAccount() {
       }
     } catch (error) {
       console.error('An unexpected error occurred', error);
+    } finally {
+      // Fermer la modal après la suppression
+      setModalOpen(false);
     }
+  };
+
+  const handleDeleteClick = () => {
+    setModalOpen(true);
+  };
+
+  const cancelDelete = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -51,18 +64,49 @@ export default function DeleteAccount() {
           </div>
           <div className="delete__p">
             <p>
-              If you decide to delete your account, this action cannot be undone.
+              If you decide to delete your account, this action cannot be
+              undone.
             </p>
             <p>All your personal data will also be deleted.</p>
           </div>
 
-          <button
-            type="button"
-            className="delete__btn"
+          <Button
+            color="red"
             onClick={handleDeleteClick}
+            className="btn_delete"
           >
             Delete My Account
-          </button>
+          </Button>
+
+          <Modal
+            open={modalOpen}
+            onClose={cancelDelete}
+            size="mini"
+            closeIcon
+            dimmer="blurring"
+            style={{
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              height: '300px',
+            }}
+          >
+            <Header icon="trash" content="Confirm Deletion" />
+            <Modal.Content>
+              <p>
+                Are you sure you want to delete your account? This action cannot
+                be undone.
+              </p>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button color="grey" onClick={cancelDelete}>
+                <Icon name="remove" /> Cancel
+              </Button>
+              <Button color="red" onClick={confirmDelete}>
+                <Icon name="checkmark" /> Delete
+              </Button>
+            </Modal.Actions>
+          </Modal>
         </>
       )}
     </div>

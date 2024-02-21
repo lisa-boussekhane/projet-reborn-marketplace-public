@@ -2,7 +2,6 @@ const { Product, Shop } = require('../Models/');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const shopController = {
-
   // ne touche pas à showShop stp
   async showShop(req, res) {
     try {
@@ -15,7 +14,7 @@ const shopController = {
         },
         include: [
           {
-            model: product,
+            model: Product,
             as: 'Products',
           },
         ],
@@ -43,10 +42,12 @@ const shopController = {
       // Extract shop data from request body
       const shopData = req.body;
 
-      // Optionally, validate the shopData here (or use middleware for validation)
+      const userId = req.params.id;
 
+      // Add user_id to shopData
+      shopData.user_id = userId;
       // Create the shop record in the database
-      const newShop = await shop.create(shopData);
+      const newShop = await Shop.create(shopData);
 
       // If the shop is successfully created, return the new shop data
       res.status(201).json({
@@ -64,13 +65,16 @@ const shopController = {
 
   async deleteShop(req, res) {
     try {
-      // Extract shop ID from request parameters
-      const { shopId } = req.params;
+      const userId = req.params.id;
+      console.log(userId);
 
-      // Find the shop by its ID
-      const shop = await shop.findByPk(shopId);
+      // trouver le shop associé au user
+      const shop = await Shop.findOne({
+        where: {
+          user_id: userId,
+        },
+      });
 
-      // If the shop doesn't exist, return a 404 Not Found response
       if (!shop) {
         return res.status(404).json({
           message: 'Shop not found',
@@ -78,19 +82,15 @@ const shopController = {
       }
 
       // Delete the shop from the database
-      await shop.destroy({
-        where: {
-          id: shopId,
-        },
-      });
+      await shop.destroy();
 
       // Return a success response
-      res.status(200).json({
+      return res.status(200).json({
         message: 'Shop deleted successfully',
       });
     } catch (error) {
       // If there's an error during the deletion, return an error message
-      res.status(500).json({
+      return res.status(500).json({
         message: 'Failed to delete shop',
         error: error.message,
       });

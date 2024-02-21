@@ -8,7 +8,7 @@ export default function Result() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/products');
+        const response = await fetch(`http://localhost:3000/result?search=${search}`);
         if (!response.ok) {
           throw new Error('Error fetching products');
         }

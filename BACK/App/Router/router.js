@@ -30,14 +30,14 @@ router.get('/result', searchController.searchReborns);
 router.post('/process-payment', verifyToken, paymentController.addStripePayment);
 
 router.get('/product/:id', productController.getProductPage);
-router.post('/product/create', verifyToken, multerMiddleware, productController.createProduct);
+router.post('/createproduct/:id', verifyToken, productController.createProduct);
 router.patch('/product/:id', verifyToken, multerMiddleware, productController.updateProduct);
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
 router.get('/shop/:id', verifyToken, shopController.showShop);
-router.post('/shop/:id', shopController.createShop);
-router.delete('/shop/:id', shopController.deleteShop);
+router.post('/createshop/:id', verifyToken, shopController.createShop);
+router.delete('/shop/:id', verifyToken, shopController.deleteShop);
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);

@@ -23,12 +23,15 @@
 }
 
 .notice__wrapper {
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
   margin: auto;
   gap: 20px;
+}
+
+.notice__group {
+  max-width: 500px;
 }
 
 .notice__group h2 {
@@ -38,10 +41,10 @@
 }
 
 .notice__group p {
-  font-size: 1.1em;
+  font-size: 1.2em;
   text-align: left;
-  border: 1px solid v.$midGrey;
-  padding: 20px;
+  border: 2px solid v.$midGrey;
+  padding: 25px; 
 }
 
 .notice__btn {
