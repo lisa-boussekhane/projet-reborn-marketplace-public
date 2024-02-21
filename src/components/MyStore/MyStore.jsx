@@ -8,10 +8,7 @@ import {
   Button,
   Modal,
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../React-Context/AuthContext';
 
@@ -156,7 +153,12 @@ export default function MyStore() {
         onClose={closeDeleteModal}
         size="tiny"
         dimmer="blurring"
-        style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+        style={{
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          height: '300px',
+        }}
       >
         <Modal.Header>Confirm Deletion</Modal.Header>
         <Modal.Content>

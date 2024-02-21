@@ -1,10 +1,17 @@
 import './Header.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { Nav, NavDropdown } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../React-Context/AuthContext';
 
-export default function Header() {
+export default function Header({ handleSearch }) {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleChange = (e) => {
+    setSearchQuery(e.target.value);
+    e.preventDefault();
+    handleSearch(searchQuery);
+  };
+
   // on récupère le token dans le localStorage
   localStorage.getItem('jwtToken');
   const navigate = useNavigate();
@@ -48,8 +55,15 @@ export default function Header() {
         </NavLink>
       </div>
       <form>
-        <input type="search" placeholder="Search..." className="search-input" />
+        <input
+          type="search"
+          placeholder="Search..."
+          className="search-input"
+          value={searchQuery}
+          onChange={handleChange}
+        />
       </form>
+
       <ul className="navbar__links">
         <NavLink to="/">
           <li className="navbar__item">Home</li>
@@ -78,12 +92,10 @@ export default function Header() {
         </NavLink>
       </ul>
       {localStorage.getItem('jwtToken') ? (
-        <div className="logout__btn">
-          <Nav>
-            <NavDropdown title="Logout">
-              <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
+        <div className="logout__box">
+          <li className="logout__btn" onClick={logOut}>
+            Logout
+          </li>
         </div>
       ) : null}
 
