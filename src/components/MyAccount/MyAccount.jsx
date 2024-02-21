@@ -124,6 +124,7 @@ export default function MyAccount() {
           <div className="profile__subtitle">
             <h2>Information</h2>
           </div>
+
           <form className="profile__elem" method="get">
             <label htmlFor="firstname">
               Firstname
@@ -147,6 +148,17 @@ export default function MyAccount() {
             </label>
             <label htmlFor="phone">
               Phone
+
+          <form className="profile__elem" method="get">
+            <label htmlFor="firstname">
+              First name <input type="text" name="firstname" id="firstname" /> 
+            </label>
+            <label htmlFor="last name">
+              Last name <input type="text" name="lastname" id="lastname" />
+            </label>
+            <label htmlFor="phone">
+              Phone number
+
               <input
                 type="tel"
                 name="phone"
@@ -187,6 +199,7 @@ export default function MyAccount() {
                 value={user.password}
                 onChange={handleInputValue}
               />
+
             </label>
             <input
               type="submit"

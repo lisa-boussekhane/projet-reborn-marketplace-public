@@ -6,7 +6,10 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const bodyParser = require('body-parser');
+const multer = require('multer');
+const http = require('http');
+const socketIo = require('socket.io');
+
 
 const router = require('./BACK/App/Router/router');
 
@@ -18,8 +21,8 @@ const port = process.env.PORT;
 // app.use(express.json());
 // app.use('/router', authRoutes);
 // app.use('/protected', protectedRoute);
-app.use(bodyParser.json());
 app.use(cors());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
