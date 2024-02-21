@@ -23,7 +23,7 @@ const productController = {
           },
           {
             model: User,
-            as: 'users',
+            as: 'Users',
           },
         ],
       });
