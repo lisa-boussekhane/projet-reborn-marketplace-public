@@ -147,18 +147,27 @@ export default function MyAccount() {
               />
             </label>
             <label htmlFor="phone">
-              Phone
-
+              Phone number
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required
+                value={user.phone}
+                onChange={handleInputValue}
+              />
+            </label>
+          </form>
           <form className="profile__elem" method="get">
             <label htmlFor="firstname">
-              First name <input type="text" name="firstname" id="firstname" /> 
+              First name <input type="text" name="firstname" id="firstname" />
             </label>
             <label htmlFor="last name">
               Last name <input type="text" name="lastname" id="lastname" />
             </label>
             <label htmlFor="phone">
               Phone number
-
               <input
                 type="tel"
                 name="phone"
@@ -199,7 +208,6 @@ export default function MyAccount() {
                 value={user.password}
                 onChange={handleInputValue}
               />
-
             </label>
             <input
               type="submit"
