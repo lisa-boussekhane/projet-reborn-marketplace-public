@@ -1,5 +1,4 @@
-const message = require('../Models/message');
-const user = require('../Models/user');
+const { Message, User } = require('../Models/');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const chatController = {
@@ -10,15 +9,15 @@ async getMessage(req, res) {
     
             // Fetch the message from the database, including user information
             // Adjust the include to match your association (e.g., sender, receiver)
-            const message = await message.findByPk(messageId, {
+            const message = await Message.findByPk(messageId, {
                 include: [
                     {
-                        model: user,
+                        model: User,
                         as: 'sender', // Use the correct association alias for the sender
                         attributes: ['id', 'username', 'email'] // Specify attributes you want to include
                     },
                     {
-                        model: user,
+                        model: User,
                         as: 'receiver', // Use the correct association alias for the receiver
                         attributes: ['id', 'username', 'email'] // Specify attributes you want to include
                     }
@@ -49,16 +48,16 @@ async sendMessage(req, res) {
             const { content, senderId, receiverId } = req.body;
     
             // Create the message record in the database, associating it with the sender
-            const newMessage = await message.create({
+            const newMessage = await Message.create({
                 content,
                 senderId,
                 receiverId, 
             });
     
-            const sender = await user.findByPk(senderId);
+            const sender = await User.findByPk(senderId);
             let receiver = receiverId;
             if (receiverId) {
-                receiver = await user.findByPk(receiverId);
+                receiver = await User.findByPk(receiverId);
             }
     
             // Return the new message along with associated sender (and receiver) details
@@ -83,13 +82,13 @@ async getAllMessages(req, res) {
         try {
             const userId = req.user.id; 
             
-            const messages = await message.findAll({
+            const messages = await Message.findAll({
                 where: {
                     [Sequelize.Op.or]: [{senderId: userId}, {receiverId: userId}]
                 },
                 include: [
-                    { model: user, as: 'Sender', attributes: ['id', 'username'] },
-                    { model: user, as: 'Receiver', attributes: ['id', 'username'] }
+                    { model: User, as: 'Sender', attributes: ['id', 'username'] },
+                    { model: User, as: 'Receiver', attributes: ['id', 'username'] }
                 ],
                 order: [['created_at', 'DESC']] 
             });

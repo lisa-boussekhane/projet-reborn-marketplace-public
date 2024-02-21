@@ -1,37 +1,37 @@
-const user = require('./user');
-const detail_product = require('./detail_product');
-const media = require('./media');
-const product = require('./product');
-const shop = require('./shop');
+const User = require('./user');
+const Detail_product = require('./detail_product');
+const Media = require('./media');
+const Product = require('./product');
+const Shop = require('./shop');
 
 // User and Shop (One-to-Many)
-user.hasMany(shop, { foreignKey: 'user_id' });
-shop.belongsTo(user, { foreignKey: 'user_id' });
+User.hasMany(Shop, { foreignKey: 'user_id' });
+Shop.belongsTo(User, { foreignKey: 'user_id' });
 
 
 // Product and Shop (Many-to-One)
-shop.hasMany(product, { foreignKey: 'shop_id' });
-product.belongsTo(shop, { foreignKey: 'shop_id' });
+Shop.hasMany(Product, { foreignKey: 'shop_id' });
+Product.belongsTo(Shop, { foreignKey: 'shop_id' });
 
 // Product and User (Many-to-Many through User_Order_Product)
-product.belongsToMany(user, {
+Product.belongsToMany(User, {
   through: 'User_Order_Product',
   foreignKey: 'product_id',
   timestamps: false,
 });
-user.belongsToMany(product, {
+User.belongsToMany(Product, {
   through: 'User_Order_Product',
   foreignKey: 'user_id',
   timestamps: false,
 });
 
 // Product and DetailProduct (One-to-One)
-product.hasOne(detail_product, { foreignKey: 'product_id' });
-detail_product.belongsTo(product, { foreignKey: 'product_id' });
+Product.hasOne(Detail_product, { foreignKey: 'product_id' });
+Detail_product.belongsTo(Product, { foreignKey: 'product_id' });
 
 // Product and Media (One-to-Many)
-product.hasMany(media, { foreignKey: 'product_id' });
-media.belongsTo(product, { foreignKey: 'product_id' });
+Product.hasMany(Media, { foreignKey: 'product_id' });
+Media.belongsTo(Product, { foreignKey: 'product_id' });
 
 
-module.exports = { user, detail_product, shop, product, media };
+module.exports = { User, Detail_product, Shop, Product, Media };

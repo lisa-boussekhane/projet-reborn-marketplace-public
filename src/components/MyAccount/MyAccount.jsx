@@ -1,7 +1,37 @@
 import './MyAccount.scss';
+import { useState, useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
+import { useParams } from 'react-router-dom';
 
 export default function MyAccount() {
+  const [user, setUser] = useState('');
+  const { id } = useParams();
+
+  useEffect(() => {
+    const handleInfo = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/user/${id}`);
+        if (!response.ok) {
+          throw new Error('Error fetching user data');
+        }
+        const data = await response.json();
+        setUser(data);
+        const { token } = data;
+
+        // stocker le token dans localStorage
+        localStorage.setItem('jwtToken', token);
+      } catch (error) {
+        console.error('Cannot fetch data', error);
+      }
+    };
+    handleInfo();
+  }, [id]);
+
+  // const handleInputValue = (e) => {
+  //  const { name, value } = e.target;
+  // setUser({ ...user, [name]: value });
+  // }; */ }
+
   return (
     <div className="account__container">
       <div>
@@ -37,10 +67,12 @@ export default function MyAccount() {
 
           <form className="profile__elem" method="get">
             <label htmlFor="firstname">
-              First name <input type="text" name="firstname" id="firstname" />
+              Firstname
+              <input type="text" name="firstname" id="firstname" />
             </label>
             <label htmlFor="last name">
-              Last name <input type="text" name="lastname" id="lastname" />
+              Lastname
+              <input type="text" name="lastname" id="lastname" />
             </label>
             <label htmlFor="phone">
               Phone number
@@ -52,7 +84,6 @@ export default function MyAccount() {
                 required
               />
             </label>
-            <input type="submit" value="Save" className="save__btn" />
           </form>
         </div>
 
@@ -68,7 +99,8 @@ export default function MyAccount() {
               Email address <input type="email" name="email" id="email" />
             </label>
             <label htmlFor="password">
-              Password <input type="password" name="password" id="password" />
+              Password
+              <input type="password" name="password" id="password" />
             </label>
             <input
               type="submit"

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const passwordValidator = require('password-validator');
 const validator = require('validator');
-const authUser = require('../Models/user');
+const User = require('../Models/user');
 const verifyToken = require('../Middlewares/authMiddleware');
 
 const authController = {
@@ -59,7 +59,7 @@ const authController = {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
       // Create the user in the database
-      const newUser = await authUser.create({
+      const newUser = await User.create({
         first_name: first_name,
         last_name: last_name,
         email: email,
@@ -90,7 +90,7 @@ const authController = {
           .json({ message: "Nom d'utilisateur et mot de passe requis" });
       }
 
-      const user = await authUser.findOne({ where: { email: email } });
+      const user = await User.findOne({ where: { email: email } });
       console.log('Utilisateur trouvé dans la base de données :', user);
 
       if (user) {
@@ -116,7 +116,7 @@ const authController = {
   async updateAccount(req, res) {
     try {
       const userId = req.params.id;
-      const user = await authUser.findByPk(userId);
+      const user = await User.findByPk(userId);
 
       if (!user) {
         return res
@@ -154,7 +154,7 @@ const authController = {
   async deleteAccount(req, res) {
     try {
       const userId = req.params.id;
-      const user = await authUser.findByPk(userId);
+      const user = await User.findByPk(userId);
 
       if (!user) {
         return res
@@ -176,7 +176,7 @@ const authController = {
       const { userId, currentPassword, newPassword } = req.body;
 
       // Find the user by ID
-      const user = await user.findByPk(userId);
+      const user = await User.findByPk(userId);
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
@@ -194,7 +194,7 @@ const authController = {
       const hashedPassword = await bcrypt.hash(newPassword, salt);
 
       // Update the user's password
-      await user.update({ password: hashedPassword });
+      await User.update({ password: hashedPassword });
 
       // Return a success response
       res.json({ message: 'Password updated successfully' });

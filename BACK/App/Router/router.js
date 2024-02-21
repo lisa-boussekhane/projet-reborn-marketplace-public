@@ -15,6 +15,7 @@ const multerMiddleware = require('../Middlewares/multerMiddleware');
 const router = express.Router();
 
 router.post('/contactus', contactController.sendEmail);
+
 router.get('/user/:id', verifyToken, userController.getUserInfos);
 router.get('/myorders', verifyToken, userController.getOrdersReturns);
 
@@ -42,8 +43,8 @@ router.get('/chat/:id', verifyToken, chatController.getMessage);
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);
 router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
 
-router.post('/upload', multerMiddleware, productController.fileUpload);
-router.post('/uploadmultiple', multerMiddleware, productController.multipleFilesUpload);
+//router.post('/upload', multerMiddleware, productController.fileUpload);
+//router.post('/uploadmultiple', multerMiddleware, productController.multipleFilesUpload);
 
 
 module.exports = router;

@@ -3,9 +3,9 @@ const { Model, DataTypes, INTEGER, BOOLEAN} = require('sequelize');
 
 const sequelize = require('./sequelize');
 
-class product extends Model {}
+class Product extends Model {}
 
-product.init(
+Product.init(
   {
     unique_id: {
       type: DataTypes.STRING,
@@ -77,4 +77,5 @@ product.init(
   }
 );
 
-module.exports = product;
+module.exports = Product;
+

@@ -1,5 +1,4 @@
-const Shop = require('../Models/shop');
-const product = require('../Models/product');
+const { Product, Shop } = require('../Models/');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const shopController = {
