@@ -15,7 +15,6 @@
 .products__category {
   font-size: 1.2em;
   text-align: left;
-  border-bottom: 1px solid v.$midGrey;
   padding: 6px;
 
   h3 {
@@ -43,14 +42,8 @@ body {
 
 .products__wrapper {
   display: grid;
-<<<<<<< HEAD
   grid-template-columns: 350px 350px 350px;
   margin-left: 28rem;
-=======
-  grid-template-columns:  350px 350px 350px;
-  margin-left: 15rem;
-
->>>>>>> ff80a2b0fc9a83104f43ccef14b011e60e971dba
 }
 
 .products__card {

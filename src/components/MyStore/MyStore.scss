@@ -40,13 +40,7 @@
 
 .seller__card {
   display: grid;
-<<<<<<< HEAD
-  grid-template-columns: 350px 350px 350px 350px;
-  margin-top: 5rem;
-  margin-left: 28rem;
-  gap: 20px;
-=======
-  grid-template-columns:  350px 350px 350px;
+  grid-template-columns: 350px 350px 350px;
   margin-left: 15rem;
   margin-top: 5rem;
   margin-bottom: 8rem;
@@ -58,10 +52,9 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
->>>>>>> ff80a2b0fc9a83104f43ccef14b011e60e971dba
 }
 
 .trash-icon {
-  font-size: 22px !important; 
+  font-size: 22px !important;
   cursor: pointer;
 }
