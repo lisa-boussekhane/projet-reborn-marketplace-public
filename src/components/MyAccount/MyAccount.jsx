@@ -5,27 +5,27 @@ import { useParams } from 'react-router-dom';
 
 export default function MyAccount() {
   const [user, setUser] = useState('');
-  const { id } = useParams();
+//   const { id } = useParams();
 
-  useEffect(() => {
-    const handleInfo = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/user/${id}`);
-        if (!response.ok) {
-          throw new Error('Error fetching user data');
-        }
-        const data = await response.json();
-        setUser(data);
-        const { token } = data;
+//   useEffect(() => {
+//     const handleInfo = async () => {
+//       try {
+//         const response = await fetch(`http://localhost:3000/user/${id}`);
+//         if (!response.ok) {
+//           throw new Error('Error fetching user data');
+//         }
+//         const data = await response.json();
+//         setUser(data);
+//         const { token } = data;
 
-        // stocker le token dans localStorage
-        localStorage.setItem('jwtToken', token);
-      } catch (error) {
-        console.error('Cannot fetch data', error);
-      }
-    };
-    handleInfo();
-  }, [id]);
+//         // stocker le token dans localStorage
+//         localStorage.setItem('jwtToken', token);
+//       } catch (error) {
+//         console.error('Cannot fetch data', error);
+//       }
+//     };
+//     handleInfo();
+//   }, [id]);
 
   // const handleInputValue = (e) => {
   //  const { name, value } = e.target;

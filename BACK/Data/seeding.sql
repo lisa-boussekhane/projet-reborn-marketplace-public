@@ -30,7 +30,7 @@ SELECT setval('"user_id_seq"', (SELECT MAX(id) + 1 FROM "user"));
 INSERT INTO "shop" ("id", "name", "rating", "user_id") OVERRIDING SYSTEM VALUE VALUES
 (1,'Enchanted Reborn Store',NULL, 1),
 (2,'Reborn Wonderful', NULL, 3);
-
+SELECT setval('"shop_id_seq"', (SELECT MAX(id) + 1 FROM "shop"));
 ----------------------------------------------
 -- Déchargement des données de la table "product"
 ----------------------------------------------
@@ -48,7 +48,7 @@ INSERT INTO "product" ("id", "unique_id", "title", "kit_name", "sculptor", "size
 (10, 'IFdQZE', 'Sebastian Realistic Reborn Baby Boy', 'Sebastian', 'Olga Auer', '20', 'Vinyl', 7, 'Baby', 'Yes', '650', '50', 1, 1),
 (11, 'wD4TaR', 'Baby Toddler Girl Lottie Has Realistic Skin Blue Eyes and Brown Hair', 'Lottie', 'Laura Lee Eagles', '24', 'Vinyl', 8, 'Toddler', 'Yes', '980', '60', 1, 1),
 (12, 'zdH5Iv', 'Baby Full Silicone Girl Johnnie Closed Eyes', 'Johnnie', 'Ina Volprich', '20', 'Silicone', 7, 'Baby', 'Yes', '1200', '60', 3, 1);
-
+SELECT setval('"product_id_seq"', (SELECT MAX(id) + 1 FROM "product"));
 --------------------------------------------------------
 -- Déchargement des données de la table "detail_product"
 --------------------------------------------------------
@@ -66,25 +66,25 @@ INSERT INTO "detail_product" ("id", "localization", "belly_plate", "gender", "ye
 (10, 'New York', 'Yes', 'Boy', '2024', 'Brown', 'Black','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.' , 'New', 10),
 (11, 'New York', 'No', 'Girl', '2022', 'Blue', 'Brown', 'Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 11),
 (12, 'New York', 'No', 'Girl', '2023', 'Closed','Brown','Fully filled with high-quality platinum liquid silicone, there is no better way to give a realistic effect to your reborn baby. Soft to the touch, you will feel like Lucie is a real newborn. Lucie is a hand-painted reborn baby girl, however, this does not prevent her from being put in water at normal temperature. Fully articulated thanks to the silicone filled completely in its limbs, from head to feet.', 'New', 12);
-
+SELECT setval('"detail_product_id_seq"', (SELECT MAX(id) + 1 FROM "detail_product"));
 ----------------------------------------------
 -- Déchargement des données de la table "media"
 ----------------------------------------------
 
 INSERT INTO "media" ("id", "photo", "video", "product_id") OVERRIDING SYSTEM VALUE VALUES
-(1, 'public/uploads/Alina.jpg', NULL, 1),
-(2, 'public/uploads/Johnnie.jpg', NULL, 2),
-(3, 'public/uploads/Lottie.jpg', NULL, 3),
-(4, 'public/uploads/Sebastian.jpg', NULL, 4),
-(5, 'public/uploads/Alina.jpg', NULL, 5),
-(6, 'public/uploads/Johnnie.jpg', NULL, 6),
-(7, 'public/uploads/Lottie.jpg', NULL, 7),
-(8, 'public/uploads/Sebastian.jpg', NULL, 8),
-(9, 'public/uploads/Alina.jpg', NULL, 9),
-(10, 'public/uploads/Johnnie.jpg', NULL, 10),
-(11, 'public/uploads/Lottie.jpg', NULL, 11),
-(12, 'public/uploads/Sebastian.jpg', NULL, 12);
-
+(1, 'public/uploads/alina.jpg', NULL, 1), 
+(2, 'public/uploads/johnnie.jpg', NULL, 2),
+(3, 'public/uploads/lottie.jpg', NULL, 3),
+(4, 'public/uploads/sebastian.jpg', NULL, 4),
+(5, 'public/uploads/alina.jpg', NULL, 5),
+(6, 'public/uploads/johnnie.jpg', NULL, 6),
+(7, 'public/uploads/lottie.jpg', NULL, 7),
+(8, 'public/uploads/sebastian.jpg', NULL, 8),
+(9, 'public/uploads/alina.jpg', NULL, 9),
+(10, 'public/uploads/johnnie.jpg', NULL, 10),
+(11, 'public/uploads/lottie.jpg', NULL, 11),
+(12, 'public/uploads/sebastian.jpg', NULL, 12);
+SELECT setval('"media_id_seq"', (SELECT MAX(id) + 1 FROM "media"));
 -- SELECT setval('"media_id_seq"', (SELECT MAX(id) + 1 FROM "media"));
 
 ------------------------------------------------
@@ -96,7 +96,6 @@ INSERT INTO "message" ("id", "content", "sender_id", "receiver_id") OVERRIDING S
 (2, 'Hi the delivery is $80. Ok for you?', 1, 2),
 (3, 'Yes perfect for me.', 2, 1),
 (4, 'Thanks for ordering on my shop. The reborn will be sent to you tomorrow.', 1, 2);
-
 ------------------------------------------------
 -- Déchargement des données de la table "user_order_product"
 ------------------------------------------------

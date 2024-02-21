@@ -1,4 +1,4 @@
-const { Product, Shop } = require('../Models/');
+const { Product, Shop, Media } = require('../Models/');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const shopController = {
@@ -16,6 +16,13 @@ const shopController = {
           {
             model: Product,
             as: 'Products',
+            include: [
+              {
+                model: Media,
+                as: 'Media',
+                attributes: ['photo'],
+              },
+            ],
           },
         ],
       });

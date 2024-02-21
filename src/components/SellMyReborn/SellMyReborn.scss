@@ -7,11 +7,13 @@
   align-items: center;
   margin-bottom: 10rem;
   gap: 50px;
+  margin-top: 2rem;
+  margin-left: -20rem;
 }
 
 .sell__container {
   display: block;
-  width: 270px;
+  width: 70%;
   height: auto;
   margin-bottom: 2rem;
   position: relative;
@@ -25,13 +27,11 @@ h3 {
   border-radius: 3px;
   width: 90%;
   padding: 6px 6px;
- margin-left: 5rem;
- 
-
+  margin-left: 5rem;
 }
 
 .sell__wrapper {
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -42,16 +42,12 @@ h3 {
 .sell__col1,
 .sell__col2,
 .sell__col3 {
-  width: 90%;
+  width: 30%;  // Adjust width as needed
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   gap: 20px;
-}
-
-.sell__col1 {
-  font-size: 1.1em;
 }
 
 .sell__col1 h3 {
@@ -66,14 +62,16 @@ h3 {
   border: 1px solid v.$midGrey;
 }
 
-.sell__col2 {
+.sell__col2,
+.sell__col3 {
+  width: 30%;  // Adjust width as needed
   margin-top: 6.2rem;
-  margin-left: 2.1rem;
 }
 
 .sell__col2 input[type='text'],
 .sell__col2 input[type='number'],
-.sell__col2 select {
+.sell__col2 select,
+.sell__col3 select {
   font-size: 1.1em;
   border: 1px solid v.$midGrey;
 }
@@ -97,9 +95,17 @@ h3 {
 }
 
 .sell__col3 {
-  margin-left: 2.1rem;
-  margin-top: -0.5rem;
+   float: right;
+  margin-top: -25rem;
+  margin-right: -20rem;
 }
+
+.sell__col2 {
+ margin-top: -1rem;
+}
+.sell__col1 {
+  margin-top: 1rem;
+ }
 
 .sell__desc,
 .sell__btn {
@@ -110,12 +116,14 @@ h3 {
   align-items: center;
   margin-top: 2rem;
   margin-left: 4rem;
-  padding-bottom: 5rem;
+  padding-bottom: 1rem;
 }
 
-.sell__desc {
-  margin-right: -5rem;
+.larger-input {
+  width: 350px; 
+  height: 30px; 
 }
+
 
 .sell__btn input {
   margin-top: 1.5rem;
@@ -133,12 +141,12 @@ h3 {
   font-size: 16px;
   margin-top: 10px;
   margin-left: 50rem;
-}
 
-.success {
-  color: green;
-}
-
-.error {
-  color: red;
+  &success {
+    color: green;
+  }
+  
+  &error {
+    color: red;
+  }
 }

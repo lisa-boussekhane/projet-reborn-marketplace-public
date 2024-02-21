@@ -1,7 +1,4 @@
 const { Product, Detail_product, Media, User, Shop } = require('../Models/');
-const { randomId } = require('../Middlewares/randomIdMaison');
-const multer = require('multer');
-const upload = multer({ dest: 'public/uploads/' });
 
 const productController = {
   async getProductPage(req, res) {
@@ -19,7 +16,8 @@ const productController = {
           },
           {
             model: Media,
-            as: 'media',
+            as: 'Media',
+            attributes: ['photo'],
           },
           {
             model: User,
@@ -48,64 +46,76 @@ const productController = {
 
   async updateProduct(req, res) {
     try {
-        // Handle multiple file uploads first
-        await new Promise((resolve, reject) => {
-            upload.array('myFiles', 12)(req, res, (err) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve();
-                }
-            });
+      // Handle multiple file uploads first
+      await new Promise((resolve, reject) => {
+        upload.array('myFiles', 12)(req, res, (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
         });
+      });
 
-        // At this point, files are uploaded and accessible via req.files
-        console.log(req.files); // `req.files` is the array of `myFiles` files
+      // At this point, files are uploaded and accessible via req.files
+      console.log(req.files); // `req.files` is the array of `myFiles` files
 
-        // Parse product, detailProduct, and media data from request body
-        // Assuming the text fields are sent as JSON strings in `req.body`
-        const { productId } = req.params; // Fixed to correctly extract `productId`
-        const productData = JSON.parse(req.body.productData);
-        const detailProductData = JSON.parse(req.body.detailProductData);
-        const mediaDataArray = req.files.map(file => ({
-            path: file.path, // Example, adjust based on your Media model
-            // Add any additional fields you need from the file
-        }));
+      // Parse product, detailProduct, and media data from request body
+      // Assuming the text fields are sent as JSON strings in `req.body`
+      const { productId } = req.params; // Fixed to correctly extract `productId`
+      const productData = JSON.parse(req.body.productData);
+      const detailProductData = JSON.parse(req.body.detailProductData);
+      const mediaDataArray = req.files.map((file) => ({
+        path: file.path, // Example, adjust based on your Media model
+        // Add any additional fields you need from the file
+      }));
 
-        // Update product
-        await Product.update(productData, { where: { id: productId } });
+      // Update product
+      await Product.update(productData, { where: { id: productId } });
 
-        // Update detailProduct
-        await Detail_product.update(detailProductData, { where: { product_id: productId } });
+      // Update detailProduct
+      await Detail_product.update(detailProductData, {
+        where: { product_id: productId },
+      });
 
-        // Assuming you want to update media by removing existing entries and adding new ones
-        // First, remove existing media entries for this product
-        await Media.destroy({ where: { product_id: productId } });
+      // Assuming you want to update media by removing existing entries and adding new ones
+      // First, remove existing media entries for this product
+      await Media.destroy({ where: { product_id: productId } });
 
-        // Then, insert new media entries for uploaded files
-        const mediaPromises = mediaDataArray.map(mediaData => 
-            Media.create({ ...mediaData, product_id: productId })
-        );
-        await Promise.all(mediaPromises);
+      // Then, insert new media entries for uploaded files
+      const mediaPromises = mediaDataArray.map((mediaData) =>
+        Media.create({ ...mediaData, product_id: productId })
+      );
+      await Promise.all(mediaPromises);
 
-        // Respond with a message indicating success
-        res.status(200).json({
-            message: 'Product updated successfully with files',
-        });
+      // Respond with a message indicating success
+      res.status(200).json({
+        message: 'Product updated successfully with files',
+      });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            message: 'Failed to update product with files',
-            error: error.message,
-        });
+      console.error(error);
+      res.status(500).json({
+        message: 'Failed to update product with files',
+        error: error.message,
+      });
     }
-}, 
+  },
 
   async createProduct(req, res) {
+    const randomId = () => {
+      const s4 = () => {
+        return Math.floor((1 + Math.random()) * 0x100000).toString(16);
+      };
+      // Retourner un id de format 'aaaaa'
+      return s4();
+    };
+
     const userId = req.params.id;
     const newid = randomId();
 
     try {
+      console.log(req.files);
+      // });
       const theUser = await User.findByPk(userId);
 
       if (!theUser) {
@@ -142,9 +152,25 @@ const productController = {
           ...detailProductData,
         });
 
+        const mediaData = req.files.map((file) => ({
+          product_id: newProduct.id,
+          photo: file.path,
+        }));
+
+        const mediaPromises = mediaData.map(async (mediaItem) => {
+          console.log(mediaItem);
+
+          return Media.create(mediaItem);
+        });
+
+        const media = await Promise.all(mediaPromises);
+
         // Log and return the response after successful product creation
         console.log('Product created successfully:', newProduct);
-        return res.status(201).json(newProduct);
+        return res.status(201).json({
+          product: newProduct.get(), // Convert Sequelize instance to plain object
+          media,
+        });
       } catch (error) {
         console.error('Error creating product or details_product:', error);
         return res.status(500).json({ error: 'Internal Server Error' });
@@ -179,7 +205,15 @@ const productController = {
     try {
       const products = await Product.findAll({
         order: [['title']],
+        include: [
+          {
+            model: Media,
+            as: 'Media',
+            attributes: ['photo'],
+          },
+        ],
       });
+      console.log(products);
       res.status(200).json(products);
     } catch (error) {
       console.error(error);
@@ -201,19 +235,17 @@ const productController = {
   //       });
   //     });
 
+  // After the promise resolves, the file has been uploaded and is accessible via req.file
+  //       console.log(req.file); // `req.file` is the `myFile` file
+  // `req.body` will hold the text fields, if there were any
 
-
-      // After the promise resolves, the file has been uploaded and is accessible via req.file
-//       console.log(req.file); // `req.file` is the `myFile` file
-      // `req.body` will hold the text fields, if there were any
-
-//       res.send('File uploaded successfully!');
-//     } catch (error) {
-      // Handle any errors that occurred during file upload
-//       console.error(error);
-//       res.status(500).send('An error occurred during the file upload.');
-//     }
-//   },
+  //       res.send('File uploaded successfully!');
+  //     } catch (error) {
+  // Handle any errors that occurred during file upload
+  //       console.error(error);
+  //       res.status(500).send('An error occurred during the file upload.');
+  //     }
+  //   },
 
   // Multiple file uploads
   // async multipleFilesUpload(req, res) {

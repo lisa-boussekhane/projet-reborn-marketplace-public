@@ -1,18 +1,22 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, INTEGER } = require('sequelize');
 
 const sequelize = require('./sequelize');
 
-class media extends Model {}
+class Media extends Model {}
 
-media.init(
+Media.init(
   {
     photo: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     video: {
       type: DataTypes.TEXT,
       allowNull: true,
+    },
+    product_id: {
+      type: INTEGER,
+      allowNull: false,
     },
     created_at: {
       type: DataTypes.DATE,
@@ -27,7 +31,7 @@ media.init(
   },
   {
     sequelize,
-    modelName: 'media',
+    modelName: 'Media',
     tableName: 'media',
     timestamps: true,
     createdAt: 'created_at',
@@ -35,4 +39,4 @@ media.init(
   }
 );
 
-module.exports = media;
+module.exports = Media;

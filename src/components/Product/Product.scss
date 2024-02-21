@@ -1,108 +1,79 @@
 @use 'src/styles/variables' as v;
 
 .product__container {
-  width: 90%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 5rem;
-}
-
-.product__box {
-  width: 50%;
 }
 
 .product__img {
-  width: 350px;
-  height: auto;
-  margin: auto;
-  display: block;
-  margin-bottom: 20px;
+  padding: 1rem;
+  padding-left: 3rem;
+  padding-bottom: 9rem;
 }
 
-.product__desc {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.product__img img {
+  max-width: 900px; 
+  height: auto; 
+  
 }
 
-.product__p {
-  font-size: 1.1em;
-  margin-left: 27rem;
+.product__infos {
+  flex: 1; 
+  margin-left: 2rem;
 }
 
-.product__wrapper {
-  display: block;
-  margin-right: 30rem;
+.product__infos p {
+  font-size: 1.2rem;
 }
 
-.product__wrapper h2 {
-  display: block;
-  text-align: center;
-  font-size: 1.4em;
-}
-
-.product__info {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.product__info h3 {
-  font-size: 1.1em;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.product__group {
+.product__infos_row {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  margin-bottom: 10px; 
+  gap: 20px;
 }
 
-.product__group__row {
+.product__infos_row h2 {
+ font-size : 2rem;
+}
+
+.product__group__column1 {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.product__group__column__row {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 40px;
+  flex-wrap: wrap; 
+  gap: 20px;
 }
 
 .product__fees {
+  flex: 0 0 auto; 
   display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin-right: 1rem;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 5rem;
+  margin-top: 1.5rem;
+  gap: 8px;
+  font-size: 1.3rem;
+  font-weight: bold ;
 }
 
-.product__fees p {
-  font-size: 1.4em;
-  font-weight: bold;
-}
-
-#cart-button {
+.product__fees button {
   background-color: v.$blue;
-  padding: 15px;
-  font-size: 1.5rem;
-  padding-left: 20px;
-  padding-right: 20px;
-  cursor: pointer;
+  border: 2px solid v.$blue;
+  padding: 1rem;
+}
+
+.product__rating {
+  display: flex;
+  align-items: baseline; 
 }
 
 .star__box {
-  display: flex;
-  gap: 5px;
-  font-size: 1.2em;
-}
-
-#star__items {
-  color: #e6e6e6;
-  transition: color 0.2s ease;
-  cursor: pointer;
-}
-
-#star__items.active {
-  color: #ff9c1a;
-  cursor: pointer;
+  margin-left: 10px; 
 }

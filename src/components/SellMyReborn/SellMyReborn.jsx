@@ -24,14 +24,32 @@ export default function SellMyReborn() {
     hair: '',
     description: '',
     status: '',
+    photo: [],
   });
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const { name, value, type } = event.target;
+
+    // Si le champ est un fichier, stockez le fichier lui-même dans l'état
+    if (type === 'file') {
+      setFormData({
+        ...formData,
+        [name]: event.target.files,
+      });
+      console.log(`Files for ${name}:`, event.target.files);
+    } else {
+      setFormData((prevFormData) => {
+        // Utilisez Object.keys() pour obtenir les clés de l'objet
+        const formDataCopy = { ...prevFormData };
+
+        // Vérifiez si la clé existe avant de mettre à jour
+        if (Object.keys(formDataCopy).includes(name)) {
+          formDataCopy[name] = value;
+        }
+
+        return formDataCopy;
+      });
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -39,15 +57,30 @@ export default function SellMyReborn() {
 
     try {
       const token = localStorage.getItem('jwtToken');
+      const formDataForServer = new FormData();
+
+      // Append each form field to FormData
+      const keys = Object.keys(formData);
+      for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        if (key === 'photo') {
+          const files = formData[key];
+          for (let j = 0; j < files.length; j++) {
+            formDataForServer.append(key, files[j]);
+          }
+        } else {
+          formDataForServer.append(key, formData[key]);
+        }
+      }
+
       const response = await fetch(
         `http://localhost:3000/createproduct/${user.id}`,
         {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(formData),
+          body: formDataForServer, // Utilisez FormData comme corps de la requête
         }
       );
 
@@ -56,8 +89,9 @@ export default function SellMyReborn() {
           `Failed to create product. HTTP status: ${response.status}`
         );
       }
-      // afficher produit crée en console
-      setMessage('Congratulations ! Your product has been created.');
+
+      // afficher produit créé en console
+      setMessage('Congratulations! Your product has been created.');
       console.log('Form Data:', formData);
     } catch (error) {
       setMessage('Failed to create product. Please try again.');
@@ -84,9 +118,14 @@ export default function SellMyReborn() {
           className="sell__container"
         >
           <div className="sell__wrapper">
-            <input type="file" name="image" />
-            <input type="submit" />
-
+            <input
+              type="file"
+              name="photo"
+              onChange={handleChange}
+              accept="image/*"
+              multiple
+              className="larger-input"
+            />
             <div className="sell__col1">
               <input
                 type="text"
@@ -95,6 +134,7 @@ export default function SellMyReborn() {
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="Title"
+                className="larger-input"
               />
               <input
                 type="text"
@@ -103,6 +143,7 @@ export default function SellMyReborn() {
                 value={formData.kit_name}
                 onChange={handleChange}
                 placeholder="Name of the kit"
+                className="larger-input"
               />
               <input
                 type="number"
@@ -111,6 +152,7 @@ export default function SellMyReborn() {
                 value={formData.year}
                 onChange={handleChange}
                 placeholder="Creation Year"
+                className="larger-input"
               />
               <input
                 type="text"
@@ -119,6 +161,7 @@ export default function SellMyReborn() {
                 value={formData.size}
                 onChange={handleChange}
                 placeholder="Size (in inches)"
+                className="larger-input"
               />
               <input
                 type="text"
@@ -127,6 +170,7 @@ export default function SellMyReborn() {
                 value={formData.weight}
                 onChange={handleChange}
                 placeholder="Weight (in pounds)"
+                className="larger-input"
               />
               <input
                 type="text"
@@ -134,7 +178,18 @@ export default function SellMyReborn() {
                 id="localization"
                 value={formData.localization}
                 onChange={handleChange}
-                placeholder="Localization"
+                placeholder="Location"
+                className="larger-input"
+              />
+
+              <input
+                type="text"
+                name="sculptor"
+                id="sculptor"
+                value={formData.sculptor}
+                onChange={handleChange}
+                placeholder="Sculptor of the kit"
+                className="larger-input"
               />
               <input
                 type="text"
@@ -143,22 +198,25 @@ export default function SellMyReborn() {
                 value={formData.price}
                 onChange={handleChange}
                 placeholder="Price"
+                className="larger-input"
+              />
+              <input
+                type="text"
+                name="shipping_fees"
+                id="fees"
+                placeholder="Shipping fees"
+                value={formData.shipping_fees}
+                onChange={handleChange}
+                className="larger-input"
               />
             </div>
             <div className="sell__col2">
-              <input
-                type="text"
-                name="sculptor"
-                id="sculptor"
-                value={formData.sculptor}
-                onChange={handleChange}
-                placeholder="Sculptor of the kit"
-              />
               <select
                 name="belly_plate"
                 id="authenticity"
                 value={formData.belly_plate}
                 onChange={handleChange}
+                className="larger-input"
               >
                 <option value="auth">Belly plate?</option>
                 <option value="Yes">Yes</option>
@@ -169,6 +227,7 @@ export default function SellMyReborn() {
                 id="gender"
                 value={formData.gender}
                 onChange={handleChange}
+                className="larger-input"
               >
                 <option value="gen">Gender</option>
                 <option value="boy">Boy</option>
@@ -179,6 +238,7 @@ export default function SellMyReborn() {
                 id="status"
                 value={formData.status}
                 onChange={handleChange}
+                className="larger-input"
               >
                 <option value="stat">Status</option>
                 <option value="new">New</option>
@@ -189,26 +249,18 @@ export default function SellMyReborn() {
                 id="authenticity_card"
                 value={formData.authenticity_card}
                 onChange={handleChange}
+                className="larger-input"
               >
                 <option value="auth">Authenticity card?</option>
                 <option value="yes">Yes</option>
                 <option value="No">No</option>
               </select>
-              <input
-                type="text"
-                name="shipping_fees"
-                id="fees"
-                placeholder="Shipping fees"
-                value={formData.shipping_fees}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="sell__col3">
               <select
                 name="type"
                 id="type"
                 value={formData.type}
                 onChange={handleChange}
+                className="larger-input"
               >
                 <option value="material">Type</option>
                 <option value="vinyl">Vinyl</option>
@@ -220,6 +272,7 @@ export default function SellMyReborn() {
                 id="age"
                 value={formData.age_range}
                 onChange={handleChange}
+                className="larger-input"
               >
                 <option value="range">Age range</option>
                 <option value="baby">Baby</option>
@@ -230,6 +283,7 @@ export default function SellMyReborn() {
                 id="eyes"
                 value={formData.eyes}
                 onChange={handleChange}
+                className="larger-input"
               >
                 <option value="feature">Eyes</option>
                 <option value="blue">Blue</option>
@@ -242,6 +296,7 @@ export default function SellMyReborn() {
                 id="hair"
                 value={formData.hair}
                 onChange={handleChange}
+                className="larger-input"
               >
                 <option value="detail">Hair</option>
                 <option value="painting">Hair painting</option>
@@ -252,20 +307,17 @@ export default function SellMyReborn() {
               </select>
             </div>
           </div>
-          <div className="sell__desc">
+          <div className="sell__col3">
             <textarea
+              placeholder="Description..."
               name="description"
               id="desc"
+              width="300px"
               maxLength="250"
-              style={{ resize: 'none' }}
+              style={{ resize: 'none', height: '150px', width: '300px' }}
               value={formData.description}
               onChange={handleChange}
-            >
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga,
-              rerum. Iure voluptatem, necessitatibus fugit, officia ipsa tempora
-              non facere voluptatibus voluptatum eaque quidem doloribus?
-              Nesciunt porro nisi id consequuntur ratione.
-            </textarea>
+            />
           </div>
 
           <div className="sell__btn">

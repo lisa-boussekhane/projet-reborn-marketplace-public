@@ -189,10 +189,20 @@ export default function MyStore() {
               <div key={product.id} className="products__card">
                 <div className="products__card__item">
                   <Card>
-                    <Image src="./reborn1.jpg" wrapped ui={false} />
+                    {product &&
+                      product.Media &&
+                      product.Media.length > 0 &&
+                      product.Media[0].photo && (
+                        <img
+                          src={`http://localhost:5173/${product.Media[0].photo}`}
+                          alt={`Product ${product.id}`}
+                        />
+                      )}
                     <Card.Content>
                       <NavLink to={`/product/${product.id}`}>
-                        <Card.Header>{product.title}</Card.Header>
+                        <Card.Header className="product-title">
+                          {product.title}
+                        </Card.Header>
                       </NavLink>
                     </Card.Content>
                     <Card.Content extra className="card-content">

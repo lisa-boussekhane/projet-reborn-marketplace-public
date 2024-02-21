@@ -1,16 +1,17 @@
 const express = require('express');
 const multer = require('multer');
 
+
 // Set up storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/uploads/')
+    return cb(null, 'public/uploads/');
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
+    return cb(null, `${Date.now()}_${file.originalname}`);
+  },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage }).array('photo', 12);
 
-module.exports = multer;
+module.exports = upload;
