@@ -5,7 +5,6 @@ import ResetPassword from '../ResetPassword/ResetPassword';
 import DeleteAccount from '../DeleteAccount/DeleteAccount';
 import './App.scss';
 import 'semantic-ui-css/semantic.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MyAccount from '../MyAccount/MyAccount';
