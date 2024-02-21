@@ -1,6 +1,4 @@
 const { Product, Detail_product, Media, User } = require('../Models/');
-const ShortUniqueId = require('short-unique-id');
-const uid = new ShortUniqueId({ length: 6 });
 const multer = require('multer');
 const upload = multer({ dest: 'public/uploads/' });
 
@@ -99,7 +97,6 @@ async createProduct(req, res) {
 
         // At this point, the files have been uploaded and are accessible via req.files
         console.log(req.files); // `req.files` is the array of `myFiles` files
-        // `req.body` will contain the text fields, if there were any
 
         // Assume req.body contains JSON string for productData, detailProductData
         // Parse JSON strings to objects since they might be encoded as strings due to multipart/form-data submission
@@ -121,12 +118,10 @@ async createProduct(req, res) {
         // Process uploaded files and create media records
         const mediaData = req.files.map(file => ({
             product_id: product.id,
-            // Specify other media fields based on your file and what data multer provides
-            // For example, using the file path and possibly a URL if serving the files
-            photo: file.path, // or generate a URL/path as needed
+            photo: file.path, 
         }));
         const media = await Promise.all(
-            mediaData.map((mediaItem) => Media.create(mediaItem)) // Ensure Media model is correctly referenced
+            mediaData.map((mediaItem) => Media.create(mediaItem))
         );
 
         // Respond with created product, its details, and media
