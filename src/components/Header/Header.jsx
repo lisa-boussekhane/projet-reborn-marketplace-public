@@ -3,15 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../React-Context/AuthContext';
 
-export default function Header({ handleSearch }) {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleChange = (e) => {
-    setSearchQuery(e.target.value);
-    e.preventDefault();
-    handleSearch(searchQuery);
-  };
-
+export default function Header() {
   // on récupère le token dans le localStorage
   localStorage.getItem('jwtToken');
   const navigate = useNavigate();
@@ -55,13 +47,7 @@ export default function Header({ handleSearch }) {
         </NavLink>
       </div>
       <form>
-        <input
-          type="search"
-          placeholder="Search..."
-          className="search-input"
-          value={searchQuery}
-          onChange={handleChange}
-        />
+        <input type="search" placeholder="Search..." className="search-input" />
       </form>
 
       <ul className="navbar__links">

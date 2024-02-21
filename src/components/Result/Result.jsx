@@ -1,5 +1,6 @@
 import './Result.scss';
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Input, CardHeader, CardContent, Card, Image } from 'semantic-ui-react';
 
 export default function Result() {
@@ -8,7 +9,9 @@ export default function Result() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/result?search=${search}`);
+        const response = await fetch(
+          `http://localhost:3000/result?search=${search}`
+        );
         if (!response.ok) {
           throw new Error('Error fetching products');
         }
@@ -36,7 +39,9 @@ export default function Result() {
                 ui={false}
               />
               <CardContent>
-                <CardHeader>{product.title}</CardHeader>
+                <NavLink to={`/product/${product.id}`}>
+                  <CardHeader>{product.title}</CardHeader>
+                </NavLink>
               </CardContent>
             </Card>
           ))}
