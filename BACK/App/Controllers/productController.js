@@ -187,19 +187,19 @@ const productController = {
     }
   },
 
-  // MULTER //
-  // Single file upload
-  async fileUpload(req, res) {
-    try {
-      await new Promise((resolve, reject) => {
-        upload.single('myFile')(req, res, (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      });
+  // // MULTER //
+  // // Single file upload
+  // async fileUpload(req, res) {
+  //   try {
+  //     await new Promise((resolve, reject) => {
+  //       upload.single('myFile')(req, res, (err) => {
+  //         if (err) {
+  //           reject(err);
+  //         } else {
+  //           resolve();
+  //         }
+  //       });
+  //     });
 
 
 

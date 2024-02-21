@@ -9,13 +9,9 @@ import {
   Modal,
 } from 'semantic-ui-react';
 
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-
-
-import { useNavigate, Link } from 'react-router-dom';
-
 import { useEffect, useState } from 'react';
 import { useAuth } from '../React-Context/AuthContext';
 

@@ -14,7 +14,7 @@ const shopController = {
         },
         include: [
           {
-            model: product,
+            model: Product,
             as: 'Products',
           },
         ],

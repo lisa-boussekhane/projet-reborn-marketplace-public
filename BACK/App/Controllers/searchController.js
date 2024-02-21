@@ -9,7 +9,7 @@ const searchController = {
       console.log(searchTerm);
 
       // recherche dans product
-      const productResults = await product.findAll({
+      const productResults = await Product.findAll({
         where: {
           [Op.or]: [
             { title: { [Op.iLike]: `%${searchTerm}%` } },
@@ -21,7 +21,7 @@ const searchController = {
       });
 
       // recherche dans detail_product
-      const detailProductResults = await detail_product.findAll({
+      const detailProductResults = await Detail_product.findAll({
         where: {
           [Op.or]: [
             { gender: { [Op.iLike]: `%${searchTerm}%` } },
@@ -31,10 +31,10 @@ const searchController = {
         },
         include: [
           {
-            model: product,
-            as: 'product',
+            model: Product,
+            as: 'Product',
             attributes: ['id', 'title'],
-            include: [{ model: media, as: 'media' }],
+            include: [{ model: Media, as: 'media' }],
           },
         ],
       });
@@ -47,8 +47,8 @@ const searchController = {
           title: result.title,
         })),
         ...detailProductResults.map((result) => ({
-          id: result.product.id,
-          title: result.product.title,
+          id: result.Product.id,
+          title: result.Product.title,
         })),
       ];
 
