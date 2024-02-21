@@ -9,6 +9,7 @@ const paymentController = require('../Controllers/Stripe/paymentController');
 const authController = require('../Controllers/authController');
 const shopController = require('../Controllers/shopController');
 const contactController = require('../Controllers/contactController');
+const ratingController = require('../Controllers/ratingController');
 const verifyToken = require('../Middlewares/authMiddleware');
 const multerMiddleware = require('../Middlewares/multerMiddleware');
 
@@ -42,6 +43,10 @@ router.delete('/shop/:id', verifyToken, shopController.deleteShop);
 router.get('/chat/:id', verifyToken, chatController.getMessage);
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);
 router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
+
+router.get('shop/:id/ratings', ratingController.getShopRating);
+router.post('/product/:id/rate', ratingController.postShopRating);
+router.post('/product/:id/rate', ratingController.calculateShopRating);
 
 //router.post('/upload', multerMiddleware, productController.fileUpload);
 //router.post('/uploadmultiple', multerMiddleware, productController.multipleFilesUpload);
