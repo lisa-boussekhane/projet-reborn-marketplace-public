@@ -66,28 +66,56 @@ export default function MyAccount() {
           </div>
 
           <form className="profile__elem" method="get">
-            {user && (
-              <>
-                <label htmlFor="firstname">
-                  Firstname:{' '}
-                  <input type="text" name="firstname" id="firstname" />
-                </label>
-                <label htmlFor="last name">
-                  Last name: <input type="text" name="lastname" id="lastname" />
-                </label>
-                <label htmlFor="phone">
-                  Phone number
-                  <input
-                    type="tel"
-                    name="phone"
-                    id="phone"
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                    required
-                  />
-                </label>
-                <input type="submit" value="Save" className="save__btn" />
-              </>
-            )}
+
+            <label htmlFor="firstname">
+              Firstname
+              <input
+                type="text"
+                name="firstname"
+                id="firstname"
+              />
+            </label>
+            <label htmlFor="last name">
+              Lastname
+              <input
+                type="text"
+                name="lastname"
+                id="lastname"
+              />
+            </label>
+            <label htmlFor="phone">
+              Phone number
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required
+              />
+            </label>
+          </form>
+          <form className="profile__elem" method="get">
+            <label htmlFor="firstname">
+              First name <input type="text" name="firstname" id="firstname" />
+            </label>
+            <label htmlFor="last name">
+              Last name <input type="text" name="lastname" id="lastname" />
+            </label>
+            <label htmlFor="phone">
+              Phone number
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required
+                value={user.phone}
+                onChange={handleInputValue}
+              />
+            </label>
+
+            <input type="submit" value="Save" className="save__btn" />
+>>>>>>> 7310b932271f7c9470e4fed2885b9b9296cbc184
           </form>
         </div>
 
@@ -103,7 +131,18 @@ export default function MyAccount() {
               Email address <input type="email" name="email" id="email" />
             </label>
             <label htmlFor="password">
+<<<<<<< HEAD
               Password <input type="password" name="password" id="password" />
+=======
+              Password
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={user.password}
+                onChange={handleInputValue}
+              />
+>>>>>>> 7310b932271f7c9470e4fed2885b9b9296cbc184
             </label>
             <input
               type="submit"
