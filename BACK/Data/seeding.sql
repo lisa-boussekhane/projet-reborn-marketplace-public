@@ -117,17 +117,17 @@ INSERT INTO "User_Order_Product"("id", "product_id", "date", "invoice", "status"
 -- Déchargement des données de la table "user_rate_shop"
 ------------------------------------------------
 
-INSERT INTO "User_Rate_Shop"("id", "shop_id", "user_id") OVERRIDING SYSTEM VALUE VALUES
-(1, 2, 2),
-(2, 1, 2),
-(3, 2, 2),
-(4, 1, 2),
-(6, 1, 2),
-(7, 1, 2),
-(8, 2, 2),
-(10, 1, 2),
-(11, 1, 2),
-(12, 1, 2);
+INSERT INTO "User_Rate_Shop"("id", "rating", "shop_id", "user_id") OVERRIDING SYSTEM VALUE VALUES
+(1, 4, 2, 2),
+(2, 3, 1, 2),
+(3, 5, 2, 2),
+(4, 3, 1, 2),
+(6, 4, 1, 2),
+(7, 5, 1, 2),
+(8, 2, 2, 2),
+(10, 4, 1, 2),
+(11, 3, 1, 2),
+(12, 4, 1, 2);
 
 ALTER TABLE media DROP CONSTRAINT fk_media_product;
 

@@ -101,10 +101,12 @@ CREATE TABLE "User_Order_Product"(
 
 CREATE TABLE "User_Rate_Shop"(
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  "rating" INTEGER,
   "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
-  "shop_id" INTEGER NOT NULL REFERENCES "shop"("id") ON DELETE CASCADE
+  "shop_id" INTEGER NOT NULL REFERENCES "shop"("id") ON DELETE CASCADE,
+  CONSTRAINT rating_check CHECK (rating >= 1 AND rating <= 5)
   );
-  
+
   ------------------------------
 -- RAJOUT FK DANS TABLES
 --------------------------------
