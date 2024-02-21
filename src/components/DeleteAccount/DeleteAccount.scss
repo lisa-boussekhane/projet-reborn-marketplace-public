@@ -2,7 +2,7 @@
 
 .delete__container h1 {
   font-size: 1.8em;
-  margin-left: 8rem;
+  margin-left: 10rem;
   margin-bottom: 1.1rem;
 }
 
@@ -21,7 +21,7 @@
   margin-top: 1.8rem;
 }
 
-.delete__btn {
+.btn_delete {
   display: block;
   width: 200px;
   margin-top: 2rem;
@@ -31,13 +31,10 @@
   font-size: 1.2em;
   color: #fff;
   text-align: center;
-  background: v.$blue;
+ 
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.delete__btn:hover {
-  background: #7e94e2;
-  transition: background 0.3s ease;
-}
+
