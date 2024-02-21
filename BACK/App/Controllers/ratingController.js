@@ -1,14 +1,23 @@
 const { Op } = require('sequelize');
 const { Shop, User } = require('../Models/');
 const { sequelize } = require('../Models/index'); 
+const { Pool } = require('pg');
 const pool = require('../../Data');
+const pool = new Pool({
+    user: 'aar',
+    host: 'localhost',
+    database: 'aar',
+    password: SECRET_DB_PASSWORD,
+    port: 5173,
+});
+
 
 
 const ratingController = {
 async getShopRating(req, res) {
     const { id } = req.params;
     try {
-        const { rows } = await PG_URL.PORT.query('SELECT * FROM User_Rate_Shop WHERE shop_id = $1', [id]);
+        const { rows } = await pool.query('SELECT * FROM User_Rate_Shop WHERE shop_id = $1', [id]);
         res.json(rows);
     } catch (error) {
         console.error(error);
@@ -38,7 +47,7 @@ async calculateShopRating(req, res) {
     const { id } = req.params;
     try {
         // Exécution de la requête pour calculer la note moyenne du produit
-        const { rows } = await PG_URL.PORT.query(
+        const { rows } = await pool.query(
             'SELECT AVG(rating) as average FROM User_Rate_Shop WHERE shop_id = $1 GROUP BY shop_id',
             [id]
         );
