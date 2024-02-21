@@ -99,6 +99,12 @@ CREATE TABLE "User_Order_Product"(
   "status" VARCHAR(100) NOT NULL
   );
 
+CREATE TABLE "User_Rate_Shop"(
+  "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
+  "shop_id" INTEGER NOT NULL REFERENCES "shop"("id") ON DELETE CASCADE
+  );
+  
   ------------------------------
 -- RAJOUT FK DANS TABLES
 --------------------------------
