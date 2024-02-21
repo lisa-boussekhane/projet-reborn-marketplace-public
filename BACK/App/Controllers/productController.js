@@ -102,15 +102,9 @@ async createProduct(req, res) {
         // Parse JSON strings to objects since they might be encoded as strings due to multipart/form-data submission
         const productData = JSON.parse(req.body.productData);
         const detailProductData = JSON.parse(req.body.detailProductData);
-        
-        // Generate a unique ID for the product (assuming uid function is defined and imported)
-        productData.customId = uid();
 
         // Create product
         const product = await Product.create(productData);
-
-        // Add product ID to detailProductData
-        detailProductData.product_id = product.id;
 
         // Create detailProduct
         const detailProduct = await Detail_product.create(detailProductData);
