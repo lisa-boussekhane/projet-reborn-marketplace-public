@@ -148,30 +148,30 @@ const productController = {
     }
   },
 
-  // SHORT UNIQUE ID //
-  async createNewRecord(data) {
-    try {
-      const newRecord = await Product.create(data);
-      console.log('Record created with unique ID:', newRecord.uniqueId);
-      // Handle the newly created record as needed
-    } catch (error) {
-      console.error('Error creating new record:', error);
-    }
-  },
+   // SHORT UNIQUE ID //
+  // async createNewRecord(data) {
+  //   try {
+  //     const newRecord = await Product.create(data);
+  //     console.log('Record created with unique ID:', newRecord.uniqueId);
+       // Handle the newly created record as needed
+  //   } catch (error) {
+  //     console.error('Error creating new record:', error);
+  //   }
+  // },
 
-  async createNewRecordWithRetry(data, retryCount = 0) {
-    try {
-      const newRecord = await Product.create(data);
-      return newRecord;
-    } catch (error) {
-      if (error.name === 'SequelizeUniqueConstraintError' && retryCount < 5) {
-        console.log('Unique ID collision detected, retrying...');
-        return createNewRecordWithRetry(data, retryCount + 1);
-      } else {
-        throw error; // Rethrow error if not a unique constraint error or retries exceeded
-      }
-    }
-  },
+  // async createNewRecordWithRetry(data, retryCount = 0) {
+  //   try {
+  //     const newRecord = await Product.create(data);
+  //     return newRecord;
+  //   } catch (error) {
+  //     if (error.name === 'SequelizeUniqueConstraintError' && retryCount < 5) {
+  //       console.log('Unique ID collision detected, retrying...');
+  //       return createNewRecordWithRetry(data, retryCount + 1);
+  //     } else {
+  //       throw error; // Rethrow error if not a unique constraint error or retries exceeded
+  //     }
+  //   }
+  // },
 
 // MULTER //
 // Single file upload
