@@ -317,31 +317,31 @@ async createProduct(req, res) {
 //   },
 
   // Multiple file uploads
-  async multipleFilesUpload(req, res) {
-    try {
-      await new Promise((resolve, reject) => {
-        upload.array('myFiles', 12)(req, res, (err) => {
-          if (err) {
-            // If an error occurs, reject the promise
-            reject(err);
-          } else {
-            // Otherwise, resolve the promise indicating successful file upload
-            resolve();
-          }
-        });
-      });
+  // async multipleFilesUpload(req, res) {
+  //   try {
+  //     await new Promise((resolve, reject) => {
+  //       upload.array('myFiles', 12)(req, res, (err) => {
+  //         if (err) {
+  //           // If an error occurs, reject the promise
+  //           reject(err);
+  //         } else {
+  //           // Otherwise, resolve the promise indicating successful file upload
+  //           resolve();
+  //         }
+  //       });
+  //     });
 
-      // After the promise resolves, the files have been uploaded and are accessible via req.files
-      console.log(req.files); // `req.files` is the array of `myFiles` files
-      // `req.body` will contain the text fields, if there were any
+  //     // After the promise resolves, the files have been uploaded and are accessible via req.files
+  //     console.log(req.files); // `req.files` is the array of `myFiles` files
+  //     // `req.body` will contain the text fields, if there were any
 
-      res.send('Multiple Files uploaded successfully!');
-    } catch (error) {
-      // Handle any errors that occurred during the file uploads
-      console.error(error);
-      res.status(500).send('An error occurred during the file uploads.');
-    }
-  },
+  //     res.send('Multiple Files uploaded successfully!');
+  //   } catch (error) {
+  //     // Handle any errors that occurred during the file uploads
+  //     console.error(error);
+  //     res.status(500).send('An error occurred during the file uploads.');
+  //   }
+  // },
 };
 
 module.exports = productController;

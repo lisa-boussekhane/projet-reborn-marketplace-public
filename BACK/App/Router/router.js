@@ -43,8 +43,8 @@ router.get('/chat/:id', verifyToken, chatController.getMessage);
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);
 router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
 
-router.post('/upload', multerMiddleware, productController.fileUpload);
-router.post('/uploadmultiple', multerMiddleware, productController.multipleFilesUpload);
+//router.post('/upload', multerMiddleware, productController.fileUpload);
+//router.post('/uploadmultiple', multerMiddleware, productController.multipleFilesUpload);
 
 
 module.exports = router;
