@@ -2,6 +2,7 @@ const { Product, Detail_product, Media, User } = require('../Models/');
 const ShortUniqueId = require('short-unique-id');
 const uid = new ShortUniqueId({ length: 6 });
 const multer = require('multer');
+const upload = multer({ dest: 'public/uploads/' });
 
 const productController = {
   async getProductPage(req, res) {
@@ -46,75 +47,191 @@ const productController = {
     }
   },
 
-  async createProduct(req, res) {
+  // async createProduct(req, res) {
+  //   try {
+  //     // Extract product, detailProduct, and media data from request body
+  //     const { productData, detailProductData, mediaData } = req.body;
+
+  //     // Generate a unique ID for the product
+  //     productData.customId = uid();
+
+  //     // Create product
+  //     const product = await Product.create(productData);
+
+  //     // Add product ID to detailProductData and mediaData
+  //     detailProductData.product_id = product.id;
+  //     mediaData.product_id = product.id;
+
+  //     // Create detailProduct and media associated with the product
+  //     const detailProduct = await Detail_product.create(detailProductData);
+  //     const media = await Promise.all(
+  //       mediaData.map((mediaItem) => media.create(mediaItem))
+  //     );
+
+  //     // Respond with created product, its details, and media
+  //     res.status(201).json({
+  //       message: 'Product created successfully',
+  //       product: product,
+  //       detail_product: detailProduct,
+  //       media: media,
+  //     });
+  //   } catch (error) {
+  //     // Respond with error message
+  //     res.status(500).json({
+  //       message: 'Failed to create product',
+  //       error: error.message,
+  //     });
+  //   }
+  // },
+
+async createProduct(req, res) {
     try {
-      // Extract product, detailProduct, and media data from request body
-      const { productData, detailProductData, mediaData } = req.body;
+        // Handle file upload first
+        await new Promise((resolve, reject) => {
+            upload.array('myFiles', 12)(req, res, (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        });
 
-      // Generate a unique ID for the product
-      productData.customId = uid();
+        // At this point, the files have been uploaded and are accessible via req.files
+        console.log(req.files); // `req.files` is the array of `myFiles` files
+        // `req.body` will contain the text fields, if there were any
 
-      // Create product
-      const product = await Product.create(productData);
+        // Assume req.body contains JSON string for productData, detailProductData
+        // Parse JSON strings to objects since they might be encoded as strings due to multipart/form-data submission
+        const productData = JSON.parse(req.body.productData);
+        const detailProductData = JSON.parse(req.body.detailProductData);
+        
+        // Generate a unique ID for the product (assuming uid function is defined and imported)
+        productData.customId = uid();
 
-      // Add product ID to detailProductData and mediaData
-      detailProductData.product_id = product.id;
-      mediaData.product_id = product.id;
+        // Create product
+        const product = await Product.create(productData);
 
-      // Create detailProduct and media associated with the product
-      const detailProduct = await Detail_product.create(detailProductData);
-      const media = await Promise.all(
-        mediaData.map((mediaItem) => media.create(mediaItem))
-      );
+        // Add product ID to detailProductData
+        detailProductData.product_id = product.id;
 
-      // Respond with created product, its details, and media
-      res.status(201).json({
-        message: 'Product created successfully',
-        product: product,
-        detail_product: detailProduct,
-        media: media,
-      });
+        // Create detailProduct
+        const detailProduct = await Detail_product.create(detailProductData);
+
+        // Process uploaded files and create media records
+        const mediaData = req.files.map(file => ({
+            product_id: product.id,
+            // Specify other media fields based on your file and what data multer provides
+            // For example, using the file path and possibly a URL if serving the files
+            photo: file.path, // or generate a URL/path as needed
+        }));
+        const media = await Promise.all(
+            mediaData.map((mediaItem) => Media.create(mediaItem)) // Ensure Media model is correctly referenced
+        );
+
+        // Respond with created product, its details, and media
+        res.status(201).json({
+            message: 'Product created successfully',
+            product: product,
+            detail_product: detailProduct,
+            media: media,
+        });
     } catch (error) {
-      // Respond with error message
-      res.status(500).json({
-        message: 'Failed to create product',
-        error: error.message,
-      });
+        console.error(error);
+        res.status(500).json({
+            message: 'Failed to create product',
+            error: error.message,
+        });
     }
-  },
+},
+
+  // async updateProduct(req, res) {
+  //   try {
+  //     const { productId } = req.params.id;
+  //     // Extract product, detailProduct, and media data from request body
+  //     const { productData, detailProductData, mediaData } = req.body;
+
+  //     // Update product
+  //     const product = await Product.update(productData, {
+  //       where: { id: productId },
+  //     });
+
+  //     // Update detailProduct and media associated with the product
+  //     const detailProduct = await Detail_product.update(detailProductData, {
+  //       where: { product_id: productId },
+  //     });
+
+  //     const media = await Media.update(mediaData, {
+  //       where: { product_id: productId },
+  //     });
+
+  //     // Respond with a message indicating success
+  //     res.status(200).json({
+  //       message: 'Product updated successfully',
+  //     });
+  //   } catch (error) {
+  //     // Respond with error message
+  //     res.status(500).json({
+  //       message: 'Failed to update product',
+  //       error: error.message,
+  //     });
+  //   }
+  // },
 
   async updateProduct(req, res) {
     try {
-      const { productId } = req.params.id;
-      // Extract product, detailProduct, and media data from request body
-      const { productData, detailProductData, mediaData } = req.body;
+        // Handle multiple file uploads first
+        await new Promise((resolve, reject) => {
+            upload.array('myFiles', 12)(req, res, (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        });
 
-      // Update product
-      const product = await Product.update(productData, {
-        where: { id: productId },
-      });
+        // At this point, files are uploaded and accessible via req.files
+        console.log(req.files); // `req.files` is the array of `myFiles` files
 
-      // Update detailProduct and media associated with the product
-      const detailProduct = await Detail_product.update(detailProductData, {
-        where: { product_id: productId },
-      });
+        // Parse product, detailProduct, and media data from request body
+        // Assuming the text fields are sent as JSON strings in `req.body`
+        const { productId } = req.params; // Fixed to correctly extract `productId`
+        const productData = JSON.parse(req.body.productData);
+        const detailProductData = JSON.parse(req.body.detailProductData);
+        const mediaDataArray = req.files.map(file => ({
+            path: file.path, // Example, adjust based on your Media model
+            // Add any additional fields you need from the file
+        }));
 
-      const media = await Media.update(mediaData, {
-        where: { product_id: productId },
-      });
+        // Update product
+        await Product.update(productData, { where: { id: productId } });
 
-      // Respond with a message indicating success
-      res.status(200).json({
-        message: 'Product updated successfully',
-      });
+        // Update detailProduct
+        await Detail_product.update(detailProductData, { where: { product_id: productId } });
+
+        // Assuming you want to update media by removing existing entries and adding new ones
+        // First, remove existing media entries for this product
+        await Media.destroy({ where: { product_id: productId } });
+
+        // Then, insert new media entries for uploaded files
+        const mediaPromises = mediaDataArray.map(mediaData => 
+            Media.create({ ...mediaData, product_id: productId })
+        );
+        await Promise.all(mediaPromises);
+
+        // Respond with a message indicating success
+        res.status(200).json({
+            message: 'Product updated successfully with files',
+        });
     } catch (error) {
-      // Respond with error message
-      res.status(500).json({
-        message: 'Failed to update product',
-        error: error.message,
-      });
+        console.error(error);
+        res.status(500).json({
+            message: 'Failed to update product with files',
+            error: error.message,
+        });
     }
-  },
+}, 
 
   async deleteProduct(req, res) {
     try {
@@ -175,29 +292,29 @@ const productController = {
 
 // MULTER //
 // Single file upload
-async fileUpload(req, res) {
-  try {
-        await new Promise((resolve, reject) => {
-        upload.single('myFile')(req, res, (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      });
+// async fileUpload(req, res) {
+//   try {
+//         await new Promise((resolve, reject) => {
+//         upload.single('myFile')(req, res, (err) => {
+//           if (err) {
+//             reject(err);
+//           } else {
+//             resolve();
+//           }
+//         });
+//       });
 
       // After the promise resolves, the file has been uploaded and is accessible via req.file
-      console.log(req.file); // `req.file` is the `myFile` file
+//       console.log(req.file); // `req.file` is the `myFile` file
       // `req.body` will hold the text fields, if there were any
 
-      res.send('File uploaded successfully!');
-    } catch (error) {
+//       res.send('File uploaded successfully!');
+//     } catch (error) {
       // Handle any errors that occurred during file upload
-      console.error(error);
-      res.status(500).send('An error occurred during the file upload.');
-    }
-  },
+//       console.error(error);
+//       res.status(500).send('An error occurred during the file upload.');
+//     }
+//   },
 
   // Multiple file uploads
   async multipleFilesUpload(req, res) {
