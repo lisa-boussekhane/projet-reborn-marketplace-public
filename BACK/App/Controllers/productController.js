@@ -12,7 +12,7 @@ const productController = {
         include: [
           {
             model: Detail_product,
-            as: 'detail_product',
+            as: 'Detail_product',
           },
           {
             model: Media,
@@ -21,7 +21,7 @@ const productController = {
           },
           {
             model: User,
-            as: 'users',
+            as: 'Users',
           },
         ],
       });

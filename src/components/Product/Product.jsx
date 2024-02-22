@@ -65,8 +65,8 @@ export default function Product() {
           <h2>{product ? product.title : 'Loading...'}</h2>
           <div className="product__rating">
             <p>
-              {product && product.users && product.users[0]
-                ? product.users[0].first_name
+              {product && product.Users && product.Users[0]
+                ? product.Users[0].first_name
                 : 'Details not provided by the seller yet.'}
             </p>
             <div className="star__box">
@@ -85,37 +85,37 @@ export default function Product() {
           <p>Sculptor : {product ? product.sculptor : 'Loading...'}</p>
           <p>
             Gender:{' '}
-            {product && product.detail_product
-              ? product.detail_product.gender
+            {product && product.Detail_product
+              ? product.Detail_product.gender
               : 'Details not provided by the seller yet.'}
           </p>
           <p>Age range: {product ? product.age_range : 'Loading...'}</p>
           <p>
             Eyes:{' '}
-            {product && product.detail_product
-              ? product.detail_product.eyes
+            {product && product.Detail_product
+              ? product.Detail_product.eyes
               : 'Details not provided by the seller yet.'}
           </p>
           <p>
             Hair:{' '}
-            {product && product.detail_product
-              ? product.detail_product.hair
+            {product && product.Detail_product
+              ? product.Detail_product.hair
               : 'Details not provided by the seller yet.'}
           </p>
           <p>Size: {product ? product.size : 'Loading...'}</p>
           <p>Weight: {product ? product.weight : 'Loading...'}</p>
           <p>
             Belly plate:{' '}
-            {product && product.detail_product
-              ? product.detail_product.belly_plate
+            {product && product.Detail_product
+              ? product.Detail_product.belly_plate
               : 'Details not provided by the seller yet.'}
           </p>
           <p>Unique ID: {product ? product.unique_id : 'Loading...'}</p>
 
           <p>
             <p>
-              {product && product.detail_product
-                ? product.detail_product.description
+              {product && product.Detail_product
+                ? product.Detail_product.description
                 : 'Details not provided by the seller yet.'}
             </p>
           </p>
@@ -123,14 +123,14 @@ export default function Product() {
         <div className="product__group__column__row">
           <p>
             Created :{' '}
-            {product && product.detail_product
-              ? product.detail_product.year
+            {product && product.Detail_product
+              ? product.Detail_product.year
               : 'Details not provided by the seller yet.'}
           </p>
           <p>
             Status:{' '}
-            {product && product.detail_product
-              ? product.detail_product.status
+            {product && product.Detail_product
+              ? product.Detail_product.status
               : 'Details not provided by the seller yet.'}
           </p>
           <p>
@@ -139,8 +139,8 @@ export default function Product() {
           </p>
           <p>
             Location:{' '}
-            {product && product.detail_product
-              ? product.detail_product.localization
+            {product && product.Detail_product
+              ? product.Detail_product.localization
               : 'Details not provided by the seller yet.'}
           </p>
         </div>

@@ -28,19 +28,19 @@ export default function UpdateProduct() {
           year: data.year || '',
           size: data.size || '',
           weight: data.weight || '',
-          localization: data.detail_product?.localization || '',
+          localization: data.Detail_product?.localization || '',
           sculptor: data.sculptor || '',
           price: data.price || '',
           shipping_fees: data.shipping_fees || '',
-          belly_plate: data.detail_product?.belly_plate || '',
-          gender: data.detail_product?.gender || '',
-          status: data.detail_product?.status || '',
+          belly_plate: data.Detail_product?.belly_plate || '',
+          gender: data.Detail_product?.gender || '',
+          status: data.Detail_product?.status || '',
           authenticity_card: data.authenticity_card || '',
           type: data.type || '',
-          age_range: data.detail_product?.age_range || '',
-          eyes: data.detail_product?.eyes || '',
-          hair: data.detail_product?.hair || '',
-          description: data.detail_product?.description || '',
+          age_range: data.Detail_product?.age_range || '',
+          eyes: data.Detail_product?.eyes || '',
+          hair: data.Detail_product?.hair || '',
+          description: data.Detail_product?.description || '',
         });
       } catch (error) {
         console.error('Error fetching product details:', error);
@@ -124,7 +124,7 @@ export default function UpdateProduct() {
           {message}
         </p>
       )}
-      {product && product.detail_product && (
+      {product && product.Detail_product && (
         <div className="sell__box">
           <form
             onSubmit={handleSubmit}
