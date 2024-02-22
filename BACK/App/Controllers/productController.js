@@ -47,6 +47,7 @@ const productController = {
   },
 
 async createProduct(req, res) {
+  // Create random unique ID for the product
     const randomId = () => {
         const s4 = () => {
             return Math.floor((1 + Math.random()) * 0x100000).toString(16);
@@ -88,7 +89,7 @@ async createProduct(req, res) {
         Object.assign(productData, {
             user_id: userId,
             shop_id: usershop.id,
-            unique_id: unique.id(),
+            unique_id: randomId(),
         });
 
         // Create product and detailProduct in the database
