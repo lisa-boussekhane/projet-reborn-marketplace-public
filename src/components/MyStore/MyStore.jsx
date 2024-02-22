@@ -206,13 +206,9 @@ export default function MyStore() {
                       </NavLink>
                     </Card.Content>
                     <Card.Content extra className="card-content">
-                      <Button
-                        color="blue"
-                        as={Link}
-                        to={`/sellmyreborn/${product.id}`}
-                      >
-                        Edit
-                      </Button>
+                      <NavLink to={`/updateproduct/${product.id}`}>
+                        <Button color="blue">Edit</Button>
+                      </NavLink>
                       <Icon
                         name="trash"
                         className="trash-icon"

@@ -46,25 +46,14 @@ const productController = {
 
   async updateProduct(req, res) {
     try {
-      // Handle multiple file uploads first
-      await new Promise((resolve, reject) => {
-        upload.array('myFiles', 12)(req, res, (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      });
-
       // At this point, files are uploaded and accessible via req.files
       console.log(req.files); // `req.files` is the array of `myFiles` files
 
       // Parse product, detailProduct, and media data from request body
       // Assuming the text fields are sent as JSON strings in `req.body`
-      const { productId } = req.params; // Fixed to correctly extract `productId`
-      const productData = JSON.parse(req.body.productData);
-      const detailProductData = JSON.parse(req.body.detailProductData);
+      const productId = req.params.id; // Fixed to correctly extract `productId`
+      const productData = req.body; // Access form fields directly from req.body
+      const detailProductData = req.body;
       const mediaDataArray = req.files.map((file) => ({
         path: file.path, // Example, adjust based on your Media model
         // Add any additional fields you need from the file
@@ -84,7 +73,7 @@ const productController = {
 
       // Then, insert new media entries for uploaded files
       const mediaPromises = mediaDataArray.map((mediaData) =>
-        Media.create({ ...mediaData, product_id: productId })
+        Media.create({ photo: mediaData.path, product_id: productId })
       );
       await Promise.all(mediaPromises);
 

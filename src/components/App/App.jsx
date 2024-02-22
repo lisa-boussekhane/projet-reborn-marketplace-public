@@ -25,6 +25,7 @@ import Result from '../Result/Result';
 import Payment from '../Payment/Payment';
 import Product from '../Product/Product';
 import MyStore from '../MyStore/MyStore';
+import UpdateProduct from '../UpdateProduct/UpdateProduct';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route path="/createmystore" element={<CreateMyStore />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/sellmyreborn" element={<SellMyReborn />} />
+        <Route path="/updateproduct/:id" element={<UpdateProduct />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/howitworks" element={<HowItWorks />} />
         <Route path="/results" element={<Result />} />

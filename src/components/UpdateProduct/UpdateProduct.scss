@@ -1,0 +1,164 @@
+@use 'src/styles/variables' as v;
+
+.sell__box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10rem;
+  gap: 50px;
+  margin-top: 2rem;
+  margin-left: -20rem;
+}
+
+.sell__container {
+  display: block;
+  width: 70%;
+  height: auto;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+h3 {
+  font-size: 3rem;
+  font-weight: 400;
+  color: #000;
+  border-bottom: 3px solid lightgray;
+  border-radius: 3px;
+  width: 90%;
+  padding: 6px 6px;
+  margin-left: 5rem;
+}
+
+.sell__wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: -1rem;
+}
+
+.sell__img {
+ display: flex;
+  flex-direction: column; 
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.sell__img img {
+ margin-bottom: 1.5rem
+}
+
+.sell__col1,
+.sell__col2,
+.sell__col3 {
+  width: 30%;  // Adjust width as needed
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+}
+
+.sell__col1 h3 {
+  font-size: 1.1em;
+  margin-top: 3rem;
+  margin-right: 4rem;
+  font-weight: bold;
+}
+
+.sell__col1 input[type='text'],
+.sell__col1 input[type='number'] {
+  border: 1px solid v.$midGrey;
+}
+
+.sell__col2,
+.sell__col3 {
+  width: 30%;  // Adjust width as needed
+  
+}
+
+.sell__col2 input[type='text'],
+.sell__col2 input[type='number'],
+.sell__col2 select,
+.sell__col3 select {
+  font-size: 1.1em;
+  border: 1px solid v.$midGrey;
+}
+
+.sell__col2 select,
+.sell__col3 select {
+  width: 175px;
+  padding: 2.5px;
+  font-size: 1.1em;
+  background: #fff;
+}
+
+#gender,
+#status,
+#authenticity,
+#type,
+#age,
+#eyes,
+#hair {
+  width: 240px;
+}
+
+.sell__col3 {
+   float: right;
+  margin-top: -25rem;
+  margin-right: -20rem;
+}
+
+.sell__col2 {
+ margin-top: -1rem;
+ margin-right: 4rem;
+}
+.sell__col1 {
+  margin-top: 1rem;
+ }
+
+.sell__desc,
+.sell__btn {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-left: 4rem;
+  padding-bottom: 1rem;
+}
+
+.larger-input {
+  width: 350px; 
+  height: 30px; 
+}
+
+
+.sell__btn input {
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+  background: v.$blue;
+  color: #fff;
+  border-radius: 3px;
+  padding: 8px;
+  width: 180px;
+  margin-bottom: -5rem;
+  cursor: pointer;
+}
+
+.message {
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: 50rem;
+
+  &success {
+    color: green;
+  }
+  
+  &error {
+    color: red;
+  }
+}

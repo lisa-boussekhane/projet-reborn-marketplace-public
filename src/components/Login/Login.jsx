@@ -7,13 +7,16 @@ import { useAuth } from '../React-Context/AuthContext';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const { setIsLoggedIn, setUser } = useAuth();
   const navigate = useNavigate();
 
   // if login successful, user gets redirected to my account page
   const handleClick = () => {
-    setTimeout(() => navigate('/myaccount', { replace: true }), 1000);
+    if (loginSuccess) {
+      setTimeout(() => navigate('/myaccount', { replace: true }), 1000);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -36,10 +39,13 @@ export default function Login() {
 
       if (data.success) {
         setLoginSuccess(true);
+        setLoginError(false);
         setIsLoggedIn(true);
         setUser(user);
+        handleClick();
       } else {
         console.error('Échec de la connexion');
+        setLoginError(true);
       }
     } catch (error) {
       console.error('Cannot log in', error);
@@ -51,6 +57,9 @@ export default function Login() {
       <div className="form__container">
         <h1>Login</h1>
         {loginSuccess && <p>Login successful!</p>}
+        {loginError && (
+          <p style={{ color: 'red' }}> Error : Incorrect email or password</p>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="form__group">
             <label htmlFor="email">

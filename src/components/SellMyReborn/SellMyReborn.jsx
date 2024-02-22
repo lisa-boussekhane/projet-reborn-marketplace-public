@@ -27,16 +27,16 @@ export default function SellMyReborn() {
     photo: [],
   });
 
-  const handleChange = (event) => {
-    const { name, value, type } = event.target;
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
 
     // Si le champ est un fichier, stockez le fichier lui-même dans l'état
     if (type === 'file') {
       setFormData({
         ...formData,
-        [name]: event.target.files,
+        [name]: e.target.files,
       });
-      console.log(`Files for ${name}:`, event.target.files);
+      console.log(`Files for ${name}:`, e.target.files);
     } else {
       setFormData((prevFormData) => {
         // Utilisez Object.keys() pour obtenir les clés de l'objet
@@ -73,16 +73,13 @@ export default function SellMyReborn() {
         }
       }
 
-      const response = await fetch(
-        `http://localhost:3000/createproduct/${user.id}`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formDataForServer, // Utilisez FormData comme corps de la requête
-        }
-      );
+      const response = await fetch(`http://localhost:3000/product/${user.id}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formDataForServer, // utilisation de formData comme corps de la requête
+      });
 
       if (!response.ok) {
         throw new Error(
@@ -126,6 +123,7 @@ export default function SellMyReborn() {
               multiple
               className="larger-input"
             />
+
             <div className="sell__col1">
               <input
                 type="text"

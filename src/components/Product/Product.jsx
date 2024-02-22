@@ -153,7 +153,7 @@ export default function Product() {
         />
         <p>
           Price ${product ? product.price : 'Loading...'} + Shipping fees $
-          {product ? product.shipping_fees : 'Loading...'}$
+          {product ? product.shipping_fees : 'Loading...'}
         </p>
         <NavLink to="/cart">
           <button id="cart-button" type="button" onClick={handleAddToCart}>
