@@ -1,69 +1,52 @@
 const { Op } = require('sequelize');
-const { Shop, User } = require('../Models/');
+const { Shop, User, User_rate_shop} = require('../Models/');
 const { sequelize } = require('../Models/index'); 
-const { Pool } = require('pg');
-const pool = require('../../Data');
-const pool = new Pool({
-    user: 'aar',
-    host: 'localhost',
-    database: 'aar',
-    password: SECRET_DB_PASSWORD,
-    port: 5173,
-});
-
-
 
 const ratingController = {
 async getShopRating(req, res) {
-    const { id } = req.params;
-    try {
-        const { rows } = await pool.query('SELECT * FROM User_Rate_Shop WHERE shop_id = $1', [id]);
-        res.json(rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Server error occurred while fetching shop ratings.');
-    }
+        try {
+            const { shop_id } = req.params; 
+            const ratings = await User_rate_hop.findAll({
+                where: { shop_id: shop_id }, // Adjust the field name based on your model definition
+                attributes: [
+                    [sequelize.fn('AVG', sequelize.col('rating')), 'averageRating']
+                ],
+                raw: true,
+            });
+    
+            if (ratings.length > 0) {
+                const averageRating = ratings[0].averageRating;
+                res.json({ shopId: id, averageRating });
+            } else {
+                res.status(404).send('Shop not found or no ratings available.');
+            }
+    
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server error occurred while fetching shop ratings.');
+        }
+    },
+    
+async postShopRating(req, res) {
+        const { shop_id } = req.params; // Assuming this is the shopId
+        const { rating, user_id } = req.body; // Extracting rating and userId from the request body
+    
+        try {
+            // Create a new rating in the UserRateShop table
+            await User_rate_shop.create({
+                shopId: shop_id, 
+                rating: rating,
+                userId: user_id, 
+            });
+    
+            // Response with a status code 201 indicating the resource (rating) has been created
+            res.status(201).send('Rating added successfully');
+        } catch (error) {
+            console.error('Error adding rating:', error);
+            res.status(500).send('An error occurred while adding the rating');
+        }
     },
 
-async postShopRating(req, res) {
-    const { id } = req.params;
-    const { rating, userId } = req.body; // Extraction de l'évaluation et de l'ID de l'utilisateur depuis le corps de la requête
-
-    try {
-        await PG_URL.PORT.query(
-            'INSERT INTO User_Rate_Product (product_id, rating, user_id) VALUES ($1, $2, $3)',
-            [id, rating, userId]
-        );
-
-        // Réponse avec un code de statut 201 indiquant que la ressource (évaluation) a été créée
-        res.status(201).send('Rating added successfully');
-    } catch (error) {
-        console.error('Error adding rating:', error);
-        res.status(500).send('An error occurred while adding the rating');
-    }
-},
-
-async calculateShopRating(req, res) {
-    const { id } = req.params;
-    try {
-        // Exécution de la requête pour calculer la note moyenne du produit
-        const { rows } = await pool.query(
-            'SELECT AVG(rating) as average FROM User_Rate_Shop WHERE shop_id = $1 GROUP BY shop_id',
-            [id]
-        );
-
-        // Si des notes existent, renvoie la moyenne, sinon indique que le produit n'a pas encore été noté
-        if (rows.length > 0) {
-            res.json(rows[0]);
-        } else {
-            res.json({ average: "Not rated yet" });
-        }
-    } catch (error) {
-        // Gestion des erreurs en cas de problème avec la requête à la base de données
-        console.error('Error fetching average rating:', error);
-        res.status(500).send('An error occurred while fetching the average rating');
-    }
-}
   };
 
 

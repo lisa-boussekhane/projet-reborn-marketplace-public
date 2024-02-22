@@ -46,7 +46,6 @@ router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
 
 router.get('shop/:id/ratings', ratingController.getShopRating);
 router.post('/product/:id/rate', ratingController.postShopRating);
-router.post('/product/:id/rate', ratingController.calculateShopRating);
 
 //router.post('/upload', multerMiddleware, productController.fileUpload);
 //router.post('/uploadmultiple', multerMiddleware, productController.multipleFilesUpload);

@@ -3,7 +3,7 @@
 --------------------------------
 BEGIN;
 
-DROP TABLE IF EXISTS "user", "media", "detail_product", "product", "message", "shop", "user_order_product" CASCADE;
+DROP TABLE IF EXISTS "user", "media", "detail_product", "product", "message", "shop", "user_order_product", "user_rate_shop" CASCADE;
 
 CREATE TABLE "user" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -96,7 +96,7 @@ CREATE TABLE "User_Order_Product"(
   "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
   "product_id" INTEGER NOT NULL REFERENCES "product"("id") ON DELETE CASCADE,
   "date" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "invoice" PATH,
+  "invoice" VARCHAR,
   "status" VARCHAR(100) NOT NULL
   );
 
