@@ -44,6 +44,80 @@ const productController = {
     }
   },
 
+async createProduct(req, res) {
+    const randomId = () => {
+        const s4 = () => {
+            return Math.floor((1 + Math.random()) * 0x100000).toString(16);
+        };
+        return s4();
+    };
+
+    try {
+        // Handle file upload first
+        await new Promise((resolve, reject) => {
+            upload.array('myFiles', 12)(req, res, (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        });
+        
+        console.log(req.files); // Log uploaded files
+
+        // Check for user and shop existence
+        const userId = req.params.id;
+        const theUser = await User.findByPk(userId);
+        if (!theUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const usershop = await Shop.findOne({ where: { user_id: userId } });
+        if (!usershop) {
+            return res.status(404).json({ error: 'Shop not found' });
+        }
+
+        // Assume req.body could be JSON strings, parse
+        const productData = JSON.parse(req.body.productData || '{}');
+        const detailProductData = JSON.parse(req.body.detailProductData || '{}');
+
+        // Extend productData with user and shop IDs, and generate a unique ID
+        Object.assign(productData, {
+            user_id: userId,
+            shop_id: usershop.id,
+            unique_id: unique.id(),
+        });
+
+        // Create product and detailProduct in the database
+        const product = await Product.create(productData);
+        Object.assign(detailProductData, { product_id: product.id });
+        const detailProduct = await Detail_product.create(detailProductData);
+
+        // Process uploaded files for media creation
+        const mediaData = req.files.map(file => ({
+            product_id: product.id,
+            photo: file.path, // Assuming file.path is available and correct
+        }));
+
+        const media = await Promise.all(mediaData.map(mediaItem => Media.create(mediaItem)));
+
+        // Respond with created product and media
+        res.status(201).json({
+            message: 'Product created successfully',
+            product: product,
+            detail_product: detailProduct,
+            media: media,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Failed to create product',
+            error: error.message,
+        });
+    }
+},
+
   async updateProduct(req, res) {
     try {
       console.log(req.files); // voir les fichiers img qu'on récupère
@@ -81,86 +155,6 @@ const productController = {
         message: 'Failed to update product with files',
         error: error.message,
       });
-    }
-  },
-
-  async createProduct(req, res) {
-    const randomId = () => {
-      const s4 = () => {
-        return Math.floor((1 + Math.random()) * 0x100000).toString(16);
-      };
-      // Retourner un id de format 'aaaaa'
-      return s4();
-    };
-
-    const userId = req.params.id;
-    const newid = randomId();
-
-    try {
-      console.log(req.files);
-
-      const theUser = await User.findByPk(userId);
-
-      if (!theUser) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-
-      const usershop = await Shop.findOne({
-        where: {
-          user_id: userId,
-        },
-      });
-
-      if (!usershop) {
-        return res.status(404).json({ error: 'Shop not found' });
-      }
-
-      const productData = {
-        user_id: userId,
-        shop_id: usershop.id,
-        unique_id: newid,
-        ...req.body,
-      };
-      console.log('productData :', productData);
-      const detailProductData = {
-        ...req.body,
-      };
-
-      try {
-        // création du produit
-        const newProduct = await Product.create(productData);
-        console.log(newProduct.id);
-        await Detail_product.create({
-          product_id: newProduct.id,
-          ...detailProductData,
-        });
-
-        const mediaData = req.files.map((file) => ({
-          product_id: newProduct.id,
-          photo: file.path,
-        }));
-
-        const mediaPromises = mediaData.map(async (mediaItem) => {
-          console.log(mediaItem);
-
-          return Media.create(mediaItem);
-        });
-
-        const media = await Promise.all(mediaPromises);
-
-        // Log and return the response after successful product creation
-        console.log('Product created successfully:', newProduct);
-        return res.status(201).json({
-          product: newProduct.get(), // Convert Sequelize instance to plain object
-          media,
-        });
-      } catch (error) {
-        console.error('Error creating product or details_product:', error);
-        return res.status(500).json({ error: 'Internal Server Error' });
-      }
-    } catch (error) {
-      console.error('Error finding user or shop:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 
