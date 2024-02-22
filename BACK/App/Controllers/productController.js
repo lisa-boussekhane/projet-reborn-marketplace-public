@@ -1,4 +1,6 @@
 const { Product, Detail_product, Media, User, Shop } = require('../Models/');
+const multer = require('multer');
+const upload = multer({ dest: 'public/uploads/' });
 
 const productController = {
   async getProductPage(req, res) {
