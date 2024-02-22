@@ -1,6 +1,7 @@
 const { Product, Detail_product, Media, User, Shop } = require('../Models/');
 const multer = require('multer');
 const upload = multer({ dest: 'public/uploads/' });
+const uploadMulter = require('../Middlewares/multerMiddleware');
 
 const productController = {
   async getProductPage(req, res) {
@@ -100,7 +101,7 @@ async createProduct(req, res) {
         // Process uploaded files for media creation
         const mediaData = req.files.map(file => ({
             product_id: product.id,
-            photo: file.path, // Assuming file.path is available and correct
+            photo: file.path,
         }));
 
         const media = await Promise.all(mediaData.map(mediaItem => Media.create(mediaItem)));
