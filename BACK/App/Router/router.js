@@ -31,8 +31,8 @@ router.get('/result', searchController.searchReborns);
 router.post('/process-payment', verifyToken, paymentController.addStripePayment);
 
 router.get('/product/:id', productController.getProductPage);
-router.post('/product/:id', verifyToken, upload.array('myFile'), productController.createProduct);
-router.patch('/product/:id', verifyToken, upload.array('myFile'), productController.updateProduct);
+router.post('/product/:id', verifyToken, upload.array('photo'), productController.createProduct);
+router.patch('/product/:id', verifyToken, upload.array('photo'), productController.updateProduct);
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
