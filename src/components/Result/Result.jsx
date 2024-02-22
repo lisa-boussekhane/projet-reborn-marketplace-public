@@ -39,7 +39,7 @@ export default function Result() {
               {' '}
               {/* Ensure each key is unique */}
               <Image
-                src={result.photo || 'default_placeholder_url'}
+                src={result.photo}
                 // Use a default placeholder URL if photo is not available
                 wrapped
                 ui={false}

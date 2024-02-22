@@ -47,11 +47,7 @@ export default function Cart() {
           {Array.isArray(cart) &&
             cart.map((item) => (
               <Card key={item.id}>
-                <Image
-                  src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-                  wrapped
-                  ui={false}
-                />
+                <Image src={`${item.Media[0].photo}`} wrapped ui={false} />
                 <CardContent>
                   <CardHeader>{item.title}</CardHeader>
                   <CardMeta>
