@@ -2,9 +2,9 @@ const { Model, DataTypes, INTEGER } = require('sequelize');
 
 const sequelize = require('./sequelize');
 
-class detail_product extends Model {}
+class Detail_product extends Model {}
 
-detail_product.init(
+Detail_product.init(
   {
     localization: {
       type: DataTypes.STRING,
@@ -51,7 +51,7 @@ detail_product.init(
   },
   {
     sequelize,
-    modelName: 'detail_product',
+    modelName: 'Detail_product',
     tableName: 'detail_product',
     timestamps: true,
     createdAt: 'created_at',
@@ -59,4 +59,4 @@ detail_product.init(
   }
 );
 
-module.exports = detail_product;
+module.exports = Detail_product;

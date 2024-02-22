@@ -112,6 +112,22 @@ INSERT INTO "User_Order_Product"("id", "product_id", "date", "invoice", "status"
 (11, 3, '2024-02-13', NULL, 'Paid', 2),
 (12, 1, '2024-02-10', NULL, 'Send', 2);
 
+------------------------------------------------
+-- Déchargement des données de la table "user_rate_shop"
+------------------------------------------------
+
+INSERT INTO "User_Rate_Shop"("id", "rating", "shop_id", "user_id") OVERRIDING SYSTEM VALUE VALUES
+(1, 4, 2, 2),
+(2, 3, 1, 2),
+(3, 5, 2, 2),
+(4, 3, 1, 2),
+(6, 4, 1, 2),
+(7, 5, 1, 2),
+(8, 2, 2, 2),
+(10, 4, 1, 2),
+(11, 3, 1, 2),
+(12, 4, 1, 2);
+
 ALTER TABLE media DROP CONSTRAINT fk_media_product;
 
 ALTER TABLE media

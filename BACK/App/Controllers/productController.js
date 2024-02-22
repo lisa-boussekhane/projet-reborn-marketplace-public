@@ -21,7 +21,7 @@ const productController = {
           },
           {
             model: User,
-            as: 'Users',
+            as: 'users',
           },
         ],
       });
@@ -46,17 +46,13 @@ const productController = {
 
   async updateProduct(req, res) {
     try {
-      // At this point, files are uploaded and accessible via req.files
-      console.log(req.files); // `req.files` is the array of `myFiles` files
+      console.log(req.files); // voir les fichiers img qu'on récupère
 
-      // Parse product, detailProduct, and media data from request body
-      // Assuming the text fields are sent as JSON strings in `req.body`
-      const productId = req.params.id; // Fixed to correctly extract `productId`
-      const productData = req.body; // Access form fields directly from req.body
+      const productId = req.params.id;
+      const productData = req.body;
       const detailProductData = req.body;
       const mediaDataArray = req.files.map((file) => ({
-        path: file.path, // Example, adjust based on your Media model
-        // Add any additional fields you need from the file
+        path: file.path,
       }));
 
       // Update product
@@ -67,17 +63,15 @@ const productController = {
         where: { product_id: productId },
       });
 
-      // Assuming you want to update media by removing existing entries and adding new ones
-      // First, remove existing media entries for this product
+      // supprimer le média déjà existant
       await Media.destroy({ where: { product_id: productId } });
 
-      // Then, insert new media entries for uploaded files
+      // insérer le nouveau
       const mediaPromises = mediaDataArray.map((mediaData) =>
         Media.create({ photo: mediaData.path, product_id: productId })
       );
       await Promise.all(mediaPromises);
 
-      // Respond with a message indicating success
       res.status(200).json({
         message: 'Product updated successfully with files',
       });
@@ -104,7 +98,7 @@ const productController = {
 
     try {
       console.log(req.files);
-      // });
+
       const theUser = await User.findByPk(userId);
 
       if (!theUser) {
@@ -209,59 +203,6 @@ const productController = {
       res.status(500).json({ message: 'an unexpected error occured...' });
     }
   },
-
-  // // MULTER //
-  // // Single file upload
-  // async fileUpload(req, res) {
-  //   try {
-  //     await new Promise((resolve, reject) => {
-  //       upload.single('myFile')(req, res, (err) => {
-  //         if (err) {
-  //           reject(err);
-  //         } else {
-  //           resolve();
-  //         }
-  //       });
-  //     });
-
-  // After the promise resolves, the file has been uploaded and is accessible via req.file
-  //       console.log(req.file); // `req.file` is the `myFile` file
-  // `req.body` will hold the text fields, if there were any
-
-  //       res.send('File uploaded successfully!');
-  //     } catch (error) {
-  // Handle any errors that occurred during file upload
-  //       console.error(error);
-  //       res.status(500).send('An error occurred during the file upload.');
-  //     }
-  //   },
-
-  // Multiple file uploads
-  // async multipleFilesUpload(req, res) {
-  //   try {
-  //     await new Promise((resolve, reject) => {
-  //       upload.array('myFiles', 12)(req, res, (err) => {
-  //         if (err) {
-  //           // If an error occurs, reject the promise
-  //           reject(err);
-  //         } else {
-  //           // Otherwise, resolve the promise indicating successful file upload
-  //           resolve();
-  //         }
-  //       });
-  //     });
-
-  //     // After the promise resolves, the files have been uploaded and are accessible via req.files
-  //     console.log(req.files); // `req.files` is the array of `myFiles` files
-  //     // `req.body` will contain the text fields, if there were any
-
-  //     res.send('Multiple Files uploaded successfully!');
-  //   } catch (error) {
-  //     // Handle any errors that occurred during the file uploads
-  //     console.error(error);
-  //     res.status(500).send('An error occurred during the file uploads.');
-  //   }
-  // },
 };
 
 module.exports = productController;

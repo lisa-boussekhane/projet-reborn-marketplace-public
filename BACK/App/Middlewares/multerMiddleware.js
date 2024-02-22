@@ -32,7 +32,7 @@ const handleMultipleFileUploads = async (req, res, next) => {
       'Une erreur est survenue lors du traitement des fichiers :',
       error
     );
-    // Gérer les erreurs de téléchargement ici
+    // Gérer les erreurs de téléchargement
     res
       .status(500)
       .send('Une erreur est survenue lors du téléchargement des fichiers.');

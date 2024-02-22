@@ -2,9 +2,9 @@ const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require ('./sequelize');
 
-class message extends Model {}
+class Message extends Model {}
 
-message.init({  
+Message.init({  
     content: {
         type: DataTypes.STRING,
         allowNull: false
@@ -22,8 +22,8 @@ message.init({
   
   }, {  
     sequelize,
-    modelName: 'message',
+    modelName: 'Message',
     tableName: 'message',
   });
   
-  module.exports = message;
+  module.exports = Message;
