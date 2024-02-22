@@ -1,46 +1,52 @@
 import './Result.scss';
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Input, CardHeader, CardContent, Card, Image } from 'semantic-ui-react';
 
 export default function Result() {
-  const [products, setProducts] = useState(false);
+  const [results, setResults] = useState([]);
+  const location = useLocation();
+  const search = new URLSearchParams(location.search).get('search');
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/result?search=${search}`
+          `http://localhost:3000/results?search=${search}`
         );
         if (!response.ok) {
           throw new Error('Error fetching products');
         }
         const data = await response.json();
-        setProducts(data);
+        setResults(data.results);
+        console.log(results);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
     };
     fetchProducts();
-  }, []);
+  }, [search]);
 
   return (
     <div className="result__container">
       <div className="result__input">
-        <Input focus placeholder="Reborns match your search" />
+        <h2> {`${results ? results.length : 0} Reborns match your search`}</h2>
       </div>
       <div className="result__box">
         <div className="result__card">
-          {products.map((product) => (
-            <Card key={product.id}>
+          {results.map((result) => (
+            <Card key={result.id}>
+              {' '}
+              {/* Ensure each key is unique */}
               <Image
-                src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+                src={result.photo || 'default_placeholder_url'}
+                // Use a default placeholder URL if photo is not available
                 wrapped
                 ui={false}
               />
               <CardContent>
-                <NavLink to={`/product/${product.id}`}>
-                  <CardHeader>{product.title}</CardHeader>
+                <NavLink to={`/product/${result.id}`}>
+                  <CardHeader>{result.title}</CardHeader>
                 </NavLink>
               </CardContent>
             </Card>

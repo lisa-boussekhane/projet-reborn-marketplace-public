@@ -31,6 +31,7 @@ export default function MyStore() {
       // rediriger l'utilisateur vers la page de connexion
       navigate('/login');
     } else {
+      // Check for stored token on component mount
       // Récupérer les informations du shop du backend
       const fetchShopDetails = async () => {
         try {

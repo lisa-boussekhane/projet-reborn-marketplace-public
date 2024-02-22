@@ -1,12 +1,11 @@
 const { Product, User } = require('../Models/');
-const verifyToken = require('../Middlewares/authMiddleware');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const userController = {
   async getUserInfos(req, res) {
     try {
       const userId = req.params.id;
-      const targetedUser = await user.findByPk(userId);
+      const targetedUser = await User.findByPk(userId);
 
       if (!targetedUser) {
         return res
@@ -25,10 +24,10 @@ const userController = {
     try {
       const userId = req.user.id;
 
-      const userOrders = await user.findByPk(userId, {
+      const userOrders = await User.findByPk(userId, {
         include: [
           {
-            model: product,
+            model: Product,
             attributes: ['id', 'title', 'kit_name', 'price', 'created_at'],
           },
         ],

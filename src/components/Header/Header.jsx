@@ -3,19 +3,32 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../React-Context/AuthContext';
 
-export default function Header() {
-  // on récupère le token dans le localStorage
-  localStorage.getItem('jwtToken');
+export default function Header({ onSearch }) {
+  const [showLinks, setShowLinks] = useState(false);
+  const { isLoggedIn, setIsLoggedIn, setUser } = useAuth();
   const navigate = useNavigate();
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const searchTerm = event.target.search.value;
+    onSearch(searchTerm);
+    navigate(`/results?search=${searchTerm}`);
+    console.log(searchTerm);
+  };
+  // Check for stored token on component mount
+  useEffect(() => {
+    const storedToken = localStorage.getItem('jwtToken');
+
+    if (storedToken) {
+      setIsLoggedIn(true);
+    }
+  }, [setIsLoggedIn, setUser]);
 
   // on efface l'élément dans le localStorage
   const logOut = () => {
     localStorage.clear();
     navigate('/login');
   };
-
-  const [showLinks, setShowLinks] = useState(false);
-  const { isLoggedIn } = useAuth();
 
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
@@ -46,8 +59,13 @@ export default function Header() {
           />
         </NavLink>
       </div>
-      <form>
-        <input type="search" placeholder="Search..." className="search-input" />
+      <form onSubmit={handleSearch}>
+        <input
+          type="text"
+          name="search"
+          placeholder="Search..."
+          className="search-input"
+        />
       </form>
 
       <ul className="navbar__links">

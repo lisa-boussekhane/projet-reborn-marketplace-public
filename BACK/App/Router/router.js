@@ -26,13 +26,32 @@ router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
 router.patch('/login', verifyToken, authController.updatePassword);
 
-router.get('/result', searchController.searchReborns);
+router.get('/verifyToken', verifyToken, (req, res) => {
+  const user = req.user;
+  res.json({ success: true, user });
+});
 
-router.post('/process-payment', verifyToken, paymentController.addStripePayment);
+router.get('/results', searchController.searchReborns);
+
+router.post(
+  '/process-payment',
+  verifyToken,
+  paymentController.addStripePayment
+);
 
 router.get('/product/:id', productController.getProductPage);
-router.post('/product/:id', verifyToken, multerMiddleware, productController.createProduct);
-router.patch('/product/:id', verifyToken, multerMiddleware, productController.updateProduct);
+router.post(
+  '/product/:id',
+  verifyToken,
+  multerMiddleware,
+  productController.createProduct
+);
+router.patch(
+  '/product/:id',
+  verifyToken,
+  multerMiddleware,
+  productController.updateProduct
+);
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
@@ -49,6 +68,5 @@ router.post('/product/:id/rate', ratingController.postShopRating);
 
 //router.post('/upload', multerMiddleware, productController.fileUpload);
 //router.post('/uploadmultiple', multerMiddleware, productController.multipleFilesUpload);
-
 
 module.exports = router;

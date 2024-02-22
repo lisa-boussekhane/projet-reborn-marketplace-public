@@ -301,7 +301,6 @@ export default function Products() {
           <div key={product.id} className="products__card">
             <div className="products__card__item">
               <Card>
-                {console.log(product)}
                 {product.Media &&
                   product.Media.length > 0 &&
                   product.Media[0].photo && (

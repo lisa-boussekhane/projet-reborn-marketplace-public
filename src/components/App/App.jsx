@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
 import ResetPassword from '../ResetPassword/ResetPassword';
@@ -28,9 +29,14 @@ import MyStore from '../MyStore/MyStore';
 import UpdateProduct from '../UpdateProduct/UpdateProduct';
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
   return (
     <div className="app">
-      <Header />
+      <Header onSearch={handleSearch} />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
