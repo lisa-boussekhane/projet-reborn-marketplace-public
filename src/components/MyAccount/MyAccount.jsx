@@ -2,35 +2,37 @@ import './MyAccount.scss';
 import { useState, useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../React-Context/AuthContext';
 
 export default function MyAccount() {
-  const [user, setUser] = useState('');
-//   const { id } = useParams();
+  const [userInfo, setUserInfo] = useState({});
+  const [isUserUpdated, setisUserUpdated] = useState(false);
+  const { user } = useAuth();
+  const { id } = useParams();
 
-//   useEffect(() => {
-//     const handleInfo = async () => {
-//       try {
-//         const response = await fetch(`http://localhost:3000/user/${id}`);
-//         if (!response.ok) {
-//           throw new Error('Error fetching user data');
-//         }
-//         const data = await response.json();
-//         setUser(data);
-//         const { token } = data;
+  useEffect(() => {
+    const handleInfo = async () => {
+      try {
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch(`http://localhost:3000/user/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-//         // stocker le token dans localStorage
-//         localStorage.setItem('jwtToken', token);
-//       } catch (error) {
-//         console.error('Cannot fetch data', error);
-//       }
-//     };
-//     handleInfo();
-//   }, [id]);
-
-  // const handleInputValue = (e) => {
-  //  const { name, value } = e.target;
-  // setUser({ ...user, [name]: value });
-  // }; */ }
+        if (!response.ok) {
+          throw new Error('Error fetching user data');
+        }
+        const data = await response.json();
+        setUserInfo(data);
+        setisUserUpdated(false);
+      } catch (error) {
+        console.log({ error });
+      }
+    };
+    handleInfo();
+  }, [id, user, isUserUpdated]);
+  console.log({ userInfo });
 
   return (
     <div className="account__container">
@@ -68,11 +70,21 @@ export default function MyAccount() {
           <form className="profile__elem" method="get">
             <label htmlFor="firstname">
               Firstname
-              <input type="text" name="firstname" id="firstname" />
+              <input
+                type="text"
+                name="firstname"
+                id="firstname"
+                value={userInfo.first_name}
+              />
             </label>
             <label htmlFor="last name">
               Lastname
-              <input type="text" name="lastname" id="lastname" />
+              <input
+                type="text"
+                name="lastname"
+                id="lastname"
+                value={userInfo.last_name}
+              />
             </label>
             <label htmlFor="phone">
               Phone number
@@ -84,6 +96,7 @@ export default function MyAccount() {
                 required
               />
             </label>
+            <input type="submit" value="Save" className="save__btn" />
           </form>
         </div>
 
