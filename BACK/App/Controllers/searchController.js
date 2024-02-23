@@ -6,7 +6,6 @@ const searchController = {
   searchReborns: async (req, res) => {
     try {
       const searchTerm = req.query.search;
-      console.log(searchTerm);
 
       // recherche dans product
       const productResults = await Product.findAll({
@@ -18,6 +17,7 @@ const searchController = {
             { age_range: { [Op.iLike]: `%${searchTerm}%` } },
           ],
         },
+        include: [{ model: Media, as: 'Media' }],
       });
 
       // recherche dans detail_product
@@ -34,33 +34,41 @@ const searchController = {
             model: Product,
             as: 'Product',
             attributes: ['id', 'title'],
-            include: [{ model: Media, as: 'media' }],
+            include: [{ model: Media, as: 'Media' }],
           },
         ],
       });
+      // Extract and format results from productResults
+      const productResultsFormatted = productResults.map((result) => ({
+        id: result.id,
+        title: result.title,
+        photo: result.Media ? result.Media[0].photo : null, // Access the first element of the Media array
+      }));
 
-      // éviter les doublons dans les résultats
-      // utilisation de spread operator pour créer une copie des deux tableaux avec les id et title des résultats de recherche
-      const formattedResults = [
-        ...productResults.map((result) => ({
-          id: result.id,
-          title: result.title,
-        })),
-        ...detailProductResults.map((result) => ({
+      // Extract and format results from detailProductResults
+      const detailProductResultsFormatted = detailProductResults.map(
+        (result) => ({
           id: result.Product.id,
           title: result.Product.title,
-        })),
+          photo: result.Product.Media ? result.Product.Media[0].photo : null, // Access the first element of the Media array
+        })
+      );
+
+      // combiner les tésultats en un seul tableau
+      const uniqueResults = [
+        ...productResultsFormatted,
+        ...detailProductResultsFormatted,
       ];
+      // enlever les doublons
+      const uniqueResultsMap = new Map();
+      uniqueResults.forEach((result) => {
+        uniqueResultsMap.set(result.id, result);
+      });
 
-      // Set permet de regrouper les deux tableaux temporairement pour vérifier si y a des doublons
-      // obligation d'utiliser json.stringify pour transformer le tableau en chaine de caractères sinon set ne peut pas fonctionner
-      // puis json.parse pour retransformer tout ça une fois les doublons enlevés en tableau d'objets
+      // convertir de nouveau en un tableau
+      const formattedResults = Array.from(uniqueResultsMap.values());
 
-      const uniqueResults = Array.from(
-        new Set(formattedResults.map((result) => JSON.stringify(result)))
-      ).map((stringifiedResult) => JSON.parse(stringifiedResult));
-
-      res.status(200).json({ results: uniqueResults });
+      res.status(200).json({ results: formattedResults });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: 'an unexpected error occurred...' });

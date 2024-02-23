@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
 import ResetPassword from '../ResetPassword/ResetPassword';
@@ -26,8 +27,10 @@ import Payment from '../Payment/Payment';
 import Product from '../Product/Product';
 import MyStore from '../MyStore/MyStore';
 import UpdateProduct from '../UpdateProduct/UpdateProduct';
+import { useAuth } from '../React-Context/AuthContext';
 
 function App() {
+  const { isLoggedIn } = useAuth();
   return (
     <div className="app">
       <Header />
@@ -39,7 +42,7 @@ function App() {
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/mystore" element={<MyStore />} />
+        <Route path="/mystore" component={isLoggedIn} element={<MyStore />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/contactus" element={<ContactUs />} />

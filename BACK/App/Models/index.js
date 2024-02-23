@@ -9,7 +9,6 @@ const User_Rate_Shop = require('./user_rate_shop')
 User.hasMany(Shop, { foreignKey: 'user_id' });
 Shop.belongsTo(User, { foreignKey: 'user_id' });
 
-
 // Product and Shop (Many-to-One)
 Shop.hasMany(Product, { foreignKey: 'shop_id' });
 Product.belongsTo(Shop, { foreignKey: 'shop_id' });
@@ -35,11 +34,13 @@ Product.hasMany(Media, { foreignKey: 'product_id' });
 Media.belongsTo(Product, { foreignKey: 'product_id' });
 
 // Association many-to-many entre User et Shop via UserRateShop
-User.belongsToMany(Shop, { 
-  through: 'User_Rate_Shop', 
-  foreignKey: 'user_id' });
-Shop.belongsToMany(User, { 
-  through: 'User_Rate_Shop', 
-  foreignKey: 'shop_id' });
+User.belongsToMany(Shop, {
+  through: 'User_Rate_Shop',
+  foreignKey: 'user_id',
+});
+Shop.belongsToMany(User, {
+  through: 'User_Rate_Shop',
+  foreignKey: 'shop_id',
+});
 
 module.exports = { User, Detail_product, Shop, Product, Media };

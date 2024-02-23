@@ -1,7 +1,5 @@
 const { Product, Detail_product, Media, User, Shop } = require('../Models/');
-const multer = require('multer');
-const upload = multer({ dest: 'public/uploads/' });
-const uploadMulter = require('../Middlewares/multerMiddleware');
+
 
 const productController = {
   async getProductPage(req, res) {
@@ -47,7 +45,47 @@ const productController = {
     }
   },
 
-  async createProduct(req, res) {
+  async updateProduct(req, res) {
+    try {
+      console.log(req.files); // voir les fichiers img qu'on récupère
+
+      const productId = req.params.id;
+      const productData = req.body;
+      const detailProductData = req.body;
+      const mediaDataArray = req.files.map((file) => ({
+        path: file.path,
+      }));
+
+      // Update product
+      await Product.update(productData, { where: { id: productId } });
+
+      // Update detailProduct
+      await Detail_product.update(detailProductData, {
+        where: { product_id: productId },
+      });
+
+      // supprimer le média déjà existant
+      await Media.destroy({ where: { product_id: productId } });
+
+      // insérer le nouveau
+      const mediaPromises = mediaDataArray.map((mediaData) =>
+        Media.create({ photo: mediaData.path, product_id: productId })
+      );
+      await Promise.all(mediaPromises);
+
+      res.status(200).json({
+        message: 'Product updated successfully with files',
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        message: 'Failed to update product with files',
+        error: error.message,
+      });
+    }
+  },
+
+ async createProduct(req, res) {
     // Create random unique ID for the product
     const randomId = () => {
       const s4 = () => {
@@ -114,46 +152,6 @@ const productController = {
       console.error(error);
       res.status(500).json({
         message: 'Failed to create product',
-        error: error.message,
-      });
-    }
-  },
-
-  async updateProduct(req, res) {
-    try {
-      console.log(req.files); // voir les fichiers img qu'on récupère
-
-      const productId = req.params.id;
-      const productData = req.body;
-      const detailProductData = req.body;
-      const mediaDataArray = req.files.map((file) => ({
-        path: file.path,
-      }));
-
-      // Update product
-      await Product.update(productData, { where: { id: productId } });
-
-      // Update detailProduct
-      await Detail_product.update(detailProductData, {
-        where: { product_id: productId },
-      });
-
-      // supprimer le média déjà existant
-      await Media.destroy({ where: { product_id: productId } });
-
-      // insérer le nouveau
-      const mediaPromises = mediaDataArray.map((mediaData) =>
-        Media.create({ photo: mediaData.path, product_id: productId })
-      );
-      await Promise.all(mediaPromises);
-
-      res.status(200).json({
-        message: 'Product updated successfully with files',
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        message: 'Failed to update product with files',
         error: error.message,
       });
     }
