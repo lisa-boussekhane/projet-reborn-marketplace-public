@@ -30,7 +30,7 @@ export default function Login() {
 
       if (data.success) {
         console.log('User Data:', data.user);
-        login(data.token, data.user);
+
         console.log('IsLoggedIn:', isLoggedIn);
         console.log('User:', user);
         console.log('Token:', token);
