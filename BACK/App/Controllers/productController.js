@@ -47,80 +47,77 @@ const productController = {
     }
   },
 
-async createProduct(req, res) {
-  // Create random unique ID for the product
+  async createProduct(req, res) {
+    // Create random unique ID for the product
     const randomId = () => {
-        const s4 = () => {
-            return Math.floor((1 + Math.random()) * 0x100000).toString(16);
-        };
-        return s4();
+      const s4 = () => {
+        return Math.floor((1 + Math.random()) * 0x100000).toString(16);
+      };
+      return s4();
     };
 
     try {
-        // Handle file upload first
-        await new Promise((resolve, reject) => {
-            upload.array('myFiles', 12)(req, res, (err) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve();
-                }
-            });
-        });
+      // Handle file upload first
+
+      console.log(req.files); // Log uploaded files
+
+      // Check for user and shop existence
+      const userId = req.params.id;
+      const theUser = await User.findByPk(userId);
+      if (!theUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const usershop = await Shop.findOne({ where: { user_id: userId } });
+      if (!usershop) {
+        return res.status(404).json({ error: 'Shop not found' });
+      }
+
+      // Assume req.body could be JSON strings, parse
+      const {} = req.body;
+      const productData = {
         
-        console.log(req.files); // Log uploaded files
+      };
+      // const detailProductData = JSON.parse(req.body || '{}');
+      console.log(req.body);
 
-        // Check for user and shop existence
-        const userId = req.params.id;
-        const theUser = await User.findByPk(userId);
-        if (!theUser) {
-            return res.status(404).json({ error: 'User not found' });
-        }
+      // Extend productData with user and shop IDs, and generate a unique ID
+      Object.assign(productData, {
+        user_id: userId,
+        shop_id: usershop.id,
+        unique_id: randomId(),
+      });
 
-        const usershop = await Shop.findOne({ where: { user_id: userId } });
-        if (!usershop) {
-            return res.status(404).json({ error: 'Shop not found' });
-        }
+      // Create product and detailProduct in the database
+      const product = await Product.create(productData);
+      Object.assign(detailProductData, { product_id: product.id });
+      const detailProduct = await Detail_product.create(detailProductData);
 
-        // Assume req.body could be JSON strings, parse
-        const productData = JSON.parse(req.body.productData || '{}');
-        const detailProductData = JSON.parse(req.body.detailProductData || '{}');
+      // Process uploaded files for media creation
+      const mediaData = req.files.map((file) => ({
+        product_id: product.id,
+        photo: file.path,
+      }));
 
-        // Extend productData with user and shop IDs, and generate a unique ID
-        Object.assign(productData, {
-            user_id: userId,
-            shop_id: usershop.id,
-            unique_id: randomId(),
-        });
+      const media = await Promise.all(
+        mediaData.map((mediaItem) => Media.create(mediaItem))
+      );
 
-        // Create product and detailProduct in the database
-        const product = await Product.create(productData);
-        Object.assign(detailProductData, { product_id: product.id });
-        const detailProduct = await Detail_product.create(detailProductData);
-
-        // Process uploaded files for media creation
-        const mediaData = req.files.map(file => ({
-            product_id: product.id,
-            photo: file.path,
-        }));
-
-        const media = await Promise.all(mediaData.map(mediaItem => Media.create(mediaItem)));
-
-        // Respond with created product and media
-        res.status(201).json({
-            message: 'Product created successfully',
-            product: product,
-            detail_product: detailProduct,
-            media: media,
-        });
+      // Respond with created product and media
+      res.status(201).json({
+        message: 'Product created successfully',
+        product: product,
+        detail_product: detailProduct,
+        media: media,
+      });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            message: 'Failed to create product',
-            error: error.message,
-        });
+      console.error(error);
+      res.status(500).json({
+        message: 'Failed to create product',
+        error: error.message,
+      });
     }
-},
+  },
 
   async updateProduct(req, res) {
     try {

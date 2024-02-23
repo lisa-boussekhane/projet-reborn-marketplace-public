@@ -11,7 +11,7 @@ const shopController = require('../Controllers/shopController');
 const contactController = require('../Controllers/contactController');
 const ratingController = require('../Controllers/ratingController');
 const verifyToken = require('../Middlewares/authMiddleware');
-const multerMiddleware = require('../Middlewares/multerMiddleware');
+const upload = require('../Middlewares/multerMiddleware');
 
 const router = express.Router();
 
@@ -28,11 +28,25 @@ router.patch('/login', verifyToken, authController.updatePassword);
 
 router.get('/result', searchController.searchReborns);
 
-router.post('/process-payment', verifyToken, paymentController.addStripePayment);
+router.post(
+  '/process-payment',
+  verifyToken,
+  paymentController.addStripePayment
+);
 
 router.get('/product/:id', productController.getProductPage);
-router.post('/product/:id', verifyToken, upload.array('photo'), productController.createProduct);
-router.patch('/product/:id', verifyToken, upload.array('photo'), productController.updateProduct);
+router.post(
+  '/product/:id',
+  verifyToken,
+  upload.array('photo', 12),
+  productController.createProduct
+);
+router.patch(
+  '/product/:id',
+  verifyToken,
+  upload.array('photo', 12),
+  productController.updateProduct
+);
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
@@ -49,6 +63,5 @@ router.post('/product/:id/rate', ratingController.postShopRating);
 
 //router.post('/upload', multerMiddleware, productController.fileUpload);
 //router.post('/uploadmultiple', multerMiddleware, productController.multipleFilesUpload);
-
 
 module.exports = router;
