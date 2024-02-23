@@ -11,7 +11,7 @@ const shopController = require('../Controllers/shopController');
 const contactController = require('../Controllers/contactController');
 const ratingController = require('../Controllers/ratingController');
 const verifyToken = require('../Middlewares/authMiddleware');
-const multerMiddleware = require('../Middlewares/multerMiddleware');
+const upload = require('../Middlewares/multerMiddleware');
 
 const router = express.Router();
 
