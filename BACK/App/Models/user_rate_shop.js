@@ -4,7 +4,7 @@ const sequelize = require('./sequelize');
 
 class User_Rate_Shop extends Model {}
 
-Shop.init(
+User_Rate_Shop.init(
   {
     rating: {
       type: DataTypes.INTEGER,
