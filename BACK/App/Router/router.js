@@ -34,9 +34,9 @@ router.get('/verifyToken', verifyToken, (req, res) => {
 router.post('/process-payment', verifyToken, paymentController.addStripePayment);
 
 router.get('/product/:id', productController.getProductPage);
-router.post('/product/:id', verifyToken, upload.array('photo', 12), productController.createProduct);
-router.patch('/product/:id', verifyToken, upload.array('photo', 12), productController.updateProduct);
-router.delete('/product/:id', verifyToken, productController.deleteProduct);
+router.post('/product/', verifyToken, upload.array('photo', 12), productController.createProduct);
+router.patch('/product/', verifyToken, upload.array('photo', 12), productController.updateProduct);
+router.delete('/product/', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
 router.get('/shop/:id', verifyToken, shopController.showShop);
