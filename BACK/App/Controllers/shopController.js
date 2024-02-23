@@ -1,4 +1,4 @@
-const { Product, Shop, Media } = require('../Models/');
+const { Product, Shop, Media, User, User_order_product } = require('../Models/');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const shopController = {
@@ -103,6 +103,105 @@ const shopController = {
       });
     }
   },
+
+async getAllUserOrdersWithDetails() {
+    try {
+      // Fetch all entries from the User_Order_Product join table
+      // Include related user and product information, especially focusing on price and shipping fees from the product
+      const ordersWithDetails = await User_Order_Product.findAll({
+        include: [
+          {
+            model: User,
+            attributes: ['id', 'first_name', 'last_name', 'email'], // Customize as needed
+          },
+          {
+            model: Product,
+            attributes: ['id', 'title', 'price', 'shipping_fees'], // Ensure 'price' and 'shipping_fees' are included
+          },
+        ],
+      });
+  
+      // Assuming the 'price' and 'shipping_fees' are directly on the Product model as per your schema
+      return ordersWithDetails;
+    } catch (error) {
+      console.error('Failed to retrieve user orders with details:', error);
+      throw error;
+    }
+  },
+
+async uploadInvoice(req, res) {
+    try {
+      const multer = require('multer');
+      const fs = require('fs');
+      const path = require('path');
+      
+      // Set up Multer storage
+      const storage = multer.diskStorage({
+        destination: function(req, file, cb) {
+          // Define the directory where the invoices will be saved
+          const invoicesDir = path.join(__dirname, '/invoices');
+          if (!fs.existsSync(invoicesDir)){
+            fs.mkdirSync(invoicesDir, { recursive: true });
+          }
+          cb(null, invoicesDir);
+        },
+        filename: function(req, file, cb) {
+          // Generate a unique filename for the invoice
+          cb(null, `invoice-${Date.now()}${path.extname(file.originalname)}`);
+        }
+      });
+      
+      // Multer upload setup for PDF files only
+      const upload = multer({
+        storage: storage,
+        fileFilter: function(req, file, cb) {
+          if (path.extname(file.originalname) !== '.pdf') {
+            return cb(new Error('Only PDF files are allowed!'));
+          }
+          cb(null, true);
+        }
+      }).single('invoice'); // 'invoice' is the name of the file input field
+      
+      // Process the file upload with Multer
+      upload(req, res, async (err) => {
+        if (err) {
+          // Handle errors related to file uploading
+          return res.status(400).json({ error: err.message });
+        }
+  
+        if (!req.file) {
+          // If no file was uploaded
+          return res.status(400).json({ error: 'Please upload a PDF invoice.' });
+        }
+  
+        // Check for user and shop existence
+        const userId = req.params.id;
+        const theUser = await User.findByPk(userId);
+        if (!theUser) {
+          return res.status(404).json({ error: 'User not found' });
+        }
+  
+        const usershop = await Shop.findOne({ where: { user_id: userId } });
+        if (!usershop) {
+          return res.status(404).json({ error: 'Shop not found' });
+        }
+  
+        // Here you can proceed with your database operations, e.g., saving the invoice information
+  
+        // Respond with success message
+        res.status(201).json({
+          message: 'Invoice uploaded successfully',
+          filePath: req.file.path
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        message: 'Failed to upload invoice',
+        error: error.message,
+      });
+    }
+  }  
 };
 
 module.exports = shopController;
