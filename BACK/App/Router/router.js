@@ -1,15 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const userController = require('../Controllers/userController');
-const searchController = require('../Controllers/searchController');
-const productController = require('../Controllers/productController');
-const chatController = require('../Controllers/chatController');
-const paymentController = require('../Controllers/Stripe/paymentController');
-const authController = require('../Controllers/authController');
-const shopController = require('../Controllers/shopController');
-const contactController = require('../Controllers/contactController');
-const ratingController = require('../Controllers/ratingController');
+const { userController, searchController, productController, chatController, paymentController, authController, shopController, contactController, ratingController  } = require('../Controllers/');
 const verifyToken = require('../Middlewares/authMiddleware');
 const upload = require('../Middlewares/multerMiddleware');
 
@@ -43,6 +35,7 @@ router.get('/products', productController.getProductsPage);
 router.get('/shop/:id', verifyToken, shopController.showShop);
 router.post('/createshop/:id', verifyToken, shopController.createShop);
 router.delete('/shop/:id', verifyToken, shopController.deleteShop);
+router.get('/shop/orders', verifyToken, shopController.getAllUserOrdersWithDetails);
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);
