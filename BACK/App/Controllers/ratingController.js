@@ -6,7 +6,7 @@ const ratingController = {
 async getShopRating(req, res) {
         try {
             const { shop_id } = req.params; 
-            const ratings = await User_rate_hop.findAll({
+            const ratings = await User_rate_shop.findAll({
                 where: { shop_id: shop_id }, // Adjust the field name based on your model definition
                 attributes: [
                     [sequelize.fn('AVG', sequelize.col('rating')), 'averageRating']
