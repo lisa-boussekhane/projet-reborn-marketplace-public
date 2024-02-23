@@ -16,6 +16,7 @@ export default function Products() {
         }
         const data = await response.json();
         setProducts(data);
+        console.log(data);
       } catch (error) {
         console.error('Error fetching products:', error);
       }

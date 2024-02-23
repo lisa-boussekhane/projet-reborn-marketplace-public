@@ -4,6 +4,7 @@ const upload = multer({ dest: 'public/uploads/' });
 const uploadMulter = require('../Middlewares/multerMiddleware');
 
 const productController = {
+  //getAllProductAndDetail 
   async getProductPage(req, res) {
     try {
       // Extract the product ID from the request parameters
