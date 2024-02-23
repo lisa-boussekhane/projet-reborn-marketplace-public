@@ -31,43 +31,11 @@ router.get('/verifyToken', verifyToken, (req, res) => {
   res.json({ success: true, user });
 });
 
-<<<<<<< HEAD
-=======
-
-router.get('/results', searchController.searchReborns);
-
->>>>>>> 952fe5ada02d4b2c0329fbc3ecc3a41dde7e3e03
-router.post(
-  '/process-payment',
-  verifyToken,
-  paymentController.addStripePayment
-);
+router.post('/process-payment', verifyToken, paymentController.addStripePayment);
 
 router.get('/product/:id', productController.getProductPage);
-router.post(
-  '/product/:id',
-  verifyToken,
-<<<<<<< HEAD
-  upload.array('photo'),
-=======
-
-  upload.array('photo', 12),
-
->>>>>>> 952fe5ada02d4b2c0329fbc3ecc3a41dde7e3e03
-  productController.createProduct
-);
-router.patch(
-  '/product/:id',
-  verifyToken,
-<<<<<<< HEAD
-  upload.array('photo'),
-=======
-
-  upload.array('photo', 12),
-
->>>>>>> 952fe5ada02d4b2c0329fbc3ecc3a41dde7e3e03
-  productController.updateProduct
-);
+router.post('/product/:id', verifyToken, upload.array('photo', 12), productController.createProduct);
+router.patch('/product/:id', verifyToken, upload.array('photo', 12), productController.updateProduct);
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
