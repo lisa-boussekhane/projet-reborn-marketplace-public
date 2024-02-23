@@ -148,3 +148,15 @@
   align-items: center;
   margin-right: 5rem;
 }
+
+.pay__btn {
+  background-color: v.$blue;
+  margin-top : 0.5rem;
+  font-size: 1.5rem;
+  color: white;
+  padding: 1rem;
+  margin-left: 5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  cursor: pointer
+}

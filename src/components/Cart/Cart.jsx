@@ -77,7 +77,12 @@ export default function Cart() {
             Total (VAT included) : ${calculateTotal()}
           </p>
           <div className="checkout-button-container">
-            <button type="submit" value="Checkout" onClick={handleCheckout}>
+            <button
+              type="submit"
+              value="Checkout"
+              className="pay__btn"
+              onClick={handleCheckout}
+            >
               Checkout
             </button>
           </div>

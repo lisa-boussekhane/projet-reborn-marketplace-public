@@ -1,19 +1,21 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import './Header.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../React-Context/AuthContext';
 
-export default function Header({ onSearch }) {
+export default function Header() {
   const [showLinks, setShowLinks] = useState(false);
   const { isLoggedIn, setIsLoggedIn, setUser } = useAuth();
   const navigate = useNavigate();
 
   const handleSearch = (event) => {
     event.preventDefault();
-    const searchTerm = event.target.search.value;
-    onSearch(searchTerm);
-    navigate(`/results?search=${searchTerm}`);
-    console.log(searchTerm);
+    const search = event.target.search.value;
+    navigate(`/results?search=${search}`);
+    console.log(search);
   };
   // Check for stored token on component mount
   useEffect(() => {
@@ -27,13 +29,14 @@ export default function Header({ onSearch }) {
   // on efface l'élément dans le localStorage
   const logOut = () => {
     localStorage.clear();
-    navigate('/login');
+    setIsLoggedIn(false);
+    setUser(null);
   };
 
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
   };
-  const renderLoginOrAccountLink = () => {
+  const toggleLoginOrAccount = () => {
     if (isLoggedIn) {
       return (
         <NavLink to="/myaccount">
@@ -90,18 +93,19 @@ export default function Header({ onSearch }) {
         <NavLink to="/signup">
           <li className="navbar__item">Sign up</li>
         </NavLink>
-        <NavLink to="/login">{renderLoginOrAccountLink()}</NavLink>
+        {toggleLoginOrAccount()}
+        {localStorage.getItem('jwtToken') ? (
+          <li
+            className="logout__btn"
+            onClick={(logOut)}
+          >
+            Logout
+          </li>
+        ) : null}
         <NavLink to="/cart">
           <img src="./cart.png" alt="logo du site" className="navbar-cart" />
         </NavLink>
       </ul>
-      {localStorage.getItem('jwtToken') ? (
-        <div className="logout__box">
-          <li className="logout__btn" onClick={logOut}>
-            Logout
-          </li>
-        </div>
-      ) : null}
 
       <button
         type="button"

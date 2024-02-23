@@ -2,6 +2,7 @@ import './Payment.scss';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useCart } from '../React-Context/CartContext';
 
 export default function Payment() {
   const stripe = useStripe();
@@ -10,6 +11,7 @@ export default function Payment() {
   const searchParams = new URLSearchParams(location.search);
   const amount = searchParams.get('amount');
   const baseAmount = amount;
+  const { clearCart } = useCart();
 
   // conversion en centimes pour stripe
   const convertedAmout = baseAmount * 100;
@@ -61,6 +63,7 @@ export default function Payment() {
           const data = await response.json();
           console.log('paiement effectué:', data);
           setSuccessMessage('Payment confirmed, thank you for your order !  ');
+          clearCart();
           const { clientSecret } = data;
           console.log('secret client :', clientSecret);
         } else {

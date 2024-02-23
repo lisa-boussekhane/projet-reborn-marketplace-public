@@ -27,16 +27,13 @@ import Payment from '../Payment/Payment';
 import Product from '../Product/Product';
 import MyStore from '../MyStore/MyStore';
 import UpdateProduct from '../UpdateProduct/UpdateProduct';
+import { useAuth } from '../React-Context/AuthContext';
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleSearch = (term) => {
-    setSearchTerm(term);
-  };
+  const { isLoggedIn } = useAuth();
   return (
     <div className="app">
-      <Header onSearch={handleSearch} />
+      <Header />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
@@ -45,7 +42,7 @@ function App() {
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/mystore" element={<MyStore />} />
+        <Route path="/mystore" component={isLoggedIn} element={<MyStore />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/contactus" element={<ContactUs />} />

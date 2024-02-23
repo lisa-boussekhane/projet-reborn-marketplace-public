@@ -7,17 +7,8 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
-  const { isLoggedIn, setIsLoggedIn, setUser } = useAuth();
+  const { isLoggedIn, setIsLoggedIn, setUser, login } = useAuth();
   const navigate = useNavigate();
-
-  // Check for stored token on component mount
-  useEffect(() => {
-    const storedToken = localStorage.getItem('jwtToken');
-
-    if (storedToken) {
-      setIsLoggedIn(true);
-    }
-  }, [setIsLoggedIn, setUser]);
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -38,6 +29,11 @@ export default function Login() {
       const { token, user } = data;
 
       if (data.success) {
+        console.log('User Data:', data.user);
+        login(data.token, data.user);
+        console.log('IsLoggedIn:', isLoggedIn);
+        console.log('User:', user);
+        console.log('Token:', token);
         setLoginError(false);
         setIsLoggedIn(true);
         setUser(user);
@@ -58,9 +54,7 @@ export default function Login() {
     <>
       <div className="form__container">
         <h1>Login</h1>
-        {isLoggedIn && (
-          <p>You are already logged in. Redirecting to My Account...</p>
-        )}
+
         {loginError && (
           <p style={{ color: 'red' }}> Error: Incorrect email or password</p>
         )}
@@ -72,6 +66,7 @@ export default function Login() {
                 type="email"
                 name="email"
                 id="email"
+                value={email}
                 placeholder="Email address"
                 required
                 onChange={(e) => setEmail(e.target.value)}
@@ -85,6 +80,7 @@ export default function Login() {
                 type="password"
                 name="password"
                 id="password"
+                value={password}
                 placeholder="Password"
                 required
                 onChange={(e) => setPassword(e.target.value)}
