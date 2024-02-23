@@ -1,5 +1,8 @@
 const { Product, Shop, Media, User, User_order_product } = require('../Models/');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
 const shopController = {
   // ne touche pas à showShop stp
@@ -131,10 +134,6 @@ async getAllUserOrdersWithDetails() {
 
 async uploadInvoice(req, res) {
     try {
-      const multer = require('multer');
-      const fs = require('fs');
-      const path = require('path');
-      
       // Set up Multer storage
       const storage = multer.diskStorage({
         destination: function(req, file, cb) {
@@ -161,7 +160,7 @@ async uploadInvoice(req, res) {
           cb(null, true);
         }
       }).single('invoice'); // 'invoice' is the name of the file input field
-      
+
       // Process the file upload with Multer
       upload(req, res, async (err) => {
         if (err) {
