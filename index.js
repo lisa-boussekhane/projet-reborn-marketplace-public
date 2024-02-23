@@ -9,13 +9,11 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const multer = require('multer');
 const http = require('http');
 const socketIo = require('socket.io');
+const bodyParser = require('body-parser');
 
 const router = require('./BACK/App/Router/router');
 const app = express();
 const port = process.env.PORT;
-
-
-
 
 app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.static('/public'));

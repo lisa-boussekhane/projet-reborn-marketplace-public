@@ -95,12 +95,12 @@ const authController = {
 
       if (user) {
         console.log('Mot de passe correct');
-        const token = jwt.sign({ user_id: user.id }, process.env.SECRET, {
+        const token = jwt.sign({ userId: req.userId }, process.env.SECRET, {
           expiresIn: '1h',
         });
         return res
           .status(200)
-          .json({ success: true, token, user: { id: user.id } });
+          .json({ success: true, token, user: { id: user.id, password: user.password, email: user.email } });
       }
       console.log('Utilisateur non trouvé');
 

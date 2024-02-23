@@ -26,8 +26,17 @@ router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
 router.patch('/login', verifyToken, authController.updatePassword);
 
-router.get('/result', searchController.searchReborns);
+router.get('/verifyToken', verifyToken, (req, res) => {
+  const user = req.user;
+  res.json({ success: true, user });
+});
 
+<<<<<<< HEAD
+=======
+
+router.get('/results', searchController.searchReborns);
+
+>>>>>>> 952fe5ada02d4b2c0329fbc3ecc3a41dde7e3e03
 router.post(
   '/process-payment',
   verifyToken,
@@ -38,13 +47,25 @@ router.get('/product/:id', productController.getProductPage);
 router.post(
   '/product/:id',
   verifyToken,
+<<<<<<< HEAD
   upload.array('photo'),
+=======
+
+  upload.array('photo', 12),
+
+>>>>>>> 952fe5ada02d4b2c0329fbc3ecc3a41dde7e3e03
   productController.createProduct
 );
 router.patch(
   '/product/:id',
   verifyToken,
+<<<<<<< HEAD
   upload.array('photo'),
+=======
+
+  upload.array('photo', 12),
+
+>>>>>>> 952fe5ada02d4b2c0329fbc3ecc3a41dde7e3e03
   productController.updateProduct
 );
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
@@ -61,7 +82,5 @@ router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
 router.get('shop/:id/ratings', ratingController.getShopRating);
 router.post('/product/:id/rate', ratingController.postShopRating);
 
-//router.post('/upload', multerMiddleware, productController.fileUpload);
-//router.post('/uploadmultiple', multerMiddleware, productController.multipleFilesUpload);
 
 module.exports = router;

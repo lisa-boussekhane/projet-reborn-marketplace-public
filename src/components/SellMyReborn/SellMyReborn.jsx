@@ -72,7 +72,9 @@ export default function SellMyReborn() {
           formDataForServer.append(key, formData[key]);
         }
       }
-
+      for (var pair of formDataForServer.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
       const response = await fetch(`http://localhost:3000/product/${user.id}`, {
         method: 'POST',
         headers: {

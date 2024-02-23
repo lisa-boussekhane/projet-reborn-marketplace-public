@@ -26,39 +26,31 @@ export default function MyStore() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // vérifier si l'utilisateur est connecté
-    if (!user) {
-      // rediriger l'utilisateur vers la page de connexion
-      navigate('/login');
-    } else {
-      // Récupérer les informations du shop du backend
-      const fetchShopDetails = async () => {
-        try {
-          const token = localStorage.getItem('jwtToken');
-          const response = await fetch(
-            `http://localhost:3000/shop/${user.id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+    // Récupérer les informations du shop du backend
+    const fetchShopDetails = async () => {
+      try {
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch(`http://localhost:3000/shop/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-          if (response.status === 200) {
-            const shopData = await response.json();
-            setShop(shopData);
-          } else {
-            console.error('Failed to fetch shop details');
-            // si le magasin n'est pas disponible, rediriger vers la page de création du magasin
-            navigate('/createmystore');
-          }
-        } catch (error) {
-          console.error('An unexpected error occurred', error);
+        if (response.status === 200) {
+          const shopData = await response.json();
+          setShop(shopData);
+        } else {
+          console.error('Failed to fetch shop details');
+          // si le magasin n'est pas disponible, rediriger vers la page de création du magasin
+          navigate('/createmystore');
         }
-      };
+      } catch (error) {
+        console.error('An unexpected error occurred', error);
+      }
+    };
 
-      fetchShopDetails();
-    }
+    // Appeler la fonction fetchShopDetails
+    fetchShopDetails();
   }, [user, navigate]);
 
   const deleteProduct = async (productId) => {

@@ -38,14 +38,12 @@ export default function Products() {
         (product) =>
           product.type === selectedCategory ||
           product.sculptor === selectedCategory ||
+          // product.detail_product.gender === selectedCategory ||
           product.age_range === selectedCategory ||
-          product.authenticity_card === selectedCategory ||
-          (product.detail_product &&
-            product.detail_product.gender === selectedCategory)
-
-        // product.detail_product.eyes === selectedCategory
-        // product.detail_product.hair === selectedCategory
-        // product.detail_product.belly_plate === selectedCategory
+          // product.detail_product.eyes === selectedCategory
+          // product.detail_product.hair === selectedCategory
+          // product.detail_product.belly_plate === selectedCategory
+          product.authenticity_card === selectedCategory
       )
     : products;
 
@@ -304,10 +302,21 @@ export default function Products() {
           <div key={product.id} className="products__card">
             <div className="products__card__item">
               <Card>
-                <Image src="./reborn1.jpg" wrapped ui={false} />
+                {product.Media &&
+                  product.Media.length > 0 &&
+                  product.Media[0].photo && (
+                    <Image
+                      src={`${product.Media[0].photo}`}
+                      alt={`Product ${product.id}`}
+                      wrapped
+                      ui={false}
+                    />
+                  )}
                 <Card.Content>
                   <NavLink to={`/product/${product.id}`}>
-                    <Card.Header>{product.title}</Card.Header>
+                    <Card.Header className="product-title">
+                      {product.title}
+                    </Card.Header>
                   </NavLink>
                 </Card.Content>
               </Card>
