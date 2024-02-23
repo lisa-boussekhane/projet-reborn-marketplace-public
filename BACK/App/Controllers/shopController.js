@@ -3,6 +3,7 @@ const { sequelize } = require('../Models/index'); // Import Sequelize instance
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+//  JavaScript statements that import Node.js built-in modules fs and path, respectively. These modules provide utilities for file system operations and handling file paths, which are essential for many Node.js applications, especially those dealing with file manipulation and directory management. 
 
 const shopController = {
   // ne touche pas à showShop stp
