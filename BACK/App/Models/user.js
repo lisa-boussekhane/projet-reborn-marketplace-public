@@ -84,25 +84,18 @@ User.init(
     updatedAt: 'updated_at',
   }
 );
-
-User.beforeSave((user) => {
+User.beforeSave(async (user) => {
   if (user.changed('password') || user.isNewRecord) {
-    user.password = bcrypt.hashSync(
-      user.password,
-      bcrypt.genSaltSync(10),
-      null
-    );
+    const saltRounds = 10;
+    user.password = await bcrypt.hash(user.password, saltRounds);
   }
 });
 
-User.prototype.comparePassword = function (password, cb) {
-  bcrypt.compare(password, this.password, function (err, isMatch) {
-    if (err) {
-      return cb(err);
-    }
-    cb(null, isMatch);
-  });
+User.prototype.validPassword = function (password) {
+  const isMatch = bcrypt.compareSync(password, this.password);
+  return isMatch;
 };
+
 // full method from this link: https://stackoverflow.com/questions/54288226/how-correct-create-new-entry-in-sequelize-js-orm //
 
 module.exports = User;

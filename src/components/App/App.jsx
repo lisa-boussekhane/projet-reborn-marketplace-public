@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
 import ResetPassword from '../ResetPassword/ResetPassword';
@@ -28,6 +29,11 @@ import MyStore from '../MyStore/MyStore';
 import UpdateProduct from '../UpdateProduct/UpdateProduct';
 
 function App() {
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+
+  const handlePaymentConfirmed = () => {
+    setPaymentConfirmed(true);
+  };
   return (
     <div className="app">
       <Header />
@@ -47,13 +53,19 @@ function App() {
         <Route path="/termsofsale" element={<TermsOfSales />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/createmystore" element={<CreateMyStore />} />
-        <Route path="/product/:id" element={<Product />} />
+        <Route
+          path="/product/:id"
+          element={<Product paymentConfirmed={paymentConfirmed} />}
+        />
         <Route path="/sellmyreborn" element={<SellMyReborn />} />
         <Route path="/updateproduct/:id" element={<UpdateProduct />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/howitworks" element={<HowItWorks />} />
         <Route path="/results" element={<Result />} />
-        <Route path="/payment" element={<Payment />} />
+        <Route
+          path="/payment"
+          element={<Payment onPaymentConfirmed={handlePaymentConfirmed} />}
+        />
         <Route path="/reborns" element={<Products />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/howitworks" element={<HowItWorks />} />

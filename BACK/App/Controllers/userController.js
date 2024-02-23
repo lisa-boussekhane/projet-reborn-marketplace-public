@@ -1,5 +1,4 @@
 const { Product, User } = require('../Models/');
-const verifyToken = require('../Middlewares/authMiddleware');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const userController = {

@@ -13,10 +13,8 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../React-Context/AuthContext';
 
 export default function MyStore() {
-  const { user } = useAuth();
   const navigate = useNavigate();
 
   const [shop, setShop] = useState(null);
@@ -26,17 +24,19 @@ export default function MyStore() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // vérifier si l'utilisateur est connecté
-    if (!user) {
-      // rediriger l'utilisateur vers la page de connexion
+    const storedToken = localStorage.getItem('jwtToken');
+
+    if (!storedToken) {
+      // Redirect the user to the login page if user ID is not available
       navigate('/login');
     } else {
       // Récupérer les informations du shop du backend
       const fetchShopDetails = async () => {
         try {
+          const storedUserId = localStorage.getItem('userId');
           const token = localStorage.getItem('jwtToken');
           const response = await fetch(
-            `http://localhost:3000/shop/${user.id}`,
+            `http://localhost:3000/shop/${storedUserId}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -59,7 +59,7 @@ export default function MyStore() {
 
       fetchShopDetails();
     }
-  }, [user, navigate]);
+  }, [navigate]);
 
   const deleteProduct = async (productId) => {
     try {
@@ -111,12 +111,16 @@ export default function MyStore() {
   const deleteShop = async () => {
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await fetch(`http://localhost:3000/shop/${user.id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const storedUserId = localStorage.getItem('userId');
+      const response = await fetch(
+        `http://localhost:3000/shop/${storedUserId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       await response.json(); // Parse the response JSON
 

@@ -16,6 +16,7 @@ const searchController = {
             { kit_name: { [Op.iLike]: `%${searchTerm}%` } },
             { sculptor: { [Op.iLike]: `%${searchTerm}%` } },
             { age_range: { [Op.iLike]: `%${searchTerm}%` } },
+            { type: { [Op.iLike]: `%${searchTerm}%` } },
           ],
         },
         include: [{ model: Media, as: 'Media' }],

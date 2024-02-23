@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useAuth } from '../React-Context/AuthContext';
 
 export default function CreateMyStore() {
-  const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     pro: '',
@@ -16,11 +15,12 @@ export default function CreateMyStore() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const storedUserId = localStorage.getItem('userId');
 
     try {
       const token = localStorage.getItem('jwtToken');
       const response = await fetch(
-        `http://localhost:3000/createshop/${user.id}`,
+        `http://localhost:3000/createshop/${storedUserId}`,
         {
           method: 'POST',
           headers: {

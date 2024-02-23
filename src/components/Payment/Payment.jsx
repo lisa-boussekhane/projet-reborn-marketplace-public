@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useCart } from '../React-Context/CartContext';
 
-export default function Payment() {
+export default function Payment({ onPaymentConfirmed }) {
   const stripe = useStripe();
   const elements = useElements();
   const location = useLocation();
@@ -63,8 +63,8 @@ export default function Payment() {
           console.log('paiement effectué:', data);
           setSuccessMessage('Payment confirmed, thank you for your order !  ');
           clearCart();
-          const { clientSecret } = data;
-          console.log('secret client :', clientSecret);
+          onPaymentConfirmed();
+          console.log('payment confirmed:', onPaymentConfirmed);
         } else {
           console.error('Server error:', response.status);
 

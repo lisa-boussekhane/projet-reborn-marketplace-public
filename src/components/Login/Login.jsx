@@ -9,7 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
-  const { setIsLoggedIn, setUser } = useAuth();
+  const { setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   // if login successful, user gets redirected to my account page
@@ -36,19 +36,19 @@ export default function Login() {
 
       // stocker le token dans localStorage
       localStorage.setItem('jwtToken', token);
+      localStorage.setItem('userId', user.id);
 
       if (data.success) {
         setLoginSuccess(true);
         setLoginError(false);
         setIsLoggedIn(true);
-        setUser(user);
         handleClick();
       } else {
         console.error('Échec de la connexion');
-        setLoginError(true);
       }
     } catch (error) {
       console.error('Cannot log in', error);
+      setLoginError(true);
     }
   };
 
@@ -56,7 +56,7 @@ export default function Login() {
     <>
       <div className="form__container">
         <h1>Login</h1>
-        {loginSuccess && <p>Login successful!</p>}
+        {loginSuccess && <p style={{ color: 'green' }}>Login successful !</p>}
         {loginError && (
           <p style={{ color: 'red' }}> Error : Incorrect email or password</p>
         )}

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Card, Image } from 'semantic-ui-react';
 import './Products.scss';
 
-export default function Products() {
+export default function Products({ paymentConfirmed }) {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -303,7 +303,8 @@ export default function Products() {
           <div key={product.id} className="products__card">
             <div className="products__card__item">
               <Card>
-              {product.Media &&
+                {paymentConfirmed && <div className="vendu-banner">Vendu</div>}
+                {product.Media &&
                   product.Media.length > 0 &&
                   product.Media[0].photo && (
                     <Image
