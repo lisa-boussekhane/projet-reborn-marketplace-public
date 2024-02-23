@@ -36,7 +36,7 @@ router.get('/shop/:id', verifyToken, shopController.showShop);
 router.post('/createshop/:id', verifyToken, shopController.createShop);
 router.delete('/shop/:id', verifyToken, shopController.deleteShop);
 router.get('/shop/orders', verifyToken, shopController.getAllUserOrdersWithDetails);
-router.post('/shop/order/invoice', verifyToken, upload.single('invoice'), shopController.uploadInvoice);
+router.post('/orders/invoice', verifyToken, upload.single('invoice'), shopController.uploadInvoice);
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);
