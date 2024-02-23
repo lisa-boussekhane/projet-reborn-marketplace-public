@@ -1,7 +1,15 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { userController, searchController, productController, chatController, paymentController, authController, shopController, contactController, ratingController  } = require('../Controllers/');
+const userController = require('../Controllers/userController');
+const searchController = require('../Controllers/searchController');
+const productController = require('../Controllers/productController');
+const chatController = require('../Controllers/chatController');
+const paymentController = require('../Controllers/Stripe/paymentController');
+const authController = require('../Controllers/authController');
+const shopController = require('../Controllers/shopController');
+const contactController = require('../Controllers/contactController');
+const ratingController = require('../Controllers/ratingController');
 const verifyToken = require('../Middlewares/authMiddleware');
 const upload = require('../Middlewares/multerMiddleware');
 
