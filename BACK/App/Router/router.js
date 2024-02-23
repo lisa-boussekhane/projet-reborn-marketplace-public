@@ -31,56 +31,49 @@ router.get('/verifyToken', verifyToken, (req, res) => {
   res.json({ success: true, user });
 });
 
-<<<<<<< HEAD
-=======
-
-router.get('/results', searchController.searchReborns);
-
->>>>>>> 952fe5ada02d4b2c0329fbc3ecc3a41dde7e3e03
 router.post(
   '/process-payment',
   verifyToken,
   paymentController.addStripePayment
 );
 
-router.get('/product/:id', productController.getProductPage);
+router.get('/product/:id', productController.getOneProduct);
+router.get('/products/:id', productController.getAllProducts);
 router.post(
-  '/product/:id',
+  '/product/',
   verifyToken,
-<<<<<<< HEAD
-  upload.array('photo'),
-=======
-
   upload.array('photo', 12),
-
->>>>>>> 952fe5ada02d4b2c0329fbc3ecc3a41dde7e3e03
   productController.createProduct
 );
 router.patch(
-  '/product/:id',
+  '/product/',
   verifyToken,
-<<<<<<< HEAD
-  upload.array('photo'),
-=======
-
   upload.array('photo', 12),
-
->>>>>>> 952fe5ada02d4b2c0329fbc3ecc3a41dde7e3e03
   productController.updateProduct
 );
-router.delete('/product/:id', verifyToken, productController.deleteProduct);
+router.delete('/product/', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
 router.get('/shop/:id', verifyToken, shopController.showShop);
 router.post('/createshop/:id', verifyToken, shopController.createShop);
 router.delete('/shop/:id', verifyToken, shopController.deleteShop);
+router.get(
+  '/shop/orders',
+  verifyToken,
+  shopController.getAllUserOrdersWithDetails
+);
+router.post(
+  '/orders/invoice',
+  verifyToken,
+  upload.single('invoice'),
+  shopController.uploadInvoice
+);
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);
 router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
 
 router.get('shop/:id/ratings', ratingController.getShopRating);
-router.post('/product/:id/rate', ratingController.postShopRating);
-
+router.post('/shop/:id/rate', ratingController.postShopRating);
 
 module.exports = router;
