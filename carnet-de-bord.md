@@ -172,5 +172,15 @@ Coté front : Sarah : authentification front, quelques problèmes
    ### Infos individuelles
  - Rita : multer
  - Lisa : searchResult, enlever la deconnection au refresh + paiement (vraiment aujourd'hui)
- - Sarah : 
-    
+ - Sarah :
+
+   # 23/02/2024 - Sprint 3
+   Hier :
+   - Rita : multer
+   - Sarah : searchResult, myaccount
+   - Lisa : searchResult, paiement, quand l'utilisateur est déconnecté enlever my account du header, persistence login
+
+   ### Infos individuelles  
+     - Rita : multer, route + controller getAllProductsAndDetails, modifs nom controllers + routes, route pour récupérer infos de user_order_product, upload facture
+     - Sarah : myaccount, categories, starRating, scss, update password
+     - Lisa : chat, ajout de vendu si le produit est acheté, incrémentation de la table user_order_product, menu deroulant kit sculptor, images à faire défiler, correction productController, ne pas déconnecté user lors du refresh 
