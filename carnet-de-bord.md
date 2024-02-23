@@ -154,7 +154,7 @@ Coté front : Sarah : authentification front, quelques problèmes
     - Lisa : create shop, sellmyreborn, edit an article, ne plus se déconnecter lors du refresh + paiement si y a le temps
 
       
-    # 21/02/2024 - Sprint 2
+    # 21/02/2024 - Sprint 3
     Hier : Rita : réparer le seeding, cleaner productController, changer models, createProduct, updateProduct avec multer
     Sarah : categories/sous categories
     Lisa : create shop, sellmyreborn
@@ -163,4 +163,24 @@ Coté front : Sarah : authentification front, quelques problèmes
  - Rita : rating
  - Lisa : editanarticle, ne plus se déconnecter lors du refresh + paiement
  - Sarah : searchResult, myAccount, Multer front, finir categiories
-    
+
+   # 22/02/2024 - Sprint 3
+    Hier : - Rita : rating
+   - Lisa : editanarticle + multer front
+   - Sarah :
+     
+   ### Infos individuelles
+ - Rita : multer
+ - Lisa : searchResult, enlever la deconnection au refresh + paiement (vraiment aujourd'hui)
+ - Sarah :
+
+   # 23/02/2024 - Sprint 3
+   Hier :
+   - Rita : multer
+   - Sarah : searchResult, myaccount
+   - Lisa : searchResult, paiement, quand l'utilisateur est déconnecté enlever my account du header, persistence login
+
+   ### Infos individuelles  
+     - Rita : multer, route + controller getAllProductsAndDetails, modifs nom controllers + routes, route pour récupérer infos de user_order_product, upload facture
+     - Sarah : myaccount, categories, starRating, scss, update password
+     - Lisa : chat, ajout de vendu si le produit est acheté, incrémentation de la table user_order_product, menu deroulant kit sculptor, images à faire défiler, correction productController, ne pas déconnecté user lors du refresh 

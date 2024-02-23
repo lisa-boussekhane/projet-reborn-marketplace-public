@@ -72,18 +72,18 @@ SELECT setval('"detail_product_id_seq"', (SELECT MAX(id) + 1 FROM "detail_produc
 ----------------------------------------------
 
 INSERT INTO "media" ("id", "photo", "video", "product_id") OVERRIDING SYSTEM VALUE VALUES
-(1, 'public/uploads/alina.jpg', NULL, 1), 
-(2, 'public/uploads/johnnie.jpg', NULL, 2),
-(3, 'public/uploads/lottie.jpg', NULL, 3),
-(4, 'public/uploads/sebastian.jpg', NULL, 4),
-(5, 'public/uploads/alina.jpg', NULL, 5),
-(6, 'public/uploads/johnnie.jpg', NULL, 6),
-(7, 'public/uploads/lottie.jpg', NULL, 7),
-(8, 'public/uploads/sebastian.jpg', NULL, 8),
-(9, 'public/uploads/alina.jpg', NULL, 9),
-(10, 'public/uploads/johnnie.jpg', NULL, 10),
-(11, 'public/uploads/lottie.jpg', NULL, 11),
-(12, 'public/uploads/sebastian.jpg', NULL, 12);
+(1, 'public/uploads/alina.png', NULL, 1), 
+(2, 'public/uploads/johnnie.png', NULL, 2),
+(3, 'public/uploads/lottie.png', NULL, 3),
+(4, 'public/uploads/sebastian.png', NULL, 4),
+(5, 'public/uploads/alina.png', NULL, 5),
+(6, 'public/uploads/johnnie.png', NULL, 6),
+(7, 'public/uploads/lottie.png', NULL, 7),
+(8, 'public/uploads/sebastian.png', NULL, 8),
+(9, 'public/uploads/alina.png', NULL, 9),
+(10, 'public/uploads/johnnie.png', NULL, 10),
+(11, 'public/uploads/lottie.png', NULL, 11),
+(12, 'public/uploads/sebastian.png', NULL, 12);
 SELECT setval('"media_id_seq"', (SELECT MAX(id) + 1 FROM "media"));
 -- SELECT setval('"media_id_seq"', (SELECT MAX(id) + 1 FROM "media"));
 

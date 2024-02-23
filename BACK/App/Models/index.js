@@ -3,6 +3,7 @@ const Detail_product = require('./detail_product');
 const Media = require('./media');
 const Product = require('./product');
 const Shop = require('./shop');
+const User_Rate_Shop = require('./user_rate_shop')
 
 // User and Shop (One-to-Many)
 User.hasMany(Shop, { foreignKey: 'user_id' });
