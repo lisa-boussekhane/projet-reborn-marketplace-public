@@ -103,3 +103,15 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.pay__btn {
+  background-color: v.$blue;
+  margin-top : 0.5rem;
+  font-size: 1.3rem;
+  color: white;
+  padding: 1rem;
+  margin-right: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  cursor: pointer
+}

@@ -131,5 +131,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 5rem;
 }
+.success-message {
+  color: green;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+

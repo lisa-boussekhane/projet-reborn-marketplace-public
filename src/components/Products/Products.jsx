@@ -303,7 +303,16 @@ export default function Products() {
           <div key={product.id} className="products__card">
             <div className="products__card__item">
               <Card>
-                <Image src="./reborn1.jpg" wrapped ui={false} />
+              {product.Media &&
+                  product.Media.length > 0 &&
+                  product.Media[0].photo && (
+                    <Image
+                      src={`${product.Media[0].photo}`}
+                      alt={`Product ${product.id}`}
+                      wrapped
+                      ui={false}
+                    />
+                  )}
                 <Card.Content>
                   <NavLink to={`/product/${product.id}`}>
                     <Card.Header>{product.title}</Card.Header>

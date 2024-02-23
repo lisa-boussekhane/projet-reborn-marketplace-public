@@ -2,15 +2,21 @@ import './Payment.scss';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useCart } from '../React-Context/CartContext';
 
 export default function Payment() {
   const stripe = useStripe();
   const elements = useElements();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const { clearCart } = useCart();
   const amount = searchParams.get('amount');
+  const baseAmount = amount;
 
-  const [loading, setLoading] = useState(false);
+  // conversion en centimes pour stripe
+  const convertedAmout = baseAmount * 100;
+
+  console.log(convertedAmout);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -21,15 +27,12 @@ export default function Payment() {
 
     const cardElement = elements.getElement(CardElement);
 
-    setLoading(true);
-
     const { paymentMethod, error } = await stripe.createPaymentMethod({
       type: 'card',
       card: cardElement,
     });
 
     if (error) {
-      setLoading(false);
       setErrorMessage('Payment failed. Please try again.');
     } else {
       const paymentMethodId = paymentMethod.id;
@@ -38,7 +41,7 @@ export default function Payment() {
 
       const formData = {
         paymentMethodId,
-        amount,
+        convertedAmout,
       };
 
       try {
@@ -52,51 +55,24 @@ export default function Payment() {
         });
 
         if (!token) {
-          setErrorMessage('Token not available. Please log in.'); // message si la personne n'est pas connectée
+          setErrorMessage('Please log in.'); // message si la personne n'est pas connectée
           return;
         }
-
         if (response.ok) {
           const data = await response.json();
           console.log('paiement effectué:', data);
-
+          setSuccessMessage('Payment confirmed, thank you for your order !  ');
+          clearCart();
           const { clientSecret } = data;
           console.log('secret client :', clientSecret);
-
-          // const { paymentIntent, error } = await stripe.confirmCardPayment(
-          //   clientSecret,
-          //   {
-          //     payment_method: paymentMethodId,
-          //   }
-          // );
-
-          // // réponse de stripe après confirmation du paiement
-          // console.log('réponse de stripe après confirmation:', {
-          //   paymentIntent,
-          //   error,
-          // });
-
-          // if (error) {
-          //   console.error('erreur dans la confirmation du paiement:', error);
-          //   setLoading(false);
-          //   setErrorMessage('Payment failed. Please try again.');
-          // } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-          //   console.log('payment confirmé', paymentIntent);
-          //   setLoading(false);
-          //   setSuccessMessage('Payment successful. Thank you!'); // message succès pour l'utilisateur
-          // } else {
-          //   console.error('PaymentIntent status n\'est pas succeeded');
-          //   setLoading(false);
-          //   setErrorMessage('Payment failed. Please try again.');
-          // }
         } else {
           console.error('Server error:', response.status);
-          setLoading(false);
+
           setErrorMessage('Payment failed. Please try again.');
         }
       } catch (error) {
         console.error('Error processing payment:', error);
-        setLoading(false);
+
         setErrorMessage('Payment failed. Please try again.');
       }
     }
@@ -105,11 +81,12 @@ export default function Payment() {
   return (
     <div className="payment__container">
       <h1 className="payment__title">Payment</h1>
-      {loading && <div>Loading...</div>}
       {successMessage && (
-        <div className="success-message">{successMessage}</div>
+        <div className="success-message success">{successMessage}</div>
       )}
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      {errorMessage && (
+        <div className="error-message error">{errorMessage}</div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="payment__box">
           <h2>Personal information</h2>

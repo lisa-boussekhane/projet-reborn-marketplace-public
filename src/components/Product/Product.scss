@@ -3,19 +3,39 @@
 .product__container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  
 }
 
 .product__img {
-  padding: 1rem;
-  padding-left: 3rem;
-  padding-bottom: 9rem;
-}
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
 
-.product__img img {
-  max-width: 900px; 
-  height: auto; 
-  
+  .image-container {
+    position: relative;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .arrow-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+
+      &.left {
+        left: 10px;
+      }
+
+      &.right {
+        right: 10px;
+      }
+    }
+  }
 }
 
 .product__infos {

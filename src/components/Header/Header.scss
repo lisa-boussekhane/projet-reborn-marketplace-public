@@ -13,7 +13,7 @@
   background-color: v.$yellow;
   color: black;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 18.8px;
 
   &__links {
     display: flex;
@@ -53,8 +53,7 @@
 }
 
 .logout__btn {
-  font-size: 1.5rem;
-  list-style: none;
+  
   cursor: pointer;
 }
 

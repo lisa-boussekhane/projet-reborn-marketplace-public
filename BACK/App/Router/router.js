@@ -26,7 +26,7 @@ router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
 router.patch('/login', verifyToken, authController.updatePassword);
 
-router.get('/result', searchController.searchReborns);
+router.get('/results', searchController.searchReborns);
 
 router.post(
   '/process-payment',
