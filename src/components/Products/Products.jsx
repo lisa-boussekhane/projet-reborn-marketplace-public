@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Card, Image } from 'semantic-ui-react';
+import { useParams } from 'react-router-dom';
 import './Products.scss';
 
 export default function Products({ paymentConfirmed }) {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/products');
+        const response = await fetch(`http://localhost:3000/products/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
@@ -22,7 +24,7 @@ export default function Products({ paymentConfirmed }) {
       }
     };
     fetchProducts();
-  }, []);
+  }, [id]);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
@@ -38,12 +40,12 @@ export default function Products({ paymentConfirmed }) {
         (product) =>
           product.type === selectedCategory ||
           product.sculptor === selectedCategory ||
-          // product.detail_product.gender === selectedCategory ||
           product.age_range === selectedCategory ||
-          // product.detail_product.eyes === selectedCategory
-          // product.detail_product.hair === selectedCategory
-          // product.detail_product.belly_plate === selectedCategory
-          product.authenticity_card === selectedCategory
+          product.authenticity_card === selectedCategory ||
+          product.Detail_product.gender === selectedCategory ||
+          product.Detail_product.eyes === selectedCategory ||
+          product.Detail_product.hair === selectedCategory ||
+          product.Detail_product.belly_plate === selectedCategory
       )
     : products;
 
