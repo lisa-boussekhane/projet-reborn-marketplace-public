@@ -6,7 +6,6 @@ const searchController = {
   searchReborns: async (req, res) => {
     try {
       const searchTerm = req.query.search;
-      console.log(searchTerm);
 
       // recherche dans product
       const productResults = await Product.findAll({
@@ -45,6 +44,7 @@ const searchController = {
         title: result.title,
         photo: result.Media ? result.Media[0].photo : null, // Access the first element of the Media array
       }));
+
       // Extract and format results from detailProductResults
       const detailProductResultsFormatted = detailProductResults.map(
         (result) => ({
@@ -53,6 +53,7 @@ const searchController = {
           photo: result.Product.Media ? result.Product.Media[0].photo : null, // Access the first element of the Media array
         })
       );
+
 
       // combiner les tésultats en un seul tableau
       const uniqueResults = [
@@ -66,6 +67,7 @@ const searchController = {
       });
       // convertir de nouveau en un tableau
       const formattedResults = Array.from(uniqueResultsMap.values());
+
       res.status(200).json({ results: formattedResults });
     } catch (error) {
       console.log(error);

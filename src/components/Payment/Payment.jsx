@@ -12,6 +12,8 @@ export default function Payment({ onPaymentConfirmed }) {
   const { clearCart } = useCart();
   const amount = searchParams.get('amount');
   const baseAmount = amount;
+  const { clearCart } = useCart();
+
 
   // conversion en centimes pour stripe
   const convertedAmout = baseAmount * 100;
@@ -63,8 +65,10 @@ export default function Payment({ onPaymentConfirmed }) {
           console.log('paiement effectué:', data);
           setSuccessMessage('Payment confirmed, thank you for your order !  ');
           clearCart();
+
           onPaymentConfirmed();
           console.log('payment confirmed:', onPaymentConfirmed);
+
         } else {
           console.error('Server error:', response.status);
 

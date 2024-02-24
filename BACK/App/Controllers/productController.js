@@ -1,8 +1,11 @@
 const { Product, Detail_product, Media, User, Shop } = require('../Models/');
 
+const { sequelize } = require('../Models/index');
+
+
 
 const productController = {
-  async getProductPage(req, res) {
+  async getOneProduct(req, res) {
     try {
       // Extract the product ID from the request parameters
       const productId = req.params.id;
@@ -45,7 +48,87 @@ const productController = {
     }
   },
 
-  async createProduct(req, res) {
+async getAllProducts(req, res) {
+    try {
+      // Fetch all products from the database, including their detail_product and media
+      const products = await Product.findAll({
+        include: [
+          {
+            model: Detail_product,
+            as: 'Detail_product',
+          },
+          {
+            model: Media,
+            as: 'Media',
+            attributes: ['photo'],
+          },
+          {
+            model: User,
+            as: 'Users',
+          },
+        ],
+      });
+  
+      if (!products || products.length === 0) {
+        // If no products are found, return a 404 Not Found response
+        return res.status(404).json({
+          message: 'No products found',
+        });
+      }
+  
+      // If products are found, return them along with their detailed information and media
+      res.status(200).json(products);
+    } catch (error) {
+      // If there's an error, respond with a 500 status code and the error message
+      res.status(500).json({
+        message: 'Failed to retrieve products',
+        error: error.message,
+      });
+    }
+  },  
+
+  async updateProduct(req, res) {
+    try {
+      console.log(req.files); // voir les fichiers img qu'on récupère
+
+      const productId = req.params.id;
+      const productData = req.body;
+      const detailProductData = req.body;
+      const mediaDataArray = req.files.map((file) => ({
+        path: file.path,
+      }));
+
+      // Update product
+      await Product.update(productData, { where: { id: productId } });
+
+      // Update detailProduct
+      await Detail_product.update(detailProductData, {
+        where: { product_id: productId },
+      });
+
+      // supprimer le média déjà existant
+      await Media.destroy({ where: { product_id: productId } });
+
+      // insérer le nouveau
+      const mediaPromises = mediaDataArray.map((mediaData) =>
+        Media.create({ photo: mediaData.path, product_id: productId })
+      );
+      await Promise.all(mediaPromises);
+
+      res.status(200).json({
+        message: 'Product updated successfully with files',
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        message: 'Failed to update product with files',
+        error: error.message,
+      });
+    }
+  },
+
+ async createProduct(req, res) {
+    // Create random unique ID for the product
     const randomId = () => {
       const s4 = () => {
         return Math.floor((1 + Math.random()) * 0x100000).toString(16);
@@ -110,46 +193,6 @@ const productController = {
     } catch (error) {
       console.error('Error finding user or shop:', error);
       return res.status(500).json({ error: 'Internal Server Error' });
-    }
-  },
-
-  async updateProduct(req, res) {
-    try {
-      console.log(req.files); // voir les fichiers img qu'on récupère
-
-      const productId = req.params.id;
-      const productData = req.body;
-      const detailProductData = req.body;
-      const mediaDataArray = req.files.map((file) => ({
-        path: file.path,
-      }));
-
-      // Update product
-      await Product.update(productData, { where: { id: productId } });
-
-      // Update detailProduct
-      await Detail_product.update(detailProductData, {
-        where: { product_id: productId },
-      });
-
-      // supprimer le média déjà existant
-      await Media.destroy({ where: { product_id: productId } });
-
-      // insérer le nouveau
-      const mediaPromises = mediaDataArray.map((mediaData) =>
-        Media.create({ photo: mediaData.path, product_id: productId })
-      );
-      await Promise.all(mediaPromises);
-
-      res.status(200).json({
-        message: 'Product updated successfully with files',
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        message: 'Failed to update product with files',
-        error: error.message,
-      });
     }
   },
 

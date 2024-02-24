@@ -44,22 +44,23 @@ export default function MyStore() {
             }
           );
 
-          if (response.status === 200) {
-            const shopData = await response.json();
-            setShop(shopData);
-          } else {
-            console.error('Failed to fetch shop details');
-            // si le magasin n'est pas disponible, rediriger vers la page de création du magasin
-            navigate('/createmystore');
-          }
-        } catch (error) {
-          console.error('An unexpected error occurred', error);
-        }
-      };
 
+        if (response.status === 200) {
+          const shopData = await response.json();
+          setShop(shopData);
+        } else {
+          console.error('Failed to fetch shop details');
+          // si le magasin n'est pas disponible, rediriger vers la page de création du magasin
+          navigate('/createmystore');
+        }
+      } catch (error) {
+        console.error('An unexpected error occurred', error);
+      }
+    };
       fetchShopDetails();
     }
   }, [navigate]);
+
 
   const deleteProduct = async (productId) => {
     try {

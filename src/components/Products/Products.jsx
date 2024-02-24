@@ -16,6 +16,7 @@ export default function Products({ paymentConfirmed }) {
         }
         const data = await response.json();
         setProducts(data);
+        console.log(data);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -37,14 +38,12 @@ export default function Products({ paymentConfirmed }) {
         (product) =>
           product.type === selectedCategory ||
           product.sculptor === selectedCategory ||
+          // product.detail_product.gender === selectedCategory ||
           product.age_range === selectedCategory ||
-          product.authenticity_card === selectedCategory ||
-          (product.detail_product &&
-            product.detail_product.gender === selectedCategory)
-
-        // product.detail_product.eyes === selectedCategory
-        // product.detail_product.hair === selectedCategory
-        // product.detail_product.belly_plate === selectedCategory
+          // product.detail_product.eyes === selectedCategory
+          // product.detail_product.hair === selectedCategory
+          // product.detail_product.belly_plate === selectedCategory
+          product.authenticity_card === selectedCategory
       )
     : products;
 
@@ -304,6 +303,7 @@ export default function Products({ paymentConfirmed }) {
             <div className="products__card__item">
               <Card>
                 {paymentConfirmed && <div className="vendu-banner">Vendu</div>}
+
                 {product.Media &&
                   product.Media.length > 0 &&
                   product.Media[0].photo && (
@@ -316,7 +316,9 @@ export default function Products({ paymentConfirmed }) {
                   )}
                 <Card.Content>
                   <NavLink to={`/product/${product.id}`}>
-                    <Card.Header>{product.title}</Card.Header>
+                    <Card.Header className="product-title">
+                      {product.title}
+                    </Card.Header>
                   </NavLink>
                 </Card.Content>
               </Card>

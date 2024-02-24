@@ -26,42 +26,31 @@ router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
 router.patch('/login', verifyToken, authController.updatePassword);
 
+
 router.get('/results', searchController.searchReborns);
 
-router.post(
-  '/process-payment',
-  verifyToken,
-  paymentController.addStripePayment
-);
 
-router.get('/product/:id', productController.getProductPage);
-router.post(
-  '/product/:id',
-  verifyToken,
-  upload.array('photo', 12),
-  productController.createProduct
-);
-router.patch(
-  '/product/:id',
-  verifyToken,
-  upload.array('photo', 12),
-  productController.updateProduct
-);
-router.delete('/product/:id', verifyToken, productController.deleteProduct);
+router.post('/process-payment', verifyToken, paymentController.addStripePayment);
+
+router.get('/product/:id', productController.getOneProduct);
+router.get('/products/:id', productController.getAllProducts);
+router.post('/product/', verifyToken, upload.array('photo', 12), productController.createProduct);
+router.patch('/product/', verifyToken, upload.array('photo', 12), productController.updateProduct);
+router.delete('/product/', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
 router.get('/shop/:id', verifyToken, shopController.showShop);
 router.post('/createshop/:id', verifyToken, shopController.createShop);
 router.delete('/shop/:id', verifyToken, shopController.deleteShop);
+router.get('/shop/orders', verifyToken, shopController.getAllUserOrdersWithDetails);
+router.post('/orders/invoice', verifyToken, upload.single('invoice'), shopController.uploadInvoice);
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);
 router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
 
 router.get('shop/:id/ratings', ratingController.getShopRating);
-router.post('/product/:id/rate', ratingController.postShopRating);
+router.post('/shop/:id/rate', ratingController.postShopRating);
 
-//router.post('/upload', multerMiddleware, productController.fileUpload);
-//router.post('/uploadmultiple', multerMiddleware, productController.multipleFilesUpload);
 
 module.exports = router;

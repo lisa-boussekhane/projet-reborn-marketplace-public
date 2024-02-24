@@ -1,7 +1,6 @@
 import './Login.scss';
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../React-Context/AuthContext';
 
 export default function Login() {
@@ -10,21 +9,18 @@ export default function Login() {
   const [loginError, setLoginError] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const { setIsLoggedIn } = useAuth();
+
   const navigate = useNavigate();
 
-  // if login successful, user gets redirected to my account page
-  const handleClick = () => {
-    if (loginSuccess) {
-      setTimeout(() => navigate('/myaccount', { replace: true }), 1000);
-    }
-  };
-
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('http://localhost:3000/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           email,
           password,
@@ -38,11 +34,18 @@ export default function Login() {
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('userId', user.id);
 
+
       if (data.success) {
-        setLoginSuccess(true);
+        console.log('User Data:', data.user);
+
+        console.log('IsLoggedIn:', isLoggedIn);
+        console.log('User:', user);
+        console.log('Token:', token);
         setLoginError(false);
         setIsLoggedIn(true);
         handleClick();
+        navigate('/myaccount', { replace: true });
+
       } else {
         console.error('Échec de la connexion');
       }
@@ -57,8 +60,9 @@ export default function Login() {
       <div className="form__container">
         <h1>Login</h1>
         {loginSuccess && <p style={{ color: 'green' }}>Login successful !</p>}
+
         {loginError && (
-          <p style={{ color: 'red' }}> Error : Incorrect email or password</p>
+          <p style={{ color: 'red' }}> Error: Incorrect email or password</p>
         )}
         <form onSubmit={handleSubmit}>
           <div className="form__group">
@@ -68,6 +72,7 @@ export default function Login() {
                 type="email"
                 name="email"
                 id="email"
+                value={email}
                 placeholder="Email address"
                 required
                 onChange={(e) => setEmail(e.target.value)}
@@ -81,6 +86,7 @@ export default function Login() {
                 type="password"
                 name="password"
                 id="password"
+                value={password}
                 placeholder="Password"
                 required
                 onChange={(e) => setPassword(e.target.value)}
@@ -88,12 +94,7 @@ export default function Login() {
             </label>
           </div>
           <div>
-            <input
-              type="submit"
-              value="Login"
-              onClick={handleClick}
-              className="login__btn"
-            />
+            <input type="submit" value="Login" className="login__btn" />
             <NavLink to="/resetpassword">Forgotten your password?</NavLink>
           </div>
         </form>

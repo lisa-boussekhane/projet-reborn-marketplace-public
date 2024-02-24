@@ -1,9 +1,11 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
+
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   useEffect(() => {
     const storedToken = localStorage.getItem('jwtToken');
@@ -33,6 +35,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+
       {children}
     </AuthContext.Provider>
   );

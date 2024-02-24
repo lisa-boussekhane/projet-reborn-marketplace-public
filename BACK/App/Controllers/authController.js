@@ -91,7 +91,7 @@ const authController = {
         });
         return res
           .status(200)
-          .json({ success: true, token, user: { id: user.id } });
+          .json({ success: true, token, user: { id: user.id, password: user.password, email: user.email } });
       }
       console.log('Utilisateur non trouvé');
 

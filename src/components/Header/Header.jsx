@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import './Header.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -5,7 +8,9 @@ import { useAuth } from '../React-Context/AuthContext';
 
 export default function Header() {
   const [showLinks, setShowLinks] = useState(false);
+
   const { isLoggedIn, setIsLoggedIn } = useAuth();
+
   const navigate = useNavigate();
 
   const handleSearch = (event) => {
@@ -21,12 +26,15 @@ export default function Header() {
     if (storedToken) {
       setIsLoggedIn(true);
     }
+
   }, [setIsLoggedIn]);
+
 
   // on efface l'élément dans le localStorage
   const logOut = () => {
     localStorage.clear();
     setIsLoggedIn(false);
+
   };
 
   const handleShowLinks = () => {
@@ -91,7 +99,9 @@ export default function Header() {
         </NavLink>
         {toggleLoginOrAccount()}
         {localStorage.getItem('jwtToken') ? (
+
           <li className="logout__btn" onClick={logOut}>
+
             Logout
           </li>
         ) : null}

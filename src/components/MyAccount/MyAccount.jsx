@@ -5,7 +5,12 @@ import { useParams } from 'react-router-dom';
 import { useAuth } from '../React-Context/AuthContext';
 
 export default function MyAccount() {
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({
+    username: '',
+    first_name: '',
+    last_name: '',
+    phone: '',
+  });
   const [isUserUpdated, setisUserUpdated] = useState(false);
   const { user } = useAuth();
   const { id } = useParams();
@@ -14,7 +19,7 @@ export default function MyAccount() {
     const handleInfo = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await fetch(`http://localhost:3000/user/${id}`, {
+        const response = await fetch(`http://localhost:3000/user`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -66,8 +71,19 @@ export default function MyAccount() {
           <div className="profile__subtitle">
             <h2>Information</h2>
           </div>
-
           <form className="profile__elem" method="get">
+            <label htmlFor="username">
+              Username
+              <input
+                type="text"
+                name="username"
+                id="username"
+                value={userInfo.username}
+                onChange={(e) =>
+                  setUserInfo({ ...userInfo, username: e.target.value })
+                }
+              />
+            </label>
             <label htmlFor="firstname">
               Firstname
               <input
@@ -75,6 +91,9 @@ export default function MyAccount() {
                 name="firstname"
                 id="firstname"
                 value={userInfo.first_name}
+                onChange={(e) =>
+                  setUserInfo({ ...userInfo, first_name: e.target.value })
+                }
               />
             </label>
             <label htmlFor="last name">
@@ -84,6 +103,9 @@ export default function MyAccount() {
                 name="lastname"
                 id="lastname"
                 value={userInfo.last_name}
+                onChange={(e) =>
+                  setUserInfo({ ...userInfo, last_name: e.target.value })
+                }
               />
             </label>
             <label htmlFor="phone">
@@ -94,6 +116,10 @@ export default function MyAccount() {
                 id="phone"
                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 required
+                value={userInfo.phone}
+                onChange={(e) =>
+                  setUserInfo({ ...userInfo, phone: e.target.value })
+                }
               />
             </label>
             <input type="submit" value="Save" className="save__btn" />
