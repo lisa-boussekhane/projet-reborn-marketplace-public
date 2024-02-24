@@ -48,7 +48,7 @@ function App() {
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/mystore" component={isLoggedIn} element={<MyStore />} />
+        <Route path="/mystore" element={<MyStore />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/contactus" element={<ContactUs />} />

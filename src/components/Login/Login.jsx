@@ -43,7 +43,7 @@ export default function Login() {
         console.log('Token:', token);
         setLoginError(false);
         setIsLoggedIn(true);
-        handleClick();
+       
         navigate('/myaccount', { replace: true });
 
       } else {

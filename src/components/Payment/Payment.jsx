@@ -12,7 +12,6 @@ export default function Payment({ onPaymentConfirmed }) {
   const { clearCart } = useCart();
   const amount = searchParams.get('amount');
   const baseAmount = amount;
-  const { clearCart } = useCart();
 
 
   // conversion en centimes pour stripe
