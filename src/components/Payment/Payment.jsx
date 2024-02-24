@@ -9,10 +9,9 @@ export default function Payment({ onPaymentConfirmed }) {
   const elements = useElements();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const { clearCart } = useCart();
+  const { clearCart, cart } = useCart();
   const amount = searchParams.get('amount');
   const baseAmount = amount;
-
 
   // conversion en centimes pour stripe
   const convertedAmout = baseAmount * 100;
@@ -62,14 +61,54 @@ export default function Payment({ onPaymentConfirmed }) {
         if (response.ok) {
           const data = await response.json();
           console.log('paiement effectué:', data);
-          setSuccessMessage('Payment confirmed, thank you for your order !  ');
-          clearCart();
-
           onPaymentConfirmed();
           console.log('payment confirmed:', onPaymentConfirmed);
+          const productIds = cart.map((item) => item.id);
+          console.log(productIds);
+          const storedUserId = localStorage.getItem('userId');
+          console.log(storedUserId);
+          const createOrder = await fetch('http://localhost:3000/createorder', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`, // token récupéré dans le local storage
+            },
+            body: JSON.stringify({
+              userId: storedUserId,
+              productIds: productIds,
+            }),
+          });
 
+          // Check the response from createorder route
+          if (createOrder.ok) {
+            clearCart();
+            const createOrderData = await createOrder.json();
+
+            console.log(
+              'Order created successfully:',
+              createOrderData,
+              createOrderData.order_numbers
+            );
+
+            const orderNumbers = createOrderData.order_numbers;
+            const successMessageOrder =
+              orderNumbers.length === 1
+                ? `Payment confirmed, thank you for your order! Your order number is: ${orderNumbers.join(
+                    ', '
+                  )}`
+                : `Payment confirmed, thank you for your order! Your order numbers are: ${orderNumbers.join(
+                    ', '
+                  )}`;
+
+            setSuccessMessage(successMessageOrder);
+          } else {
+            console.error(
+              'erreur dans la création de la commande:',
+              createOrder.status
+            );
+          }
         } else {
-          console.error('Server error:', response.status);
+          console.error('erreur servuer :', response.status);
 
           setErrorMessage('Payment failed. Please try again.');
         }

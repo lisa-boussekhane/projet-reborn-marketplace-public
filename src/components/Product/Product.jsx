@@ -49,7 +49,7 @@ export default function Product() {
   }, [id]);
 
   const handleAddToCart = () => {
-    addToCart(product);
+    addToCart(product, id);
   };
 
   const handleNextImage = () => {
