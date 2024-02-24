@@ -15,11 +15,11 @@ const searchController = {
             { kit_name: { [Op.iLike]: `%${searchTerm}%` } },
             { sculptor: { [Op.iLike]: `%${searchTerm}%` } },
             { age_range: { [Op.iLike]: `%${searchTerm}%` } },
+            { type: { [Op.iLike]: `%${searchTerm}%` } },
           ],
         },
         include: [{ model: Media, as: 'Media' }],
       });
-
       // recherche dans detail_product
       const detailProductResults = await Detail_product.findAll({
         where: {
@@ -54,6 +54,7 @@ const searchController = {
         })
       );
 
+
       // combiner les tésultats en un seul tableau
       const uniqueResults = [
         ...productResultsFormatted,
@@ -64,7 +65,6 @@ const searchController = {
       uniqueResults.forEach((result) => {
         uniqueResultsMap.set(result.id, result);
       });
-
       // convertir de nouveau en un tableau
       const formattedResults = Array.from(uniqueResultsMap.values());
 

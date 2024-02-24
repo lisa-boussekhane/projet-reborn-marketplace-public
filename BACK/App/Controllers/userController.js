@@ -4,7 +4,12 @@ const { sequelize } = require('../Models/index'); // Import Sequelize instance
 const userController = {
   async getUserInfos(req, res) {
     try {
+<<<<<<< HEAD
       const userId = req.user.user_id;
+=======
+      const userId = req.params?.id || req.userId;
+
+>>>>>>> 2c9a2420ed093b6fbad711b3b1a5f64422c483af
       const targetedUser = await User.findByPk(userId);
 
       if (!targetedUser) {

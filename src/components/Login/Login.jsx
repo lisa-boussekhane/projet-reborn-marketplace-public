@@ -1,24 +1,30 @@
 import './Login.scss';
-import { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../React-Context/AuthContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
-  const { isLoggedIn, setIsLoggedIn, setUser, login } = useAuth();
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const { setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
-  // Handle form submission
+  // if login successful, user gets redirected to my account page
+  const handleClick = () => {
+    if (loginSuccess) {
+      setTimeout(() => navigate('/myaccount', { replace: true }), 1000);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('http://localhost:3000/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
           password,
@@ -28,25 +34,21 @@ export default function Login() {
       console.log('API Response:', data);
       const { token, user } = data;
 
-      if (data.success) {
-        console.log('User Data:', data.user);
+      // stocker le token dans localStorage
+      localStorage.setItem('jwtToken', token);
+      localStorage.setItem('userId', user.id);
 
-        console.log('IsLoggedIn:', isLoggedIn);
-        console.log('User:', user);
-        console.log('Token:', token);
+      if (data.success) {
+        setLoginSuccess(true);
         setLoginError(false);
         setIsLoggedIn(true);
-        setUser(user);
-        // stocker le token dans localStorage
-        localStorage.setItem('jwtToken', token);
-        // Redirect to my account page
-        navigate('/myaccount', { replace: true });
+        handleClick();
       } else {
         console.error('Échec de la connexion');
-        setLoginError(true);
       }
     } catch (error) {
       console.error('Cannot log in', error);
+      setLoginError(true);
     }
   };
 
@@ -54,9 +56,9 @@ export default function Login() {
     <>
       <div className="form__container">
         <h1>Login</h1>
-
+        {loginSuccess && <p style={{ color: 'green' }}>Login successful !</p>}
         {loginError && (
-          <p style={{ color: 'red' }}> Error: Incorrect email or password</p>
+          <p style={{ color: 'red' }}> Error : Incorrect email or password</p>
         )}
         <form onSubmit={handleSubmit}>
           <div className="form__group">
@@ -66,7 +68,6 @@ export default function Login() {
                 type="email"
                 name="email"
                 id="email"
-                value={email}
                 placeholder="Email address"
                 required
                 onChange={(e) => setEmail(e.target.value)}
@@ -80,7 +81,6 @@ export default function Login() {
                 type="password"
                 name="password"
                 id="password"
-                value={password}
                 placeholder="Password"
                 required
                 onChange={(e) => setPassword(e.target.value)}
@@ -88,7 +88,12 @@ export default function Login() {
             </label>
           </div>
           <div>
-            <input type="submit" value="Login" className="login__btn" />
+            <input
+              type="submit"
+              value="Login"
+              onClick={handleClick}
+              className="login__btn"
+            />
             <NavLink to="/resetpassword">Forgotten your password?</NavLink>
           </div>
         </form>

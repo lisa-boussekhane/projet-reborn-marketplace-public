@@ -2,7 +2,11 @@ import './Product.scss';
 import { useParams, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import {
+  faStar,
+  faChevronLeft,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
 import { Icon as Icons } from '@iconify/react';
 import { useCart } from '../React-Context/CartContext';
 
@@ -10,6 +14,7 @@ export default function Product() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const { addToCart } = useCart();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const stars = document.querySelectorAll('#star__items');
 
@@ -46,18 +51,40 @@ export default function Product() {
   const handleAddToCart = () => {
     addToCart(product);
   };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % product.Media.length);
+  };
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex(
+      (prevIndex) =>
+        (prevIndex - 1 + product.Media.length) % product.Media.length
+    );
+  };
   return (
     <div className="product__container">
       <div className="product__img">
-        {product &&
-          product.Media &&
-          product.Media.length > 0 &&
-          product.Media[0].photo && (
-            <img
-              src={`http://localhost:5173/${product.Media[0].photo}`}
-              alt={`Product ${product.id}`}
+        {product && product.Media && product.Media.length > 0 && (
+          <div className="image-container">
+            <FontAwesomeIcon
+              icon={faChevronLeft}
+              className="arrow-icon left"
+              onClick={handlePrevImage}
+              size="2x"
             />
-          )}
+            <img
+              src={`http://localhost:5173/${product.Media[currentImageIndex].photo}`}
+              alt={`Product ${product.id} ${currentImageIndex + 1}`}
+            />
+            <FontAwesomeIcon
+              icon={faChevronRight}
+              className="arrow-icon right"
+              onClick={handleNextImage}
+              size="2x"
+            />
+          </div>
+        )}
       </div>
 
       <div className="product__infos">

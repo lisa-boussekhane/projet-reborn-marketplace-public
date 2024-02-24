@@ -7,6 +7,135 @@ export default function UpdateProduct() {
   const [product, setProduct] = useState(null);
   const { id } = useParams();
   const [formData, setFormData] = useState();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const options = [
+    'Or choose one here',
+    'Adrie Stoete',
+    'AK Kitagawa',
+    'Alicia Toner',
+    'Andrea Arcello',
+    'Angela Degner',
+    'Ann Timmerman',
+    'Antonio Sanchis',
+    'Arika Lee',
+    'Ashten Bryant',
+    'Asia Eriksen',
+    'Bonnie Brown',
+    'Bonnie Leah Sieben',
+    'Brit Klinger',
+    'Cassie Brace',
+    'Christa Götzen',
+    'Cindy Musgrove',
+    'Claire Taylor',
+    'Conny Burke',
+    'Dawn Donofrio',
+    'Dawn McLeod',
+    'Dianna Effner',
+    'Didy Jacobsen',
+    'Doris M Hornbogen',
+    'Ebtehal Abul',
+    'Elisa Marx',
+    'Elly Knoops',
+    'Eva Brilli',
+    'Evelina Wosnjuk',
+    'Francesca Figa',
+    'Gudrun Legler',
+    'Heike Kolpin',
+    'Ina Volprich',
+    'Irina Kaplanskaya',
+    'Iris Klement',
+    'Iveta Eckertova',
+    'Jamie Lynn Powers',
+    'Jannie de Lange',
+    'Joanna Kazmierczak',
+    'Jodie Lombardo',
+    'Joe Bailey',
+    'Jorja Pigott',
+    'Julia Homa',
+    'Karola Wegerich',
+    'Kyla Janell',
+    'Laura Lee Eagles',
+    'Laura Tuzio Ross',
+    'Lauren Jaimes',
+    'Lenka P Hucinova',
+    'Lilianne Breedveld',
+    'Lilly Gold',
+    'Linda Murray',
+    'Linde Scherer',
+    'Lisa Stone',
+    'Lorna Miller-Sands',
+    'Lorraine Yophi',
+    'Lucie Boiron',
+    'Maisa Said',
+    'Manuela Bertocchi',
+    'Marita Winters',
+    'Mayra Garza',
+    'Melanie Gebhardt',
+    'Melody Hess',
+    'Menna Hartog',
+    'Merina Zeglarski',
+    'Natali Blick',
+    'Nicoleta Carmanschi',
+    'Nikki Johnston',
+    'Nikol Maris',
+    'Noemi Smith',
+    'Olga Auer',
+    'Olga Tschenskaja',
+    'Petra Lechner',
+    'Petra Seiffert',
+    'Ping Lau',
+    'Priscila Lopez',
+    'Rachel Smith',
+    'Regina Swialkowski',
+    'Reva Schick',
+    'Ruth Aguilar',
+    'Ruth Annette',
+    'Sabine Altenkirch',
+    'Sabine Wegner',
+    'Sabrina Hergarten',
+    'Sandy Faber',
+    'Sarah Mellman',
+    'Sebilla Bos',
+    'Severine Piret',
+    'Shawna Clymer',
+    'Sheila Michael',
+    'Shelley Marie',
+    'Sherry Rawn',
+    'Shy Mrofka',
+    'Sigrid Bock',
+    'Sigrun Heck',
+    'Stephanie Sullivan',
+    'Susanne Goeschl',
+    'Suzette du Plessis',
+    'Tay Freitas',
+    'Teresa De Castro',
+    'Tiffany Campbell',
+    'Tina Kewy',
+    'Tove Magnusson',
+    'Ulrike Gall',
+    'Vicente Vidal',
+    'Vincenzina Care',
+    'Viviane Aleluia',
+    'Other',
+  ];
+
+  const [filteredOptions, setFilteredOptions] = useState(options);
+
+  const handleSearchScuptor = (event) => {
+    const { value } = event.target;
+    setSearchTerm(value);
+    // Filtrer les options uniquement si l'utilisateur tape quelque chose
+    if (value.trim() !== '') {
+      const filtered = options.filter((option) =>
+        option.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredOptions(filtered);
+    } else {
+      // Si l'input est vide, afficher toutes les options
+      setFilteredOptions(options);
+    }
+  };
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -214,16 +343,25 @@ export default function UpdateProduct() {
                   placeholder="Location"
                   className="larger-input"
                 />
-
                 <input
                   type="text"
+                  value={searchTerm}
+                  onChange={handleSearchScuptor}
+                  placeholder="Filter the sculptor results"
+                />
+                <select
                   name="sculptor"
                   id="sculptor"
                   value={formData.sculptor}
                   onChange={handleChange}
-                  placeholder="Sculptor of the kit"
                   className="larger-input"
-                />
+                >
+                  {filteredOptions.map((option, name) => (
+                    <option key={name} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
 
                 <input
                   type="text"
@@ -268,6 +406,7 @@ export default function UpdateProduct() {
                   <option value="gen">Gender</option>
                   <option value="boy">Boy</option>
                   <option value="girl">Girl</option>
+                  <option value="non-gendered">Non gendered</option>
                 </select>
 
                 <select
@@ -331,6 +470,7 @@ export default function UpdateProduct() {
                   <option value="brown">Brown</option>
                   <option value="green">Green</option>
                   <option value="other">Other</option>
+                  <option value="closed">Closed</option>
                 </select>
 
                 <select
@@ -342,10 +482,13 @@ export default function UpdateProduct() {
                 >
                   <option value="detail">Hair</option>
                   <option value="painting">Hair painting</option>
+                  <option value="painting">Hair painting</option>
                   <option value="brown">Brown hair</option>
                   <option value="blonde">Blonde hair</option>
                   <option value="red">Red hair</option>
                   <option value="other">Other</option>
+                  <option value="black">Black</option>
+                  <option value="bald">Bald</option>
                 </select>
               </div>
             </div>
