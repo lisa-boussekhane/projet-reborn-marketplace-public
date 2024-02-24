@@ -54,24 +54,16 @@ const authController = {
         });
       }
 
-      // Hash the password
-      const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-      // Create the user in the database
       const newUser = await User.create({
         first_name: first_name,
         last_name: last_name,
         email: email,
-        password: hashedPassword,
+        password: password,
       });
 
       // Respond with the created user (excluding the password for security)
       res.status(201).json({
         id: newUser.id,
-        first_name: newUser.first_name,
-        last_name: newUser.last_name,
-        email: newUser.email,
       });
     } catch (error) {
       console.error('Account creation failed:', error);
@@ -93,9 +85,8 @@ const authController = {
       const user = await User.findOne({ where: { email: email } });
       console.log('Utilisateur trouvé dans la base de données :', user);
 
-      if (user) {
-        console.log('Mot de passe correct');
-        const token = jwt.sign({ userId: req.userId }, process.env.SECRET, {
+      if (user && user.validPassword(password)) {
+        const token = jwt.sign({ user_id: user.id }, process.env.SECRET, {
           expiresIn: '1h',
         });
         return res

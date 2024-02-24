@@ -17,7 +17,7 @@ const router = express.Router();
 
 router.post('/contactus', contactController.sendEmail);
 
-router.get('/user/', verifyToken, userController.getUserInfos);
+router.get('/user/:id', verifyToken, userController.getUserInfos);
 router.get('/myorders', verifyToken, userController.getOrdersReturns);
 
 router.patch('/user/:id', verifyToken, authController.updateAccount);
@@ -26,10 +26,9 @@ router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
 router.patch('/login', verifyToken, authController.updatePassword);
 
-router.get('/verifyToken', verifyToken, (req, res) => {
-  const user = req.user;
-  res.json({ success: true, user });
-});
+
+router.get('/results', searchController.searchReborns);
+
 
 router.post('/process-payment', verifyToken, paymentController.addStripePayment);
 

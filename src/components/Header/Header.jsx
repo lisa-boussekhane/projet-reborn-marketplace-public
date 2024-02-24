@@ -8,7 +8,9 @@ import { useAuth } from '../React-Context/AuthContext';
 
 export default function Header() {
   const [showLinks, setShowLinks] = useState(false);
-  const { isLoggedIn, setIsLoggedIn, setUser } = useAuth();
+
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
   const navigate = useNavigate();
 
   const handleSearch = (event) => {
@@ -17,20 +19,22 @@ export default function Header() {
     navigate(`/results?search=${search}`);
     console.log(search);
   };
-  // Check for stored token on component mount
+
   useEffect(() => {
     const storedToken = localStorage.getItem('jwtToken');
 
     if (storedToken) {
       setIsLoggedIn(true);
     }
-  }, [setIsLoggedIn, setUser]);
+
+  }, [setIsLoggedIn]);
+
 
   // on efface l'élément dans le localStorage
   const logOut = () => {
     localStorage.clear();
     setIsLoggedIn(false);
-    setUser(null);
+
   };
 
   const handleShowLinks = () => {
@@ -95,10 +99,9 @@ export default function Header() {
         </NavLink>
         {toggleLoginOrAccount()}
         {localStorage.getItem('jwtToken') ? (
-          <li
-            className="logout__btn"
-            onClick={(logOut)}
-          >
+
+          <li className="logout__btn" onClick={logOut}>
+
             Logout
           </li>
         ) : null}

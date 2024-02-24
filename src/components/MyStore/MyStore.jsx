@@ -13,10 +13,8 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../React-Context/AuthContext';
 
 export default function MyStore() {
-  const { user } = useAuth();
   const navigate = useNavigate();
 
   const [shop, setShop] = useState(null);
@@ -26,15 +24,26 @@ export default function MyStore() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // Récupérer les informations du shop du backend
-    const fetchShopDetails = async () => {
-      try {
-        const token = localStorage.getItem('jwtToken');
-        const response = await fetch(`http://localhost:3000/shop/${user.id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+    const storedToken = localStorage.getItem('jwtToken');
+
+    if (!storedToken) {
+      // Redirect the user to the login page if user ID is not available
+      navigate('/login');
+    } else {
+      // Récupérer les informations du shop du backend
+      const fetchShopDetails = async () => {
+        try {
+          const storedUserId = localStorage.getItem('userId');
+          const token = localStorage.getItem('jwtToken');
+          const response = await fetch(
+            `http://localhost:3000/shop/${storedUserId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
 
         if (response.status === 200) {
           const shopData = await response.json();
@@ -48,10 +57,10 @@ export default function MyStore() {
         console.error('An unexpected error occurred', error);
       }
     };
+      fetchShopDetails();
+    }
+  }, [navigate]);
 
-    // Appeler la fonction fetchShopDetails
-    fetchShopDetails();
-  }, [user, navigate]);
 
   const deleteProduct = async (productId) => {
     try {
@@ -103,12 +112,16 @@ export default function MyStore() {
   const deleteShop = async () => {
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await fetch(`http://localhost:3000/shop/${user.id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const storedUserId = localStorage.getItem('userId');
+      const response = await fetch(
+        `http://localhost:3000/shop/${storedUserId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       await response.json(); // Parse the response JSON
 
