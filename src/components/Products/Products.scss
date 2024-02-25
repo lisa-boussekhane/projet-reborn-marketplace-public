@@ -10,27 +10,30 @@
   background: v.$blue;
   position: fixed;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .products__category {
-  font-size: 1.2em;
-  text-align: left;
+  text-align: center;
   padding: 6px;
 
   h3 {
     color: v.$pink;
     font-weight: 600;
-    margin-bottom: 10px;
+    font-size: 2.5em;
     text-align: center;
+    margin-bottom: 10px;
+    margin: 0 auto;
+    text-align: center;
+    border-bottom: 2px solid v.$lightGrey;
   }
 }
 
 .products__item li {
-  font-size: 1.1em;
+  font-size: 1.5em;
   color: #fff;
   font-weight: bold;
   text-align: center;
-  border-bottom: 1px solid v.$midGrey;
   padding: 6px;
   cursor: pointer;
 }
@@ -51,6 +54,7 @@ body {
   margin-left: 18rem;
   margin-bottom: 3rem;
 }
+
 
 .products__card {
   position: relative;
@@ -73,3 +77,4 @@ body {
 .vendu-image {
   filter: blur(5px); 
 }
+
