@@ -3,6 +3,7 @@
 .product__container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2rem;
   
 }
 
@@ -15,7 +16,7 @@
     position: relative;
 
     img {
-      max-width: 100%;
+      max-width: 90%;
       height: auto;
       display: block;
       margin: 0 auto;
@@ -84,8 +85,7 @@
 }
 
 .product__fees button {
-  background-color: v.$blue;
-  border: 2px solid v.$blue;
+  margin-right: 1rem;
   padding: 1rem;
 }
 
@@ -97,6 +97,16 @@
 .star__box {
   margin-left: 10px; 
 }
-#cart-button {
+.cart-button {
   cursor: pointer;
+  background-color: v.$blue;
+  border: 2px solid v.$blue;
+  border-radius: 3px;
+}
+
+.sold-out {
+  background-color: rgb(187, 180, 180); /* Couleur de fond transparente */
+  border-radius: 8px;
+  cursor: not-allowed; /* Curseur non autorisé */
+  /* Ajoutez d'autres styles que vous souhaitez appliquer pour le bouton désactivé */
 }

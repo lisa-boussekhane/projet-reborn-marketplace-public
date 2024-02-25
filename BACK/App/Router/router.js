@@ -11,7 +11,7 @@ const shopController = require('../Controllers/shopController');
 const contactController = require('../Controllers/contactController');
 const ratingController = require('../Controllers/ratingController');
 const verifyToken = require('../Middlewares/authMiddleware');
-const upload = require('../Middlewares/multerMiddleware');
+const { upload, uploadInvoice } = require('../Middlewares/multerMiddleware');
 
 const router = express.Router();
 
@@ -37,18 +37,18 @@ router.post(
 router.get('/product/:id', productController.getOneProduct);
 router.get('/products/:id', productController.getAllProducts);
 router.post(
-  '/product/',
+  '/product/:id',
   verifyToken,
   upload.array('photo', 12),
   productController.createProduct
 );
 router.patch(
-  '/product/',
+  '/product/:id',
   verifyToken,
   upload.array('photo', 12),
   productController.updateProduct
 );
-router.delete('/product/', verifyToken, productController.deleteProduct);
+router.delete('/product/:id', verifyToken, productController.deleteProduct);
 router.get('/products', productController.getProductsPage);
 
 router.get('/shop/:id', verifyToken, shopController.showShop);
@@ -59,11 +59,11 @@ router.get(
   verifyToken,
   shopController.getAllUserOrdersWithDetails
 );
-router.post(
-  '/orders/invoice',
+router.patch(
+  '/orders',
   verifyToken,
-  upload.single('invoice'),
-  shopController.uploadInvoice
+  uploadInvoice.single('invoice'),
+  shopController.uploadInvoiceInOrder
 );
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);

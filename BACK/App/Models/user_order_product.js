@@ -14,6 +14,7 @@ User_Order_Product.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+
     product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

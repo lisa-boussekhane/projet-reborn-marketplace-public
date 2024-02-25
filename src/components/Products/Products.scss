@@ -52,4 +52,24 @@ body {
   margin-bottom: 3rem;
 }
 
+.products__card {
+  position: relative;
+}
 
+.vendu-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 0, 0, 0.322); 
+  color: white;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+.vendu-image {
+  filter: blur(5px); 
+}

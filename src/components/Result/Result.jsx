@@ -33,25 +33,30 @@ export default function Result() {
         <h2> {`${results ? results.length : 0} Reborns match your search`}</h2>
       </div>
       <div className="result__box">
-        <div className="result__card">
-          {results.map((result) => (
-            <Card key={result.id}>
+        {results.map((result) => (
+          <div
+            key={result.id}
+            className={`result__card ${result.sold ? 'vendu' : ''}`}
+          >
+            <Card>
               {' '}
-              {/* Ensure each key is unique */}
-              <Image
-                src={result.photo}
-                // Use a default placeholder URL if photo is not available
-                wrapped
-                ui={false}
-              />
-              <CardContent>
-                <NavLink to={`/product/${result.id}`}>
+              <NavLink to={`/product/${result.id}`}>
+                <Image
+                  src={result.photo}
+                  wrapped
+                  ui={false}
+                  className={result.sold ? 'vendu-image' : ''}
+                />
+                <CardContent className="product-title">
+                  {result.sold === true && (
+                    <div className="vendu-banner">Sold</div>
+                  )}
                   <CardHeader>{result.title}</CardHeader>
-                </NavLink>
-              </CardContent>
+                </CardContent>
+              </NavLink>
             </Card>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

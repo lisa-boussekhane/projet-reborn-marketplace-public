@@ -1,12 +1,13 @@
 import './CreateMyStore.scss';
 import { useState } from 'react';
-import { useAuth } from '../React-Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateMyStore() {
   const [formData, setFormData] = useState({
     name: '',
     pro: '',
   });
+  const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,6 +36,7 @@ export default function CreateMyStore() {
         const result = await response.json();
         setMessage('Congratulations! Your store has been created.');
         console.log(result);
+        navigate('/mystore');
       } else {
         setMessage('Error. Please try again.');
         console.error('Failed to create shop');

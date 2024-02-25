@@ -148,6 +148,21 @@ h3 {
   margin-bottom: -5rem;
   cursor: pointer;
 }
+.store_btn {
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+  background: v.$blue;
+  color: #fff;
+  border-radius: 3px;
+  padding: 6px;
+  font-size: 15px;
+  padding-right: 12rem;
+  width: 150px;
+  margin-bottom: -4rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  white-space: nowrap;
+}
 
 .message {
   font-size: 16px;

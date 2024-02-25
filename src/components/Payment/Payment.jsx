@@ -1,10 +1,11 @@
 import './Payment.scss';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useCart } from '../React-Context/CartContext';
 
-export default function Payment({ onPaymentConfirmed }) {
+export default function Payment() {
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   const location = useLocation();
@@ -15,8 +16,6 @@ export default function Payment({ onPaymentConfirmed }) {
 
   // conversion en centimes pour stripe
   const convertedAmout = baseAmount * 100;
-
-  console.log(convertedAmout);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -61,10 +60,7 @@ export default function Payment({ onPaymentConfirmed }) {
         if (response.ok) {
           const data = await response.json();
           console.log('paiement effectué:', data);
-          onPaymentConfirmed();
-          console.log('payment confirmed:', onPaymentConfirmed);
           const productIds = cart.map((item) => item.id);
-          console.log(productIds);
           const storedUserId = localStorage.getItem('userId');
           console.log(storedUserId);
           const createOrder = await fetch('http://localhost:3000/createorder', {
@@ -83,22 +79,19 @@ export default function Payment({ onPaymentConfirmed }) {
           if (createOrder.ok) {
             clearCart();
             const createOrderData = await createOrder.json();
-
-            console.log(
-              'Order created successfully:',
-              createOrderData,
-              createOrderData.order_numbers
-            );
-
+            setTimeout(() => {
+              navigate('/myaccount');
+            }, 5000);
+            console.log('Order created successfully:', createOrderData);
             const orderNumbers = createOrderData.order_numbers;
             const successMessageOrder =
               orderNumbers.length === 1
                 ? `Payment confirmed, thank you for your order! Your order number is: ${orderNumbers.join(
                     ', '
-                  )}`
+                  )}. Redirecting to my account...`
                 : `Payment confirmed, thank you for your order! Your order numbers are: ${orderNumbers.join(
                     ', '
-                  )}`;
+                  )}. Redirecting to my account...`;
 
             setSuccessMessage(successMessageOrder);
           } else {
@@ -108,13 +101,10 @@ export default function Payment({ onPaymentConfirmed }) {
             );
           }
         } else {
-          console.error('erreur servuer :', response.status);
-
           setErrorMessage('Payment failed. Please try again.');
         }
       } catch (error) {
         console.error('Error processing payment:', error);
-
         setErrorMessage('Payment failed. Please try again.');
       }
     }

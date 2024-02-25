@@ -24,15 +24,14 @@
 
 .form__group label {
   display: block;
-  font-size: 1.1em;
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 .form__group input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid v.$midGrey;
+  padding: 10px;
   border-radius: 3px;
   background: #fff;
 }
@@ -79,4 +78,18 @@
 .sign__btn input[type='submit']:hover {
   color: #fff;
   cursor: pointer;
+}
+
+.form__group__password input {
+  font-size: 16px; 
+  font-weight: bold;
+  width: 90%;
+  border: 1px solid v.$midGrey;
+  color: darkgray;
+}
+
+.form__group__password {
+font-size: 16px; 
+font-weight: bold;
+margin-bottom: 2rem;
 }

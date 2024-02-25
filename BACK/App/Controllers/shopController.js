@@ -139,73 +139,41 @@ const shopController = {
     }
   },
 
-  async uploadInvoice(req, res) {
+  async uploadInvoiceInOrder(req, res) {
     try {
-      // Set up Multer storage
-      const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-          // Define the directory where the invoices will be saved
-          const invoicesDir = path.join(__dirname, '/invoices');
-          if (!fs.existsSync(invoicesDir)) {
-            fs.mkdirSync(invoicesDir, { recursive: true });
-          }
-          cb(null, invoicesDir);
-        },
-        filename: function (req, file, cb) {
-          // Generate a unique filename for the invoice
-          cb(null, `invoice-${Date.now()}${path.extname(file.originalname)}`);
-        },
+      console.log(req.files); // voir les fichiers
+
+      const productId = req.params.id;
+      const productData = req.body;
+      const detailProductData = req.body;
+      const mediaDataArray = req.files.map((file) => ({
+        path: file.path,
+      }));
+
+      // Update product
+      await Product.update(productData, { where: { id: productId } });
+
+      // Update detailProduct
+      await Detail_product.update(detailProductData, {
+        where: { product_id: productId },
       });
 
-      // Multer upload setup for PDF files only
-      const upload = multer({
-        storage: storage,
-        fileFilter: function (req, file, cb) {
-          if (path.extname(file.originalname) !== '.pdf') {
-            return cb(new Error('Only PDF files are allowed!'));
-          }
-          cb(null, true);
-        },
-      }).single('invoice'); // 'invoice' is the name of the file input field
+      // supprimer le média déjà existant
+      await Media.destroy({ where: { product_id: productId } });
 
-      // Process the file upload with Multer
-      upload(req, res, async (err) => {
-        if (err) {
-          // Handle errors related to file uploading
-          return res.status(400).json({ error: err.message });
-        }
+      // insérer le nouveau
+      const mediaPromises = mediaDataArray.map((mediaData) =>
+        Media.create({ photo: mediaData.path, product_id: productId })
+      );
+      await Promise.all(mediaPromises);
 
-        if (!req.file) {
-          // If no file was uploaded
-          return res
-            .status(400)
-            .json({ error: 'Please upload a PDF invoice.' });
-        }
-
-        // Check for user and shop existence
-        const userId = req.params.id;
-        const theUser = await User.findByPk(userId);
-        if (!theUser) {
-          return res.status(404).json({ error: 'User not found' });
-        }
-
-        const usershop = await Shop.findOne({ where: { user_id: userId } });
-        if (!usershop) {
-          return res.status(404).json({ error: 'Shop not found' });
-        }
-
-        // Here you can proceed with your database operations, e.g., saving the invoice information
-
-        // Respond with success message
-        res.status(201).json({
-          message: 'Invoice uploaded successfully',
-          filePath: req.file.path,
-        });
+      res.status(200).json({
+        message: 'Product updated successfully with files',
       });
     } catch (error) {
       console.error(error);
       res.status(500).json({
-        message: 'Failed to upload invoice',
+        message: 'Failed to update product with files',
         error: error.message,
       });
     }
@@ -227,6 +195,10 @@ const shopController = {
             date: new Date(),
             status: 'Paid',
           });
+
+          // marquer le produit comme "vendu" uniquement si la commande est réussie
+          await Product.markAsSold(productId);
+
           return order.id.toString(); // Return the order number directly
         })
       );
