@@ -3,7 +3,8 @@ const Detail_product = require('./detail_product');
 const Media = require('./media');
 const Product = require('./product');
 const Shop = require('./shop');
-const User_Rate_Shop = require('./user_rate_shop')
+const User_Rate_Shop = require('./user_rate_shop');
+const User_Order_Product = require('./user_order_product');
 
 // User and Shop (One-to-Many)
 User.hasMany(Shop, { foreignKey: 'user_id' });
@@ -43,4 +44,12 @@ Shop.belongsToMany(User, {
   foreignKey: 'shop_id',
 });
 
-module.exports = { User, Detail_product, Shop, Product, Media };
+module.exports = {
+  User,
+  Detail_product,
+  Shop,
+  Product,
+  Media,
+  User_Rate_Shop,
+  User_Order_Product,
+};

@@ -11,14 +11,15 @@ const shopController = require('../Controllers/shopController');
 const contactController = require('../Controllers/contactController');
 const ratingController = require('../Controllers/ratingController');
 const verifyToken = require('../Middlewares/authMiddleware');
-const upload = require('../Middlewares/multerMiddleware');
+const { upload, uploadInvoice } = require('../Middlewares/multerMiddleware');
 
 const router = express.Router();
 
 router.post('/contactus', contactController.sendEmail);
 
-router.get('/user/', verifyToken, userController.getUserInfos);
-router.get('/myorders', verifyToken, userController.getOrdersReturns);
+
+router.get('/user/:id', verifyToken, userController.getUserInfos);
+
 
 router.patch('/user/:id', verifyToken, authController.updateAccount);
 router.delete('/user/:id', verifyToken, authController.deleteAccount);
@@ -26,10 +27,10 @@ router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
 router.patch('/login', verifyToken, authController.updatePassword);
 
-router.get('/verifyToken', verifyToken, (req, res) => {
-  const user = req.user;
-  res.json({ success: true, user });
-});
+
+router.get('/results', searchController.searchReborns);
+
+router.post('/createorder', verifyToken, shopController.createOrder);
 
 router.post(
   '/process-payment',
@@ -40,18 +41,24 @@ router.post(
 router.get('/product/:id', productController.getOneProduct);
 router.get('/products/:id', productController.getAllProducts);
 router.post(
-  '/product/',
+
+  '/product/:id',
+
   verifyToken,
   upload.array('photo', 12),
   productController.createProduct
 );
 router.patch(
-  '/product/',
+
+  '/product/:id',
+
   verifyToken,
   upload.array('photo', 12),
   productController.updateProduct
 );
-router.delete('/product/', verifyToken, productController.deleteProduct);
+
+router.delete('/product/:id', verifyToken, productController.deleteProduct);
+
 router.get('/products', productController.getProductsPage);
 
 router.get('/shop/:id', verifyToken, shopController.showShop);
@@ -62,11 +69,13 @@ router.get(
   verifyToken,
   shopController.getAllUserOrdersWithDetails
 );
-router.post(
-  '/orders/invoice',
+
+router.patch(
+  '/orders',
   verifyToken,
-  upload.single('invoice'),
-  shopController.uploadInvoice
+  uploadInvoice.single('invoice'),
+  shopController.uploadInvoiceInOrder
+
 );
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);

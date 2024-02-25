@@ -1,37 +1,21 @@
 @use 'src/styles/variables' as v;
 
-.delete__container h1 {
-  font-size: 1.8em;
-  margin-left: 10rem;
-  margin-bottom: 1.1rem;
-}
-
-.delete__container h1::before {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  vertical-align: -0.125em;
-  margin-right: 1rem;
-  content: url('./delete-icon.png');
-}
-
-.delete__p {
-  font-size: 1.2em;
-  margin-left: 8rem;
-  margin-top: 1.8rem;
-}
-
-.btn_delete {
-  display: block;
-  width: 200px;
-  margin-top: 2rem;
-  margin-bottom: 27rem;
-  margin-left: 8rem;
-  padding: 0.25rem;
-  font-size: 1.2em;
-  color: #fff;
+.delete__container {
   text-align: center;
- 
+  margin-top: 5rem;
+  margin-bottom: 30rem;
+}
+.delete__p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+
+}
+.btn_delete {
+  margin-top: 3rem;
+  padding: 2rem;
+  font-size: 1.5em;
+  color: #fff;
+  background-color: #ff0000; 
   border: none;
   border-radius: 5px;
   cursor: pointer;

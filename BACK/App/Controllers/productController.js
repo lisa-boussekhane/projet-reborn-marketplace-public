@@ -2,8 +2,6 @@ const { Product, Detail_product, Media, User, Shop } = require('../Models/');
 
 const { sequelize } = require('../Models/index');
 
-
-
 const productController = {
   async getOneProduct(req, res) {
     try {
@@ -37,8 +35,16 @@ const productController = {
         });
       }
 
+      const username = product.Users.length > 0 ? product.Users.username : '';
+
+      // Include the username in the product response
+      const productWithUsername = {
+        ...product.toJSON(),
+        username,
+      };
+
       // If the product is found, return it along with its detailed information and media
-      res.status(200).json(product);
+      res.status(200).json(productWithUsername);
     } catch (error) {
       // If there's an error, respond with a 500 status code and the error message
       res.status(500).json({
@@ -48,7 +54,7 @@ const productController = {
     }
   },
 
-async getAllProducts(req, res) {
+  async getAllProducts(req, res) {
     try {
       // Fetch all products from the database, including their detail_product and media
       const products = await Product.findAll({
@@ -68,14 +74,14 @@ async getAllProducts(req, res) {
           },
         ],
       });
-  
+
       if (!products || products.length === 0) {
         // If no products are found, return a 404 Not Found response
         return res.status(404).json({
           message: 'No products found',
         });
       }
-  
+
       // If products are found, return them along with their detailed information and media
       res.status(200).json(products);
     } catch (error) {
@@ -85,7 +91,7 @@ async getAllProducts(req, res) {
         error: error.message,
       });
     }
-  },  
+  },
 
   async updateProduct(req, res) {
     try {
@@ -127,7 +133,7 @@ async getAllProducts(req, res) {
     }
   },
 
- async createProduct(req, res) {
+  async createProduct(req, res) {
     // Create random unique ID for the product
     const randomId = () => {
       const s4 = () => {

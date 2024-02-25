@@ -20,8 +20,6 @@ export default function Product() {
 
   stars.forEach((star, index1) => {
     star.addEventListener('click', () => {
-      console.log(index1);
-
       stars.forEach((star, index2) => {
         index1 >= index2
           ? star.classList.add('active')
@@ -38,7 +36,6 @@ export default function Product() {
           throw new Error('Error fetching products');
         }
         const data = await response.json();
-        console.log(data);
         setProduct(data);
       } catch (error) {
         console.error('Error fetching product:', error);
@@ -49,7 +46,11 @@ export default function Product() {
   }, [id]);
 
   const handleAddToCart = () => {
-    addToCart(product);
+    if (product && product.sold) {
+      console.log("Le produit est vendu. Impossible d'ajouter au panier.");
+      return;
+    }
+    addToCart(product, id);
   };
 
   const handleNextImage = () => {
@@ -92,8 +93,8 @@ export default function Product() {
           <h2>{product ? product.title : 'Loading...'}</h2>
           <div className="product__rating">
             <p>
-              {product && product.Users && product.Users[0]
-                ? product.Users[0].first_name
+              {product?.Users?.length > 0
+                ? product.Users.username
                 : 'Details not provided by the seller yet.'}
             </p>
             <div className="star__box">
@@ -183,8 +184,13 @@ export default function Product() {
           {product ? product.shipping_fees : 'Loading...'}
         </p>
         <NavLink to="/cart">
-          <button id="cart-button" type="button" onClick={handleAddToCart}>
-            Add to cart
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            disabled={product && product.sold}
+            className={product && product.sold ? 'sold-out' : 'cart-button'}
+          >
+            {product && product.sold ? 'Product sold' : 'Add to cart'}
           </button>
         </NavLink>
       </div>

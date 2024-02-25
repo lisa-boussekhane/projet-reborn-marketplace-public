@@ -16,7 +16,6 @@ import { useEffect, useState } from 'react';
 
 export default function MyStore() {
   const navigate = useNavigate();
-
   const [shop, setShop] = useState(null);
   const [deleteProductId, setDeleteProductId] = useState(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -27,7 +26,7 @@ export default function MyStore() {
     const storedToken = localStorage.getItem('jwtToken');
 
     if (!storedToken) {
-      // Redirect the user to the login page if user ID is not available
+      // redirige user vers login si l'id n'est pas accessible
       navigate('/login');
     } else {
       // Récupérer les informations du shop du backend
@@ -44,23 +43,21 @@ export default function MyStore() {
             }
           );
 
-
-        if (response.status === 200) {
-          const shopData = await response.json();
-          setShop(shopData);
-        } else {
-          console.error('Failed to fetch shop details');
-          // si le magasin n'est pas disponible, rediriger vers la page de création du magasin
-          navigate('/createmystore');
+          if (response.status === 200) {
+            const shopData = await response.json();
+            setShop(shopData);
+          } else {
+            console.error('Failed to fetch shop details');
+            // si le magasin n'est pas disponible, rediriger vers la page de création du magasin
+            navigate('/createmystore');
+          }
+        } catch (error) {
+          console.error('An unexpected error occurred', error);
         }
-      } catch (error) {
-        console.error('An unexpected error occurred', error);
-      }
-    };
+      };
       fetchShopDetails();
     }
   }, [navigate]);
-
 
   const deleteProduct = async (productId) => {
     try {
@@ -191,20 +188,31 @@ export default function MyStore() {
         {shop && (
           <div className="seller__card">
             {shop.Products.map((product) => (
-              <div key={product.id} className="products__card">
+              <div
+                key={product.id}
+                className={`products__card ${product.sold ? 'vendu' : ''}`}
+              >
                 <div className="products__card__item">
                   <Card>
-                    {product &&
-                      product.Media &&
-                      product.Media.length > 0 &&
-                      product.Media[0].photo && (
-                        <img
-                          src={`http://localhost:5173/${product.Media[0].photo}`}
-                          alt={`Product ${product.id}`}
-                        />
-                      )}
+                    <div className="image-link">
+                      <NavLink to={`/product/${product.id}`}>
+                        {product &&
+                          product.Media &&
+                          product.Media.length > 0 &&
+                          product.Media[0].photo && (
+                            <img
+                              src={`http://localhost:5173/${product.Media[0].photo}`}
+                              alt={`Product ${product.id}`}
+                              className={product.sold ? 'vendu-image' : ''}
+                            />
+                          )}
+                      </NavLink>
+                    </div>
                     <Card.Content>
                       <NavLink to={`/product/${product.id}`}>
+                        {product.sold === true && (
+                          <div className="vendu-banner">Sold</div>
+                        )}
                         <Card.Header className="product-title">
                           {product.title}
                         </Card.Header>

@@ -10,14 +10,23 @@ User_Order_Product.init(
       type: DataTypes.DATE,
       allowNull: true,
     },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+
+    product_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     invoice: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     status: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: true,
@@ -27,6 +36,11 @@ User_Order_Product.init(
       type: DataTypes.DATE,
       allowNull: true,
       field: 'updated_at',
+    },
+    order_number: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      unique: true,
     },
   },
   {
@@ -39,4 +53,4 @@ User_Order_Product.init(
   }
 );
 
-module.exports = User_Rate_Shop;
+module.exports = User_Order_Product;

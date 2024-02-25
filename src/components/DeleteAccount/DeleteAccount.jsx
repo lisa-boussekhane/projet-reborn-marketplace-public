@@ -54,9 +54,8 @@ export default function DeleteAccount() {
         </div>
       ) : (
         <>
-          <div>
-            <h1>Delete Account</h1>
-          </div>
+          <h1>Delete Account</h1>
+
           <div className="delete__p">
             <p>
               If you decide to delete your account, this action cannot be
@@ -97,7 +96,11 @@ export default function DeleteAccount() {
               <Button color="grey" onClick={cancelDelete}>
                 <Icon name="remove" /> Cancel
               </Button>
-              <Button color="red" onClick={confirmDelete}>
+              <Button
+                color="red"
+                className="btn_delete"
+                onClick={confirmDelete}
+              >
                 <Icon name="checkmark" /> Delete
               </Button>
             </Modal.Actions>

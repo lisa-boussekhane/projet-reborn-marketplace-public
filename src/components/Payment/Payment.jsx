@@ -1,23 +1,21 @@
 import './Payment.scss';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useCart } from '../React-Context/CartContext';
 
-export default function Payment({ onPaymentConfirmed }) {
+export default function Payment() {
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const { clearCart } = useCart();
+  const { clearCart, cart } = useCart();
   const amount = searchParams.get('amount');
   const baseAmount = amount;
 
-
   // conversion en centimes pour stripe
   const convertedAmout = baseAmount * 100;
-
-  console.log(convertedAmout);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -62,20 +60,51 @@ export default function Payment({ onPaymentConfirmed }) {
         if (response.ok) {
           const data = await response.json();
           console.log('paiement effectué:', data);
-          setSuccessMessage('Payment confirmed, thank you for your order !  ');
-          clearCart();
+          const productIds = cart.map((item) => item.id);
+          const storedUserId = localStorage.getItem('userId');
+          console.log(storedUserId);
+          const createOrder = await fetch('http://localhost:3000/createorder', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`, // token récupéré dans le local storage
+            },
+            body: JSON.stringify({
+              userId: storedUserId,
+              productIds: productIds,
+            }),
+          });
 
-          onPaymentConfirmed();
-          console.log('payment confirmed:', onPaymentConfirmed);
+          // Check the response from createorder route
+          if (createOrder.ok) {
+            clearCart();
+            const createOrderData = await createOrder.json();
+            setTimeout(() => {
+              navigate('/myaccount');
+            }, 5000);
+            console.log('Order created successfully:', createOrderData);
+            const orderNumbers = createOrderData.order_numbers;
+            const successMessageOrder =
+              orderNumbers.length === 1
+                ? `Payment confirmed, thank you for your order! Your order number is: ${orderNumbers.join(
+                    ', '
+                  )}. Redirecting to my account...`
+                : `Payment confirmed, thank you for your order! Your order numbers are: ${orderNumbers.join(
+                    ', '
+                  )}. Redirecting to my account...`;
 
+            setSuccessMessage(successMessageOrder);
+          } else {
+            console.error(
+              'erreur dans la création de la commande:',
+              createOrder.status
+            );
+          }
         } else {
-          console.error('Server error:', response.status);
-
           setErrorMessage('Payment failed. Please try again.');
         }
       } catch (error) {
         console.error('Error processing payment:', error);
-
         setErrorMessage('Payment failed. Please try again.');
       }
     }

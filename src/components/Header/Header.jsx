@@ -17,7 +17,7 @@ export default function Header() {
     event.preventDefault();
     const search = event.target.search.value;
     navigate(`/results?search=${search}`);
-    console.log(search);
+    event.target.search.value = '';
   };
 
   useEffect(() => {
@@ -26,20 +26,18 @@ export default function Header() {
     if (storedToken) {
       setIsLoggedIn(true);
     }
-
   }, [setIsLoggedIn]);
-
 
   // on efface l'élément dans le localStorage
   const logOut = () => {
     localStorage.clear();
     setIsLoggedIn(false);
-
   };
 
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
   };
+
   const toggleLoginOrAccount = () => {
     if (isLoggedIn) {
       return (
@@ -49,9 +47,14 @@ export default function Header() {
       );
     }
     return (
-      <NavLink to="/login">
-        <li className="navbar__item">Login</li>
-      </NavLink>
+      <>
+        <NavLink to="/signup">
+          <li className="navbar__item">Sign up</li>
+        </NavLink>
+        <NavLink to="/login">
+          <li className="navbar__item">Login</li>
+        </NavLink>
+      </>
     );
   };
 
@@ -94,14 +97,10 @@ export default function Header() {
         <NavLink to="/contactus">
           <li className="navbar__item">Contact us</li>
         </NavLink>
-        <NavLink to="/signup">
-          <li className="navbar__item">Sign up</li>
-        </NavLink>
+
         {toggleLoginOrAccount()}
         {localStorage.getItem('jwtToken') ? (
-
           <li className="logout__btn" onClick={logOut}>
-
             Logout
           </li>
         ) : null}

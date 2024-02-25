@@ -38,7 +38,7 @@ const authController = {
       .not()
       .oneOf(['Passw0rd', 'Password123', '1234']); // Blocklist common passwords
     try {
-      const { first_name, last_name, email, password } = req.body;
+      const { first_name, last_name, email, password, username } = req.body;
 
       // Validate the email
       if (!validator.isEmail(email)) {
@@ -59,11 +59,17 @@ const authController = {
         last_name: last_name,
         email: email,
         password: password,
+        username: username,
+      });
+
+      const token = jwt.sign({ user_id: newUser.id }, process.env.SECRET, {
+        expiresIn: '1h',
       });
 
       // Respond with the created user (excluding the password for security)
       res.status(201).json({
-        id: newUser.id,
+        user: { id: newUser.id },
+        token,
       });
     } catch (error) {
       console.error('Account creation failed:', error);
@@ -89,9 +95,11 @@ const authController = {
         const token = jwt.sign({ user_id: user.id }, process.env.SECRET, {
           expiresIn: '1h',
         });
-        return res
-          .status(200)
-          .json({ success: true, token, user: { id: user.id, password: user.password, email: user.email } });
+        return res.status(200).json({
+          success: true,
+          token,
+          user: { id: user.id },
+        });
       }
       console.log('Utilisateur non trouvé');
 
@@ -173,19 +181,15 @@ const authController = {
       }
 
       // Verify the current password
-      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      const isMatch = user.validPassword(currentPassword);
       if (!isMatch) {
         return res
           .status(400)
           .json({ message: 'Current password is incorrect' });
       }
 
-      // Hash the new password
-      const salt = await bcrypt.genSalt(10); // The salt rounds, 10 is a recommended value
-      const hashedPassword = await bcrypt.hash(newPassword, salt);
-
       // Update the user's password
-      await User.update({ password: hashedPassword });
+      await User.update({ password: newPassword });
 
       // Return a success response
       res.json({ message: 'Password updated successfully' });
