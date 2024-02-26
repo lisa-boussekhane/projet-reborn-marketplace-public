@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
-const multer = require('multer');
 const http = require('http');
 const bodyParser = require('body-parser');
 
@@ -23,7 +22,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(router);
+app.use(routerAdmin);
 
 app.listen(port, () => {
   console.log(`Back Office AAR REST API is running on http://localhost:${port_admin}`);
