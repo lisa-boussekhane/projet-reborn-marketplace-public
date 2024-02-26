@@ -24,7 +24,8 @@ router.patch('/user/:id', verifyToken, authController.updateAccount);
 router.delete('/user/:id', verifyToken, authController.deleteAccount);
 router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
-router.patch('/login', verifyToken, authController.updatePassword);
+router.post('/resetrequest', verifyToken, authController.requestPasswordReset);
+router.post('/resetpassword', verifyToken, authController.updatePassword);
 
 router.get('/verifyToken', verifyToken, (req, res) => {
   const user = req.user;

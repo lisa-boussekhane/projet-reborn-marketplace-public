@@ -94,7 +94,7 @@ export default function Login() {
               onClick={handleClick}
               className="login__btn"
             />
-            <NavLink to="/resetpassword">Forgotten your password?</NavLink>
+            <NavLink to="/forgotpassword">Forgotten your password?</NavLink>
           </div>
         </form>
       </div>

@@ -3,7 +3,6 @@
 .product__container {
   display: flex;
   justify-content: space-between;
-  
 }
 
 .product__img {
@@ -39,7 +38,7 @@
 }
 
 .product__infos {
-  flex: 1; 
+  flex: 1;
   margin-left: 2rem;
 }
 
@@ -50,12 +49,12 @@
 .product__infos_row {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
   gap: 20px;
 }
 
 .product__infos_row h2 {
- font-size : 2rem;
+  font-size: 2rem;
 }
 
 .product__group__column1 {
@@ -67,12 +66,12 @@
 .product__group__column__row {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .product__fees {
-  flex: 0 0 auto; 
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -80,7 +79,7 @@
   margin-top: 1.5rem;
   gap: 8px;
   font-size: 1.3rem;
-  font-weight: bold ;
+  font-weight: bold;
 }
 
 .product__fees button {
@@ -91,12 +90,14 @@
 
 .product__rating {
   display: flex;
-  align-items: baseline; 
+  align-items: baseline;
 }
 
 .star__box {
-  margin-left: 10px; 
+  margin-top: -2rem;
+  margin-left: 25px;
 }
+
 #cart-button {
   cursor: pointer;
 }
