@@ -8,6 +8,7 @@ const routerAdmin = express.RouterAdmin();
 
 router.get('/admin/user/:id', userController.getUserInfos);
 router.get('/admin/users', userController.getAllUsers);
+router.patch('/admin/user/:id', userController.updateUser);
 
 router.delete('/admin/user/:id', authController.deleteAccount);
 router.post('/admin/login', authController.logAccount);
@@ -20,10 +21,10 @@ router.post('/admin/product/:id', upload.array('photo', 12), productController.c
 router.patch('/admin/product/:id', upload.array('photo', 12), productController.updateProduct);
 router.delete('/admin/product/:id', productController.deleteProduct);
 
-router.get('/shop/:id', verifyToken, shopController.showShop);
-router.post('/createshop/:id', verifyToken, shopController.createShop);
-router.delete('/shop/:id', shopController.deleteShop);
-router.get('/user/orders/:id', shopController.getAllUserOrdersWithDetails);
+router.get('/admin/shop/:id', shopController.showShop);
+router.post('/admin/createshop/:id', shopController.createShop);
+router.delete('/admin/shop/:id', shopController.deleteShop);
+router.get('/admin/user/orders/:id', shopController.getAllUserOrdersWithDetails);
 router.get('/admin/invoiceshop/:id', shopController.showInvoice);
 
 module.exports = routerAdmin;
