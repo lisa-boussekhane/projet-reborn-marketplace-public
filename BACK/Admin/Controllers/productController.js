@@ -1,4 +1,4 @@
-const { Product, Detail_product, Media, User, Shop } = require('../../Admin/Controllers');
+const { Product, Detail_product, Media, User, Shop } = require('../../App/Models/');
 
 const { sequelize } = require('../../App/Models/index');
 
