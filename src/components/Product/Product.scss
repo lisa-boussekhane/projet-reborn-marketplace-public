@@ -3,17 +3,12 @@
 .product__container {
   display: flex;
   justify-content: space-between;
-<<<<<<< HEAD
-  
-=======
->>>>>>> c3b8c08f97824806b589d26b20f8123324a6b37e
 }
 
 .product__img {
   flex: 1;
   padding: 20px;
   box-sizing: border-box;
-<<<<<<< HEAD
 
   .image-container {
     position: relative;
@@ -31,25 +26,6 @@
       transform: translateY(-50%);
       cursor: pointer;
 
-=======
-
-  .image-container {
-    position: relative;
-
-    img {
-      max-width: 90%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-    }
-
-    .arrow-icon {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-
->>>>>>> c3b8c08f97824806b589d26b20f8123324a6b37e
       &.left {
         left: 10px;
       }
@@ -121,7 +97,6 @@
   margin-left: 25px;
 }
 
-
 #cart-button {
   cursor: pointer;
 }
@@ -139,4 +114,3 @@
   cursor: not-allowed; /* Curseur non autorisé */
   /* Ajoutez d'autres styles que vous souhaitez appliquer pour le bouton désactivé */
 }
-
