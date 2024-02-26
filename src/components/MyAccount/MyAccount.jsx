@@ -319,7 +319,11 @@ export default function MyAccount() {
                       <strong>Price : </strong> {order.Seller.price}
                     </p>
                     <p>
-                      <strong>{order.invoice ? order.invoice : 'Invoice not available'}</strong> 
+                      <strong>
+                        {order.invoice
+                          ? order.invoice
+                          : 'Invoice not available'}
+                      </strong>
                     </p>
                   </div>
                 </li>

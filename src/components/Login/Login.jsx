@@ -96,15 +96,8 @@ export default function Login() {
             </label>
           </div>
           <div>
-
-            <input
-              type="submit"
-              value="Login"
-              onClick={handleClick}
-              className="login__btn"
-            />
+            <input type="submit" value="Login" className="login__btn" />
             <NavLink to="/forgotpassword">Forgotten your password?</NavLink>
-
           </div>
         </form>
       </div>
