@@ -17,9 +17,7 @@ const router = express.Router();
 
 router.post('/contactus', contactController.sendEmail);
 
-
 router.get('/user/:id', verifyToken, userController.getUserInfos);
-
 
 router.patch('/user/:id', verifyToken, authController.updateAccount);
 router.delete('/user/:id', verifyToken, authController.deleteAccount);
@@ -27,7 +25,6 @@ router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
 router.post('/resetrequest', verifyToken, authController.requestPasswordReset);
 router.post('/resetpassword', verifyToken, authController.updatePassword);
-
 
 router.get('/results', searchController.searchReborns);
 
@@ -40,9 +37,8 @@ router.post(
 );
 
 router.get('/product/:id', productController.getOneProduct);
-router.get('/products/:id', productController.getAllProducts);
+router.get('/products', productController.getAllProducts);
 router.post(
-
   '/product/:id',
 
   verifyToken,
@@ -50,7 +46,6 @@ router.post(
   productController.createProduct
 );
 router.patch(
-
   '/product/:id',
 
   verifyToken,
@@ -60,13 +55,13 @@ router.patch(
 
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 
-router.get('/products', productController.getProductsPage);
+// router.get('/products', productController.getProductsPage);
 
 router.get('/shop/:id', verifyToken, shopController.showShop);
 router.post('/createshop/:id', verifyToken, shopController.createShop);
 router.delete('/shop/:id', verifyToken, shopController.deleteShop);
 router.get(
-  '/shop/orders',
+  '/user/orders/:id',
   verifyToken,
   shopController.getAllUserOrdersWithDetails
 );
@@ -76,7 +71,6 @@ router.patch(
   verifyToken,
   uploadInvoice.single('invoice'),
   shopController.uploadInvoiceInOrder
-
 );
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);

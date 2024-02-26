@@ -23,7 +23,8 @@ const productController = {
           },
           {
             model: User,
-            as: 'Users',
+            as: 'Creator',
+            attributes: ['username'],
           },
         ],
       });
@@ -35,15 +36,13 @@ const productController = {
         });
       }
 
-      const username = product.Users.length > 0 ? product.Users.username : '';
+      const username = product.Creator.username || '';
 
-      // Include the username in the product response
       const productWithUsername = {
         ...product.toJSON(),
         username,
       };
 
-      // If the product is found, return it along with its detailed information and media
       res.status(200).json(productWithUsername);
     } catch (error) {
       // If there's an error, respond with a 500 status code and the error message
@@ -70,7 +69,7 @@ const productController = {
           },
           {
             model: User,
-            as: 'Users',
+            as: 'Creator',
           },
         ],
       });

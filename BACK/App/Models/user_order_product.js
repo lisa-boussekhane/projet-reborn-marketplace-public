@@ -1,4 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
+const Product = require('./product');
+const User = require('./user');
 
 const sequelize = require('./sequelize');
 
@@ -6,6 +8,10 @@ class User_Order_Product extends Model {}
 
 User_Order_Product.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
     date: {
       type: DataTypes.DATE,
       allowNull: true,
@@ -39,13 +45,13 @@ User_Order_Product.init(
     },
     order_number: {
       type: DataTypes.INTEGER,
-      allowNull: true,
-      unique: true,
+      autoIncrement: true,
+      allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: 'User_order_product',
+    modelName: 'User_Order_Product',
     tableName: 'User_Order_Product',
     timestamps: true,
     createdAt: 'created_at',

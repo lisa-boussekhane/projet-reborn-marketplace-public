@@ -106,8 +106,8 @@ export default function Product({ shopId }) {
           <h2>{product ? product.title : 'Loading...'}</h2>
           <div className="product__rating">
             <p>
-              {product?.Users?.length > 0
-                ? product.Users.username
+              {product
+                ? product.Creator.username
                 : 'Details not provided by the seller yet.'}
             </p>
             <div className="star__box">
