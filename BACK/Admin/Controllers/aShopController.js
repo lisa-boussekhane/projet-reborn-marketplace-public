@@ -1,7 +1,7 @@
-const { Product, User, Detail_product, Media, Shop, User_Order_Product } = require('../../App/Models');
-const { sequelize } = require('../../App/Models'); // Import Sequelize instance
+const { Product, User, Detail_product, Media, Shop, User_Order_Product } = require('../../Models');
+const { sequelize } = require('../../Models'); // Import Sequelize instance
 
-const shopController = {
+const aShopController = {
 async getOneShop(req, res) {
     try {
           const shopId = req.params.id; 
@@ -206,4 +206,4 @@ async getAllUserOrdersWithDetails(req, res) {
       },
 };
 
-module.exports = shopController;
+module.exports = aShopController;

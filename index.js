@@ -11,7 +11,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 const bodyParser = require('body-parser');
 
-const router = require('./BACK/App/Router/router');
+const router = require('./BACK/Router/router');
 const app = express();
 const port = process.env.PORT;
 

@@ -1,7 +1,7 @@
-const { Product, User } = require('../../App/Models');
-const { sequelize } = require('../../App/Models'); // Import Sequelize instance
+const { Product, User } = require('../../Models');
+const { sequelize } = require('../../Models'); // Import Sequelize instance
 
-const userController = {
+const aUserController = {
 async getUserInfos(req, res) {
     try {
       const userId = req.params?.id || req.userId;
@@ -62,4 +62,4 @@ async updateUser(req, res) {
   
 };
 
-module.exports = userController;
+module.exports = aUserController;

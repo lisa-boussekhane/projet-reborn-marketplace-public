@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
-const { Product, Detail_product, Media } = require('../Models/');
-const { sequelize } = require('../Models/index'); // Import Sequelize instance
+const { Product, Detail_product, Media } = require('../../Models');
+const { sequelize } = require('../../Models/index'); // Import Sequelize instance
 
 const searchController = {
   searchReborns: async (req, res) => {

@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
-const { Shop, User, User_rate_shop} = require('../Models/');
-const { sequelize } = require('../Models/index'); 
+const { Shop, User, User_rate_shop} = require('../../Models');
+const { sequelize } = require('../../Models/index'); 
 
 const ratingController = {
 async getShopRating(req, res) {

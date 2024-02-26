@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const passwordValidator = require('password-validator');
 const validator = require('validator');
-const User = require('../Models/user');
+const User = require('../../Models/user');
 const verifyToken = require('../Middlewares/authMiddleware');
 const { sendEmail } = require('./contactController');
 

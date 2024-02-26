@@ -1,8 +1,8 @@
-const { Product, Detail_product, Media, User, Shop } = require('../../App/Models/');
+const { Product, Detail_product, Media, User, Shop } = require('../../Models');
 
-const { sequelize } = require('../../App/Models/index');
+const { sequelize } = require('../../Models/index');
 
-const productController = {
+const aProductController = {
 async getOneProduct(req, res) {
     try {
       // Extract the product ID from the request parameters
@@ -224,4 +224,4 @@ async createProduct(req, res) {
 
 };
 
-module.exports = productController;
+module.exports = aProductController;
