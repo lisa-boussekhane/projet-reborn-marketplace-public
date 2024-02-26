@@ -183,4 +183,17 @@ Coté front : Sarah : authentification front, quelques problèmes
    ### Infos individuelles  
      - Rita : multer, route + controller getAllProductsAndDetails, modifs nom controllers + routes, route pour récupérer infos de user_order_product, upload facture
      - Sarah : myaccount, categories, starRating, scss, update password
-     - Lisa : chat, ajout de vendu si le produit est acheté, incrémentation de la table user_order_product, menu deroulant kit sculptor, images à faire défiler, correction productController, ne pas déconnecté user lors du refresh 
+     - Lisa : chat, ajout de vendu si le produit est acheté, incrémentation de la table user_order_product, menu deroulant kit sculptor, images à faire défiler, correction productController, ne pas déconnecté user lors du refresh
+
+         # 26/02/2024 - Sprint 3
+       Vendredi : 
+          - Rita : multer, rating, route + controller getAllProductsAndDetails + upload facture, modifs nom controllers + routes, route pour récupérer infos de user_order_product, upload facture, création des routes admin + authController/productController  
+          - Lisa : ajout de vendu si le produit est acheté, incrémentation de la table user_order_product, menu deroulant kit sculptor, images à faire défiler, correction productController, ne pas déconnecté user lors du refresh
+          - Sarah : categories, reset password, star rating 
+
+             ### Infos individuelles
+              - Rita : route + fonction controller pour ajouter invoice, route + fonction calcul rating, 3 comptes admin seeding, route + controller pour shop coté admin
+              - Sarah : reset password, note vendeur, scss mobile
+              - Lisa : régler le soucis de scss version pc+ paiement + cartes products/results/my store + myaccount, infos concernant adresse du user à envoyer dans la table user lors de la réalisation du paiement, afficher commande coté vendeur et donc upload facture uniquement pour le vendeu, mettre à jour mcd, mld, dico des données, recueil des données  
+
+       

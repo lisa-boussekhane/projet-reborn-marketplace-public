@@ -11,7 +11,7 @@ export default function ResetPassword() {
     try {
       const token = localStorage.getItem('jwtToken');
       console.log(token);
-      const response = await fetch('http://localhost:3000/resetpassword', {
+      const response = await fetch('http://localhost:3000/updatepassword', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

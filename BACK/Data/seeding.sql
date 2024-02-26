@@ -19,7 +19,10 @@ DELETE FROM "user";
 INSERT INTO "user" ("id", "first_name", "last_name", "username", "email", "password", "date_of_birth", "phone", "address", "zip_code", "city", "state", "role", "pro", "duns" ) OVERRIDING SYSTEM VALUE VALUES
 (1, 'Gabriela', 'Fernandez', 'GFernandez', 'gabriela.fernandez@gmail.com', 'reborn', '1986-12-21', '5555551234', '20 W 34th St.', ' 10001', 'New York', 'New York', 'Seller', 'Yes', '150483782'),
 (2, 'Cynthia', 'Smith', 'cynthiasmith87', 'cynthia.smith@yahoo.com', 'reborn', '1987-12-05', '5555555678', '2760 Fifth Avenue', '92103', 'San Diego', 'California', 'Buyer', 'No', NULL),
-(3, 'Mary', 'Doe', 'marydoe', 'mary.doe@outlook.com', 'reborn', '1976-02-10', '5556575678', '1112 Northside Dr NW', '30318', 'Atlanta', 'Georgia', 'Seller/Buyer', 'No', NULL);
+(3, 'Mary', 'Doe', 'marydoe', 'mary.doe@outlook.com', 'reborn', '1976-02-10', '5556575678', '1112 Northside Dr NW', '30318', 'Atlanta', 'Georgia', 'Seller/Buyer', 'No', NULL),
+(4, 'Lisa', 'Boussekhane', 'lisab', 'lisab@gmail.com', 'reborn', '1976-02-10', '5556578765', '1112 Northside Dr NW', '30318', 'Atlanta', 'Georgia', 'Admin', 'No', NULL),
+(5, 'Rita', 'Verissimo', 'ritav', 'rita.verissimo.h@gmail.com', 'reborn', '1986-05-21', '5556573239', '1112 Northside Dr NW', '30318', 'Atlanta', 'Georgia', 'Admin', 'No', NULL),
+(6, 'Sarah', 'Iritié', 'sarahi', 'sarahi@gmail.com', 'reborn', '1976-02-10', '5556574655', '1112 Northside Dr NW', '30318', 'Atlanta', 'Georgia', 'Admin', 'No', NULL);
 
 SELECT setval('"user_id_seq"', (SELECT MAX(id) + 1 FROM "user"));
 

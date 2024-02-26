@@ -2,7 +2,7 @@ const { Product, User } = require('../../App/Models');
 const { sequelize } = require('../../App/Models'); // Import Sequelize instance
 
 const userController = {
-  async getUserInfos(req, res) {
+async getUserInfos(req, res) {
     try {
       const userId = req.params?.id || req.userId;
       const targetedUser = await User.findByPk(userId);
@@ -36,7 +36,30 @@ async getAllUsers(req, res) {
       console.error(error);
       return res.status(500).json({ message: 'An unexpected error occurred.' });
     }
-  }
+  },
+
+async updateUser(req, res) {
+    try {
+      const userId = req.params?.id || req.userId; // Get the user ID from URL parameters or request object
+      const updates = req.body; // Assuming all updates are passed in the request body
+  
+      const [updatedRows] = await User.update(updates, {
+        where: { id: userId },
+        returning: true, // For PostgreSQL, returns the updated object
+      });
+  
+      if (!updatedRows) {
+        return res.status(404).json({ message: `User with id ${userId} not found.` });
+      }
+  
+      const updatedUser = await User.findByPk(userId); // Fetch the updated user details
+      return res.status(200).json(updatedUser); // Return the updated user details
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'An unexpected error occurred.' });
+    }
+  },
+  
 };
 
 module.exports = userController;

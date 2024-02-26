@@ -42,6 +42,7 @@ Product.belongsTo(User, {
   foreignKey: 'user_id',
   as: 'Creator',
 });
+
 // Product and DetailProduct (One-to-One)
 Product.hasOne(Detail_product, { foreignKey: 'product_id' });
 Detail_product.belongsTo(Product, { foreignKey: 'product_id' });

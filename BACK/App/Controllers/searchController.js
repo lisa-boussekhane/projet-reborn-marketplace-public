@@ -57,6 +57,7 @@ const searchController = {
       );
 
       // combiner les résultats en un seul tableau
+
       const uniqueResults = [
         ...productResultsFormatted,
         ...detailProductResultsFormatted,

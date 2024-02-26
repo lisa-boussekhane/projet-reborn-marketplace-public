@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { Card, Image } from 'semantic-ui-react';
-import { useParams } from 'react-router-dom';
 import './Products.scss';
 
 export default function Products() {
@@ -323,6 +322,7 @@ export default function Products() {
                     {product.sold === true && (
                       <div className="vendu-banner">Sold</div>
                     )}
+
                     <Card.Header className="product-title">
                       {product.title}
                     </Card.Header>

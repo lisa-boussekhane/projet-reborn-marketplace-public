@@ -1,3 +1,4 @@
+
 const {
   Product,
   Shop,
@@ -5,6 +6,7 @@ const {
   User,
   User_Order_Product,
 } = require('../Models/');
+
 
 const multer = require('multer');
 const fs = require('fs');
@@ -14,7 +16,7 @@ const { sequelize } = require('../Models/index'); // Import Sequelize instance
 
 const shopController = {
   // ne touche pas à showShop stp
-  async showShop(req, res) {
+async showShop(req, res) {
     try {
       const userId = req.params.id;
       console.log(userId);
@@ -115,7 +117,7 @@ const shopController = {
     }
   },
 
-  async getAllUserOrdersWithDetails(req, res) {
+async getAllUserOrdersWithDetails(req, res) {
     try {
       const userId = req.params.id;
 
@@ -163,45 +165,27 @@ const shopController = {
     }
   },
 
-  async uploadInvoiceInOrder(req, res) {
-    try {
-      console.log(req.files);
+async uploadInvoiceInOrder(req, res) {
+  try {
+    const orderId = req.query.order_id || req.body.order_id;
 
-      const productId = req.params.id;
-      const productData = req.body;
-      const detailProductData = req.body;
-      const mediaDataArray = req.files.map((file) => ({
-        path: file.path,
-      }));
-
-      // Update product
-      await Product.update(productData, { where: { id: productId } });
-
-      // Update detailProduct
-      await Detail_product.update(detailProductData, {
-        where: { product_id: productId },
-      });
-
-      // supprimer le média déjà existant
-      await Media.destroy({ where: { product_id: productId } });
-
-      // insérer le nouveau
-      const mediaPromises = mediaDataArray.map((mediaData) =>
-        Media.create({ photo: mediaData.path, product_id: productId })
-      );
-      await Promise.all(mediaPromises);
-
-      res.status(200).json({
-        message: 'Product updated successfully with files',
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        message: 'Failed to update product with files',
-        error: error.message,
-      });
+    if (!req.file) {
+        return res.status(400).send({ message: "No invoice file uploaded." });
     }
-  },
+
+    const invoicePath = req.file.path; // Path where the uploaded file is saved
+
+    // Update the order with the invoice file path using Sequelize
+    // Assuming you have an Order model and an 'invoicePath' field in your orders table
+    await User_Order_Product.update({ invoice: invoicePath }, { where: { id: orderId } });
+
+    res.json({ message: "Invoice uploaded successfully.", invoice: invoicePath });
+} catch (error) {
+    console.error('Error uploading invoice:', error.message);
+    res.status(500).json({ error: "An error occurred while uploading the invoice." });
+}
+},
+
 
   async createOrder(req, res) {
     const orderNumber = async () => {
@@ -219,6 +203,7 @@ const shopController = {
 
       return newOrderNumber;
     };
+
     try {
       const { userId, productIds } = req.body;
       console.log('user id', userId);
