@@ -100,9 +100,7 @@ const authController = {
           success: true,
           token,
 
-
           user: { id: user.id, email: user.email, role: user.role },
-
         });
       }
       console.log('Utilisateur non trouvé');

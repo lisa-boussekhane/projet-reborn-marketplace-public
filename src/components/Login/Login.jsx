@@ -39,7 +39,7 @@ export default function Login() {
         setLoginError(false);
         setIsLoggedIn(true);
 
-        if (user.role === 'admin') {
+        if (user.role === 'Admin') {
           navigate('/admindashboard');
         } else {
           navigate('/myaccount');

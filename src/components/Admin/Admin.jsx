@@ -7,7 +7,7 @@ export default function Admin() {
   const [errorMessage, setErrorMessage] = useState('');
   const userRole = localStorage.getItem('userRole');
   useEffect(() => {
-    if (userRole !== 'admin') {
+    if (userRole !== 'Admin') {
       setErrorMessage('You do not have the permissions to access this page.');
 
       const timeoutId = setTimeout(() => {
@@ -20,14 +20,15 @@ export default function Admin() {
 
   return (
     <div className="admin-page">
-      Admin dashboard
       {errorMessage && <p>{errorMessage}</p>}
-      {userRole === 'admin' && (
+      {userRole === 'Admin' && (
         <>
-          {' '}
-          <NavLink to="/allusers">All Users</NavLink>
-          <NavLink to="/allshop">All Shops</NavLink>
-          <NavLink to="/allproducts">All Products</NavLink>
+          <div className="admin-header">Admin dashboard</div>
+          <div className="admin-nav">
+            <NavLink to="/allusers">All Users</NavLink>
+            <NavLink to="/allshop">All Shops</NavLink>
+            <NavLink to="/allproducts">All Products</NavLink>
+          </div>
         </>
       )}
     </div>
