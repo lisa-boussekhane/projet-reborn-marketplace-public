@@ -27,10 +27,12 @@ import Payment from '../Payment/Payment';
 import Product from '../Product/Product';
 import MyStore from '../MyStore/MyStore';
 import UpdateProduct from '../UpdateProduct/UpdateProduct';
+import Admin from '../Admin/Admin';
+import AdminUsers from '../AdminUsers/AdminUsers';
+import AdminShops from '../AdminShops/AdminShops';
+import AdminProducts from '../AdminProducts/AdminProducts';
 
 function App() {
-
-
   return (
     <div className="app">
       <Header />
@@ -40,7 +42,10 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgotpassword" element={<ResetRequest />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
-
+        <Route path="/admindashboard" element={<Admin />} />
+        <Route path="/adminusers" element={<AdminUsers />} />
+        <Route path="/adminshops" element={<AdminShops />} />
+        <Route path="/adminproducts" element={<AdminProducts />} />
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
         <Route path="/cart" element={<Cart />} />
