@@ -1,9 +1,9 @@
 import './SellMyReborn.scss';
 import { useState } from 'react';
-import { useAuth } from '../React-Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function SellMyReborn() {
-  const { user } = useAuth();
+  const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
     kit_name: '',
@@ -165,7 +165,6 @@ export default function SellMyReborn() {
         ...formData,
         [name]: e.target.files,
       });
-      console.log(`Files for ${name}:`, e.target.files);
     } else {
       setFormData((prevFormData) => {
         // Utilisez Object.keys() pour obtenir les clés de l'objet
@@ -222,7 +221,9 @@ export default function SellMyReborn() {
 
       // afficher produit créé en console
       setMessage('Congratulations! Your product has been created.');
-      console.log('Form Data:', formData);
+      setTimeout(() => {
+        navigate('/mystore');
+      }, 1000);
     } catch (error) {
       setMessage('Failed to create product. Please try again.');
       console.error('Failed to create product', error.message);
@@ -266,6 +267,7 @@ export default function SellMyReborn() {
                 onChange={handleChange}
                 placeholder="Title"
                 className="larger-input"
+                required
               />
               <input
                 type="text"
@@ -275,6 +277,7 @@ export default function SellMyReborn() {
                 onChange={handleChange}
                 placeholder="Name of the kit"
                 className="larger-input"
+                required
               />
               <input
                 type="number"
@@ -284,6 +287,7 @@ export default function SellMyReborn() {
                 onChange={handleChange}
                 placeholder="Creation Year"
                 className="larger-input"
+                required
               />
               <input
                 type="text"
@@ -293,6 +297,7 @@ export default function SellMyReborn() {
                 onChange={handleChange}
                 placeholder="Size (in inches)"
                 className="larger-input"
+                required
               />
               <input
                 type="text"
@@ -302,6 +307,7 @@ export default function SellMyReborn() {
                 onChange={handleChange}
                 placeholder="Weight (in pounds)"
                 className="larger-input"
+                required
               />
               <input
                 type="text"
@@ -311,6 +317,7 @@ export default function SellMyReborn() {
                 onChange={handleChange}
                 placeholder="Location"
                 className="larger-input"
+                required
               />
 
               <input
@@ -326,6 +333,7 @@ export default function SellMyReborn() {
                 value={formData.sculptor}
                 onChange={handleChange}
                 className="larger-input"
+                required
               >
                 {filteredOptions.map((option, name) => (
                   <option key={name} value={option}>
@@ -342,6 +350,7 @@ export default function SellMyReborn() {
                 onChange={handleChange}
                 placeholder="Price"
                 className="larger-input"
+                required
               />
               <input
                 type="text"
@@ -351,6 +360,7 @@ export default function SellMyReborn() {
                 value={formData.shipping_fees}
                 onChange={handleChange}
                 className="larger-input"
+                required
               />
             </div>
             <div className="sell__col2">
@@ -360,6 +370,7 @@ export default function SellMyReborn() {
                 value={formData.belly_plate}
                 onChange={handleChange}
                 className="larger-input"
+                required
               >
                 <option value="auth">Belly plate?</option>
                 <option value="Yes">Yes</option>
@@ -371,6 +382,7 @@ export default function SellMyReborn() {
                 value={formData.gender}
                 onChange={handleChange}
                 className="larger-input"
+                required
               >
                 <option value="gen">Gender</option>
                 <option value="boy">Boy</option>
@@ -383,6 +395,7 @@ export default function SellMyReborn() {
                 value={formData.status}
                 onChange={handleChange}
                 className="larger-input"
+                required
               >
                 <option value="stat">Status</option>
                 <option value="new">New</option>
@@ -394,6 +407,7 @@ export default function SellMyReborn() {
                 value={formData.authenticity_card}
                 onChange={handleChange}
                 className="larger-input"
+                required
               >
                 <option value="auth">Authenticity card?</option>
                 <option value="yes">Yes</option>
@@ -405,6 +419,7 @@ export default function SellMyReborn() {
                 value={formData.type}
                 onChange={handleChange}
                 className="larger-input"
+                required
               >
                 <option value="material">Type</option>
                 <option value="vinyl">Vinyl</option>
@@ -417,6 +432,7 @@ export default function SellMyReborn() {
                 value={formData.age_range}
                 onChange={handleChange}
                 className="larger-input"
+                required
               >
                 <option value="range">Age range</option>
                 <option value="baby">Baby</option>
@@ -428,6 +444,7 @@ export default function SellMyReborn() {
                 value={formData.eyes}
                 onChange={handleChange}
                 className="larger-input"
+                required
               >
                 <option value="feature">Eyes</option>
                 <option value="blue">Blue</option>
@@ -442,6 +459,7 @@ export default function SellMyReborn() {
                 value={formData.hair}
                 onChange={handleChange}
                 className="larger-input"
+                required
               >
                 <option value="detail">Hair</option>
                 <option value="painting">Hair painting</option>
@@ -464,6 +482,7 @@ export default function SellMyReborn() {
               style={{ resize: 'none', height: '150px', width: '300px' }}
               value={formData.description}
               onChange={handleChange}
+              required
             />
           </div>
 

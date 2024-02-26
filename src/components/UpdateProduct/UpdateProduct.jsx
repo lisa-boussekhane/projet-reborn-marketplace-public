@@ -1,13 +1,16 @@
 import './UpdateProduct.scss';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function UpdateProduct() {
+  const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [product, setProduct] = useState(null);
   const { id } = useParams();
   const [formData, setFormData] = useState();
   const [searchTerm, setSearchTerm] = useState('');
+  const [showReturnButton, setShowReturnButton] = useState(false);
 
   const options = [
     'Or choose one here',
@@ -234,7 +237,7 @@ export default function UpdateProduct() {
       });
 
       setMessage('Congratulations! Your product has been updated.');
-      console.log('Form Data:', formData);
+      setShowReturnButton(true);
     } catch (error) {
       console.error('Error updating product:', error);
       setMessage('Failed to create product. Please try again.');
@@ -251,6 +254,15 @@ export default function UpdateProduct() {
           }`}
         >
           {message}
+          {showReturnButton && (
+            <button
+              className="store_btn"
+              type="button"
+              onClick={() => navigate('/mystore')}
+            >
+              Return to my store
+            </button>
+          )}
         </p>
       )}
       {product && product.Detail_product && (
@@ -292,6 +304,7 @@ export default function UpdateProduct() {
                   onChange={handleChange}
                   placeholder="Title"
                   className="larger-input"
+                  required
                 />
 
                 <input
@@ -302,6 +315,7 @@ export default function UpdateProduct() {
                   onChange={handleChange}
                   placeholder="Name of the kit"
                   className="larger-input"
+                  required
                 />
 
                 <input
@@ -312,6 +326,7 @@ export default function UpdateProduct() {
                   onChange={handleChange}
                   placeholder="Creation Year"
                   className="larger-input"
+                  required
                 />
 
                 <input
@@ -322,6 +337,7 @@ export default function UpdateProduct() {
                   onChange={handleChange}
                   placeholder="Size (in inches)"
                   className="larger-input"
+                  required
                 />
 
                 <input
@@ -332,6 +348,7 @@ export default function UpdateProduct() {
                   onChange={handleChange}
                   placeholder="Weight (in pounds)"
                   className="larger-input"
+                  required
                 />
 
                 <input
@@ -342,6 +359,7 @@ export default function UpdateProduct() {
                   onChange={handleChange}
                   placeholder="Location"
                   className="larger-input"
+                  required
                 />
                 <input
                   type="text"
@@ -355,6 +373,7 @@ export default function UpdateProduct() {
                   value={formData.sculptor}
                   onChange={handleChange}
                   className="larger-input"
+                  required
                 >
                   {filteredOptions.map((option, name) => (
                     <option key={name} value={option}>
@@ -371,6 +390,7 @@ export default function UpdateProduct() {
                   onChange={handleChange}
                   placeholder="Price"
                   className="larger-input"
+                  required
                 />
 
                 <input
@@ -381,6 +401,7 @@ export default function UpdateProduct() {
                   value={formData.shipping_fees}
                   onChange={handleChange}
                   className="larger-input"
+                  required
                 />
               </div>
               <div className="sell__col2">
@@ -390,6 +411,7 @@ export default function UpdateProduct() {
                   value={formData.belly_plate}
                   onChange={handleChange}
                   className="larger-input"
+                  required
                 >
                   <option value="auth">Belly plate?</option>
                   <option value="Yes">Yes</option>
@@ -402,6 +424,7 @@ export default function UpdateProduct() {
                   value={formData.gender}
                   onChange={handleChange}
                   className="larger-input"
+                  required
                 >
                   <option value="gen">Gender</option>
                   <option value="boy">Boy</option>
@@ -415,6 +438,7 @@ export default function UpdateProduct() {
                   value={formData.status}
                   onChange={handleChange}
                   className="larger-input"
+                  required
                 >
                   <option value="stat">Status</option>
                   <option value="new">New</option>
@@ -427,6 +451,7 @@ export default function UpdateProduct() {
                   value={formData.authenticity_card}
                   onChange={handleChange}
                   className="larger-input"
+                  required
                 >
                   <option value="auth">Authenticity card?</option>
                   <option value="yes">Yes</option>
@@ -439,6 +464,7 @@ export default function UpdateProduct() {
                   value={formData.type}
                   onChange={handleChange}
                   className="larger-input"
+                  required
                 >
                   <option value="material">Type</option>
                   <option value="vinyl">Vinyl</option>
@@ -452,6 +478,7 @@ export default function UpdateProduct() {
                   value={formData.age_range}
                   onChange={handleChange}
                   className="larger-input"
+                  required
                 >
                   <option value="range">Age range</option>
                   <option value="baby">Baby</option>
@@ -464,6 +491,7 @@ export default function UpdateProduct() {
                   value={formData.eyes}
                   onChange={handleChange}
                   className="larger-input"
+                  required
                 >
                   <option value="feature">Eyes</option>
                   <option value="blue">Blue</option>
@@ -479,6 +507,7 @@ export default function UpdateProduct() {
                   value={formData.hair}
                   onChange={handleChange}
                   className="larger-input"
+                  required
                 >
                   <option value="detail">Hair</option>
                   <option value="painting">Hair painting</option>
@@ -502,6 +531,7 @@ export default function UpdateProduct() {
                 style={{ resize: 'none', height: '150px', width: '300px' }}
                 value={formData.description}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="sell__btn">

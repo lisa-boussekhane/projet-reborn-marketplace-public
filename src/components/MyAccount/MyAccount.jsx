@@ -1,43 +1,126 @@
 import './MyAccount.scss';
 import { useState, useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
-import { useParams } from 'react-router-dom';
-import { useAuth } from '../React-Context/AuthContext';
 
 export default function MyAccount() {
-  const [userInfo, setUserInfo] = useState({
-    username: '',
-    first_name: '',
-    last_name: '',
-    phone: '',
-  });
-  const [isUserUpdated, setisUserUpdated] = useState(false);
-  const { user } = useAuth();
-  const { id } = useParams();
+  const [userInfo, setUserInfo] = useState();
+  const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState();
+  const [userOrders, setUserOrders] = useState([]);
 
+  const storedUserId = localStorage.getItem('userId');
   useEffect(() => {
     const handleInfo = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await fetch(`http://localhost:3000/user`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `http://localhost:3000/user/${storedUserId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error('Error fetching user data');
         }
         const data = await response.json();
         setUserInfo(data);
-        setisUserUpdated(false);
+        setFormData({
+          username: data.targetedUser.username || '',
+          first_name: data.targetedUser.first_name || '',
+          last_name: data.targetedUser.last_name || '',
+          date_of_birth: data.targetedUser.date_of_birth || '',
+          phone: data.targetedUser.phone || '',
+          pro: data.targetedUser.pro || '',
+          duns: data.targetedUser.duns || '',
+          email: data.targetedUser.email || '',
+          address: data.targetedUser.address || '',
+          zip_code: data.targetedUser.zip_code || '',
+          city: data.targetedUser.city || '',
+          state: data.targetedUser.state || '',
+        });
       } catch (error) {
         console.log({ error });
       }
     };
     handleInfo();
-  }, [id, user, isUserUpdated]);
-  console.log({ userInfo });
+  }, [storedUserId]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prevFormData) => {
+      const formDataCopy = { ...prevFormData };
+
+      // Vérifiez si la clé existe avant de mettre à jour
+      if (Object.keys(formDataCopy).includes(name)) {
+        formDataCopy[name] = value;
+      }
+
+      return formDataCopy;
+    });
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem('jwtToken');
+      const response = await fetch(
+        `http://localhost:3000/user/${storedUserId}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('erreur pendant la modification');
+      }
+
+      setMessage(
+        'Congratulations! Your personal information has been updated.'
+      );
+
+      console.log('user modifié !');
+    } catch (error) {
+      console.log({ error });
+      setMessage('Failed to update your informations. Please try again.');
+    }
+  };
+  useEffect(() => {
+    const fetchUserOrders = async () => {
+      try {
+        const token = localStorage.getItem('jwtToken');
+        const orders = await fetch(
+          `http://localhost:3000/user/orders/${storedUserId}`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!orders.ok) {
+          throw new Error('Error fetching user orders');
+        }
+
+        const ordersData = await orders.json();
+        const { ordersWithDetails } = ordersData;
+        console.log('Orders Data:', ordersWithDetails);
+        setUserOrders(ordersWithDetails);
+      } catch (error) {
+        console.log({ error });
+      }
+    };
+    fetchUserOrders();
+  }, [storedUserId]);
 
   return (
     <div className="account__container">
@@ -67,86 +150,137 @@ export default function MyAccount() {
 
           <div className="profile__title">
             <h1>My profile</h1>
+            {message && (
+              <p
+                className={`message ${
+                  message.includes('Error') ? 'error' : 'success'
+                }`}
+              >
+                {message}
+              </p>
+            )}
           </div>
           <div className="profile__subtitle">
             <h2>Information</h2>
           </div>
-          <form className="profile__elem" method="get">
-            <label htmlFor="username">
-              Username
-              <input
-                type="text"
-                name="username"
-                id="username"
-                value={userInfo.username}
-                onChange={(e) =>
-                  setUserInfo({ ...userInfo, username: e.target.value })
-                }
-              />
-            </label>
-            <label htmlFor="firstname">
-              Firstname
-              <input
-                type="text"
-                name="firstname"
-                id="firstname"
-                value={userInfo.first_name}
-                onChange={(e) =>
-                  setUserInfo({ ...userInfo, first_name: e.target.value })
-                }
-              />
-            </label>
-            <label htmlFor="last name">
-              Lastname
-              <input
-                type="text"
-                name="lastname"
-                id="lastname"
-                value={userInfo.last_name}
-                onChange={(e) =>
-                  setUserInfo({ ...userInfo, last_name: e.target.value })
-                }
-              />
-            </label>
-            <label htmlFor="phone">
-              Phone number
-              <input
-                type="tel"
-                name="phone"
-                id="phone"
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                required
-                value={userInfo.phone}
-                onChange={(e) =>
-                  setUserInfo({ ...userInfo, phone: e.target.value })
-                }
-              />
-            </label>
-            <input type="submit" value="Save" className="save__btn" />
-          </form>
-        </div>
-
-        <div className="login__information">
-          <img src="./edit-icon.png" alt="" className="edit__icon__login" />
-          <div className="login__subtitle">
-            {' '}
-            <h2>Login and Password</h2>
-          </div>
-
-          <form className="profile__elem__second" method="post" action="">
-            <label htmlFor="email">
-              Email address <input type="email" name="email" id="email" />
-            </label>
-            <label htmlFor="password">
-              Password
-              <input type="password" name="password" id="password" />
-            </label>
-            <input
-              type="submit"
-              value="Save Password"
-              className="savepass__btn"
-            />
-          </form>
+          {userInfo && userInfo.targetedUser && (
+            <form className="profile__elem" onSubmit={handleFormSubmit}>
+              <label htmlFor="username">
+                Username
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  value={formData.username || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <label htmlFor="firstname">
+                Firstname
+                <input
+                  type="text"
+                  name="first_name"
+                  id="firstname"
+                  value={formData.first_name}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label htmlFor="last name">
+                Lastname
+                <input
+                  type="text"
+                  name="last_name"
+                  id="lastname"
+                  value={formData.last_name}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label htmlFor="date of birth">
+                Date of birth
+                <input
+                  type="text"
+                  name="date_of_birth"
+                  id="date_of_birth"
+                  value={formData.date_of_birth || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <label htmlFor="phone">
+                Phone number
+                <input
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  value={formData.phone || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <label htmlFor="email">
+                Email address{' '}
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label htmlFor="pro">
+                Pro
+                <input
+                  type="text"
+                  name="pro"
+                  id="pro"
+                  value={formData.pro || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <label htmlFor="duns">
+                Duns
+                <input
+                  type="text"
+                  name="duns"
+                  id="duns"
+                  value={formData.duns || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <label htmlFor="address">
+                Address
+                <input
+                  type="address"
+                  name="address"
+                  id="address"
+                  value={formData.address || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <label htmlFor="zip_code">
+                Zip_code
+                <input
+                  type="zip_code"
+                  name="zip_code"
+                  id="zip_code"
+                  value={formData.zip_code || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <label htmlFor="city">
+                City
+                <input
+                  type="city"
+                  name="city"
+                  id="city"
+                  value={formData.city || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <input type="submit" value="Save" className="save__btn" />
+            </form>
+          )}
         </div>
       </div>
 
@@ -154,18 +288,44 @@ export default function MyAccount() {
         <div>
           <h1>Orders and Returns</h1>
         </div>
-
         <div className="order__container">
-          <ul className="order__list">
-            <li>Order id:</li>
-            <li>Date Paid:</li>
-            <li>Total Paid:</li>
-            <li>Order Status:</li>
-          </ul>
-        </div>
-
-        <div className="order__photos">
-          <p className="order__p">Photos will be added here</p>
+          {userOrders.length === 0 ? (
+            <p>Loading...</p>
+          ) : (
+            <ul className="order__list">
+              {(!userInfo || userOrders.length === 0) && <p>Loading...</p>}
+              {userOrders.map((order) => (
+                <li key={order.id} className="order__item">
+                  <div className="order__details">
+                    <p>
+                      <strong>Order number :</strong> {order.order_number}
+                    </p>
+                    <p>
+                      <strong>Date Paid :</strong> {order.date}
+                    </p>
+                    <p>
+                      <strong>Total Paid :</strong> {order.Seller.price}
+                    </p>
+                    <p>
+                      <strong>Order Status :</strong> {order.status}
+                    </p>
+                    <p>
+                      <strong>Product name :</strong> {order.Seller.title}
+                    </p>
+                    <p>
+                      <strong>Delivery address :</strong> {order.Buyer.address}
+                    </p>
+                    <p>
+                      <strong>Price : </strong> {order.Seller.price}
+                    </p>
+                    <p>
+                      <strong>{order.invoice ? order.invoice : 'Invoice not available'}</strong> 
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>

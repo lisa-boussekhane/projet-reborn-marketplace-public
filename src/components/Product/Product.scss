@@ -3,13 +3,17 @@
 .product__container {
   display: flex;
   justify-content: space-between;
+<<<<<<< HEAD
   
+=======
+>>>>>>> c3b8c08f97824806b589d26b20f8123324a6b37e
 }
 
 .product__img {
   flex: 1;
   padding: 20px;
   box-sizing: border-box;
+<<<<<<< HEAD
 
   .image-container {
     position: relative;
@@ -27,6 +31,25 @@
       transform: translateY(-50%);
       cursor: pointer;
 
+=======
+
+  .image-container {
+    position: relative;
+
+    img {
+      max-width: 90%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .arrow-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+
+>>>>>>> c3b8c08f97824806b589d26b20f8123324a6b37e
       &.left {
         left: 10px;
       }
@@ -39,7 +62,7 @@
 }
 
 .product__infos {
-  flex: 1; 
+  flex: 1;
   margin-left: 2rem;
 }
 
@@ -50,12 +73,12 @@
 .product__infos_row {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
   gap: 20px;
 }
 
 .product__infos_row h2 {
- font-size : 2rem;
+  font-size: 2rem;
 }
 
 .product__group__column1 {
@@ -67,12 +90,12 @@
 .product__group__column__row {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .product__fees {
-  flex: 0 0 auto; 
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -80,23 +103,40 @@
   margin-top: 1.5rem;
   gap: 8px;
   font-size: 1.3rem;
-  font-weight: bold ;
+  font-weight: bold;
 }
 
 .product__fees button {
-  background-color: v.$blue;
-  border: 2px solid v.$blue;
+  margin-right: 1rem;
   padding: 1rem;
 }
 
 .product__rating {
   display: flex;
-  align-items: baseline; 
+  align-items: baseline;
 }
 
 .star__box {
-  margin-left: 10px; 
+  margin-top: -2rem;
+  margin-left: 25px;
 }
+
+
 #cart-button {
   cursor: pointer;
 }
+
+.cart-button {
+  cursor: pointer;
+  background-color: v.$blue;
+  border: 2px solid v.$blue;
+  border-radius: 3px;
+}
+
+.sold-out {
+  background-color: rgb(187, 180, 180); /* Couleur de fond transparente */
+  border-radius: 8px;
+  cursor: not-allowed; /* Curseur non autorisé */
+  /* Ajoutez d'autres styles que vous souhaitez appliquer pour le bouton désactivé */
+}
+

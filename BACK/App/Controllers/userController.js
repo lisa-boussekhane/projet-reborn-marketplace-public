@@ -4,12 +4,7 @@ const { sequelize } = require('../Models/index'); // Import Sequelize instance
 const userController = {
   async getUserInfos(req, res) {
     try {
-<<<<<<< HEAD
-      const userId = req.user.user_id;
-=======
       const userId = req.params?.id || req.userId;
-
->>>>>>> 2c9a2420ed093b6fbad711b3b1a5f64422c483af
       const targetedUser = await User.findByPk(userId);
 
       if (!targetedUser) {
@@ -22,29 +17,6 @@ const userController = {
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: 'An unexpected error occurred.' });
-    }
-  },
-
-  async getOrdersReturns(req, res) {
-    try {
-      const userId = req.user.id;
-
-      const userOrders = await User.findByPk(userId, {
-        include: [
-          {
-            model: Product,
-            attributes: ['id', 'title', 'kit_name', 'price', 'created_at'],
-          },
-        ],
-      });
-
-      // accéder aux pdts qui sont associés à l'utilisateur
-      const orders = userOrders.product;
-
-      res.status(200).json({ orders });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'An unexpected error occurred.' });
     }
   },
 };

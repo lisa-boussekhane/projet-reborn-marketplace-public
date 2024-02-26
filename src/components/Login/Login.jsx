@@ -1,7 +1,7 @@
 import './Login.scss';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Input, Button } from 'semantic-ui-react';
 import { useAuth } from '../React-Context/AuthContext';
 
 export default function Login() {
@@ -11,13 +11,7 @@ export default function Login() {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const { setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
-
-  // if login successful, user gets redirected to my account page
-  const handleClick = () => {
-    if (loginSuccess) {
-      setTimeout(() => navigate('/myaccount', { replace: true }), 1000);
-    }
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +28,8 @@ export default function Login() {
       console.log('API Response:', data);
       const { token, user } = data;
 
-      // stocker le token dans localStorage
+      // stocker le token et l'id dans localStorage
+
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('userId', user.id);
 
@@ -42,7 +37,8 @@ export default function Login() {
         setLoginSuccess(true);
         setLoginError(false);
         setIsLoggedIn(true);
-        handleClick();
+
+        navigate('/myaccount');
       } else {
         console.error('Échec de la connexion');
       }
@@ -74,35 +70,40 @@ export default function Login() {
               />
             </label>
           </div>
-          <div className="form__group">
+          <div className="form__group__password">
             <label htmlFor="password">
               Password:{' '}
-              <input
-                type="password"
+              <Input
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 id="password"
                 placeholder="Password"
+                min={8}
                 required
-                onChange={(e) => setPassword(e.target.value)}
+                action={
+                  <Button
+                    icon={showPassword ? 'eye slash' : 'eye'}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowPassword(!showPassword);
+                    }}
+                  />
+                }
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </label>
           </div>
           <div>
-            <input
-              type="submit"
-              value="Login"
-              onClick={handleClick}
-              className="login__btn"
-            />
-            <NavLink to="/resetpassword">Forgotten your password?</NavLink>
+            <input type="submit" value="Login" className="login__btn" />
+            <NavLink to="/forgotpassword">Forgotten your password?</NavLink>
           </div>
         </form>
       </div>
       <div className="signup__box">
         <div className="sign__btn">
-          <NavLink to="/signup">
-            <input type="submit" value="Sign Up" />
-          </NavLink>
+          <NavLink to="/signup">Sign Up</NavLink>
         </div>
       </div>
     </>

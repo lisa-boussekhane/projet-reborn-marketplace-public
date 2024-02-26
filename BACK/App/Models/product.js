@@ -1,7 +1,8 @@
-const { Model, DataTypes, INTEGER, BOOLEAN} = require('sequelize');
+const { Model, DataTypes, INTEGER, BOOLEAN } = require('sequelize');
 
 
 const sequelize = require('./sequelize');
+const User = require('./user');
 
 class Product extends Model {}
 
@@ -66,6 +67,10 @@ Product.init(
       allowNull: true,
       field: 'updated_at',
     },
+    sold: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
     sequelize,
@@ -77,5 +82,16 @@ Product.init(
   }
 );
 
-module.exports = Product;
+Product.markAsSold = async function (productId) {
+  const product = await Product.findByPk(productId);
 
+  if (!product) {
+    throw new Error('Product not found');
+  }
+
+  product.sold = true;
+  await product.save();
+};
+
+
+module.exports = Product;

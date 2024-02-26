@@ -1,6 +1,7 @@
 import './Product.scss';
 import { useParams, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faStar,
@@ -10,25 +11,13 @@ import {
 import { Icon as Icons } from '@iconify/react';
 import { useCart } from '../React-Context/CartContext';
 
-export default function Product() {
+export default function Product({ shopId }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const { addToCart } = useCart();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const stars = document.querySelectorAll('#star__items');
-
-  stars.forEach((star, index1) => {
-    star.addEventListener('click', () => {
-      console.log(index1);
-
-      stars.forEach((star, index2) => {
-        index1 >= index2
-          ? star.classList.add('active')
-          : star.classList.remove('active');
-      });
-    });
-  });
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -38,7 +27,6 @@ export default function Product() {
           throw new Error('Error fetching products');
         }
         const data = await response.json();
-        console.log(data);
         setProduct(data);
       } catch (error) {
         console.error('Error fetching product:', error);
@@ -49,7 +37,11 @@ export default function Product() {
   }, [id]);
 
   const handleAddToCart = () => {
-    addToCart(product);
+    if (product && product.sold) {
+      console.log("Le produit est vendu. Impossible d'ajouter au panier.");
+      return;
+    }
+    addToCart(product, id);
   };
 
   const handleNextImage = () => {
@@ -62,6 +54,28 @@ export default function Product() {
         (prevIndex - 1 + product.Media.length) % product.Media.length
     );
   };
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/shop/${shopId}/ratings`)
+      .then((response) => response.json())
+      .then((data) => {
+        setRating(data.average);
+      })
+      .catch((error) => console.error('Error:', error));
+  }, [shopId]);
+
+  const handleRating = (newRating) => {
+    fetch(`http://localhost:3000/shop/${shopId}/rate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ rating: newRating }),
+    })
+      .then((response) => response.json())
+      .catch((error) => console.error('Error:', error));
+  };
+
   return (
     <div className="product__container">
       <div className="product__img">
@@ -92,16 +106,16 @@ export default function Product() {
           <h2>{product ? product.title : 'Loading...'}</h2>
           <div className="product__rating">
             <p>
-              {product && product.Users && product.Users[0]
-                ? product.Users[0].first_name
+              {product
+                ? product.Creator.username
                 : 'Details not provided by the seller yet.'}
             </p>
             <div className="star__box">
-              <FontAwesomeIcon icon={faStar} id="star__items" />
-              <FontAwesomeIcon icon={faStar} id="star__items" />
-              <FontAwesomeIcon icon={faStar} id="star__items" />
-              <FontAwesomeIcon icon={faStar} id="star__items" />
-              <FontAwesomeIcon icon={faStar} id="star__items" />
+              <StarRatings
+                ratingValue={rating}
+                size={20}
+                onRatingChange={(rate) => handleRating(rate)}
+              />
             </div>
           </div>
         </div>
@@ -183,8 +197,13 @@ export default function Product() {
           {product ? product.shipping_fees : 'Loading...'}
         </p>
         <NavLink to="/cart">
-          <button id="cart-button" type="button" onClick={handleAddToCart}>
-            Add to cart
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            disabled={product && product.sold}
+            className={product && product.sold ? 'sold-out' : 'cart-button'}
+          >
+            {product && product.sold ? 'Product sold' : 'Add to cart'}
           </button>
         </NavLink>
       </div>
