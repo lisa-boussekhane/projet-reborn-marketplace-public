@@ -33,7 +33,7 @@ const searchController = {
           {
             model: Product,
             as: 'Product',
-            attributes: ['id', 'title'],
+            attributes: ['id', 'title', 'sold'],
             include: [{ model: Media, as: 'Media' }],
           },
         ],
@@ -42,7 +42,8 @@ const searchController = {
       const productResultsFormatted = productResults.map((result) => ({
         id: result.id,
         title: result.title,
-        photo: result.Media ? result.Media[0].photo : null, // Access the first element of the Media array
+        photo: result.Media ? result.Media[0].photo : null,
+        sold: result.sold,
       }));
 
       // Extract and format results from detailProductResults
@@ -50,12 +51,12 @@ const searchController = {
         (result) => ({
           id: result.Product.id,
           title: result.Product.title,
-          photo: result.Product.Media ? result.Product.Media[0].photo : null, // Access the first element of the Media array
+          photo: result.Product.Media ? result.Product.Media[0].photo : null,
+          sold: result.Product.sold,
         })
       );
 
-
-      // combiner les tésultats en un seul tableau
+      // combiner les résultats en un seul tableau
       const uniqueResults = [
         ...productResultsFormatted,
         ...detailProductResultsFormatted,

@@ -7,6 +7,7 @@ import {
   Icon,
   Image,
 } from 'semantic-ui-react';
+import { useEffect } from 'react';
 import { Icon as Icons } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +16,13 @@ import { useCart } from '../React-Context/CartContext';
 export default function Cart() {
   const { cart, removeFromCart } = useCart();
   const navigate = useNavigate();
+  useEffect(() => {
+    const storedToken = localStorage.getItem('jwtToken');
+
+    if (!storedToken) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const handleRemoveFromCart = (itemId) => {
     removeFromCart(itemId);

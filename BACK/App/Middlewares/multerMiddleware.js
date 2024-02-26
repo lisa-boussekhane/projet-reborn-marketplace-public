@@ -13,5 +13,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+const uploadInvoice = multer({
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+    if (path.extname(file.originalname) !== '.pdf') {
+      return cb(new Error('Only PDF files are allowed!'));
+    }
+    cb(null, true);
+  },
+});
 
-module.exports = upload;
+module.exports = { upload, uploadInvoice };

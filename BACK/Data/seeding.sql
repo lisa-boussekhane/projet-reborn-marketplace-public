@@ -1,4 +1,4 @@
-BEGIN;
+___BEGIN;
 
 ----------------------------------------------
 -- Cleaning
@@ -100,17 +100,18 @@ INSERT INTO "message" ("id", "content", "sender_id", "receiver_id") OVERRIDING S
 -- Déchargement des données de la table "user_order_product"
 ------------------------------------------------
 
-INSERT INTO "User_Order_Product"("id", "product_id", "date", "invoice", "status", "user_id") OVERRIDING SYSTEM VALUE VALUES
-(1, 1, '2024-02-10', NULL, 'Send', 2),
-(2, 2, '2024-01-27', NULL, 'Delivered', 2),
-(3, 3, '2024-02-13', NULL, 'Paid', 2),
-(4, 1, '2024-02-10', NULL, 'Send', 2),
-(6, 2, '2024-01-27', NULL, 'Delivered', 2),
-(7, 3, '2024-02-13', NULL, 'Paid', 2),
-(8, 1, '2024-02-10', NULL, 'Send', 2),
-(10, 2, '2024-01-27', NULL, 'Delivered', 2),
-(11, 3, '2024-02-13', NULL, 'Paid', 2),
-(12, 1, '2024-02-10', NULL, 'Send', 2);
+INSERT INTO "User_Order_Product"("id", "product_id", "date", "invoice", "status", "order_number", "user_id") OVERRIDING SYSTEM VALUE VALUES
+(1, 1, '2024-02-10', NULL, 'Send', '1', 2),
+(2, 2, '2024-01-27', NULL, 'Delivered', '2', 2),
+(3, 3, '2024-02-13', NULL, 'Paid', '3', 2),
+(4, 1, '2024-02-10', NULL, 'Send', '4', 2),
+(6, 2, '2024-01-27', NULL, 'Delivered', '6', 2),
+(7, 3, '2024-02-13', NULL, 'Paid', '7', 2),
+(8, 1, '2024-02-10', NULL, 'Send', '8', 2),
+(10, 2, '2024-01-27', NULL, 'Delivered', '10', 2),
+(11, 3, '2024-02-13', NULL, 'Paid', '11', 2),
+(12, 1, '2024-02-10', NULL, 'Send', '12', 2);
+SELECT setval('"User_Order_Product_id_seq"', (SELECT MAX(id) + 1 FROM "User_Order_Product"));
 
 ------------------------------------------------
 -- Déchargement des données de la table "user_rate_shop"

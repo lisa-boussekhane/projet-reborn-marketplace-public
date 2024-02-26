@@ -19,29 +19,6 @@ const userController = {
       return res.status(500).json({ message: 'An unexpected error occurred.' });
     }
   },
-
-  async getOrdersReturns(req, res) {
-    try {
-      const userId = req.user.id;
-
-      const userOrders = await User.findByPk(userId, {
-        include: [
-          {
-            model: Product,
-            attributes: ['id', 'title', 'kit_name', 'price', 'created_at'],
-          },
-        ],
-      });
-
-      // accéder aux pdts qui sont associés à l'utilisateur
-      const orders = userOrders.product;
-
-      res.status(200).json({ orders });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'An unexpected error occurred.' });
-    }
-  },
 };
 
 module.exports = userController;

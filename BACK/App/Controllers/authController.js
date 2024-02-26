@@ -39,7 +39,7 @@ const authController = {
       .not()
       .oneOf(['Passw0rd', 'Password123', '1234']); // Blocklist common passwords
     try {
-      const { first_name, last_name, email, password } = req.body;
+      const { first_name, last_name, email, password, username } = req.body;
 
       // Validate the email
       if (!validator.isEmail(email)) {
@@ -60,11 +60,17 @@ const authController = {
         last_name: last_name,
         email: email,
         password: password,
+        username: username,
+      });
+
+      const token = jwt.sign({ user_id: newUser.id }, process.env.SECRET, {
+        expiresIn: '1h',
       });
 
       // Respond with the created user (excluding the password for security)
       res.status(201).json({
-        id: newUser.id,
+        user: { id: newUser.id },
+        token,
       });
     } catch (error) {
       console.error('Account creation failed:', error);
@@ -93,7 +99,9 @@ const authController = {
         return res.status(200).json({
           success: true,
           token,
+
           user: { id: user.id, password: user.password, email: user.email },
+
         });
       }
       console.log('Utilisateur non trouvé');

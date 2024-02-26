@@ -3,14 +3,19 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import validator from 'validator';
 import passwordValidator from 'password-validator';
+import { Input, Button } from 'semantic-ui-react';
+import { useAuth } from '../React-Context/AuthContext';
 
 export default function SignUp() {
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const { setIsLoggedIn } = useAuth();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -49,6 +54,7 @@ export default function SignUp() {
           last_name: lastname,
           email,
           password,
+          username,
         }),
       });
 
@@ -58,6 +64,11 @@ export default function SignUp() {
 
       const data = await response.json();
       setRegistrationSuccess(true);
+      setIsLoggedIn(true);
+      const { token, user } = data;
+      // stocker le token et l'id dans localStorage
+      localStorage.setItem('jwtToken', token);
+      localStorage.setItem('userId', user.id);
       console.log(data);
     } catch (error) {
       console.error('Error during sign-up:', error);
@@ -83,8 +94,7 @@ export default function SignUp() {
               onChange={(e) => setFirstname(e.target.value)}
             />
           </label>
-        </div>
-        <div className="form__items">
+
           <label htmlFor="lastname">
             Last name:
             <input
@@ -97,8 +107,19 @@ export default function SignUp() {
               onChange={(e) => setLastname(e.target.value)}
             />
           </label>
-        </div>
-        <div className="form__items">
+          <label htmlFor="username">
+            Username:
+            <input
+              type="text"
+              name="username"
+              id="username"
+              value={username}
+              placeholder="Last name"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </label>
+
           <label htmlFor="email address">
             Email address:
             <input
@@ -111,24 +132,32 @@ export default function SignUp() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </label>
-        </div>
-        <div className="form__items">
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              name="password"
-              id="password"
-              value={password}
-              placeholder="Password"
-              min={8}
-              required
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setPasswordError('');
-              }}
-            />
-          </label>
+          <div className="form__items__password">
+            <label htmlFor="password">
+              Password:{' '}
+              <Input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                id="password"
+                value={password}
+                placeholder="Password"
+                min={8}
+                required
+                action={
+                  <Button
+                    icon={showPassword ? 'eye slash' : 'eye'}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowPassword(!showPassword);
+                    }}
+                  />
+                }
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </label>
+          </div>
           {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
         </div>
         <div>
