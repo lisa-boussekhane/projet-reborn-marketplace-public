@@ -105,7 +105,7 @@ const aAuthController = {
     }
   },
 
-async deleteAccount(req, res) {
+  async deleteAccount(req, res) {
     try {
       const userId = req.params.id;
       const user = await User.findByPk(userId);
