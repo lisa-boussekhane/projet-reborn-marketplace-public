@@ -172,7 +172,7 @@ const authController = {
     try {
       // check if user's email exists
       const { email } = req.body;
-      const user = await User.findOne({ where: { userId, email } });
+      const user = await User.findOne({ where: { email } });
 
       if (!user) {
         return res.status(404).json({ message: 'user not found' });
