@@ -70,7 +70,9 @@
   }
 }
 
-.amount__total, .amount__subtotal , .amount__delay {
+.amount__total,
+.amount__subtotal,
+.amount__delay {
   font-size: 1.3em;
   font-weight: bold;
 }
@@ -78,7 +80,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 
 .payment__method {
@@ -107,7 +109,7 @@
 
 .pay__btn {
   background-color: v.$blue;
-  margin-top : 0.5rem;
+  margin-top: 0.5rem;
   font-size: 1.3rem;
   color: white;
   padding: 1rem;
@@ -115,6 +117,49 @@
   margin-right: 1rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  cursor: pointer
+  cursor: pointer;
 }
 
+/*RESPONSIVE*/
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* xs */
+@media (min-width: 350px) {
+  .container {
+    max-width: 350px;
+  }
+
+  .cart__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 3rem;
+    margin-bottom: 11rem;
+    margin-top: 4.6rem;
+    gap: 30px;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+
+  .cart__box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 3rem;
+    margin-bottom: 11rem;
+    margin-top: 4.6rem;
+    gap: 30px;
+  }
+}

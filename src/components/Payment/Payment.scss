@@ -26,7 +26,6 @@
   margin-bottom: 1rem;
 }
 
-
 .payment__box {
   width: 50%;
   margin: auto;
@@ -162,17 +161,88 @@
   margin-bottom: 1rem;
 }
 
-
-
 .pay__btn {
   background-color: v.$blue;
-  margin-top : 0.5rem;
+  margin-top: 0.5rem;
   font-size: 1.5rem;
   color: white;
   padding: 1rem;
   margin-left: 5rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  cursor: pointer
+  cursor: pointer;
 }
 
+/*RESPONSIVE*/
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* xs */
+@media (min-width: 350px) {
+  .container {
+    max-width: 350px;
+  }
+  .payment__container {
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 5rem;
+
+    h1 {
+      font-size: 2.4em;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .payment__group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .pay__btn {
+    margin: 15px auto;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+  .payment__container {
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 5rem;
+
+    h1 {
+      font-size: 2.4em;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .payment__group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .payment__elem input {
+    width: 150px;
+  }
+
+  .pay__btn {
+    margin: 15px auto;
+  }
+}

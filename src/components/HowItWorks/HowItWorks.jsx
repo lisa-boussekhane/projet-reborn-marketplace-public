@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 
 export default function HowItWorks() {
   return (
-    <div className="notice__box">
+    <div className="notice__box container">
       <h1>How it works?</h1>
-      <div className="notice__container">
+      <div className="notice__container container">
         <div className="notice__sell">
           <h2>Why should I sell on Adopt a Reborn?</h2>
           <p>
@@ -32,8 +32,8 @@ export default function HowItWorks() {
         </div>
       </div>
 
-      <div className="notice__wrapper">
-        <div className="notice__group">
+      <div className="notice__wrapper container">
+        <div className="notice__group ">
           <h2>Step 1 - Browse and Select</h2>
           <p className="notice__item">
             Start by exploring the selection of reborn dolls available on the
@@ -56,7 +56,7 @@ export default function HowItWorks() {
         </div>
         <div className="notice__group">
           <h2>Step 3 - Make a Purchase</h2>
-          <p className="notice__item">
+          <p className="notice__item notice__item--margin">
             Once you're satisfied with your choice, proceed to purchase the
             doll. This will typically involve adding the doll to your cart,
             choosing a payment method, and providing shipping information. Adopt
@@ -67,7 +67,7 @@ export default function HowItWorks() {
           </p>
         </div>
       </div>
-      <div className="notice__btn">
+      <div className="notice__btn container">
         <NavLink to="/signup">
           <input
             type="submit"
