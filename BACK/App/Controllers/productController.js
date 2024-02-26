@@ -1,6 +1,6 @@
-const { Product, Detail_product, Media, User, Shop } = require('../Models/');
+const { Product, Detail_product, Media, User, Shop } = require('../../Models');
 
-const { sequelize } = require('../Models/index');
+const { sequelize } = require('../../Models/index');
 
 const productController = {
   async getOneProduct(req, res) {

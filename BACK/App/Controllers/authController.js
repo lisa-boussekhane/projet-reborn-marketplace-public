@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const passwordValidator = require('password-validator');
 const validator = require('validator');
-const User = require('../Models/user');
+const User = require('../../Models/user');
 const verifyToken = require('../Middlewares/authMiddleware');
 const { sendEmail } = require('./contactController');
 
@@ -100,7 +100,7 @@ const authController = {
           success: true,
           token,
 
-          user: { id: user.id, password: user.password, email: user.email },
+          user: { id: user.id, email: user.email, role: user.role },
         });
       }
       console.log('Utilisateur non trouvé');

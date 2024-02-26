@@ -1,0 +1,22 @@
+.shop-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  
+    .shop-info {
+      flex-grow: 1;
+    }
+  
+    .shop-actions {
+      display: flex;
+      gap: 10px;
+  
+      button {
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+    }
+  }

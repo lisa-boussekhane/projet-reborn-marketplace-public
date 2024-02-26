@@ -1,10 +1,10 @@
 const express = require('express');
 const passwordValidator = require('password-validator');
 const validator = require('validator');
-const User = require('../../App/Models/user');
+const User = require('../../Models/user');
 const { sendEmail } = require('../../App/Controllers/contactController');
 
-const authController = {
+const aAuthController = {
   async logAccount(req, res) {
     try {
         const { email, password } = req.body;
@@ -105,7 +105,7 @@ const authController = {
     }
   },
 
-async deleteAccount(req, res) {
+  async deleteAccount(req, res) {
     try {
       const userId = req.params.id;
       const user = await User.findByPk(userId);
@@ -126,4 +126,4 @@ async deleteAccount(req, res) {
   },
 };
 
-module.exports = authController;
+module.exports = aAuthController;

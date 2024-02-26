@@ -1,19 +1,22 @@
+
 const {
   Product,
   Shop,
   Media,
   User,
   User_Order_Product,
-} = require('../Models/');
-const { sequelize } = require('../Models/index'); // Import Sequelize instance
+} = require('../../Models');
+
+
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const { sequelize } = require('../../Models/index'); // Import Sequelize instance
 //  JavaScript statements that import Node.js built-in modules fs and path, respectively. These modules provide utilities for file system operations and handling file paths, which are essential for many Node.js applications, especially those dealing with file manipulation and directory management.
 
 const shopController = {
   // ne touche pas à showShop stp
-  async showShop(req, res) {
+async showShop(req, res) {
     try {
       const userId = req.params.id;
       console.log(userId);
@@ -114,7 +117,7 @@ const shopController = {
     }
   },
 
-  async getAllUserOrdersWithDetails(req, res) {
+async getAllUserOrdersWithDetails(req, res) {
     try {
       const userId = req.params.id;
 
@@ -124,7 +127,15 @@ const shopController = {
           {
             model: User,
             as: 'Buyer',
-            attributes: ['first_name', 'last_name', 'address', 'phone'],
+            attributes: [
+              'first_name',
+              'last_name',
+              'address',
+              'phone',
+              'city',
+              'zip_code',
+              'state',
+            ],
           },
           {
             model: Product,
@@ -154,85 +165,99 @@ const shopController = {
     }
   },
 
-  async uploadInvoiceInOrder(req, res) {
-    try {
-      console.log(req.files);
+async uploadInvoiceInOrder(req, res) {
+  try {
+    const orderId = req.query.order_id || req.body.order_id;
 
-      const productId = req.params.id;
-      const productData = req.body;
-      const detailProductData = req.body;
-      const mediaDataArray = req.files.map((file) => ({
-        path: file.path,
-      }));
-
-      // Update product
-      await Product.update(productData, { where: { id: productId } });
-
-      // Update detailProduct
-      await Detail_product.update(detailProductData, {
-        where: { product_id: productId },
-      });
-
-      // supprimer le média déjà existant
-      await Media.destroy({ where: { product_id: productId } });
-
-      // insérer le nouveau
-      const mediaPromises = mediaDataArray.map((mediaData) =>
-        Media.create({ photo: mediaData.path, product_id: productId })
-      );
-      await Promise.all(mediaPromises);
-
-      res.status(200).json({
-        message: 'Product updated successfully with files',
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        message: 'Failed to update product with files',
-        error: error.message,
-      });
+    if (!req.file) {
+        return res.status(400).send({ message: "No invoice file uploaded." });
     }
-  },
+
+    const invoicePath = req.file.path; // Path where the uploaded file is saved
+
+    // Update the order with the invoice file path using Sequelize
+    // Assuming you have an Order model and an 'invoicePath' field in your orders table
+    await User_Order_Product.update({ invoice: invoicePath }, { where: { id: orderId } });
+
+    res.json({ message: "Invoice uploaded successfully.", invoice: invoicePath });
+} catch (error) {
+    console.error('Error uploading invoice:', error.message);
+    res.status(500).json({ error: "An error occurred while uploading the invoice." });
+}
+},
+
 
   async createOrder(req, res) {
+    const orderNumber = async () => {
+      const getRandomDigit = () => Math.floor(Math.random() * 10).toString();
+
+      const newOrderNumber = Array.from({ length: 5 }, getRandomDigit).join('');
+
+      const existingOrder = await User_Order_Product.findOne({
+        where: { order_number: newOrderNumber },
+      });
+
+      if (existingOrder) {
+        return orderNumber();
+      }
+
+      return newOrderNumber;
+    };
+
     try {
       const { userId, productIds } = req.body;
       console.log('user id', userId);
-      console.log('product id', productIds);
+      console.log('product ids', productIds);
 
-      const orderNumbers = [];
       // Create a new entry in User_Order_Product
       const orders = await Promise.all(
         productIds.map(async (productId) => {
-          // Create a new order for the current product
-          const order = await User_Order_Product.create({
-            user_id: userId,
-            product_id: productId,
-            date: new Date(),
-            status: 'Paid',
-          });
-          console.log('Après la création de la commande', order);
+          try {
+            // Create a new order for the current product
+            const order = await User_Order_Product.create(
+              {
+                user_id: userId,
+                product_id: productId,
+                date: new Date(),
+                status: 'Paid',
+                order_number: await orderNumber(),
+              },
+              {
+                fields: [
+                  'user_id',
+                  'product_id',
+                  'date',
+                  'status',
+                  'order_number',
+                ],
+              }
+            );
 
-          // marquer le produit comme "vendu" uniquement si la commande est réussie
-          await Product.markAsSold(productId);
+            console.log('Order created successfully:', order);
 
-          return order.id.toString();
+            // marquer le produit comme "vendu" uniquement si la commande est réussie
+            await Product.markAsSold(productId);
+            console.log('Product marked as sold:', productId);
+            return order.order_number;
+          } catch (error) {
+            console.error('Error placing order:', error);
+            return null; // or handle the error in a way that makes sense for your application
+          }
         })
       );
-      orderNumbers.push(...orders);
+
+      // Filter out null values from orders array
+      const validOrders = orders.filter((order) => order !== null);
 
       res.status(201).json({
-        message: 'commande crée :',
-        order_numbers: orderNumbers,
+        message: 'Commande créée :',
+        order_numbers: validOrders,
       });
-
-      console.log('Order placed successfully:', orders);
     } catch (error) {
-      console.error('Error placing order:', error);
+      console.error('Error creating order:', error);
       res.status(500).json({
         message: 'Échec de la création de la commande',
         error: error.message,
-        stack: error.stack, // Ajoutez la pile d'erreurs pour un débogage plus approfondi
       });
     }
   },

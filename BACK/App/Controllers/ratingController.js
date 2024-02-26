@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
-const { Shop, User, User_rate_shop} = require('../Models/');
-const { sequelize } = require('../Models/index'); 
+const { Shop, User, User_rate_shop} = require('../../Models');
+const { sequelize } = require('../../Models/index'); 
 
 const ratingController = {
 async getShopRating(req, res) {
@@ -46,6 +46,21 @@ async postShopRating(req, res) {
             res.status(500).send('An error occurred while adding the rating');
         }
     },
+
+async getAverageRating(req, res) {
+    try {
+        const { id } = req.params;
+        // Assuming User_rate_shop.query() returns a promise
+        const { rows } = await User_rate_shop.query('SELECT AVG(rating) as average FROM User_rate_shop WHERE product_id = $1 GROUP BY product_id', [id]);
+        
+        // If rows are returned, send the first row's average. If no rows, send "Not rated yet".
+        res.json(rows[0] || { average: "Not rated yet" });
+    } catch (error) {
+        // Handle errors that occur during the async operation
+        console.error('Error while fetching average rating:', error.message);
+        res.status(500).json({ error: "An error occurred while fetching the average rating" });
+    }
+}
 
   };
 

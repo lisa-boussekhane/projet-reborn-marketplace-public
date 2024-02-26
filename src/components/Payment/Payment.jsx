@@ -13,11 +13,37 @@ export default function Payment() {
   const { clearCart, cart } = useCart();
   const amount = searchParams.get('amount');
   const baseAmount = amount;
+  const storedUserId = localStorage.getItem('userId');
+  const [formData, setFormData] = useState({
+    first_name: '',
+    last_name: '',
+    phone: '',
+    email: '',
+    address: '',
+    city: '',
+    zip_code: '',
+    state: '',
+    country: '',
+  });
 
   // conversion en centimes pour stripe
   const convertedAmout = baseAmount * 100;
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prevFormData) => {
+      const formDataCopy = { ...prevFormData };
+
+      if (Object.keys(formDataCopy).includes(name)) {
+        formDataCopy[name] = value;
+      }
+
+      return formDataCopy;
+    });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,7 +64,7 @@ export default function Payment() {
 
       const token = localStorage.getItem('jwtToken');
 
-      const formData = {
+      const paymentFormData = {
         paymentMethodId,
         convertedAmout,
       };
@@ -50,7 +76,7 @@ export default function Payment() {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`, // token récupéré dans le local storage
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(paymentFormData),
         });
 
         if (!token) {
@@ -58,10 +84,29 @@ export default function Payment() {
           return;
         }
         if (response.ok) {
-          const data = await response.json();
-          console.log('paiement effectué:', data);
+          const paymentData = await response.json();
+          console.log('Payment processed:', paymentData);
+
+          // Update user information
+          const userUpdateResponse = await fetch(
+            `http://localhost:3000/user/${storedUserId}`,
+            {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(formData),
+            }
+          );
+
+          if (!userUpdateResponse.ok) {
+            throw new Error('Error during user information update');
+          }
+
+          console.log('User information updated!');
           const productIds = cart.map((item) => item.id);
-          const storedUserId = localStorage.getItem('userId');
+
           console.log(storedUserId);
           const createOrder = await fetch('http://localhost:3000/createorder', {
             method: 'POST',
@@ -126,8 +171,10 @@ export default function Payment() {
             <div className="payment__elem">
               <input
                 type="text"
-                name="name"
-                id="name"
+                name="first_name"
+                id="firstname"
+                value={formData.first_name}
+                onChange={handleChange}
                 placeholder="Name"
                 required
               />
@@ -135,8 +182,10 @@ export default function Payment() {
             <div className="payment__elem">
               <input
                 type="text"
-                name="lastname"
+                name="last_name"
                 id="lastname"
+                value={formData.last_name}
+                onChange={handleChange}
                 placeholder="Last name"
                 required
               />
@@ -146,6 +195,8 @@ export default function Payment() {
                 type="tel"
                 name="phone"
                 id="phone"
+                value={formData.phone}
+                onChange={handleChange}
                 placeholder="Phone number"
                 required
               />
@@ -155,6 +206,8 @@ export default function Payment() {
                 type="email"
                 name="email"
                 id="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Email"
                 required
               />
@@ -170,6 +223,8 @@ export default function Payment() {
                 name="address"
                 id="address"
                 placeholder="Address"
+                value={formData.address}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -179,15 +234,19 @@ export default function Payment() {
                 name="city"
                 id="city"
                 placeholder="City"
+                value={formData.city}
+                onChange={handleChange}
                 required
               />
             </div>
             <div className="payment__elem2">
               <input
                 type="text"
-                name="zip"
-                id="zip"
+                name="zip_code"
+                id="zip_code"
                 placeholder="Zip code"
+                value={formData.zip_code}
+                onChange={handleChange}
                 pattern="[0-9]*"
                 required
               />
@@ -197,6 +256,8 @@ export default function Payment() {
                 type="text"
                 name="state"
                 id="state"
+                value={formData.state}
+                onChange={handleChange}
                 placeholder="State"
                 required
               />
@@ -206,6 +267,8 @@ export default function Payment() {
                 type="text"
                 name="country"
                 id="country"
+                value={formData.country}
+                onChange={handleChange}
                 placeholder="United States"
                 required
               />
@@ -217,6 +280,7 @@ export default function Payment() {
           <h2>Card Details</h2>
           <CardElement />
         </div>
+
         <div className="pay__buttons">
           <button type="submit" className="pay__btn">
             Pay

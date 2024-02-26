@@ -1,5 +1,5 @@
-const { Message, User } = require('../Models/');
-const { sequelize } = require('../Models/index'); // Import Sequelize instance
+const { Message, User } = require('../../Models');
+const { sequelize } = require('../../Models/index'); // Import Sequelize instance
 
 const chatController = {
 async getMessage(req, res) {

@@ -313,6 +313,12 @@ export default function MyAccount() {
                       <strong>Delivery address :</strong> {order.Buyer.address}
                     </p>
                     <p>
+                      <strong>City :</strong> {order.Buyer.city}
+                    </p>
+                    <p>
+                      <strong>State :</strong> {order.Buyer.state}
+                    </p>
+                    <p>
                       <strong>Price : </strong> {order.Seller.price}
                     </p>
                     <p>

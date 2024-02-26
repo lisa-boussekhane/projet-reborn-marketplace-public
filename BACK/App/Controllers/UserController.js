@@ -1,5 +1,5 @@
-const { Product, User } = require('../Models/');
-const { sequelize } = require('../Models/index'); // Import Sequelize instance
+const { Product, User } = require('../../Models');
+const { sequelize } = require('../../Models/index'); // Import Sequelize instance
 
 const userController = {
   async getUserInfos(req, res) {
