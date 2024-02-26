@@ -179,7 +179,7 @@ async getOneShop(req, res) {
     }
   },
 
-  async getAllUserOrdersWithDetails(req, res) {
+async getAllUserOrdersWithDetails(req, res) {
     try {
       const userId = req.params.id;
 
