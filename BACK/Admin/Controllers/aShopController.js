@@ -1,23 +1,8 @@
-<<<<<<< HEAD:BACK/Admin/Controllers/aShopController.js
 const { Product, User, Detail_product, Media, Shop, User_Order_Product } = require('../../Models');
 const { sequelize } = require('../../Models'); // Import Sequelize instance
 
 const aShopController = {
 async getOneShop(req, res) {
-=======
-const {
-  Product,
-  User,
-  Detail_product,
-  Media,
-  Shop,
-  User_Order_Product,
-} = require('../../App/Models');
-const { sequelize } = require('../../App/Models'); // Import Sequelize instance
-
-const shopController = {
-  async getOneShop(req, res) {
->>>>>>> 0a1f0ba55da3a54fef1993d1174cdfbcff775a3b:BACK/Admin/Controllers/shopController.js
     try {
       const shopId = req.params.id;
       const shop = await Shop.findByPk(shopId, {
