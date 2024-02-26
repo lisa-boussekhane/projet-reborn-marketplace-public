@@ -29,12 +29,6 @@ import MyStore from '../MyStore/MyStore';
 import UpdateProduct from '../UpdateProduct/UpdateProduct';
 
 function App() {
-  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
-
-  const handlePaymentConfirmed = () => {
-    setPaymentConfirmed(true);
-  };
-
   return (
     <div className="app">
       <Header />
