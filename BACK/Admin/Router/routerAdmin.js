@@ -1,30 +1,29 @@
-require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
-const session = require('express-session');
-const multer = require('multer');
-const http = require('http');
-const bodyParser = require('body-parser');
+const userController = require('../../Admin/Controllers/userController');
+const authController = require('../../Admin/Controllers/authController');
+const productController = require('../../Admin/Controllers/productController');
+const shopController = require('../../Admin/Controllers/shopController');
 
-const routerAdmin = require('./BACK/Admin/Router/routerAdmin');
-const app = express();
-const port = process.env.PORT;
+const routerAdmin = express.RouterAdmin();
 
-app.use(cors({ origin: 'http://localhost:5173' }));
-app.use(express.static('/public'));
-// app.use(cors());
+router.get('/admin/user/:id', userController.getUserInfos);
+router.get('/admin/users', userController.getAllUsers);
 
-app.use(express.urlencoded({ extended: true }));
-app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-app.use(express.json());
-app.use(router);
+router.delete('/admin/user/:id', authController.deleteAccount);
+router.post('/admin/login', authController.logAccount);
+router.post('/admin/resetrequest', authController.requestPasswordReset);
+router.post('/admin/resetpassword', authController.updatePassword);
 
-app.listen(port, () => {
-  console.log(`Back Office AAR REST API is running on http://localhost:${port_admin}`);
-});
+router.get('/admin/product/:id', productController.getOneProduct);
+router.get('/admin/products', productController.getAllProducts);
+router.post('/admin/product/:id', upload.array('photo', 12), productController.createProduct);
+router.patch('/admin/product/:id', upload.array('photo', 12), productController.updateProduct);
+router.delete('/admin/product/:id', productController.deleteProduct);
+
+router.get('/shop/:id', verifyToken, shopController.showShop);
+router.post('/createshop/:id', verifyToken, shopController.createShop);
+router.delete('/shop/:id', shopController.deleteShop);
+router.get('/user/orders/:id', shopController.getAllUserOrdersWithDetails);
+router.get('/admin/invoiceshop/:id', shopController.showInvoice);
+
+module.exports = routerAdmin;
