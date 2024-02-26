@@ -1,10 +1,4 @@
-const {
-  Product,
-  Shop,
-  Media,
-  User,
-  User_Order_Product,
-} = require('../Models/');
+const { Product, Shop, Media, User, User_Order_Product,Detail_product} = require('../Models/');
 const { sequelize } = require('../Models/index'); // Import Sequelize instance
 const multer = require('multer');
 const fs = require('fs');

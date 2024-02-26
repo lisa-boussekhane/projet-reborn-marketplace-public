@@ -25,6 +25,5 @@ router.get('/admin/shop/:id', shopController.showShop);
 router.post('/admin/createshop/:id', shopController.createShop);
 router.delete('/admin/shop/:id', shopController.deleteShop);
 router.get('/admin/user/orders/:id', shopController.getAllUserOrdersWithDetails);
-router.get('/admin/invoiceshop/:id', shopController.showInvoice);
 
 module.exports = routerAdmin;

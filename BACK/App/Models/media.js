@@ -7,7 +7,7 @@ class Media extends Model {}
 Media.init(
   {
     photo: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     video: {
