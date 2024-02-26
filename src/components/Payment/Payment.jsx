@@ -111,7 +111,7 @@ export default function Payment() {
   };
 
   return (
-    <div className="payment__container">
+    <div className="payment__container container">
       <h1 className="payment__title">Payment</h1>
       {successMessage && (
         <div className="success-message success">{successMessage}</div>
@@ -120,7 +120,7 @@ export default function Payment() {
         <div className="error-message error">{errorMessage}</div>
       )}
       <form onSubmit={handleSubmit}>
-        <div className="payment__box">
+        <div className="payment__box container">
           <h2>Personal information</h2>
           <div className="payment__group">
             <div className="payment__elem">
@@ -161,7 +161,7 @@ export default function Payment() {
             </div>
           </div>
         </div>
-        <div className="payment__box2">
+        <div className="payment__box2 container">
           <h2>Address</h2>
           <div className="payment__group2">
             <div className="payment__elem2">
@@ -213,7 +213,7 @@ export default function Payment() {
           </div>
         </div>
 
-        <div className="payment__box3">
+        <div className="payment__box3 container">
           <h2>Card Details</h2>
           <CardElement />
         </div>

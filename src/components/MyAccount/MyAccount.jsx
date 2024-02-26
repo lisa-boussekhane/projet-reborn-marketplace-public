@@ -144,10 +144,7 @@ export default function MyAccount() {
       </ul>
 
       <div id="profile">
-        <div className="profile__information">
-          {/* Insérer lien sur icon edit */}
-          <img src="./edit-icon.png" alt="" className="edit__icon" />
-
+        <div className="profile__information ">
           <div className="profile__title">
             <h1>My profile</h1>
             {message && (

@@ -46,8 +46,8 @@ export default function Cart() {
   };
 
   return (
-    <div className="cart__box">
-      <div className="cart__container">
+    <div className="cart__box container">
+      <div className="cart__container container">
         <h1 className="cart__title">
           Your shopping cart contains {cart ? cart.length : 0} items
         </h1>
@@ -74,7 +74,7 @@ export default function Cart() {
         </div>
       </div>
 
-      <div className="amount__container">
+      <div className="amount__container container">
         <div className="amount">
           <h1>Total</h1>
           <p className="amount__subtotal">Subtotal : ${calculateSubtotal()}</p>
