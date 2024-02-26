@@ -1,6 +1,5 @@
 const { Model, DataTypes, INTEGER, BOOLEAN } = require('sequelize');
 
-
 const sequelize = require('./sequelize');
 const User = require('./user');
 
@@ -92,6 +91,5 @@ Product.markAsSold = async function (productId) {
   product.sold = true;
   await product.save();
 };
-
 
 module.exports = Product;

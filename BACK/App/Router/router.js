@@ -38,8 +38,6 @@ router.post('/product/:id', verifyToken, upload.array('photo', 12), productContr
 router.patch('/product/:id', verifyToken, upload.array('photo', 12), productController.updateProduct);
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 
-// router.get('/products', productController.getProductsPage);
-
 router.get('/shop/:id', verifyToken, shopController.showShop);
 router.post('/createshop/:id', verifyToken, shopController.createShop);
 router.delete('/shop/:id', verifyToken, shopController.deleteShop);
@@ -55,3 +53,4 @@ router.post('/shop/:id/rate', ratingController.postShopRating);
 router.get('shop/:id/average-rating', ratingController.getAverageRating);
 
 module.exports = router;
+
