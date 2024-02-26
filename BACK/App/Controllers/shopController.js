@@ -7,7 +7,7 @@ const path = require('path');
 
 const shopController = {
   // ne touche pas à showShop stp
-  async showShop(req, res) {
+async showShop(req, res) {
     try {
       const userId = req.params.id;
       console.log(userId);
@@ -108,7 +108,7 @@ const shopController = {
     }
   },
 
-  async getAllUserOrdersWithDetails(req, res) {
+async getAllUserOrdersWithDetails(req, res) {
     try {
       const userId = req.params.id;
 
@@ -169,7 +169,7 @@ async uploadInvoiceInOrder(req, res) {
 }
 },
 
-  async createOrder(req, res) {
+async createOrder(req, res) {
     try {
       const { userId, productIds } = req.body;
       console.log('user id', userId);

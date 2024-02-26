@@ -29,12 +29,12 @@ User.belongsToMany(Product, {
   timestamps: false,
 });
 
-// Product.belongsToMany(User, {
-//   through: 'User_Order_Product',
-//   foreignKey: 'product_id',
-//   as: 'Buyer', // utilisateur qui vend
-//   timestamps: false,
-// });
+Product.belongsToMany(User, {
+through: 'User_Order_Product',
+foreignKey: 'product_id',
+as: 'Buyer', // utilisateur qui vend
+timestamps: false,
+});
 
 Product.belongsTo(User, {
   foreignKey: 'user_id',

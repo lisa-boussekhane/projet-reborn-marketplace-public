@@ -3,7 +3,7 @@ const { Product, Detail_product, Media, User, Shop } = require('../../App/Models
 const { sequelize } = require('../../App/Models/index');
 
 const productController = {
-  async getOneProduct(req, res) {
+async getOneProduct(req, res) {
     try {
       // Extract the product ID from the request parameters
       const productId = req.params.id;
@@ -132,7 +132,7 @@ const productController = {
     }
   },
 
-  async createProduct(req, res) {
+async createProduct(req, res) {
     // Create random unique ID for the product
     const randomId = () => {
       const s4 = () => {
@@ -221,25 +221,7 @@ const productController = {
     }
   },
 
-  async getProductsPage(req, res) {
-    try {
-      const products = await Product.findAll({
-        order: [['title']],
-        include: [
-          {
-            model: Media,
-            as: 'Media',
-            attributes: ['photo'],
-          },
-        ],
-      });
-      console.log(products);
-      res.status(200).json(products);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'an unexpected error occured...' });
-    }
-  },
+
 };
 
 module.exports = productController;

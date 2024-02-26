@@ -21,8 +21,10 @@ router.post('/admin/product/:id', upload.array('photo', 12), productController.c
 router.patch('/admin/product/:id', upload.array('photo', 12), productController.updateProduct);
 router.delete('/admin/product/:id', productController.deleteProduct);
 
-router.get('/admin/shop/:id', shopController.showShop);
+router.get('/admin/shop/:id', shopController.getOneShop);
+router.get('/admin/shops', shopController.getAllShops);
 router.post('/admin/createshop/:id', shopController.createShop);
+router.patch('/admin/updateshop/:id', shopController.updateShop);
 router.delete('/admin/shop/:id', shopController.deleteShop);
 router.get('/admin/user/orders/:id', shopController.getAllUserOrdersWithDetails);
 
