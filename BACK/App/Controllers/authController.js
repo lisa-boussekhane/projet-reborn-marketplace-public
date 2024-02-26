@@ -115,38 +115,34 @@ const authController = {
   async updateAccount(req, res) {
     try {
       const userId = req.params.id;
-      const user = await User.findByPk(userId);
 
-      if (!user) {
+      if (!userId) {
         return res
           .status(404)
-          .json({ message: `user with id ${userId} not found.` });
+          .json({ message: `User with id ${userId} not found.` });
       }
 
-      const { name } = req.body;
+      const UserData = req.body;
+      console.log('UserData :', UserData);
 
-      if (name !== undefined && name === '') {
-        return res
-          .status(400)
-          .json({ message: 'name should not be an empty string' });
+      if (UserData.date_of_birth === '' || UserData.date_of_birth === null) {
+        delete UserData.date_of_birth; // ne pas inclure le champ dans la requête
       }
 
-      if (name === undefined && !name) {
-        return res
-          .status(400)
-          .json({ message: 'you should provide at least a name' });
+      if (UserData.duns === '' || UserData.duns === null) {
+        delete UserData.duns; // ne pas inclure le champ dans la requête
       }
 
-      if (name) {
-        user.first_name = name;
-      }
+      // modifier l'utilisateur
+      await User.update(UserData, { where: { id: userId } });
 
-      await user.save();
-
-      res.status(200).json(user);
+      res.status(200).json({
+        message: 'user updated successfully',
+        UserData,
+      });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'an unexpected error occured...' });
+      res.status(500).json({ message: 'An unexpected error occurred...' });
     }
   },
 

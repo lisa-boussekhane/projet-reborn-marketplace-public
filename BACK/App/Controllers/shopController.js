@@ -114,34 +114,49 @@ const shopController = {
     }
   },
 
-  async getAllUserOrdersWithDetails() {
+  async getAllUserOrdersWithDetails(req, res) {
     try {
-      // Fetch all entries from the User_Order_Product join table
-      // Include related user and product information, especially focusing on price and shipping fees from the product
+      const userId = req.params.id;
+
       const ordersWithDetails = await User_Order_Product.findAll({
+        where: { user_id: userId },
         include: [
           {
             model: User,
-            attributes: ['id', 'first_name', 'last_name', 'email'], // Customize as needed
+            as: 'Buyer',
+            attributes: ['first_name', 'last_name', 'address', 'phone'],
           },
           {
             model: Product,
-            attributes: ['id', 'title', 'price', 'shipping_fees'], // Ensure 'price' and 'shipping_fees' are included
+            as: 'Seller',
+            attributes: ['title', 'price', 'shipping_fees'],
+            include: [
+              {
+                model: User,
+                as: 'Creator',
+                attributes: ['username'],
+              },
+            ],
           },
         ],
+        attributes: ['status', 'id', 'date', 'order_number', 'invoice'],
       });
 
-      // Assuming the 'price' and 'shipping_fees' are directly on the Product model as per your schema
-      return ordersWithDetails;
+      res.status(200).json({
+        ordersWithDetails,
+      });
     } catch (error) {
       console.error('Failed to retrieve user orders with details:', error);
-      throw error;
+      res.status(500).json({
+        message: 'Failed to create order',
+        error: error.message,
+      });
     }
   },
 
   async uploadInvoiceInOrder(req, res) {
     try {
-      console.log(req.files); // voir les fichiers
+      console.log(req.files);
 
       const productId = req.params.id;
       const productData = req.body;
@@ -189,17 +204,19 @@ const shopController = {
       // Create a new entry in User_Order_Product
       const orders = await Promise.all(
         productIds.map(async (productId) => {
+          // Create a new order for the current product
           const order = await User_Order_Product.create({
             user_id: userId,
             product_id: productId,
             date: new Date(),
             status: 'Paid',
           });
+          console.log('Après la création de la commande', order);
 
           // marquer le produit comme "vendu" uniquement si la commande est réussie
           await Product.markAsSold(productId);
 
-          return order.id.toString(); // Return the order number directly
+          return order.id.toString();
         })
       );
       orderNumbers.push(...orders);
@@ -213,8 +230,9 @@ const shopController = {
     } catch (error) {
       console.error('Error placing order:', error);
       res.status(500).json({
-        message: 'Failed to create order',
+        message: 'Échec de la création de la commande',
         error: error.message,
+        stack: error.stack, // Ajoutez la pile d'erreurs pour un débogage plus approfondi
       });
     }
   },
