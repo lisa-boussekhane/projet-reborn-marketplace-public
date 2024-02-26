@@ -148,45 +148,26 @@ const shopController = {
     }
   },
 
-  async uploadInvoiceInOrder(req, res) {
-    try {
-      console.log(req.files);
+async uploadInvoiceInOrder(req, res) {
+  try {
+    const orderId = req.query.order_id || req.body.order_id;
 
-      const productId = req.params.id;
-      const productData = req.body;
-      const detailProductData = req.body;
-      const mediaDataArray = req.files.map((file) => ({
-        path: file.path,
-      }));
-
-      // Update product
-      await Product.update(productData, { where: { id: productId } });
-
-      // Update detailProduct
-      await Detail_product.update(detailProductData, {
-        where: { product_id: productId },
-      });
-
-      // supprimer le média déjà existant
-      await Media.destroy({ where: { product_id: productId } });
-
-      // insérer le nouveau
-      const mediaPromises = mediaDataArray.map((mediaData) =>
-        Media.create({ photo: mediaData.path, product_id: productId })
-      );
-      await Promise.all(mediaPromises);
-
-      res.status(200).json({
-        message: 'Product updated successfully with files',
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        message: 'Failed to update product with files',
-        error: error.message,
-      });
+    if (!req.file) {
+        return res.status(400).send({ message: "No invoice file uploaded." });
     }
-  },
+
+    const invoicePath = req.file.path; // Path where the uploaded file is saved
+
+    // Update the order with the invoice file path using Sequelize
+    // Assuming you have an Order model and an 'invoicePath' field in your orders table
+    await User_Order_Product.update({ invoice: invoicePath }, { where: { id: orderId } });
+
+    res.json({ message: "Invoice uploaded successfully.", invoice: invoicePath });
+} catch (error) {
+    console.error('Error uploading invoice:', error.message);
+    res.status(500).json({ error: "An error occurred while uploading the invoice." });
+}
+},
 
   async createOrder(req, res) {
     try {
