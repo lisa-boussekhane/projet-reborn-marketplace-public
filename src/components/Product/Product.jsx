@@ -1,6 +1,7 @@
 import './Product.scss';
 import { useParams, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faStar,
@@ -10,23 +11,13 @@ import {
 import { Icon as Icons } from '@iconify/react';
 import { useCart } from '../React-Context/CartContext';
 
-export default function Product() {
+export default function Product({ shopId }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const { addToCart } = useCart();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const stars = document.querySelectorAll('#star__items');
-
-  stars.forEach((star, index1) => {
-    star.addEventListener('click', () => {
-      stars.forEach((star, index2) => {
-        index1 >= index2
-          ? star.classList.add('active')
-          : star.classList.remove('active');
-      });
-    });
-  });
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -63,6 +54,28 @@ export default function Product() {
         (prevIndex - 1 + product.Media.length) % product.Media.length
     );
   };
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/shop/${shopId}/ratings`)
+      .then((response) => response.json())
+      .then((data) => {
+        setRating(data.average);
+      })
+      .catch((error) => console.error('Error:', error));
+  }, [shopId]);
+
+  const handleRating = (newRating) => {
+    fetch(`http://localhost:3000/shop/${shopId}/rate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ rating: newRating }),
+    })
+      .then((response) => response.json())
+      .catch((error) => console.error('Error:', error));
+  };
+
   return (
     <div className="product__container">
       <div className="product__img">
@@ -98,11 +111,11 @@ export default function Product() {
                 : 'Details not provided by the seller yet.'}
             </p>
             <div className="star__box">
-              <FontAwesomeIcon icon={faStar} id="star__items" />
-              <FontAwesomeIcon icon={faStar} id="star__items" />
-              <FontAwesomeIcon icon={faStar} id="star__items" />
-              <FontAwesomeIcon icon={faStar} id="star__items" />
-              <FontAwesomeIcon icon={faStar} id="star__items" />
+              <StarRatings
+                ratingValue={rating}
+                size={20}
+                onRatingChange={(rate) => handleRating(rate)}
+              />
             </div>
           </div>
         </div>

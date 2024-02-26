@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
+import ResetRequest from '../ResetRequest/ResetRequest';
 import ResetPassword from '../ResetPassword/ResetPassword';
 import DeleteAccount from '../DeleteAccount/DeleteAccount';
 import './App.scss';
@@ -28,6 +29,13 @@ import MyStore from '../MyStore/MyStore';
 import UpdateProduct from '../UpdateProduct/UpdateProduct';
 
 function App() {
+
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+
+  const handlePaymentConfirmed = () => {
+    setPaymentConfirmed(true);
+  };
+
   return (
     <div className="app">
       <Header />
@@ -35,7 +43,9 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgotpassword" element={<ResetRequest />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
+
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
         <Route path="/cart" element={<Cart />} />

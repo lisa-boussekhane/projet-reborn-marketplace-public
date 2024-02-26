@@ -5,6 +5,7 @@ const passwordValidator = require('password-validator');
 const validator = require('validator');
 const User = require('../Models/user');
 const verifyToken = require('../Middlewares/authMiddleware');
+const { sendEmail } = require('./contactController');
 
 const authController = {
   validatePassword(password) {
@@ -98,7 +99,9 @@ const authController = {
         return res.status(200).json({
           success: true,
           token,
-          user: { id: user.id },
+
+          user: { id: user.id, password: user.password, email: user.email },
+
         });
       }
       console.log('Utilisateur non trouvé');
@@ -167,6 +170,33 @@ const authController = {
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'an unexpected error occured...' });
+    }
+  },
+
+  async requestPasswordReset(req, res) {
+    try {
+      // check if user's email exists
+      const { userId, email } = req.body;
+      const user = await User.findOne({ where: { userId, email } });
+
+      if (!user) {
+        return res.status(404).json({ message: 'user not found' });
+      }
+
+      const token = jwt.sign({ userId: user.id }, process.env.SECRET, {
+        expiresIn: '1h',
+      });
+
+      // Send reset link to user
+      const resetLink = `http://localhost:3000/resetrequest?token=${token}`;
+      const emailContent = `<p>Please click <a href='${resetLink}'>here</a> to reset your password.</p>`;
+      await sendEmail(email, 'Password Reset Request', emailContent);
+      return res
+        .status(200)
+        .json({ message: 'Reset link sent successfully', token });
+    } catch (error) {
+      console.error('Cannot reset password :', error);
+      return res.status(500).json({ message: 'Cannot reset password' });
     }
   },
 
