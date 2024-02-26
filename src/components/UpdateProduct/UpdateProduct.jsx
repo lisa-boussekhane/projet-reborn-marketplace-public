@@ -511,6 +511,7 @@ export default function UpdateProduct() {
                 >
                   <option value="detail">Hair</option>
                   <option value="painting">Hair painting</option>
+                  <option value="painting">Hair painting</option>
                   <option value="brown">Brown hair</option>
                   <option value="blonde">Blonde hair</option>
                   <option value="red">Red hair</option>

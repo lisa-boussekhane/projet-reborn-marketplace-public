@@ -1,9 +1,8 @@
 import './Login.scss';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../React-Context/AuthContext';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Input, Button } from 'semantic-ui-react';
+import { useAuth } from '../React-Context/AuthContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -30,6 +29,7 @@ export default function Login() {
       const { token, user } = data;
 
       // stocker le token et l'id dans localStorage
+
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('userId', user.id);
 
@@ -37,6 +37,7 @@ export default function Login() {
         setLoginSuccess(true);
         setLoginError(false);
         setIsLoggedIn(true);
+
         navigate('/myaccount');
       } else {
         console.error('Échec de la connexion');
@@ -76,7 +77,6 @@ export default function Login() {
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 id="password"
-                value={password}
                 placeholder="Password"
                 min={8}
                 required

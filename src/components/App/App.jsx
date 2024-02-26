@@ -29,8 +29,6 @@ import MyStore from '../MyStore/MyStore';
 import UpdateProduct from '../UpdateProduct/UpdateProduct';
 
 function App() {
-
-
   return (
     <div className="app">
       <Header />

@@ -101,7 +101,6 @@ const authController = {
           token,
 
           user: { id: user.id, password: user.password, email: user.email },
-
         });
       }
       console.log('Utilisateur non trouvé');
@@ -172,7 +171,7 @@ const authController = {
   async requestPasswordReset(req, res) {
     try {
       // check if user's email exists
-      const { userId, email } = req.body;
+      const { email } = req.body;
       const user = await User.findOne({ where: { userId, email } });
 
       if (!user) {
