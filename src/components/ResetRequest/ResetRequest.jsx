@@ -9,14 +9,17 @@ export default function ResetRequest() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await fetch(`http://localhost:3000/resetrequest`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        `http://localhost:3000/resetrequest?token=${token}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
       console.log(token);
 
       if (!response.ok) {
@@ -25,7 +28,6 @@ export default function ResetRequest() {
       const data = await response.json();
       setEmail(data);
       console.log('Reset link sent successfully');
-      console.log('Reset token', resetToken);
     } catch (error) {
       console.error('Failed to send reset link', error);
     }

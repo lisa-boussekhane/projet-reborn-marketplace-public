@@ -3,7 +3,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import { Card, Image } from 'semantic-ui-react';
 import './Products.scss';
 
-export default function Products({ paymentConfirmed }) {
+export default function Products() {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const { id } = useParams();
