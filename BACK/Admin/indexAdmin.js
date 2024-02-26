@@ -25,5 +25,5 @@ app.use(express.json());
 app.use(routerAdmin);
 
 app.listen(port, () => {
-  console.log(`Back Office AAR REST API is running on http://localhost:${port_admin}`);
+  console.log(`Back Office AAR REST API is running on http://localhost:${port}`);
 });
