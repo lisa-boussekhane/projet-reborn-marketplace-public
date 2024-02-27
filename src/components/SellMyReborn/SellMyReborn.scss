@@ -42,7 +42,7 @@ h3 {
 .sell__col1,
 .sell__col2,
 .sell__col3 {
-  width: 30%;  // Adjust width as needed
+  width: 30%; // Adjust width as needed
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -64,7 +64,7 @@ h3 {
 
 .sell__col2,
 .sell__col3 {
-  width: 30%;  // Adjust width as needed
+  width: 30%; // Adjust width as needed
   margin-top: 6.2rem;
 }
 
@@ -95,17 +95,17 @@ h3 {
 }
 
 .sell__col3 {
-   float: right;
+  float: right;
   margin-top: -25rem;
   margin-right: -20rem;
 }
 
 .sell__col2 {
- margin-top: -1rem;
+  margin-top: -1rem;
 }
 .sell__col1 {
   margin-top: 1rem;
- }
+}
 
 .sell__desc,
 .sell__btn {
@@ -120,10 +120,9 @@ h3 {
 }
 
 .larger-input {
-  width: 350px; 
-  height: 30px; 
+  width: 350px;
+  height: 30px;
 }
-
 
 .sell__btn input {
   margin-top: 1.5rem;
@@ -145,8 +144,34 @@ h3 {
   &success {
     color: green;
   }
-  
+
   &error {
     color: red;
+  }
+}
+
+/*RESPONSIVE*/
+
+/* lg */
+@media (max-width: 1024px) {
+  .sell__col2 {
+    margin-left: 10rem;
+  }
+}
+
+/* xl */
+@media (max-width: 1280px) {
+  .sell__col2 {
+    margin-left: 10rem;
+  }
+
+  .sell__wrapper.file {
+    margin-left: 10rem;
+  }
+
+  .sell__col3 textarea {
+    display: block;
+    margin-top: 25rem;
+    margin-left: -20rem;
   }
 }

@@ -92,10 +92,9 @@
   align-items: baseline;
 }
 
-.star__box svg {
+.star__box {
   margin-top: -2rem;
   margin-left: 25px;
-  fill: #ff0000;
 }
 
 #cart-button {
@@ -114,4 +113,95 @@
   border-radius: 8px;
   cursor: not-allowed; /* Curseur non autorisé */
   /* Ajoutez d'autres styles que vous souhaitez appliquer pour le bouton désactivé */
+}
+
+/*RESPONSIVE*/
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* xs */
+
+@media (min-width: 350px) {
+  .container {
+    max-width: 350px;
+  }
+
+  .product__chat {
+    display: block;
+    margin-left: -4rem;
+    width: 45px;
+  }
+}
+
+/* xs */
+@media (min-width: 475px) {
+  .container {
+    max-width: 475px;
+  }
+
+  .product__chat {
+    display: block;
+    margin-left: -4rem;
+    width: 45px;
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+
+  .product__chat {
+    display: block;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+
+  .product__chat {
+    display: block;
+    margin-left: 15rem;
+    margin-bottom: 2rem;
+  }
+
+  .product__img {
+    width: 100%;
+    margin-left: 20rem;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+
+  .star__box {
+    display: none;
+  }
+}
+
+/* xl */
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+
+  .star__box {
+    display: block;
+    width: 350px;
+  }
 }

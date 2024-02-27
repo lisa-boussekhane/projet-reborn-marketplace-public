@@ -241,14 +241,14 @@ export default function SellMyReborn() {
           {message}
         </p>
       )}
-      <div className="sell__box">
+      <div className="sell__box ">
         <form
           onSubmit={handleSubmit}
           method="post"
           encType="multipart/form-data"
           className="sell__container"
         >
-          <div className="sell__wrapper">
+          <div className="sell__wrapper file">
             <input
               type="file"
               name="photo"

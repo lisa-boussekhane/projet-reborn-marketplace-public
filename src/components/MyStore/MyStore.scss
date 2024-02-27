@@ -8,7 +8,6 @@
 }
 
 .seller__title h2 {
-  
   font-size: 2rem;
   border-bottom: 1px solid v.$midGrey;
   line-height: 2;
@@ -22,7 +21,7 @@
 .seller__buttons {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem; 
+  margin-bottom: 1rem;
   margin-top: 5rem;
 }
 
@@ -79,7 +78,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(255, 0, 0, 0.322); 
+  background-color: rgba(255, 0, 0, 0.322);
   color: white;
   padding: 10px;
   font-size: 18px;
@@ -87,7 +86,23 @@
   text-align: center;
 }
 
-
 .vendu-image {
-  filter: blur(5px); 
+  filter: blur(5px);
+}
+
+/*RESPONSIVE*/
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* xs */
+@media (min-width: 350px) {
+  .container {
+    max-width: 350px;
+  }
 }

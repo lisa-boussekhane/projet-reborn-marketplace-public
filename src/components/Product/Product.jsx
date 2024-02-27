@@ -18,7 +18,7 @@ export default function Product() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const [rating, setRating] = useState(0);
-  const [averageRating, setAverageRating] = useState(0);
+  // const [averageRating, setAverageRating] = useState(0);
   const [shopId, setShopId] = useState('');
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function Product() {
       .catch((error) => console.error('Error:', error));
   }, [shopId]);
 
-  const handleRating = (newRating) => {
+  /* const handleRating = (newRating) => {
     fetch(`http://localhost:3000/shop/${shopId}/rate`, {
       method: 'POST',
       headers: {
@@ -79,7 +79,16 @@ export default function Product() {
     })
       .then((response) => response.json())
       .catch((error) => console.error('Error:', error));
-  };
+  }; */
+
+  /* useEffect(() => {
+    fetch(`http://localhost:3000/shop/${shopId}/average-rating`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAverageRating(data.average);
+      })
+      .catch((error) => console.error('Error:', error));
+  }, [shopId]); */
 
   return (
     <div className="product__container">
@@ -117,9 +126,10 @@ export default function Product() {
             </p>
             <div className="star__box">
               <StarRatings
-                ratingValue={rating}
+                rating={rating}
                 size={20}
-                onRatingChange={(rate) => handleRating(rate)}
+                starRatedColor="gold"
+                className="star__items"
               />
             </div>
           </div>
@@ -196,6 +206,7 @@ export default function Product() {
         <Icons
           icon="la:comments"
           style={{ color: '#a3a3a3', fontSize: '3.5em' }}
+          className="product__chat"
         />
         <p>
           Price ${product ? product.price : 'Loading...'} + Shipping fees $

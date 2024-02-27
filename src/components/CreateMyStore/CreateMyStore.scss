@@ -124,3 +124,24 @@
 .error {
   color: red;
 }
+
+/*RESPONSIVE*/
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* xs */
+@media (min-width: 350px) {
+  .container {
+    max-width: 350px;
+  }
+
+  .cms h1 {
+    margin: 0 auto;
+  }
+}
