@@ -126,9 +126,11 @@ export default function AdminShops() {
               <NavLink to="/adminproducts" activeClassName="active-link">
                 All Products
               </NavLink>
+
               <NavLink to="/adminorders" activeClassName="active-link">
                 All Orders
               </NavLink>
+
             </div>
           </>
         )}
@@ -150,9 +152,13 @@ export default function AdminShops() {
                 </p>
 
                 <div className="shop-actions">
+
                   <button type="button" onClick={() => handleEditShop(shop)}>
                     Edit
                   </button>
+
+                  <button type="button">Edit</button>
+
                   <button
                     type="button"
                     onClick={() => handleDeleteShop(shop.id)}
@@ -165,6 +171,7 @@ export default function AdminShops() {
           </>
         )}
       </div>
+
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Modal.Header>Edit Shop</Modal.Header>
         <form onSubmit={handleUpdateShop}>
@@ -199,6 +206,7 @@ export default function AdminShops() {
           </Modal.Actions>
         </form>
       </Modal>
+
     </div>
   );
 }

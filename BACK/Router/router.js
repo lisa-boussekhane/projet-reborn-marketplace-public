@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const userController = require('../App/Controllers/UserController');
+const userController = require('../App/Controllers/userController');
 const searchController = require('../App/Controllers/searchController');
 const productController = require('../App/Controllers/productController');
 const chatController = require('../App/Controllers/chatController');
@@ -22,15 +22,16 @@ const aShopController = require('../Admin/Controllers/aShopController');
 
 const router = express.Router();
 
+/// App Routes ///
 router.post('/contactus', contactController.sendEmail);
 
 router.get('/user/:id', verifyToken, userController.getUserInfos);
+router.post('/resetrequest', userController.requestNewPassword);
 
 router.patch('/user/:id', verifyToken, authController.updateAccount);
 router.delete('/user/:id', verifyToken, authController.deleteAccount);
 router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
-router.post('/resetrequest', authController.requestPasswordReset);
 router.patch('/updatepassword', verifyToken, authController.updatePassword);
 
 router.get('/results', searchController.searchReborns);
@@ -83,9 +84,9 @@ router.get('/chat/:id', verifyToken, chatController.getMessage);
 router.get('/chat/:id', verifyToken, chatController.getAllMessages);
 router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
 
-router.get('shop/:id/ratings', ratingController.getShopRating);
+router.get('/shop/:id/ratings', ratingController.getShopRating);
 router.post('/shop/:id/rate', ratingController.postShopRating);
-router.get('shop/:id/average-rating', ratingController.getAverageRating);
+router.get('/shop/:id/average-rating', ratingController.getAverageRating);
 
 /// ADMIN ROUTES ///
 router.get('/admin/users', aUserController.getAllUsers);

@@ -22,6 +22,10 @@
         &:hover {
           text-decoration: underline;
         }
+
+        &.active-link {
+          text-decoration: underline;
+        }
       }
   }
 
@@ -29,6 +33,8 @@
     margin-bottom: 39.5rem;
   }
 
+
   .active-link {
     color: red;
   }
+

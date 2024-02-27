@@ -165,12 +165,14 @@ export default function AdminUsers() {
                 All Shops
               </NavLink>
               <NavLink to="/adminproducts" activeClassName="active-link">
+
                 {' '}
                 All Products
               </NavLink>
               <NavLink to="/adminorders" activeClassName="active-link">
                 All Orders
               </NavLink>
+
             </div>
           </>
         )}
@@ -225,6 +227,7 @@ export default function AdminUsers() {
                   <strong>User duns :</strong> {user.duns}
                 </p>
                 <div className="user-actions">
+
                   <button type="button" onClick={() => handleEditUser(user)}>
                     Edit
                   </button>
@@ -234,12 +237,14 @@ export default function AdminUsers() {
                   >
                     Delete
                   </button>
+
                 </div>
               </div>
             ))}
           </>
         )}
       </div>
+
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Modal.Header>Edit Shop</Modal.Header>
         <form onSubmit={handleUpdateUser}>
@@ -392,6 +397,7 @@ export default function AdminUsers() {
           </Modal.Actions>
         </form>
       </Modal>
+
     </div>
   );
 }
