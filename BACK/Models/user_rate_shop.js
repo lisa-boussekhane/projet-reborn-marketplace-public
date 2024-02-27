@@ -10,6 +10,16 @@ User_Rate_Shop.init(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    shop_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: 'shop_id',
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: 'user_id',
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: true,
