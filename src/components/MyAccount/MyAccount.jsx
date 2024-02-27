@@ -8,6 +8,8 @@ export default function MyAccount() {
   const [formData, setFormData] = useState();
   const [userOrders, setUserOrders] = useState([]);
   const [userSales, setUserSales] = useState([]);
+  const [newRating, setNewRating] = useState(0);
+  const [shopId, setShopId] = useState(0);
 
   const storedUserId = localStorage.getItem('userId');
   useEffect(() => {
@@ -180,6 +182,28 @@ export default function MyAccount() {
     } catch (error) {
       console.error('Error uploading invoice:', error.message);
     }
+  };
+
+  const fetchRating = (shopNumb, rating) => {
+    const token = localStorage.getItem('jwtToken');
+    fetch(`http://localhost:3000/shop/${shopNumb}/rate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ rating }),
+    })
+      .then((response) => response.json())
+      .catch((error) => console.error('Error:', error));
+  };
+
+  const handleRating = (shopNumb, rating) => {
+    console.log(
+      `l'utilisateur a cliqué sur ${rating} pour le shop ${shopNumb}`
+    );
+    setNewRating(rating);
+    fetchRating(shopNumb, rating);
   };
 
   return (
@@ -404,7 +428,42 @@ export default function MyAccount() {
                           )}
                         </strong>
                       </p>
-                      <p>Rate seller</p>
+                      <p> Rate seller : </p>
+                      <button
+                        type="button"
+                        className="star-btn"
+                        onClick={() => handleRating(order.Product.shop_id, 1)}
+                      >
+                        1
+                      </button>
+                      <button
+                        type="button"
+                        className="star-btn"
+                        onClick={() => handleRating(order.Product.shop_id, 2)}
+                      >
+                        2
+                      </button>
+                      <button
+                        type="button"
+                        className="star-btn"
+                        onClick={() => handleRating(order.Product.shop_id, 3)}
+                      >
+                        3
+                      </button>
+                      <button
+                        type="button"
+                        className="star-btn"
+                        onClick={() => handleRating(order.Product.shop_id, 4)}
+                      >
+                        4
+                      </button>
+                      <button
+                        type="button"
+                        className="star-btn"
+                        onClick={() => handleRating(order.Product.shop_id, 5)}
+                      >
+                        5
+                      </button>
                     </div>
                   </li>
                 ))}

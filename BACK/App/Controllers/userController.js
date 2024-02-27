@@ -35,7 +35,8 @@ const userController = {
       // Stocker ce token dans ce champ
       // Dynamiser url htmlContent
 
-      x;
+      const passwordToken = Math.random().toString(36).slice(-8);
+
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -43,7 +44,7 @@ const userController = {
           pass: 'dxkv dkwr ykda olax ',
         },
       });
-      const htmlContent = `<a href='http://localhost:3000/updatepassword'> generate new password</a>`;
+      const htmlContent = `<a href='http://localhost:5173/resetpassword/${passwordToken}'> generate new password</a>`;
 
       // Send mail with defined transport object
       const mailOptions = await transporter.sendMail({

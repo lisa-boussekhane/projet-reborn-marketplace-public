@@ -85,7 +85,7 @@ router.get('/chat/:id', verifyToken, chatController.getAllMessages);
 router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
 
 router.get('/shop/:id/ratings', ratingController.getShopRating);
-router.post('/shop/:id/rate', ratingController.postShopRating);
+router.post('/shop/:id/rate', verifyToken, ratingController.postShopRating);
 router.get('/shop/:id/average-rating', ratingController.getAverageRating);
 
 /// ADMIN ROUTES ///

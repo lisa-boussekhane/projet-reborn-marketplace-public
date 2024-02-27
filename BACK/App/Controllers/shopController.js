@@ -131,7 +131,7 @@ const shopController = {
           },
           {
             model: Product,
-            attributes: ['title', 'price', 'shipping_fees'],
+            attributes: ['title', 'price', 'shipping_fees', 'shop_id'],
             include: [{ model: User, as: 'seller', attributes: ['username'] }],
           },
         ],
