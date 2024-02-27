@@ -1,6 +1,6 @@
 import './SignUp.scss';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import validator from 'validator';
 import passwordValidator from 'password-validator';
 import { Input, Button } from 'semantic-ui-react';
@@ -16,6 +16,7 @@ export default function SignUp() {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { setIsLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -64,6 +65,7 @@ export default function SignUp() {
 
       const data = await response.json();
       setRegistrationSuccess(true);
+      navigate('/myaccount');
       setIsLoggedIn(true);
       const { token, user } = data;
       // stocker le token et l'id dans localStorage

@@ -64,7 +64,8 @@ export default function Product() {
     fetch(`http://localhost:3000/shop/${shopId}/ratings`)
       .then((response) => response.json())
       .then((data) => {
-        setRating(data.average);
+        setRating(data.averageRating);
+        console.log(data.averageRating);
       })
       .catch((error) => console.error('Error:', error));
   }, [shopId]);
@@ -126,7 +127,7 @@ export default function Product() {
             </p>
             <div className="star__box">
               <StarRatings
-                rating={rating}
+                rating={parseFloat(rating)}
                 size={20}
                 starRatedColor="gold"
                 className="star__items"
