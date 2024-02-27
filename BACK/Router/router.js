@@ -20,6 +20,7 @@ const aShopController = require('../Admin/Controllers/aShopController');
 
 const router = express.Router();
 
+/// App Routes ///
 router.post('/contactus', contactController.sendEmail);
 
 router.get('/user/:id', verifyToken, userController.getUserInfos);
