@@ -6,7 +6,7 @@ const ratingController = {
   async getShopRating(req, res) {
     try {
       const { shop_id } = req.params;
-      const ratings = await User_rate_shop.findAll({
+      const ratings = await User_Rate_Shop.findAll({
         where: { shop_id: shop_id }, // Adjust the field name based on your model definition
         attributes: [
           [sequelize.fn('AVG', sequelize.col('rating')), 'averageRating'],
@@ -52,7 +52,7 @@ const ratingController = {
     try {
       const { id } = req.params;
       // Assuming User_rate_shop.query() returns a promise
-      const { rows } = await User_rate_shop.query(
+      const { rows } = await User_Rate_Shop.query(
         'SELECT AVG(rating) as average FROM User_rate_shop WHERE product_id = $1 GROUP BY product_id',
         [id]
       );
