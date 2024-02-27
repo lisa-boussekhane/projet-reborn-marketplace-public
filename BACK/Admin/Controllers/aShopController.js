@@ -114,27 +114,25 @@ const aShopController = {
 
   async getAllUserOrdersWithDetails(req, res) {
     try {
-      const userId = req.params.id;
-
       const ordersWithDetails = await User_Order_Product.findAll({
-        where: { user_id: userId },
         include: [
           {
             model: User,
-            as: 'Buyer',
-            attributes: ['first_name', 'last_name', 'address', 'phone'],
+            as: 'buyer',
+            attributes: [
+              'first_name',
+              'last_name',
+              'address',
+              'phone',
+              'city',
+              'zip_code',
+              'state',
+            ],
           },
           {
             model: Product,
-            as: 'Product',
             attributes: ['title', 'price', 'shipping_fees'],
-            include: [
-              {
-                model: User,
-                as: 'Seller',
-                attributes: ['username'],
-              },
-            ],
+            include: [{ model: User, as: 'seller', attributes: ['username'] }],
           },
         ],
         attributes: ['status', 'id', 'date', 'order_number', 'invoice'],

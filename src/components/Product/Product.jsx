@@ -58,6 +58,7 @@ export default function Product({ shopId }) {
   };
 
   useEffect(() => {
+    console.log('Current shopId:', shopId);
     fetch(`http://localhost:3000/shop/${shopId}/ratings`)
       .then((response) => response.json())
       .then((data) => {
@@ -66,6 +67,18 @@ export default function Product({ shopId }) {
       })
       .catch((error) => console.error('Error:', error));
   }, [shopId]);
+
+  // const handleRating = (newRating) => {
+  //   fetch(`http://localhost:3000/shop/${shopId}/rate`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ rating: newRating }),
+  //   })
+  //     .then((response) => response.json())
+  //     .catch((error) => console.error('Error:', error));
+  // };
 
   useEffect(() => {
     fetch(`http://localhost:3000/shop/${shopId}/average-rating`)
