@@ -3,7 +3,9 @@
   flex-direction: column;
   justify-content: space-between; 
   padding: 10px;
-  margin-bottom: 10px;
+
+  margin-bottom: 25rem;
+
 
   .shop-info {
     display: flex;
@@ -32,3 +34,14 @@
     }
   }
 }
+
+ #name {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid grey;
+ }
+
+ .modale {
+  margin: 1rem;
+ }
+

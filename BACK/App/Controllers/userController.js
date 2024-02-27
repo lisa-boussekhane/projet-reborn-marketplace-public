@@ -1,6 +1,8 @@
 const { Product, User } = require('../../Models');
+
 const nodemailer = require('nodemailer');
 const { sequelize } = require('../../Models/index'); // Import Sequelize instance
+
 
 const userController = {
   async getUserInfos(req, res) {
@@ -22,6 +24,7 @@ const userController = {
   },
 
   async requestNewPassword(req, res) {
+
     try {
       const { email } = req.body;
       const user = await User.findOne({ where: { email } });
@@ -42,11 +45,14 @@ const userController = {
         },
       });
       const htmlContent = `<a href='http://localhost:3000/updatepassword'> generate new password</a>`;
+
       // Send mail with defined transport object
       const mailOptions = await transporter.sendMail({
         from: 'adoptareborn.contactus@gmail.com',
         to: email,
+
         subject: 'New password request',
+
         html: htmlContent,
       });
 

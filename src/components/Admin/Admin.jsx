@@ -19,15 +19,26 @@ export default function Admin() {
   }, [navigate, userRole]);
 
   return (
-    <div className="admin-page">
+    <div className="admin-page-home">
       {errorMessage && <p>{errorMessage}</p>}
       {userRole === 'Admin' && (
         <>
           <div className="admin-header">Admin dashboard</div>
           <div className="admin-nav">
-            <NavLink to="/adminusers">All Users</NavLink>
-            <NavLink to="/adminshops">All Shops</NavLink>
-            <NavLink to="/adminproducts">All Products</NavLink>
+            <NavLink to="/adminusers" activeClassName="active-link">
+              All Users
+            </NavLink>
+            <NavLink to="/adminshops" activeClassName="active-link">
+              All Shops
+            </NavLink>
+            <NavLink to="/adminproducts" activeClassName="active-link">
+              All Products
+            </NavLink>
+
+            <NavLink to="/adminorders" activeClassName="active-link">
+              All Orders
+            </NavLink>
+
           </div>
         </>
       )}

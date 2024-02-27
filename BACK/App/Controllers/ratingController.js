@@ -12,6 +12,7 @@ const ratingController = {
         where: { shop_id: +id },
         attributes: [
           [Sequelize.fn('AVG', Sequelize.col('rating')), 'averageRating'],
+          //Sequelize.fn allows you to perform various SQL operations, including aggregation functions, directly within your queries. This feature is particularly useful for performing complex calculations, such as summing values, calculating averages, or finding minimum and maximum values within a dataset.//
         ],
         raw: true,
       });
@@ -31,8 +32,8 @@ const ratingController = {
   },
 
   async postShopRating(req, res) {
-    const { id } = req.params; // Assuming this is the shopId
-    const { rating, user_id } = req.body; // Extracting rating and userId from the request body
+    const { id } = req.params; 
+    const { rating, user_id } = req.body; // Extracting rating and user_id from the request body
 
     try {
       // Create a new rating in the UserRateShop table
@@ -53,7 +54,7 @@ const ratingController = {
   async getAverageRating(req, res) {
     try {
       const { id } = req.params;
-      // Assuming User_rate_shop.query() returns a promise
+
       const { rows } = await User_Rate_Shop.query(
         'SELECT AVG(rating) as average FROM User_rate_shop WHERE product_id = $1 GROUP BY product_id',
         [id]

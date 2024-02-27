@@ -22,25 +22,50 @@ const aUserController = {
 
   async updateUser(req, res) {
     try {
-      const userId = req.params?.id || req.userId; // Get the user ID from URL parameters or request object
-      const updates = req.body; // Assuming all updates are passed in the request body
+      const userId = req.params.id;
+      const updates = req.body;
+
+      // Vérifiez si l'objet d'updates est vide
+      if (Object.keys(updates).length === 0) {
+        return res.status(400).json({ message: 'No fields to update.' });
+      }
 
       const [updatedRows] = await User.update(updates, {
         where: { id: userId },
-        returning: true, // For PostgreSQL, returns the updated object
+        returning: true,
       });
 
-      if (!updatedRows) {
+      if (!updatedRows[0]) {
         return res
           .status(404)
           .json({ message: `User with id ${userId} not found.` });
       }
 
-      const updatedUser = await User.findByPk(userId); // Fetch the updated user details
-      return res.status(200).json(updatedUser); // Return the updated user details
+      const updatedUser = await User.findByPk(userId);
+      return res.status(200).json(updatedUser);
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: 'An unexpected error occurred.' });
+    }
+  },
+
+  async deleteUser(req, res) {
+    try {
+      const userId = req.body.id;
+      const user = await User.findByPk(userId);
+
+      if (!user) {
+        return res
+          .status(404)
+          .json({ message: `user with id ${userId} not found.` });
+      }
+
+      await user.destroy();
+
+      res.status(204).json();
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'an unexpected error occured...' });
     }
   },
 };

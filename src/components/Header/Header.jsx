@@ -8,7 +8,7 @@ import { useAuth } from '../React-Context/AuthContext';
 
 export default function Header() {
   const [showLinks, setShowLinks] = useState(false);
-
+  const userRole = localStorage.getItem('userRole');
   const { isLoggedIn, setIsLoggedIn } = useAuth();
 
   const navigate = useNavigate();
@@ -39,7 +39,15 @@ export default function Header() {
   };
 
   const toggleLoginOrAccount = () => {
-    if (isLoggedIn) {
+    if (userRole === 'Admin') {
+      return (
+        <><NavLink to="/admindashboard">
+          <li className="navbar__item_admin">Admin</li>
+        </NavLink><NavLink to="/myaccount">
+            <li className="navbar__item">My Account</li>
+          </NavLink></>
+      );
+      } if  (isLoggedIn) {
       return (
         <NavLink to="/myaccount">
           <li className="navbar__item">My Account</li>
