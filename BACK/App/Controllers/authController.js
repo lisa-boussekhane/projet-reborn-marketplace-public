@@ -168,27 +168,6 @@ const authController = {
     }
   },
 
-  async requestPasswordReset(req, res) {
-    try {
-      // check if user's email exists
-      const { email } = req.body;
-      const user = await User.findOne({ where: { email } });
-
-      if (!user) {
-        return res.status(404).json({ message: 'user not found' });
-      }
-
-      // Send reset link to user
-      const resetLink = `http://localhost:3000/resetrequest`;
-      const emailContent = `<p>Please click <a href='${resetLink}'>here</a> to reset your password.</p>`;
-      await sendEmail(email, 'Password Reset Request', emailContent);
-      return res.status(200).json({ message: 'Reset link sent successfully' });
-    } catch (error) {
-      console.error('Cannot reset password :', error);
-      return res.status(500).json({ message: 'Cannot reset password' });
-    }
-  },
-
   async updatePassword(req, res) {
     try {
       const { userId, currentPassword, newPassword } = req.body;

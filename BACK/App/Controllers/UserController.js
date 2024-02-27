@@ -22,33 +22,31 @@ const userController = {
   },
 
   async requestNewPassword(req, res) {
-    const { email } = req.body;
-
-    const user = await User.findOne({ where: { email } });
-
-    if (!user) {
-      return res.status(404).json({ message: 'user not found' });
-    }
-    // Créer token unique (jwt ou autre(chaine de caractères))
-    // Rajouter  un champ (dans la table) token associé au user
-    // Stocker ce token dans ce champ
-    // Dynamiser url htmlContent
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'adoptareborn.contactus@gmail.com',
-        pass: 'dxkv dkwr ykda olax ',
-      },
-    });
-
     try {
-      const htmlContent = `<a href=''> generate new password</a>`;
+      const { email } = req.body;
+      const user = await User.findOne({ where: { email } });
+
+      if (!user) {
+        return res.status(404).json({ message: 'user not found' });
+      }
+      // Créer token unique (jwt ou autre(chaine de caractères))
+      // Rajouter  un champ (dans la table) token associé au user
+      // Stocker ce token dans ce champ
+      // Dynamiser url htmlContent
+
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'adoptareborn.contactus@gmail.com',
+          pass: 'dxkv dkwr ykda olax ',
+        },
+      });
+      const htmlContent = `<a href='http://localhost:3000/updatepassword'> generate new password</a>`;
       // Send mail with defined transport object
       const mailOptions = await transporter.sendMail({
         from: 'adoptareborn.contactus@gmail.com',
         to: email,
-        subject: 'new password request',
+        subject: 'New password request',
         html: htmlContent,
       });
 
