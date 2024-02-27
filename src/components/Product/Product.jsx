@@ -127,12 +127,8 @@ export default function Product({ shopId }) {
               <StarRatings
                 rating={averageRating}
                 size={20}
-
-
                 name="average-rating"
                 starRatedColor="gold"
-                changeRating={(rate) => handleRating(rate)}
-
               />
             </div>
           </div>
