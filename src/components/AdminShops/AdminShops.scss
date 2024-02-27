@@ -3,7 +3,9 @@
   flex-direction: column;
   justify-content: space-between; 
   padding: 10px;
-  margin-bottom: 24rem;
+
+  margin-bottom: 25rem;
+
 
   .shop-info {
     display: flex;
@@ -33,34 +35,13 @@
   }
 }
 
-.admin-header {
-  text-align: center;
-  font-size: 24px; 
-  margin-bottom: 10px;
-}
+ #name {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid grey;
+ }
 
-
-
-.admin-nav {
-  display: flex;
-  justify-content: space-around; 
-  align-items: center; 
-  background-color: #f0f0f0;
-  padding: 10px; 
-
-  a {
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-      margin: 10px;
-  
-      &:hover {
-        text-decoration: underline;
-      }
-
-      &.active-link {
-        text-decoration: underline;
-      }
-    }
-}
+ .modale {
+  margin: 1rem;
+ }
 

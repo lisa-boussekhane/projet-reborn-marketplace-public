@@ -1,12 +1,19 @@
 import './AdminShops.scss';
 import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { Modal, Button } from 'semantic-ui-react';
 
 export default function AdminShops() {
   const navigate = useNavigate();
   const userRole = localStorage.getItem('userRole');
   const [shops, setShops] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedShop, setSelectedShop] = useState(null);
+  const [updatingShopId, setUpdatingShopId] = useState(null);
+  const [formData, setFormData] = useState({
+    name: selectedShop ? selectedShop.name : '',
+  });
 
   useEffect(() => {
     if (userRole !== 'Admin') {
@@ -59,6 +66,49 @@ export default function AdminShops() {
     }
   };
 
+  const handleEditShop = (shop) => {
+    setSelectedShop(shop);
+    setUpdatingShopId(shop.id);
+    setIsModalOpen(true);
+  };
+
+  const handleNameChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevFormData) => {
+      return { ...prevFormData, name: value };
+    });
+  };
+
+  const handleUpdateShop = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/admin/updateshop/${updatingShopId}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name: formData.name }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to update shop.');
+      }
+
+      setShops((prevShops) =>
+        prevShops.map((shop) =>
+          shop.id === updatingShopId ? { ...shop, formData } : shop
+        )
+      );
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <div className="admin-page">
@@ -76,6 +126,11 @@ export default function AdminShops() {
               <NavLink to="/adminproducts" activeClassName="active-link">
                 All Products
               </NavLink>
+
+              <NavLink to="/adminorders" activeClassName="active-link">
+                All Orders
+              </NavLink>
+
             </div>
           </>
         )}
@@ -97,7 +152,13 @@ export default function AdminShops() {
                 </p>
 
                 <div className="shop-actions">
+
+                  <button type="button" onClick={() => handleEditShop(shop)}>
+                    Edit
+                  </button>
+
                   <button type="button">Edit</button>
+
                   <button
                     type="button"
                     onClick={() => handleDeleteShop(shop.id)}
@@ -110,6 +171,42 @@ export default function AdminShops() {
           </>
         )}
       </div>
+
+      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <Modal.Header>Edit Shop</Modal.Header>
+        <form onSubmit={handleUpdateShop}>
+          <Modal.Content className="modale">
+            {selectedShop && (
+              <>
+                <label htmlFor="updatedShopName">
+                  Shop name
+                  <input
+                    type="text"
+                    id="name"
+                    value={formData.name}
+                    onChange={handleNameChange}
+                  />
+                </label>
+                <p>
+                  <strong>Shop id:</strong> {selectedShop.id}
+                </p>
+                <p>
+                  <strong>Shop creator id :</strong> {selectedShop.user_id}
+                </p>
+              </>
+            )}
+          </Modal.Content>
+          <Modal.Actions className="modale">
+            <Button style={{ backgroundColor: 'green' }} primary>
+              Update Shop
+            </Button>
+            <Button secondary onClick={() => setIsModalOpen(false)}>
+              Close
+            </Button>
+          </Modal.Actions>
+        </form>
+      </Modal>
+
     </div>
   );
 }

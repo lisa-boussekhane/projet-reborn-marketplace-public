@@ -34,6 +34,11 @@ export default function Admin() {
             <NavLink to="/adminproducts" activeClassName="active-link">
               All Products
             </NavLink>
+
+            <NavLink to="/adminorders" activeClassName="active-link">
+              All Orders
+            </NavLink>
+
           </div>
         </>
       )}
