@@ -12,36 +12,11 @@ Shop.belongsTo(User, { foreignKey: 'user_id' });
 Shop.hasMany(Product, { foreignKey: 'shop_id' });
 Product.belongsTo(Shop, { foreignKey: 'shop_id' });
 
-User_Order_Product.belongsTo(User, {
-  foreignKey: 'user_id',
-  as: 'Buyer',
-});
+User_Order_Product.belongsTo(Product, { foreignKey: 'product_id' });
+User_Order_Product.belongsTo(User, { foreignKey: 'seller_id', as: 'seller' });
+User_Order_Product.belongsTo(User, { foreignKey: 'buyer_id', as: 'buyer' });
 
-
-
-User_Order_Product.belongsTo(Product, {
-  foreignKey: 'product_id',
-  as: 'Seller',
-});
-
-User.belongsToMany(Product, {
-  through: 'User_Order_Product',
-  foreignKey: 'user_id',
-  as: 'Seller', // utilisateur qui achète
-  timestamps: false,
-});
-
-Product.belongsToMany(User, {
-  through: 'User_Order_Product',
-  foreignKey: 'product_id',
-  as: 'Order', // utilisateur qui vend
-  timestamps: false,
-});
-
-Product.belongsTo(User, {
-  foreignKey: 'user_id',
-  as: 'Creator',
-});
+Product.belongsTo(User, { foreignKey: 'user_id', as: 'seller' });
 
 // Product and DetailProduct (One-to-One)
 Product.hasOne(Detail_product, { foreignKey: 'product_id' });

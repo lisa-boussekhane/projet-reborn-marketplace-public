@@ -193,7 +193,7 @@ export default function MyStore() {
                 className={`products__card ${product.sold ? 'vendu' : ''}`}
               >
                 <div className="products__card__item">
-                  <Card>
+                  <Card >
                     <div className="image-link">
                       <NavLink to={`/product/${product.id}`}>
                         {product &&
@@ -203,7 +203,7 @@ export default function MyStore() {
                             <img
                               src={`http://localhost:5173/${product.Media[0].photo}`}
                               alt={`Product ${product.id}`}
-                              className={product.sold ? 'vendu-image' : ''}
+                              className={product.sold ? 'vendu-image' : 'product-image'}
                             />
                           )}
                       </NavLink>

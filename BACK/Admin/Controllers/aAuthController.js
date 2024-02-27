@@ -7,44 +7,50 @@ const { sendEmail } = require('../../App/Controllers/contactController');
 const aAuthController = {
   async logAccount(req, res) {
     try {
-        const { email, password } = req.body;
-        console.log('Email reçu :', email);
-    
-        if (!email || !password) {
-          return res
-            .status(400)
-            .json({ message: "Nom d'utilisateur et mot de passe requis" });
-        }
-    
-        const user = await User.findOne({ where: { email: email } });
-        console.log('Utilisateur trouvé dans la base de données :', user);
-    
-        // Check if the user exists and the password is valid
-        if (!user || !user.validPassword(password)) {
-          console.log('Identifiants invalides');
-          return res.status(401).json({ message: 'Identifiants invalides' });
-        }
-    
-        // Verify that the user has an Admin role
-        if (user.role !== 'Admin') {
-          console.log('Accès refusé. Seuls les administrateurs peuvent se connecter.');
-          return res.status(403).json({ message: 'Accès refusé. Seuls les administrateurs peuvent se connecter.' });
-        }
-    
-        // If the user is an Admin and the password is valid, proceed to log them in
-        return res.status(200).json({
-          success: true,
-          message: "Connexion réussie",
-          user: { id: user.id, email: user.email }, // Ensure the password is not included in the response
-        });
-    
-      } catch (error) {
-        console.error("Erreur lors de l'authentification :", error);
+      const { email, password } = req.body;
+      console.log('Email reçu :', email);
+
+      if (!email || !password) {
         return res
-          .status(500)
-          .json({ message: "Erreur lors de l'authentification" });
+          .status(400)
+          .json({ message: "Nom d'utilisateur et mot de passe requis" });
       }
-    },
+
+      const user = await User.findOne({ where: { email: email } });
+      console.log('Utilisateur trouvé dans la base de données :', user);
+
+      // Check if the user exists and the password is valid
+      if (!user || !user.validPassword(password)) {
+        console.log('Identifiants invalides');
+        return res.status(401).json({ message: 'Identifiants invalides' });
+      }
+
+      // Verify that the user has an Admin role
+      if (user.role !== 'Admin') {
+        console.log(
+          'Accès refusé. Seuls les administrateurs peuvent se connecter.'
+        );
+        return res
+          .status(403)
+          .json({
+            message:
+              'Accès refusé. Seuls les administrateurs peuvent se connecter.',
+          });
+      }
+
+      // If the user is an Admin and the password is valid, proceed to log them in
+      return res.status(200).json({
+        success: true,
+        message: 'Connexion réussie',
+        user: { id: user.id, email: user.email }, // Ensure the password is not included in the response
+      });
+    } catch (error) {
+      console.error("Erreur lors de l'authentification :", error);
+      return res
+        .status(500)
+        .json({ message: "Erreur lors de l'authentification" });
+    }
+  },
 
   async requestPasswordReset(req, res) {
     try {

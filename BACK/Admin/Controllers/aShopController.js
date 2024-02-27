@@ -1,73 +1,17 @@
-const { Product, User, Detail_product, Media, Shop, User_Order_Product } = require('../../Models');
+const {
+  Product,
+  User,
+  Detail_product,
+  Media,
+  Shop,
+  User_Order_Product,
+} = require('../../Models');
 const { sequelize } = require('../../Models'); // Import Sequelize instance
 
 const aShopController = {
-async getOneShop(req, res) {
-    try {
-      const shopId = req.params.id;
-      const shop = await Shop.findByPk(shopId, {
-        include: [
-          {
-            model: Product,
-            as: 'Products',
-            include: [
-              {
-                model: Detail_product,
-                as: 'Detail Product',
-              },
-              {
-                model: Media,
-                as: 'Medias',
-              },
-            ],
-          },
-          {
-            model: User,
-            as: 'Creator',
-            attributes: ['id', 'first_name', 'last_name', 'email'],
-          },
-        ],
-      });
-
-      if (!shop) {
-        return res.status(404).json({ message: 'Shop not found' });
-      }
-
-      res.status(200).json(shop);
-    } catch (error) {
-      console.error('Failed to retrieve shop:', error);
-      res.status(500).json({
-        message: 'Failed to retrieve shop details',
-        error: error.message,
-      });
-    }
-  },
-
   async getAllShops(req, res) {
     try {
-      const shops = await Shop.findAll({
-        include: [
-          {
-            model: Product,
-            as: 'Products',
-            include: [
-              {
-                model: Detail_product,
-                as: 'Detail Product',
-              },
-              {
-                model: Media,
-                as: 'Medias',
-              },
-            ],
-          },
-          {
-            model: User,
-            as: 'Creator',
-            attributes: ['id', 'first_name', 'last_name', 'email'],
-          },
-        ],
-      });
+      const shops = await Shop.findAll();
 
       if (!shops || shops.length === 0) {
         return res.status(404).json({ message: 'No shops found' });
@@ -148,30 +92,19 @@ async getOneShop(req, res) {
   },
 
   async deleteShop(req, res) {
-    const shopId = req.params.id; // Assuming the shop ID is passed as a URL parameter
-    const userId = req.userId; // Assuming userId is available from authenticated user
+    const shopId = req.body.id;
 
     try {
-      // Verify the user exists
-      const user = await User.findByPk(userId);
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
+      const shop = await Shop.findByPk(shopId);
 
-      // Verify the shop exists and belongs to the user
-      const shop = await Shop.findOne({
-        where: { id: shopId, user_id: userId },
-      });
       if (!shop) {
         return res
           .status(404)
-          .json({ error: 'Shop not found or does not belong to the user' });
+          .json({ message: `product with id ${shopId} not found.` });
       }
-
       // Delete the shop
-      await Shop.destroy({ where: { id: shopId } });
+      await shop.destroy();
 
-      // Respond with success message
       return res.status(200).json({ message: 'Shop deleted successfully' });
     } catch (error) {
       console.error('Error deleting shop:', error);
@@ -179,7 +112,7 @@ async getOneShop(req, res) {
     }
   },
 
-async getAllUserOrdersWithDetails(req, res) {
+  async getAllUserOrdersWithDetails(req, res) {
     try {
       const userId = req.params.id;
 

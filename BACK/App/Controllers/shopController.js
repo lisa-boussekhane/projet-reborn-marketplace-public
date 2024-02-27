@@ -1,4 +1,3 @@
-
 const {
   Product,
   Shop,
@@ -7,16 +6,9 @@ const {
   User_Order_Product,
 } = require('../../Models');
 
-
-const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
-const { sequelize } = require('../../Models/index'); // Import Sequelize instance
-//  JavaScript statements that import Node.js built-in modules fs and path, respectively. These modules provide utilities for file system operations and handling file paths, which are essential for many Node.js applications, especially those dealing with file manipulation and directory management.
-
 const shopController = {
   // ne touche pas à showShop stp
-async showShop(req, res) {
+  async showShop(req, res) {
     try {
       const userId = req.params.id;
       console.log(userId);
@@ -117,16 +109,16 @@ async showShop(req, res) {
     }
   },
 
-async getAllUserOrdersWithDetails(req, res) {
+  async getAllUserOrdersWithDetails(req, res) {
     try {
       const userId = req.params.id;
 
       const ordersWithDetails = await User_Order_Product.findAll({
-        where: { user_id: userId },
+        where: { buyer_id: userId },
         include: [
           {
             model: User,
-            as: 'Buyer',
+            as: 'buyer',
             attributes: [
               'first_name',
               'last_name',
@@ -139,15 +131,8 @@ async getAllUserOrdersWithDetails(req, res) {
           },
           {
             model: Product,
-            as: 'Seller',
             attributes: ['title', 'price', 'shipping_fees'],
-            include: [
-              {
-                model: User,
-                as: 'Creator',
-                attributes: ['username'],
-              },
-            ],
+            include: [{ model: User, as: 'seller', attributes: ['username'] }],
           },
         ],
         attributes: ['status', 'id', 'date', 'order_number', 'invoice'],
@@ -164,28 +149,73 @@ async getAllUserOrdersWithDetails(req, res) {
       });
     }
   },
+  async sellerOrdersWithDetails(req, res) {
+    try {
+      const userId = req.params.id;
 
-async uploadInvoiceInOrder(req, res) {
-  try {
-    const orderId = req.query.order_id || req.body.order_id;
-
-    if (!req.file) {
-        return res.status(400).send({ message: "No invoice file uploaded." });
+      const soldProducts = await User_Order_Product.findAll({
+        where: { seller_id: userId },
+        attributes: ['date', 'order_number', 'invoice', 'status', 'id'],
+        include: [
+          {
+            model: Product,
+            attributes: ['title', 'price'],
+          },
+          {
+            model: User,
+            attributes: [
+              'first_name',
+              'last_name',
+              'address',
+              'phone',
+              'zip_code',
+              'city',
+              'state',
+            ],
+            as: 'buyer',
+          },
+        ],
+      });
+      res.status(200).json({
+        soldProducts,
+      });
+    } catch (error) {
+      console.error('Failed to retrieve user sold products:', error);
+      res.status(500).json({
+        message: 'Failed to retrieve user sold products',
+        error: error.message,
+      });
     }
+  },
 
-    const invoicePath = req.file.path; // Path where the uploaded file is saved
+  async uploadInvoiceInOrder(req, res) {
+    try {
+      const orderId = req.query.order_id || req.body.order_id;
 
-    // Update the order with the invoice file path using Sequelize
-    // Assuming you have an Order model and an 'invoicePath' field in your orders table
-    await User_Order_Product.update({ invoice: invoicePath }, { where: { id: orderId } });
+      if (!req.file) {
+        return res.status(400).send({ message: 'No invoice file uploaded.' });
+      }
 
-    res.json({ message: "Invoice uploaded successfully.", invoice: invoicePath });
-} catch (error) {
-    console.error('Error uploading invoice:', error.message);
-    res.status(500).json({ error: "An error occurred while uploading the invoice." });
-}
-},
+      const invoicePath = req.file.path; // Path where the uploaded file is saved
 
+      // Update the order with the invoice file path using Sequelize
+      // Assuming you have an Order model and an 'invoicePath' field in your orders table
+      await User_Order_Product.update(
+        { invoice: invoicePath },
+        { where: { id: orderId } }
+      );
+
+      res.json({
+        message: 'Invoice uploaded successfully.',
+        invoice: invoicePath,
+      });
+    } catch (error) {
+      console.error('Error uploading invoice:', error.message);
+      res
+        .status(500)
+        .json({ error: 'An error occurred while uploading the invoice.' });
+    }
+  },
 
   async createOrder(req, res) {
     const orderNumber = async () => {
@@ -205,30 +235,28 @@ async uploadInvoiceInOrder(req, res) {
     };
 
     try {
-      const { userId, productIds } = req.body;
-      console.log('user id', userId);
-      console.log('product ids', productIds);
+      const { userId, productIds, sellerIds } = req.body;
 
-      // Create a new entry in User_Order_Product
       const orders = await Promise.all(
         productIds.map(async (productId) => {
           try {
-            // Create a new order for the current product
             const order = await User_Order_Product.create(
               {
-                user_id: userId,
+                buyer_id: userId,
                 product_id: productId,
+                seller_id: sellerIds[productIds.indexOf(productId)],
                 date: new Date(),
                 status: 'Paid',
                 order_number: await orderNumber(),
               },
               {
                 fields: [
-                  'user_id',
+                  'buyer_id',
                   'product_id',
                   'date',
                   'status',
                   'order_number',
+                  'seller_id',
                 ],
               }
             );
@@ -241,12 +269,10 @@ async uploadInvoiceInOrder(req, res) {
             return order.order_number;
           } catch (error) {
             console.error('Error placing order:', error);
-            return null; // or handle the error in a way that makes sense for your application
+            return null;
           }
         })
       );
-
-      // Filter out null values from orders array
       const validOrders = orders.filter((order) => order !== null);
 
       res.status(201).json({

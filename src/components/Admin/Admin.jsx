@@ -25,9 +25,9 @@ export default function Admin() {
         <>
           <div className="admin-header">Admin dashboard</div>
           <div className="admin-nav">
-            <NavLink to="/allusers">All Users</NavLink>
-            <NavLink to="/allshop">All Shops</NavLink>
-            <NavLink to="/allproducts">All Products</NavLink>
+            <NavLink to="/adminusers">All Users</NavLink>
+            <NavLink to="/adminshops">All Shops</NavLink>
+            <NavLink to="/adminproducts">All Products</NavLink>
           </div>
         </>
       )}

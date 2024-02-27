@@ -68,6 +68,11 @@ router.get(
   verifyToken,
   shopController.getAllUserOrdersWithDetails
 );
+router.get(
+  '/user/sales/:id',
+  verifyToken,
+  shopController.sellerOrdersWithDetails
+);
 router.patch(
   '/orders',
   verifyToken,
@@ -84,7 +89,6 @@ router.post('/shop/:id/rate', ratingController.postShopRating);
 router.get('shop/:id/average-rating', ratingController.getAverageRating);
 
 /// ADMIN ROUTES ///
-router.get('/admin/user/:id', aUserController.getUserInfos);
 router.get('/admin/users', aUserController.getAllUsers);
 router.patch('/admin/user/:id', aUserController.updateUser);
 
@@ -93,7 +97,6 @@ router.post('/admin/login', aAuthController.logAccount);
 router.post('/admin/resetrequest', aAuthController.requestPasswordReset);
 router.post('/admin/resetpassword', aAuthController.updatePassword);
 
-router.get('/admin/product/:id', aProductController.getOneProduct);
 router.get('/admin/products', aProductController.getAllProducts);
 router.post(
   '/admin/product/:id',
@@ -105,17 +108,15 @@ router.patch(
   upload.array('photo', 12),
   aProductController.updateProduct
 );
-router.delete('/admin/product/:id', aProductController.deleteProduct);
+router.delete('/admin/product', aProductController.deleteProduct);
 
-router.get('/admin/shop/:id', aShopController.getOneShop);
 router.get('/admin/shops', aShopController.getAllShops);
 router.post('/admin/createshop/:id', aShopController.createShop);
 router.patch('/admin/updateshop/:id', aShopController.updateShop);
-router.delete('/admin/shop/:id', aShopController.deleteShop);
+router.delete('/admin/shop', aShopController.deleteShop);
 router.get(
   '/admin/user/orders/:id',
   aShopController.getAllUserOrdersWithDetails
 );
-///
 
 module.exports = router;

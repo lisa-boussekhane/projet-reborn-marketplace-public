@@ -46,13 +46,17 @@ body {
 .products__wrapper {
   display: grid;
   grid-template-columns: 350px 350px 350px;
-  margin-left: 28rem;
+  margin-left: 23rem;
 }
-
+.product-img {
+  height: 480px; 
+  
+}
 .products__card {
-  width: 90%;
+  width: 100%;
   margin-left: 18rem;
   margin-bottom: 3rem;
+  
 }
 
 
