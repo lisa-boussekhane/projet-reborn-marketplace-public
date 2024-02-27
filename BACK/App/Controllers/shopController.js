@@ -111,7 +111,7 @@ const shopController = {
 
   async getAllUserOrdersWithDetails(req, res) {
     try {
-      const userId = req.params.id;
+      const userId = req.body.id;
 
       const ordersWithDetails = await User_Order_Product.findAll({
         where: { buyer_id: userId },
