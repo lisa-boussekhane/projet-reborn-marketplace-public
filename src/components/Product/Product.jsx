@@ -11,12 +11,12 @@ import {
 import { Icon as Icons } from '@iconify/react';
 import { useCart } from '../React-Context/CartContext';
 
-export default function Product({ shopId }) {
+export default function Product() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const { addToCart } = useCart();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+  const [shopId, setShopId] = useState('');
   const [rating, setRating] = useState(0);
   const [averageRating, setAverageRating] = useState(0);
 
@@ -30,6 +30,8 @@ export default function Product({ shopId }) {
         const data = await response.json();
         console.log(data);
         setProduct(data);
+        const shopIdFromProduct = data.shop_id;
+        setShopId(shopIdFromProduct);
       } catch (error) {
         console.error('Error fetching product:', error);
       }
@@ -63,7 +65,6 @@ export default function Product({ shopId }) {
       .then((response) => response.json())
       .then((data) => {
         setRating(data.average);
-        console.log(shopId);
       })
       .catch((error) => console.error('Error:', error));
   }, [shopId]);
@@ -127,12 +128,9 @@ export default function Product({ shopId }) {
               <StarRatings
                 rating={averageRating}
                 size={20}
-
-
                 name="average-rating"
                 starRatedColor="gold"
-                changeRating={(rate) => handleRating(rate)}
-
+                // changeRating={(rate) => handleRating(rate)}
               />
             </div>
           </div>
