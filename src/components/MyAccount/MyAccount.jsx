@@ -187,6 +187,7 @@ export default function MyAccount() {
       <div className="account_menu">
         <h1>My Account</h1>
 
+
         <ul className="account__items">
           <li>
             <Link to="/myaccount#profile">Personal information</Link>
@@ -337,6 +338,7 @@ export default function MyAccount() {
                     onChange={handleChange}
                   />
                 </label>
+
                 <input
                   type="submit"
                   value="Save update"

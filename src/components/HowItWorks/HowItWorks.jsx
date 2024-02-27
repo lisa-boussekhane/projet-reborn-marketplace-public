@@ -33,7 +33,7 @@ export default function HowItWorks() {
       </div>
 
       <div className="notice__wrapper">
-        <div className="notice__group">
+        <div className="notice__group ">
           <h2>Step 1 - Browse and Select</h2>
           <p className="notice__item">
             Start by exploring the selection of reborn dolls available on the

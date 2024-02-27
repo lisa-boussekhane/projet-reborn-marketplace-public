@@ -28,7 +28,7 @@ export default function Result() {
   }, [search]);
 
   return (
-    <div className="result__container">
+    <div className="result__container container">
       <div className="result__input">
         <h2> {`${results ? results.length : 0} Reborns match your search`}</h2>
       </div>
