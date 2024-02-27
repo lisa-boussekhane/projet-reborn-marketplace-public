@@ -38,33 +38,6 @@ const contactus = {
       res.status(500).json({ erreur: "Erreur lors de l'envoi du courriel." });
     }
   },
-
-  async sendMail(req, res) {
-    const { to, subject, htmlContent } = req.body;
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'adoptareborn.contactus@gmail.com',
-        pass: 'dxkv dkwr ykda olax ',
-      },
-    });
-    try {
-      // Send mail with defined transport object
-      const mailOptions = await transporter.sendMail({
-        from: 'adoptareborn.contactus@gmail.com',
-        to,
-        subject,
-        html: htmlContent,
-      });
-
-      console.log('Email sent:', mailOptions.messageId);
-      res.status(200).json({ message: 'Email sent successfully' });
-    } catch (error) {
-      console.error('Error sending email:', error);
-      res.status(500).json({ message: 'Failed to send email' });
-    }
-  },
 };
 
 module.exports = contactus;
