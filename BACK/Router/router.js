@@ -11,10 +11,7 @@ const shopController = require('../App/Controllers/shopController');
 const contactController = require('../App/Controllers/contactController');
 const ratingController = require('../App/Controllers/ratingController');
 const verifyToken = require('../App/Middlewares/authMiddleware');
-const {
-  upload,
-  uploadInvoice,
-} = require('../App/Middlewares/multerMiddleware');
+const { upload, uploadInvoice } = require('../App/Middlewares/multerMiddleware');
 
 const aUserController = require('../Admin/Controllers/aUserController');
 const aAuthController = require('../Admin/Controllers/aAuthController');
