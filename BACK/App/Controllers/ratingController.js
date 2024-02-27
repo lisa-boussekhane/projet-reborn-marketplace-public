@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Shop, User, User_rate_shop } = require('../../Models');
+const { Shop, User, User_Rate_Shop } = require('../../Models');
 const { sequelize } = require('../../Models/index');
 
 const ratingController = {
@@ -34,7 +34,7 @@ const ratingController = {
 
     try {
       // Create a new rating in the UserRateShop table
-      await User_rate_shop.create({
+      await User_Rate_Shop.create({
         shopId: shop_id,
         rating: rating,
         userId: user_id,
