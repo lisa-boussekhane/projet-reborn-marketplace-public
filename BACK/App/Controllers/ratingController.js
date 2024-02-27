@@ -5,9 +5,9 @@ const { sequelize } = require('../../Models/index');
 const ratingController = {
   async getShopRating(req, res) {
     try {
-      const { shop_id } = req.params;
+      const { User_rate_shop_id } = req.params;
       const ratings = await User_Rate_Shop.findAll({
-        where: { shop_id: shop_id }, // Adjust the field name based on your model definition
+        where: { User_rate_shop_id: User_rate_shop_id }, 
         attributes: [
           [sequelize.fn('AVG', sequelize.col('rating')), 'averageRating'],
         ],
@@ -29,13 +29,13 @@ const ratingController = {
   },
 
   async postShopRating(req, res) {
-    const { shop_id } = req.params; // Assuming this is the shopId
+    const { User_rate_shop_id } = req.params; // Assuming this is the shopId
     const { rating, user_id } = req.body; // Extracting rating and userId from the request body
 
     try {
       // Create a new rating in the UserRateShop table
       await User_Rate_Shop.create({
-        shopId: shop_id,
+        UserRateShop_id: User_rate_shop_id,
         rating: rating,
         userId: user_id,
       });

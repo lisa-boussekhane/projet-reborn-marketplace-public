@@ -11,14 +11,13 @@ import {
 import { Icon as Icons } from '@iconify/react';
 import { useCart } from '../React-Context/CartContext';
 
-export default function Product() {
+export default function Product({ shopId }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const { addToCart } = useCart();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [shopId, setShopId] = useState('');
+
   const [rating, setRating] = useState(0);
-  const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -30,8 +29,6 @@ export default function Product() {
         const data = await response.json();
         console.log(data);
         setProduct(data);
-        const shopIdFromProduct = data.shop_id;
-        setShopId(shopIdFromProduct);
       } catch (error) {
         console.error('Error fetching product:', error);
       }
@@ -60,7 +57,6 @@ export default function Product() {
   };
 
   useEffect(() => {
-    console.log('Current shopId:', shopId);
     fetch(`http://localhost:3000/shop/${shopId}/ratings`)
       .then((response) => response.json())
       .then((data) => {
@@ -69,26 +65,17 @@ export default function Product() {
       .catch((error) => console.error('Error:', error));
   }, [shopId]);
 
-  // const handleRating = (newRating) => {
-  //   fetch(`http://localhost:3000/shop/${shopId}/rate`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ rating: newRating }),
-  //   })
-  //     .then((response) => response.json())
-  //     .catch((error) => console.error('Error:', error));
-  // };
-
-  useEffect(() => {
-    fetch(`http://localhost:3000/shop/${shopId}/average-rating`)
+  const handleRating = (newRating) => {
+    fetch(`http://localhost:3000/shop/${shopId}/rate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ rating: newRating }),
+    })
       .then((response) => response.json())
-      .then((data) => {
-        setAverageRating(data.average);
-      })
       .catch((error) => console.error('Error:', error));
-  }, [shopId]);
+  };
 
   return (
     <div className="product__container">
@@ -126,11 +113,9 @@ export default function Product() {
             </p>
             <div className="star__box">
               <StarRatings
-                rating={averageRating}
+                ratingValue={rating}
                 size={20}
-                name="average-rating"
-                starRatedColor="gold"
-                // changeRating={(rate) => handleRating(rate)}
+                onRatingChange={(rate) => handleRating(rate)}
               />
             </div>
           </div>

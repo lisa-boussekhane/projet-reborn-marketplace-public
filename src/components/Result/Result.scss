@@ -17,15 +17,13 @@
 .result__box {
    display: grid;
   grid-template-columns: 350px 350px 350px;
-  align-items: stretch;
- 
+  margin-left: 23rem;
 }
 
 
 
 .result__card {
   position: relative;
-  margin-bottom: 1.5rem;
   
 }
 .product-img {
