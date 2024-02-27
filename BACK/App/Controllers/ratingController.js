@@ -12,6 +12,7 @@ const ratingController = {
         where: { shop_id: +id },
         attributes: [
           [Sequelize.fn('AVG', Sequelize.col('rating')), 'averageRating'],
+          //Sequelize.fn allows you to perform various SQL operations, including aggregation functions, directly within your queries. This feature is particularly useful for performing complex calculations, such as summing values, calculating averages, or finding minimum and maximum values within a dataset.//
         ],
         raw: true,
       });
