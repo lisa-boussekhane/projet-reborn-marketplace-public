@@ -58,25 +58,27 @@ export default function Product({ shopId }) {
   };
 
   useEffect(() => {
+    console.log('Current shopId:', shopId);
     fetch(`http://localhost:3000/shop/${shopId}/ratings`)
       .then((response) => response.json())
       .then((data) => {
         setRating(data.average);
+        console.log(shopId);
       })
       .catch((error) => console.error('Error:', error));
   }, [shopId]);
 
-  const handleRating = (newRating) => {
-    fetch(`http://localhost:3000/shop/${shopId}/rate`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ rating: newRating }),
-    })
-      .then((response) => response.json())
-      .catch((error) => console.error('Error:', error));
-  };
+  // const handleRating = (newRating) => {
+  //   fetch(`http://localhost:3000/shop/${shopId}/rate`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ rating: newRating }),
+  //   })
+  //     .then((response) => response.json())
+  //     .catch((error) => console.error('Error:', error));
+  // };
 
   useEffect(() => {
     fetch(`http://localhost:3000/shop/${shopId}/average-rating`)
@@ -125,9 +127,12 @@ export default function Product({ shopId }) {
               <StarRatings
                 rating={averageRating}
                 size={20}
+
+
                 name="average-rating"
                 starRatedColor="gold"
                 changeRating={(rate) => handleRating(rate)}
+
               />
             </div>
           </div>
