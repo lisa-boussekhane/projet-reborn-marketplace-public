@@ -23,8 +23,8 @@ const productController = {
           },
           {
             model: User,
-            as: 'Creator',
-            attributes: ['username'],
+            as: 'seller',
+            attributes: ['username', 'id'],
           },
         ],
       });
@@ -36,7 +36,7 @@ const productController = {
         });
       }
 
-      const username = product.Creator.username || '';
+      const username = product.seller.username || '';
 
       const productWithUsername = {
         ...product.toJSON(),
@@ -69,7 +69,7 @@ const productController = {
           },
           {
             model: User,
-            as: 'Creator',
+            as: 'seller',
           },
         ],
       });

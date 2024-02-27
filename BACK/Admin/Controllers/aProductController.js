@@ -3,56 +3,6 @@ const { Product, Detail_product, Media, User, Shop } = require('../../Models');
 const { sequelize } = require('../../Models/index');
 
 const aProductController = {
-async getOneProduct(req, res) {
-    try {
-      // Extract the product ID from the request parameters
-      const productId = req.params.id;
-      console.log(productId);
-
-      // Fetch the product from the database, including its detail_product and media
-      const product = await Product.findByPk(productId, {
-        include: [
-          {
-            model: Detail_product,
-            as: 'Detail_product',
-          },
-          {
-            model: Media,
-            as: 'Media',
-            attributes: ['photo'],
-          },
-          {
-            model: User,
-            as: 'Creator',
-            attributes: ['username'],
-          },
-        ],
-      });
-
-      if (!product) {
-        // If the product is not found, return a 404 Not Found response
-        return res.status(404).json({
-          message: 'Product not found',
-        });
-      }
-
-      const username = product.Creator.username || '';
-
-      const productWithUsername = {
-        ...product.toJSON(),
-        username,
-      };
-
-      res.status(200).json(productWithUsername);
-    } catch (error) {
-      // If there's an error, respond with a 500 status code and the error message
-      res.status(500).json({
-        message: 'Failed to retrieve product details',
-        error: error.message,
-      });
-    }
-  },
-
   async getAllProducts(req, res) {
     try {
       // Fetch all products from the database, including their detail_product and media
@@ -69,7 +19,7 @@ async getOneProduct(req, res) {
           },
           {
             model: User,
-            as: 'Creator',
+            as: 'seller',
           },
         ],
       });
@@ -132,7 +82,7 @@ async getOneProduct(req, res) {
     }
   },
 
-async createProduct(req, res) {
+  async createProduct(req, res) {
     // Create random unique ID for the product
     const randomId = () => {
       const s4 = () => {
@@ -203,7 +153,7 @@ async createProduct(req, res) {
 
   async deleteProduct(req, res) {
     try {
-      const productId = req.params.id;
+      const productId = req.body.id;
       const product = await Product.findByPk(productId);
 
       if (!product) {
@@ -220,8 +170,6 @@ async createProduct(req, res) {
       res.status(500).json({ message: 'an unexpected error occured...' });
     }
   },
-
-
 };
 
 module.exports = aProductController;

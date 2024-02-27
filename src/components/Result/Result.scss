@@ -15,20 +15,20 @@
 }
 
 .result__box {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; 
+   display: grid;
+  grid-template-columns: 350px 350px 350px;
+  margin-left: 23rem;
 }
 
-.result__card {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-}
+
 
 .result__card {
   position: relative;
+  
+}
+.product-img {
+  height: 500px; 
+  
 }
 
 .vendu-banner {

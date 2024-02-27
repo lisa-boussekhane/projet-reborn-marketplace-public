@@ -27,6 +27,7 @@ export default function Product({ shopId }) {
           throw new Error('Error fetching products');
         }
         const data = await response.json();
+        console.log(data);
         setProduct(data);
       } catch (error) {
         console.error('Error fetching product:', error);
@@ -107,7 +108,7 @@ export default function Product({ shopId }) {
           <div className="product__rating">
             <p>
               {product
-                ? product.Creator.username
+                ? product.seller.username
                 : 'Details not provided by the seller yet.'}
             </p>
             <div className="star__box">

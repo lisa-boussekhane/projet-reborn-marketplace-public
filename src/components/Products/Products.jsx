@@ -305,7 +305,7 @@ export default function Products() {
             className={`products__card ${product.sold ? 'vendu' : ''}`}
           >
             <div className="products__card__item">
-              <Card>
+              <Card className="product-img">
                 <NavLink to={`/product/${product.id}`}>
                   {product.Media &&
                     product.Media.length > 0 &&

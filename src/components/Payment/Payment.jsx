@@ -106,6 +106,7 @@ export default function Payment() {
 
           console.log('User information updated!');
           const productIds = cart.map((item) => item.id);
+          const sellerIds = cart.map((item) => item.seller.id);
 
           console.log(storedUserId);
           const createOrder = await fetch('http://localhost:3000/createorder', {
@@ -117,6 +118,7 @@ export default function Payment() {
             body: JSON.stringify({
               userId: storedUserId,
               productIds: productIds,
+              sellerIds: sellerIds,
             }),
           });
 

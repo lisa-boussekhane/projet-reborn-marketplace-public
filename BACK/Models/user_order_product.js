@@ -16,11 +16,14 @@ User_Order_Product.init(
       type: DataTypes.DATE,
       allowNull: true,
     },
-    user_id: {
+    seller_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-
+    buyer_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
