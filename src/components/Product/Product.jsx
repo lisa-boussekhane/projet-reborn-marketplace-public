@@ -18,6 +18,7 @@ export default function Product({ shopId }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const [rating, setRating] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -76,6 +77,15 @@ export default function Product({ shopId }) {
       .catch((error) => console.error('Error:', error));
   };
 
+  useEffect(() => {
+    fetch(`http://localhost:3000/shop/${shopId}/average-rating`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAverageRating(data.average);
+      })
+      .catch((error) => console.error('Error:', error));
+  }, [shopId]);
+
   return (
     <div className="product__container">
       <div className="product__img">
@@ -112,9 +122,11 @@ export default function Product({ shopId }) {
             </p>
             <div className="star__box">
               <StarRatings
-                ratingValue={rating}
+                rating={averageRating}
                 size={20}
-                onRatingChange={(rate) => handleRating(rate)}
+                name="average-rating"
+                starRatedColor="gold"
+                changeRating={(rate) => handleRating(rate)}
               />
             </div>
           </div>
