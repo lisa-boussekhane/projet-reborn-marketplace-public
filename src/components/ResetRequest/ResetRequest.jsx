@@ -8,19 +8,14 @@ export default function ResetRequest() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('jwtToken');
-      const response = await fetch(
-        `http://localhost:3000/resetrequest?token=${token}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
-      console.log(token);
+      const response = await fetch(`http://localhost:3000/resetrequest`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      console.log(email);
 
       if (!response.ok) {
         throw new Error('Failed to send reset link');
