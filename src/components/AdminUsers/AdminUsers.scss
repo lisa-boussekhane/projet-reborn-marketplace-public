@@ -32,3 +32,15 @@
     }
   }
 }
+
+.modale {
+  margin: 1rem;
+  display: flex;
+  flex-direction:column;
+
+  input {
+    margin-left: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid grey;
+  }
+}

@@ -31,6 +31,7 @@ import Admin from '../Admin/Admin';
 import AdminUsers from '../AdminUsers/AdminUsers';
 import AdminShops from '../AdminShops/AdminShops';
 import AdminProducts from '../AdminProducts/AdminProducts';
+import AdminOrders from '../AdminOrders/AdminOrders';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path="/adminusers" element={<AdminUsers />} />
         <Route path="/adminshops" element={<AdminShops />} />
         <Route path="/adminproducts" element={<AdminProducts />} />
+        <Route path="/adminorders" element={<AdminOrders />} />
         <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/myaccount" element={<MyAccount />} />
         <Route path="/cart" element={<Cart />} />

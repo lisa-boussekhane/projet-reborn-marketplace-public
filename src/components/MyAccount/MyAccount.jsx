@@ -187,7 +187,6 @@ export default function MyAccount() {
       <div className="account_menu">
         <h1>My Account</h1>
 
-
         <ul className="account__items">
           <li>
             <Link to="/myaccount#profile">Personal information</Link>
@@ -390,9 +389,19 @@ export default function MyAccount() {
                       </p>
                       <p>
                         <strong>
-                          {order.invoice
-                            ? order.invoice
-                            : 'Invoice not available'}
+                          {order.invoice ? (
+                            <p>
+                              <a
+                                href={order.invoice}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                View Invoice
+                              </a>
+                            </p>
+                          ) : (
+                            'Invoice not available'
+                          )}
                         </strong>
                       </p>
                     </div>

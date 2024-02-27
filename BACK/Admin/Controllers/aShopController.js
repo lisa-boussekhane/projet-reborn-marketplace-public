@@ -27,47 +27,11 @@ const aShopController = {
     }
   },
 
-  async createShop(req, res) {
-    const userId = req.params.id;
-    try {
-      // First, verify the user exists
-      const user = await User.findByPk(userId);
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-
-      // Prepare the shop data from request body
-      const shopData = {
-        user_id: userId,
-        ...req.body,
-      };
-
-      // Create the shop associated with the user
-      const newShop = await Shop.create(shopData);
-
-      // Respond with the newly created shop details
-      return res.status(201).json(newShop);
-    } catch (error) {
-      console.error('Error creating shop:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
-  },
-
   async updateShop(req, res) {
-    const shopId = req.params.id; // Assuming the shop ID is passed as a URL parameter
-    const userId = req.userId; // Assuming userId is available from authenticated user
+    const shopId = req.params.id;
 
     try {
-      // Verify the user exists
-      const user = await User.findByPk(userId);
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-
-      // Verify the shop exists and belongs to the user
-      const shop = await Shop.findOne({
-        where: { id: shopId, user_id: userId },
-      });
+      const shop = await Shop.findByPk(shopId);
       if (!shop) {
         return res
           .status(404)
@@ -114,12 +78,13 @@ const aShopController = {
 
   async getAllUserOrdersWithDetails(req, res) {
     try {
-      const ordersWithDetails = await User_Order_Product.findAll({
+      const orders = await User_Order_Product.findAll({
         include: [
           {
             model: User,
             as: 'buyer',
             attributes: [
+              'id',
               'first_name',
               'last_name',
               'address',
@@ -132,14 +97,16 @@ const aShopController = {
           {
             model: Product,
             attributes: ['title', 'price', 'shipping_fees'],
-            include: [{ model: User, as: 'seller', attributes: ['username'] }],
+            include: [
+              { model: User, as: 'seller', attributes: ['username', 'id'] },
+            ],
           },
         ],
         attributes: ['status', 'id', 'date', 'order_number', 'invoice'],
       });
 
       res.status(200).json({
-        ordersWithDetails,
+        orders,
       });
     } catch (error) {
       console.error('Failed to retrieve user orders with details:', error);
