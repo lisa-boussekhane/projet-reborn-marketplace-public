@@ -37,63 +37,78 @@ export default function AdminUsers() {
   }, [navigate, userRole]);
 
   return (
-    <div className="user-card">
-      {errorMessage && <p>{errorMessage}</p>}
-      {userRole === 'Admin' && (
-        <>
-          {users.map((user) => (
-            <div key={user.id} className="user-info">
-              <p>
-                <strong>User id:</strong> {user.id}
-              </p>
-              <p>
-                <strong>User first_name :</strong> {user.first_name}
-              </p>
-              <p>
-                <strong>User last_name :</strong> {user.last_name}
-              </p>
-              <p>
-                <strong>User username :</strong> {user.username}
-              </p>
-              <p>
-                <strong>User email :</strong> {user.email}
-              </p>
-              <p>
-                <strong>User date of birth :</strong>
-                {user.date_of_birth}
-              </p>
-              <p>
-                <strong>User phone :</strong> {user.phone}
-              </p>
-              <p>
-                <strong>User adress :</strong> {user.adress}
-              </p>
-              <p>
-                <strong>User zip_code :</strong> {user.zip_code}
-              </p>
-              <p>
-                <strong>User city :</strong> {user.city}
-              </p>
-              <p>
-                <strong>User state :</strong> {user.state}
-              </p>
-              <p>
-                <strong>User role :</strong> {user.role}
-              </p>
-              <p>
-                <strong>User pro :</strong> {user.pro}
-              </p>
-              <p>
-                <strong>User duns :</strong> {user.duns}
-              </p>
-              <div className="user-actions">
-                <button type="button">Edit</button>
-                <button type="button">Delete</button>
-              </div>
+    <div>
+      <div className="admin-page">
+        {errorMessage && <p>{errorMessage}</p>}
+        {userRole === 'Admin' && (
+          <>
+            <div className="admin-header">Admin dashboard</div>
+            <div className="admin-nav">
+              <NavLink to="/adminusers">All Users</NavLink>
+              <NavLink to="/adminshops">All Shops</NavLink>
+              <NavLink to="/adminproducts">All Products</NavLink>
             </div>
-          ))}
-        </>
-      )}
+          </>
+        )}
+      </div>
+      <div className="user-card">
+        {errorMessage && <p>{errorMessage}</p>}
+        {userRole === 'Admin' && (
+          <>
+            {users.map((user) => (
+              <div key={user.id} className="user-info">
+                <p>
+                  <strong>User id:</strong> {user.id}
+                </p>
+                <p>
+                  <strong>User first_name :</strong> {user.first_name}
+                </p>
+                <p>
+                  <strong>User last_name :</strong> {user.last_name}
+                </p>
+                <p>
+                  <strong>User username :</strong> {user.username}
+                </p>
+                <p>
+                  <strong>User email :</strong> {user.email}
+                </p>
+                <p>
+                  <strong>User date of birth :</strong>
+                  {user.date_of_birth}
+                </p>
+                <p>
+                  <strong>User phone :</strong> {user.phone}
+                </p>
+                <p>
+                  <strong>User adress :</strong> {user.adress}
+                </p>
+                <p>
+                  <strong>User zip_code :</strong> {user.zip_code}
+                </p>
+                <p>
+                  <strong>User city :</strong> {user.city}
+                </p>
+                <p>
+                  <strong>User state :</strong> {user.state}
+                </p>
+                <p>
+                  <strong>User role :</strong> {user.role}
+                </p>
+                <p>
+                  <strong>User pro :</strong> {user.pro}
+                </p>
+                <p>
+                  <strong>User duns :</strong> {user.duns}
+                </p>
+                <div className="user-actions">
+                  <button type="button">Edit</button>
+                  <button type="button">Delete</button>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
+      </div>
     </div>
   );
 }

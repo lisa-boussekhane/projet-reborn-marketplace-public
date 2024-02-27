@@ -19,7 +19,7 @@ export default function Admin() {
   }, [navigate, userRole]);
 
   return (
-    <div className="admin-page">
+    <div className="admin-page-home">
       {errorMessage && <p>{errorMessage}</p>}
       {userRole === 'Admin' && (
         <>

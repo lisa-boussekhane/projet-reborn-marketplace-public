@@ -60,32 +60,50 @@ export default function AdminShops() {
   };
 
   return (
-    <div className="shop-card">
-      {errorMessage && <p>{errorMessage}</p>}
-      {userRole === 'Admin' && (
-        <>
-          {shops.map((shop) => (
-            <div key={shop.id} className="shop-info">
-              <p>
-                <strong>Shop id:</strong> {shop.id}
-              </p>
-              <p>
-                <strong>Shop name :</strong> {shop.name}
-              </p>
-              <p>
-                <strong>Shop creator id :</strong> {shop.user_id}
-              </p>
-
-              <div className="shop-actions">
-                <button type="button">Edit</button>
-                <button type="button" onClick={() => handleDeleteShop(shop.id)}>
-                  Delete
-                </button>
-              </div>
+    <div>
+      <div className="admin-page">
+        {errorMessage && <p>{errorMessage}</p>}
+        {userRole === 'Admin' && (
+          <>
+            <div className="admin-header">Admin dashboard</div>
+            <div className="admin-nav">
+              <NavLink to="/adminusers">All Users</NavLink>
+              <NavLink to="/adminshops">All Shops</NavLink>
+              <NavLink to="/adminproducts">All Products</NavLink>
             </div>
-          ))}
-        </>
-      )}
+          </>
+        )}
+      </div>
+      <div className="shop-card">
+        {errorMessage && <p>{errorMessage}</p>}
+        {userRole === 'Admin' && (
+          <>
+            {shops.map((shop) => (
+              <div key={shop.id} className="shop-info">
+                <p>
+                  <strong>Shop id:</strong> {shop.id}
+                </p>
+                <p>
+                  <strong>Shop name :</strong> {shop.name}
+                </p>
+                <p>
+                  <strong>Shop creator id :</strong> {shop.user_id}
+                </p>
+
+                <div className="shop-actions">
+                  <button type="button">Edit</button>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteShop(shop.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
+      </div>
     </div>
   );
 }
