@@ -82,14 +82,7 @@ export default function Product() {
       .catch((error) => console.error('Error:', error));
   }; */
 
-  /* useEffect(() => {
-    fetch(`http://localhost:3000/shop/${shopId}/average-rating`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAverageRating(data.average);
-      })
-      .catch((error) => console.error('Error:', error));
-  }, [shopId]); */
+
 
   return (
     <div className="product__container">

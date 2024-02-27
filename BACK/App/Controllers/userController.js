@@ -3,7 +3,6 @@ const { Product, User } = require('../../Models');
 const nodemailer = require('nodemailer');
 const { sequelize } = require('../../Models/index'); // Import Sequelize instance
 
-
 const userController = {
   async getUserInfos(req, res) {
     try {
@@ -24,7 +23,6 @@ const userController = {
   },
 
   async requestNewPassword(req, res) {
-
     try {
       const { email } = req.body;
       const user = await User.findOne({ where: { email } });
@@ -33,10 +31,11 @@ const userController = {
         return res.status(404).json({ message: 'user not found' });
       }
       // Créer token unique (jwt ou autre(chaine de caractères))
-      // Rajouter  un champ (dans la table) token associé au user
+      // Rajouter  un champ (dans la table) token associé au user null défaut
       // Stocker ce token dans ce champ
       // Dynamiser url htmlContent
 
+      x;
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {

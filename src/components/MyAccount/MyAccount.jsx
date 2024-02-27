@@ -404,6 +404,7 @@ export default function MyAccount() {
                           )}
                         </strong>
                       </p>
+                      <p>Rate seller</p>
                     </div>
                   </li>
                 ))}
