@@ -178,17 +178,11 @@ const authController = {
         return res.status(404).json({ message: 'user not found' });
       }
 
-      const token = jwt.sign({ userId: user.id }, process.env.SECRET, {
-        expiresIn: '1h',
-      });
-
       // Send reset link to user
-      const resetLink = `http://localhost:3000/resetrequest?token=${token}`;
+      const resetLink = `http://localhost:3000/resetrequest`;
       const emailContent = `<p>Please click <a href='${resetLink}'>here</a> to reset your password.</p>`;
       await sendEmail(email, 'Password Reset Request', emailContent);
-      return res
-        .status(200)
-        .json({ message: 'Reset link sent successfully', token });
+      return res.status(200).json({ message: 'Reset link sent successfully' });
     } catch (error) {
       console.error('Cannot reset password :', error);
       return res.status(500).json({ message: 'Cannot reset password' });
