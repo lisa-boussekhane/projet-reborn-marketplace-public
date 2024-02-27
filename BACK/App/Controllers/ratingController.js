@@ -32,9 +32,10 @@ const ratingController = {
   },
 
   async postShopRating(req, res) {
-    const { id } = req.params; 
-    const { rating, user_id } = req.body; // Extracting rating and user_id from the request body
-
+    const { id } = req.params;
+    const { rating } = req.body; // Extracting rating and user_id from the request body
+    const user_id = req.user_id;
+    console.log('user id', user_id);
     try {
       // Create a new rating in the UserRateShop table
       await User_Rate_Shop.create({
@@ -44,7 +45,7 @@ const ratingController = {
       });
 
       // Response with a status code 201 indicating the resource (rating) has been created
-      res.status(201).send('Rating added successfully');
+      res.status(201).json({ message: 'Rating added successfully' });
     } catch (error) {
       console.error('Error adding rating:', error);
       res.status(500).send('An error occurred while adding the rating');

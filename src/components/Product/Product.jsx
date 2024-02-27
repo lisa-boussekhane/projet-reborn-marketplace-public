@@ -70,17 +70,7 @@ export default function Product() {
       .catch((error) => console.error('Error:', error));
   }, [shopId]);
 
-  /* const handleRating = (newRating) => {
-    fetch(`http://localhost:3000/shop/${shopId}/rate`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ rating: newRating }),
-    })
-      .then((response) => response.json())
-      .catch((error) => console.error('Error:', error));
-  }; */
+  
 
   /* useEffect(() => {
     fetch(`http://localhost:3000/shop/${shopId}/average-rating`)
