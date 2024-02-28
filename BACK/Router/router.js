@@ -27,7 +27,7 @@ const router = express.Router();
 
 /// App Routes ///
 router.post('/contactus', contactController.sendEmail);
-
+router.post('/resetpassword/:token', userController.resetPassword);
 router.get('/user', verifyToken, userController.getUserInfos);
 router.post('/resetrequest', userController.requestNewPassword);
 

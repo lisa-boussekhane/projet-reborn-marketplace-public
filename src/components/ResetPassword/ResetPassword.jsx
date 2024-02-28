@@ -1,32 +1,46 @@
 import './ResetPassword.scss';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function ResetPassword() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(null); // New state for error handling
+  const { token } = useParams();
+  const [success, setSuccess] = useState(false); // New state for success message
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Token:', token);
+    // Validate password matching
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      setSuccess(false);
+      return;
+    }
 
     try {
-      const token = localStorage.getItem('jwtToken');
-      console.log(token);
-      const response = await fetch('http://localhost:3000/updatepassword', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ newPassword: password }),
-      });
+      const response = await fetch(
+        `http://localhost:3000/resetpassword/${token}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            newPassword: password,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to reset password');
       }
-
+      setSuccess(true); 
       console.log('Password reset successfully');
     } catch (error) {
       console.error('Failed to reset password', error);
+      setError('Failed to reset password. Please try again.'); 
     }
   };
 
@@ -34,6 +48,7 @@ export default function ResetPassword() {
     <div className="form__content">
       <div>
         <h1>Change your password</h1>
+        {success && <div className="success-message">Password reset successfully!</div>}
       </div>
       <form
         className="form__change"
@@ -52,7 +67,7 @@ export default function ResetPassword() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="New password"
-              min={8}
+              minLength={8} // Correct attribute name
               required
             />
           </label>
@@ -65,11 +80,13 @@ export default function ResetPassword() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm password"
-              min={8}
+              minLength={8} // Correct attribute name
               required
             />
           </label>
         </div>
+        {error && <div className="error-message">{error}</div>}{' '}
+        {/* Display error message */}
         <div className="resetpass__button">
           <input
             type="submit"

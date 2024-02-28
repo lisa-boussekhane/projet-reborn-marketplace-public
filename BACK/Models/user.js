@@ -64,6 +64,10 @@ User.init(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    password_token: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
 
     created_at: {
       type: DataTypes.DATE,
