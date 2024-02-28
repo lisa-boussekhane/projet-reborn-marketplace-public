@@ -141,25 +141,25 @@ const productController = {
       // Retourner un id de format 'aaaaa'
       return s4();
     };
-    const userId = req.params.id;
+    const user_id = req.user_id;
     const newid = randomId();
     try {
       console.log(req.files);
       // });
-      const theUser = await User.findByPk(userId);
+      const theUser = await User.findByPk(user_id);
       if (!theUser) {
         return res.status(404).json({ error: 'User not found' });
       }
       const usershop = await Shop.findOne({
         where: {
-          user_id: userId,
+          user_id: user_id,
         },
       });
       if (!usershop) {
         return res.status(404).json({ error: 'Shop not found' });
       }
       const productData = {
-        user_id: userId,
+        user_id: user_id,
         shop_id: usershop.id,
         unique_id: newid,
         ...req.body,

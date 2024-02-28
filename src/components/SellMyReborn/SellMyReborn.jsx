@@ -184,7 +184,6 @@ export default function SellMyReborn() {
     event.preventDefault();
 
     try {
-      const storedUserId = localStorage.getItem('userId');
       const token = localStorage.getItem('jwtToken');
       const formDataForServer = new FormData();
 
@@ -202,16 +201,13 @@ export default function SellMyReborn() {
         }
       }
 
-      const response = await fetch(
-        `http://localhost:3000/product/${storedUserId}`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formDataForServer, // utilisation de formData comme corps de la requête
-        }
-      );
+      const response = await fetch(`http://localhost:3000/product`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formDataForServer, // utilisation de formData comme corps de la requête
+      });
 
       if (!response.ok) {
         throw new Error(

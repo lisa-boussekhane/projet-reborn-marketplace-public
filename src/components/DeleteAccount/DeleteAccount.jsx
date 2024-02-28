@@ -1,31 +1,30 @@
 import './DeleteAccount.scss';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../React-Context/AuthContext';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 
 export default function DeleteAccount() {
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const confirmDelete = async () => {
-    const storedUserId = localStorage.getItem('userId');
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await fetch(
-        `http://localhost:3000/user/${storedUserId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`, // token récupéré dans le local storage
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:3000/user`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // token récupéré dans le local storage
+        },
+      });
 
       if (response.status === 204) {
         // compte supprimé
         setDeleteConfirmed(true);
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);
       } else {
         console.error('Failed to delete account');
       }

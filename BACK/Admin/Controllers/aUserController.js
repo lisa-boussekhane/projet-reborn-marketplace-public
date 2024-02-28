@@ -42,7 +42,7 @@ const aUserController = {
       }
 
       const updatedUser = await User.findByPk(userId);
-      return res.status(200).json(updatedUser);
+      return res.status(200).json('user update', updatedUser);
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: 'An unexpected error occurred.' });

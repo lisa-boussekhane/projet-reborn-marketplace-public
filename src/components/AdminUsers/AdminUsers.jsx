@@ -11,6 +11,7 @@ export default function AdminUsers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [updatingUserId, setUpdatingUserId] = useState(null);
+  const storedToken = localStorage.getItem('jwtToken');
   const [formData, setFormData] = useState({
     name: selectedUser ? selectedUser.name : '',
     first_name: selectedUser ? selectedUser.first_name : '',
@@ -41,7 +42,12 @@ export default function AdminUsers() {
 
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:3000/admin/users');
+        const response = await fetch('http://localhost:3000/admin/users', {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${storedToken}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error('Failed to fetch users.');
@@ -55,7 +61,7 @@ export default function AdminUsers() {
     };
 
     fetchUsers();
-  }, [navigate, userRole]);
+  }, [navigate, userRole, storedToken]);
 
   const handleDeleteUser = async (userId) => {
     try {
@@ -63,6 +69,7 @@ export default function AdminUsers() {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${storedToken}`,
         },
         body: JSON.stringify({ id: userId }),
       });
@@ -126,6 +133,7 @@ export default function AdminUsers() {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${storedToken}`,
           },
           body: JSON.stringify(updatedFields),
         }
@@ -165,14 +173,12 @@ export default function AdminUsers() {
                 All Shops
               </NavLink>
               <NavLink to="/adminproducts" activeClassName="active-link">
-
                 {' '}
                 All Products
               </NavLink>
               <NavLink to="/adminorders" activeClassName="active-link">
                 All Orders
               </NavLink>
-
             </div>
           </>
         )}
@@ -227,7 +233,6 @@ export default function AdminUsers() {
                   <strong>User duns :</strong> {user.duns}
                 </p>
                 <div className="user-actions">
-
                   <button type="button" onClick={() => handleEditUser(user)}>
                     Edit
                   </button>
@@ -237,7 +242,6 @@ export default function AdminUsers() {
                   >
                     Delete
                   </button>
-
                 </div>
               </div>
             ))}
@@ -246,7 +250,7 @@ export default function AdminUsers() {
       </div>
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <Modal.Header>Edit Shop</Modal.Header>
+        <Modal.Header>Edit user</Modal.Header>
         <form onSubmit={handleUpdateUser}>
           <Modal.Content className="modale">
             {selectedUser && (
@@ -397,7 +401,6 @@ export default function AdminUsers() {
           </Modal.Actions>
         </form>
       </Modal>
-
     </div>
   );
 }

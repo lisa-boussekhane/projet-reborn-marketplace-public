@@ -11,6 +11,7 @@ export default function AdminShops() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedShop, setSelectedShop] = useState(null);
   const [updatingShopId, setUpdatingShopId] = useState(null);
+  const storedToken = localStorage.getItem('jwtToken');
   const [formData, setFormData] = useState({
     name: selectedShop ? selectedShop.name : '',
   });
@@ -28,7 +29,12 @@ export default function AdminShops() {
 
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/admin/shops');
+        const response = await fetch('http://localhost:3000/admin/shops', {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${storedToken}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error('Failed to fetch shops.');
@@ -51,6 +57,7 @@ export default function AdminShops() {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${storedToken}`,
         },
         body: JSON.stringify({ id: shopId }),
       });
@@ -89,6 +96,7 @@ export default function AdminShops() {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${storedToken}`,
           },
           body: JSON.stringify({ name: formData.name }),
         }
@@ -130,7 +138,6 @@ export default function AdminShops() {
               <NavLink to="/adminorders" activeClassName="active-link">
                 All Orders
               </NavLink>
-
             </div>
           </>
         )}
@@ -152,12 +159,9 @@ export default function AdminShops() {
                 </p>
 
                 <div className="shop-actions">
-
                   <button type="button" onClick={() => handleEditShop(shop)}>
                     Edit
                   </button>
-
-                  <button type="button">Edit</button>
 
                   <button
                     type="button"
@@ -206,7 +210,6 @@ export default function AdminShops() {
           </Modal.Actions>
         </form>
       </Modal>
-
     </div>
   );
 }

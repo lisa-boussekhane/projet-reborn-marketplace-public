@@ -6,13 +6,13 @@ const { sequelize } = require('../../Models/index'); // Import Sequelize instanc
 const userController = {
   async getUserInfos(req, res) {
     try {
-      const userId = req.params?.id || req.userId;
-      const targetedUser = await User.findByPk(userId);
+      const user_id = req.user_id;
+      const targetedUser = await User.findByPk(user_id);
 
       if (!targetedUser) {
         return res
           .status(404)
-          .json({ message: `user with id ${userId} not found.` });
+          .json({ message: `user with id ${user_id} not found.` });
       }
 
       return res.status(200).json({ targetedUser });

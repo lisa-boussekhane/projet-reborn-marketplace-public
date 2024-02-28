@@ -13,7 +13,6 @@ export default function Payment() {
   const { clearCart, cart } = useCart();
   const amount = searchParams.get('amount');
   const baseAmount = amount;
-  const storedUserId = localStorage.getItem('userId');
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -89,7 +88,7 @@ export default function Payment() {
 
           // Update user information
           const userUpdateResponse = await fetch(
-            `http://localhost:3000/user/${storedUserId}`,
+            `http://localhost:3000/user`,
             {
               method: 'PATCH',
               headers: {
@@ -107,8 +106,6 @@ export default function Payment() {
           console.log('User information updated!');
           const productIds = cart.map((item) => item.id);
           const sellerIds = cart.map((item) => item.seller.id);
-
-          console.log(storedUserId);
           const createOrder = await fetch('http://localhost:3000/createorder', {
             method: 'POST',
             headers: {
@@ -116,7 +113,6 @@ export default function Payment() {
               Authorization: `Bearer ${token}`, // token récupéré dans le local storage
             },
             body: JSON.stringify({
-              userId: storedUserId,
               productIds: productIds,
               sellerIds: sellerIds,
             }),

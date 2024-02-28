@@ -31,7 +31,6 @@ export default function Login() {
       // stocker le token et l'id dans localStorage
 
       localStorage.setItem('jwtToken', token);
-      localStorage.setItem('userId', user.id);
       localStorage.setItem('userRole', user.role);
 
       if (data.success) {
@@ -44,7 +43,6 @@ export default function Login() {
         } else {
           navigate('/myaccount');
         }
-
       } else {
         console.error('Échec de la connexion');
       }
