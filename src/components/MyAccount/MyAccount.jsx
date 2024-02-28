@@ -415,54 +415,44 @@ export default function MyAccount() {
                           )}
                         </strong>
                       </p>
-                      <p>
-                        <strong> Rate seller : </strong>
-                        {message && (
-                          <p
-                            className={`message ${
-                              message.includes('Error') ? 'error' : 'success'
-                            }`}
-                          >
-                            {message}
-                          </p>
-                        )}
-                      </p>
-                      <div className="rating-buttons-container">
+
+                      <p> Rate seller : </p>
+                      <div className="star__wrapper">
                         <button
                           type="button"
-                          className="star-btn"
+                          className="star__wrapper__btn"
                           onClick={() => handleRating(order.Product.shop_id, 1)}
                         >
-                          1
+                          ☆
                         </button>
                         <button
                           type="button"
-                          className="star-btn"
+                          className="star__wrapper__btn"
                           onClick={() => handleRating(order.Product.shop_id, 2)}
                         >
-                          2
+                          ☆
                         </button>
                         <button
                           type="button"
-                          className="star-btn"
+                          className="star__wrapper__btn"
                           onClick={() => handleRating(order.Product.shop_id, 3)}
                         >
-                          3
+                          ☆
                         </button>
                         <button
                           type="button"
-                          className="star-btn"
+                          className="star__wrapper__btn"
                           onClick={() => handleRating(order.Product.shop_id, 4)}
                         >
-                          4
+                          ☆
                         </button>
                         <button
                           type="button"
-                          className="star-btn"
+                          className="star__wrapper__btn"
                           onClick={() => handleRating(order.Product.shop_id, 5)}
                         >
-                          5
-                        </button>
+                          ☆
+                      </button>
                       </div>
                     </div>
                   </li>
