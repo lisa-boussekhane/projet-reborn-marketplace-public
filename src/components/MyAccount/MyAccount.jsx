@@ -190,6 +190,7 @@ export default function MyAccount() {
     );
     setNewRating(rating);
     fetchRating(shopNumb, rating);
+    setMessage('Thank you for your feedback ');
   };
 
   return (
@@ -414,6 +415,7 @@ export default function MyAccount() {
                           )}
                         </strong>
                       </p>
+
                       <p> Rate seller : </p>
                       <div className="star__wrapper">
                         <button
@@ -450,7 +452,7 @@ export default function MyAccount() {
                           onClick={() => handleRating(order.Product.shop_id, 5)}
                         >
                           ☆
-                        </button>
+                      </button>
                       </div>
                     </div>
                   </li>
