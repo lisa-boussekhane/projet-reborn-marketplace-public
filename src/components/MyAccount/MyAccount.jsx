@@ -462,43 +462,6 @@ export default function MyAccount() {
                           </button>
                         ))}
                       </div>
-                      {/* <div className="rating-buttons-container">
-                        <button
-                          type="button"
-                          className="star-btn"
-                          onClick={() => handleRating(order.Product.shop_id, 1)}
-                        >
-                          1
-                        </button>
-                        <button
-                          type="button"
-                          className="star-btn"
-                          onClick={() => handleRating(order.Product.shop_id, 2)}
-                        >
-                          2
-                        </button>
-                        <button
-                          type="button"
-                          className="star-btn"
-                          onClick={() => handleRating(order.Product.shop_id, 3)}
-                        >
-                          3
-                        </button>
-                        <button
-                          type="button"
-                          className="star-btn"
-                          onClick={() => handleRating(order.Product.shop_id, 4)}
-                        >
-                          4
-                        </button>
-                        <button
-                          type="button"
-                          className="star-btn"
-                          onClick={() => handleRating(order.Product.shop_id, 5)}
-                        >
-                          5
-                        </button>
-                      </div> */}
                     </div>
                   </li>
                 ))}
