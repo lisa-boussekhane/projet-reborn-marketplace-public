@@ -30,10 +30,10 @@ const userController = {
       if (!user) {
         return res.status(404).json({ message: 'user not found' });
       }
-      // Créer token unique (jwt ou autre(chaine de caractères))
-      // Rajouter  un champ (dans la table) token associé au user null défaut
+      // Créer token unique (jwt ou autre(chaine de caractères)) ok
+      // Rajouter  un champ (dans la table) token associé au user null défaut ok
       // Stocker ce token dans ce champ
-      // Dynamiser url htmlContent
+      // Dynamiser url htmlContent ok
 
       const passwordToken = Math.random().toString(36).slice(-8);
 

@@ -113,7 +113,6 @@
   font-size: 1.3rem;
   color: white;
   padding: 1rem;
-
   margin-right: 1rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -139,11 +138,11 @@
   .cart__box {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-top: 3rem;
     margin-bottom: 11rem;
     margin-top: 4.6rem;
-    gap: 30px;
+    gap: 10rem;
   }
 }
 
@@ -154,12 +153,26 @@
   }
 
   .cart__box {
+    width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    margin-top: 3rem;
-    margin-bottom: 11rem;
-    margin-top: 4.6rem;
-    gap: 30px;
+  }
+
+  .cart__elem {
+    width: 600px;
+    margin-left: 1rem;
+  }
+
+  .amount__container {
+    width: 100%;
+    display: flex;
+  }
+
+  .amount {
+    width: 500px;
+  }
+
+  .checkout-button-container .pay__btn {
+    margin-left: 6rem;
   }
 }

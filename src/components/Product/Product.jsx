@@ -70,10 +70,6 @@ export default function Product() {
       .catch((error) => console.error('Error:', error));
   }, [shopId]);
 
-  
-
-
-
   return (
     <div className="product__container">
       <div className="product__img">
@@ -111,7 +107,7 @@ export default function Product() {
             <div className="star__box">
               <StarRatings
                 rating={parseFloat(rating)}
-                size={20}
+                size={15}
                 starRatedColor="gold"
                 className="star__items"
               />

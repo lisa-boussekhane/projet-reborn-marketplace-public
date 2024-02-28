@@ -97,10 +97,6 @@
   margin-left: 25px;
 }
 
-#cart-button {
-  cursor: pointer;
-}
-
 .cart-button {
   cursor: pointer;
   background-color: v.$blue;
@@ -132,10 +128,22 @@
     max-width: 350px;
   }
 
+  .product__container {
+    margin-left: 12rem;
+  }
+
   .product__chat {
     display: block;
-    margin-left: -4rem;
+    margin-left: 20rem;
     width: 45px;
+  }
+
+  .product__infos_row h2 {
+    font-size: 2.6em;
+  }
+
+  .product__rating {
+    width: 425px;
   }
 }
 
@@ -192,6 +200,10 @@
   .star__box {
     display: none;
   }
+
+  .product__img {
+    width: 600px;
+  }
 }
 
 /* xl */
@@ -203,5 +215,9 @@
   .star__box {
     display: block;
     width: 350px;
+  }
+
+  .product__container {
+    width: 90%;
   }
 }

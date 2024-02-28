@@ -43,28 +43,28 @@ export default function ResetPassword() {
       >
         <h4>Please enter a new password</h4>
         <div className="form__change__elem">
-          <label htmlFor="currentpassword">
-            Current password:
-            <input
-              type="password"
-              name="password"
-              id="newpassword"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Current password"
-              min={8}
-              required
-            />
-          </label>
           <label htmlFor="newpassword">
             New password:
             <input
               type="password"
               name="password"
               id="newpassword"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="New password"
+              min={8}
+              required
+            />
+          </label>
+          <label htmlFor="confirmpassword">
+            Confirm password:
+            <input
+              type="password"
+              name="password"
+              id="confirmpassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="New password"
+              placeholder="Confirm password"
               min={8}
               required
             />
