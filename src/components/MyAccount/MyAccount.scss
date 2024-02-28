@@ -12,6 +12,7 @@
   flex-direction: column;
   align-items: center;
 
+
   h1 {
     font-size: 2rem;
     margin-bottom: 20px;
@@ -42,6 +43,7 @@
 }
 
 .account__container {
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,20 +79,21 @@
   }
 
   #profile,
-  .orders {
-    margin-top: 20px;
-    width: 100%;
+.orders {
+  margin-top: 20px;
+  width: 100%;
 
-    .profile__information,
-    .order__container {
-      border: 1px solid #ccc;
-      padding: 20px;
-      margin-bottom: 20px;
-      margin-left: 20rem;
-      margin-right: 10rem;
-      background-color: #f5f5f5; // Light gray background color
-      border-radius: 8px;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  .profile__information,
+  .order__container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-left: 20rem;
+    margin-right: 10rem;
+    background-color: #f5f5f5; // Light gray background color
+    border-radius: 8px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+
 
       .profile__title {
         display: flex;
@@ -99,11 +102,11 @@
 
         .message {
           font-size: 1.3rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          margin: 20px 0;
+          display: flex; 
+          align-items: center; 
+          justify-content: center; 
+          text-align: center; 
+          margin: 20px 0; 
           &.success {
             color: green;
           }
@@ -190,11 +193,11 @@
 
             input[type='file'] {
               margin-right: 10px;
-              background-color: lightgray;
+              background-color:lightgray;
             }
 
             button {
-              background-color: v.$blue;
+              background-color:v.$blue;
               color: #fff;
               padding: 4px;
               border: 2px solid v.$blue;
@@ -216,26 +219,15 @@
   margin-left: 20rem;
 }
 
+.rating-buttons-container {
+  display: flex;
+}
 
-.star__wrapper {
-  display: inline-block;
-
-.star__wrapper__btn {
-  font-size: 65px;
-  border: none;
-  color: gold;
-  fill: gold;
+.star-btn {
+  margin-right: 10px; 
   cursor: pointer;
 }
 
-.star__wrapper .star__wrapper__btn,
-.star__wrapper .star__wrapper__btn:focus {
-  color: #f90;
-}
-
-.star__wrapper .star__wrapper__btn.selected {
-  color: #f90;
-}
 
 /*RESPONSIVE*/
 
@@ -371,3 +363,4 @@
     margin-top: 2rem;
   }
 }
+
