@@ -219,6 +219,14 @@
   margin-left: 20rem;
 }
 
+.rating-buttons-container {
+  display: flex;
+}
+
+.star-btn {
+  margin-right: 10px; 
+  cursor: pointer;
+}
 
 
 /*RESPONSIVE*/
