@@ -104,6 +104,7 @@ export default function Product() {
                 : 'Details not provided by the seller yet.'}
             </p>
             <div className="star__box">
+
               {rating !== null && rating !== undefined ? (
                 <StarRatings
                   rating={parseFloat(rating)}
