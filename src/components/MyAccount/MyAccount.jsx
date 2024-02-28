@@ -1,6 +1,8 @@
 import './MyAccount.scss';
 import { useState, useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 export default function MyAccount() {
   const [userInfo, setUserInfo] = useState();
@@ -9,6 +11,9 @@ export default function MyAccount() {
   const [userOrders, setUserOrders] = useState([]);
   const [userSales, setUserSales] = useState([]);
   const [newRating, setNewRating] = useState(0);
+  const [selectedRating, setSelectedRating] = useState(0);
+  const [selectedOrderRating, setSelectedOrderRating] = useState(0);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
     const handleInfo = async () => {
@@ -184,13 +189,17 @@ export default function MyAccount() {
       .catch((error) => console.error('Error:', error));
   };
 
-  const handleRating = (shopNumb, rating) => {
+  const handleRating = (shopNumb, rating, orderId) => {
     console.log(
       `l'utilisateur a cliqué sur ${rating} pour le shop ${shopNumb}`
     );
     setNewRating(rating);
     fetchRating(shopNumb, rating);
     setMessage('Thank you for your feedback ');
+    setSelectedRating(rating);
+    setSelectedOrderRating(rating);
+
+    setSelectedOrder(orderId);
   };
 
   return (
@@ -428,6 +437,32 @@ export default function MyAccount() {
                         )}
                       </p>
                       <div className="rating-buttons-container">
+                        {[1, 2, 3, 4, 5].map((rating) => (
+                          <button
+                            key={rating}
+                            type="button"
+                            className="star-btn"
+                            onClick={() =>
+                              handleRating(
+                                order.Product.shop_id,
+                                rating,
+                                order.id
+                              )
+                            }
+                          >
+                            <FontAwesomeIcon
+                              icon={faStar}
+                              color={
+                                order.id === selectedOrder &&
+                                rating <= selectedOrderRating
+                                  ? 'gold'
+                                  : 'gray'
+                              }
+                            />
+                          </button>
+                        ))}
+                      </div>
+                      {/* <div className="rating-buttons-container">
                         <button
                           type="button"
                           className="star-btn"
@@ -463,7 +498,7 @@ export default function MyAccount() {
                         >
                           5
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </li>
                 ))}
