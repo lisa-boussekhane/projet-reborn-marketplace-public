@@ -5,13 +5,13 @@ import { Modal, Button } from 'semantic-ui-react';
 
 export default function AdminProducts() {
   const navigate = useNavigate();
-  const userRole = localStorage.getItem('userRole');
   const [products, setProducts] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [showImages, setShowImages] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [updatingProductId, setUpdatingProductId] = useState(null);
+  const storedToken = localStorage.getItem('jwtToken');
   const [formData, setFormData] = useState({
     title: selectedProduct ? selectedProduct.title : '',
     kit_name: selectedProduct ? selectedProduct.kit_name : '',
@@ -34,19 +34,14 @@ export default function AdminProducts() {
   });
 
   useEffect(() => {
-    if (userRole !== 'Admin') {
-      setErrorMessage('You do not have the permissions to access this page.');
-
-      const timeoutId = setTimeout(() => {
-        navigate('/');
-      }, 3000);
-
-      return () => clearTimeout(timeoutId);
-    }
-
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/admin/products');
+        const response = await fetch('http://localhost:3000/admin/products', {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${storedToken}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error('Failed to fetch products.');
@@ -61,7 +56,7 @@ export default function AdminProducts() {
     };
 
     fetchProducts();
-  }, [navigate, userRole]);
+  }, [navigate, storedToken]);
 
   const handleShowImages = () => {
     setShowImages(!showImages);
@@ -73,6 +68,7 @@ export default function AdminProducts() {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${storedToken}`,
         },
         body: JSON.stringify({ id: productId }),
       });
@@ -99,10 +95,8 @@ export default function AdminProducts() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => {
-      // Utilisez Object.keys() pour obtenir les clés de l'objet
       const formDataCopy = { ...prevFormData };
 
-      // Vérifiez si la clé existe avant de mettre à jour
       if (Object.keys(formDataCopy).includes(name)) {
         formDataCopy[name] = value;
       }
@@ -147,6 +141,7 @@ export default function AdminProducts() {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${storedToken}`,
           },
           body: JSON.stringify(updatedFields),
         }
@@ -175,141 +170,121 @@ export default function AdminProducts() {
   return (
     <div>
       <div className="admin-page">
-        {errorMessage && <p>{errorMessage}</p>}
-        {userRole === 'Admin' && (
-          <>
-            <div className="admin-header">Admin dashboard</div>
-            <div className="admin-nav">
-              <NavLink to="/adminusers" activeClassName="active-link">
-                All Users
-              </NavLink>
-              <NavLink to="/adminshops" activeClassName="active-link">
-                All Shops
-              </NavLink>
-              <NavLink to="/adminproducts" activeClassName="active-link">
-                All Products
-              </NavLink>
+        <div className="admin-header">Admin dashboard</div>
+        <div className="admin-nav">
+          <NavLink to="/adminusers" activeClassName="active-link">
+            All Users
+          </NavLink>
+          <NavLink to="/adminshops" activeClassName="active-link">
+            All Shops
+          </NavLink>
+          <NavLink to="/adminproducts" activeClassName="active-link">
+            All Products
+          </NavLink>
 
-              <NavLink to="/adminorders" activeClassName="active-link">
-                All Orders
-              </NavLink>
-
-            </div>
-          </>
-        )}
+          <NavLink to="/adminorders" activeClassName="active-link">
+            All Orders
+          </NavLink>
+        </div>
       </div>
       <div className="product-card">
-        {errorMessage && <p>{errorMessage}</p>}
-        {userRole === 'Admin' && (
-          <>
-            {products.map((product) => (
-              <div key={product.id} className="product-info">
-                <p>
-                  <strong>Product id:</strong> {product.id}
-                </p>
-                <p>
-                  <strong>Product unique id :</strong> {product.unique_id}
-                </p>
-                <p>
-                  <strong>Product title :</strong> {product.title}
-                </p>
-                <p>
-                  <strong>Product kit_name :</strong> {product.kit_name}
-                </p>
-                <p>
-                  <strong>Product sculptor :</strong> {product.sculptor}
-                </p>
-                <p>
-                  <strong>Product size :</strong>
-                  {product.size}
-                </p>
-                <p>
-                  <strong>Product type :</strong> {product.type}
-                </p>
-                <p>
-                  <strong>Product weight :</strong> {product.weight}
-                </p>
-                <p>
-                  <strong>Product age range :</strong> {product.age_range}
-                </p>
-                <p>
-                  <strong>Product authenticity card :</strong>{' '}
-                  {product.authenticity_card}
-                </p>
-                <p>
-                  <strong>Product price :</strong> {product.price}
-                </p>
-                <p>
-                  <strong>Product shipping fees :</strong>{' '}
-                  {product.shipping_fees}
-                </p>
-                <p>
-                  <strong>Product seller id :</strong> {product.seller.id}
-                </p>
-                <p>
-                  <strong>Product shop id :</strong> {product.shop_id}
-                </p>
-                <p>
-                  <strong>Product location :</strong>{' '}
-                  {product.Detail_product.localization}
-                </p>
-                <p>
-                  <strong>Product belly plate :</strong>{' '}
-                  {product.Detail_product.belly_plate}
-                </p>
-                <p>
-                  <strong>Product gender :</strong>{' '}
-                  {product.Detail_product.gender}
-                </p>
-                <p>
-                  <strong>Product year :</strong> {product.Detail_product.year}
-                </p>
-                <p>
-                  <strong>Product eyes :</strong> {product.Detail_product.eyes}
-                </p>
-                <p>
-                  <strong>Product hair :</strong> {product.Detail_product.hair}
-                </p>
-                <p>
-                  <strong>Product description :</strong>{' '}
-                  {product.Detail_product.description}
-                </p>
-                <p>
-                  <strong>Product status :</strong>{' '}
-                  {product.Detail_product.status}
-                </p>
-                {showImages && (
-                  <img src={product.Media[0].photo} alt="product" />
-                )}
+        {products.map((product) => (
+          <div key={product.id} className="product-info">
+            <p>
+              <strong>Product id:</strong> {product.id}
+            </p>
+            <p>
+              <strong>Product unique id :</strong> {product.unique_id}
+            </p>
+            <p>
+              <strong>Product title :</strong> {product.title}
+            </p>
+            <p>
+              <strong>Product kit_name :</strong> {product.kit_name}
+            </p>
+            <p>
+              <strong>Product sculptor :</strong> {product.sculptor}
+            </p>
+            <p>
+              <strong>Product size :</strong>
+              {product.size}
+            </p>
+            <p>
+              <strong>Product type :</strong> {product.type}
+            </p>
+            <p>
+              <strong>Product weight :</strong> {product.weight}
+            </p>
+            <p>
+              <strong>Product age range :</strong> {product.age_range}
+            </p>
+            <p>
+              <strong>Product authenticity card :</strong>{' '}
+              {product.authenticity_card}
+            </p>
+            <p>
+              <strong>Product price :</strong> {product.price}
+            </p>
+            <p>
+              <strong>Product shipping fees :</strong> {product.shipping_fees}
+            </p>
+            <p>
+              <strong>Product seller id :</strong> {product.seller.id}
+            </p>
+            <p>
+              <strong>Product shop id :</strong> {product.shop_id}
+            </p>
+            <p>
+              <strong>Product location :</strong>{' '}
+              {product.Detail_product.localization}
+            </p>
+            <p>
+              <strong>Product belly plate :</strong>{' '}
+              {product.Detail_product.belly_plate}
+            </p>
+            <p>
+              <strong>Product gender :</strong> {product.Detail_product.gender}
+            </p>
+            <p>
+              <strong>Product year :</strong> {product.Detail_product.year}
+            </p>
+            <p>
+              <strong>Product eyes :</strong> {product.Detail_product.eyes}
+            </p>
+            <p>
+              <strong>Product hair :</strong> {product.Detail_product.hair}
+            </p>
+            <p>
+              <strong>Product description :</strong>{' '}
+              {product.Detail_product.description}
+            </p>
+            <p>
+              <strong>Product status :</strong> {product.Detail_product.status}
+            </p>
+            {showImages && <img src={product.Media[0].photo} alt="product" />}
 
-                <button id="show_img" type="button" onClick={handleShowImages}>
-                  {showImages ? 'Masquer les images' : 'Afficher les images'}
-                </button>
+            <button id="show_img" type="button" onClick={handleShowImages}>
+              {showImages ? 'Masquer les images' : 'Afficher les images'}
+            </button>
 
-                <div className="product-actions">
+            <div className="product-actions">
+              <button type="button" onClick={() => handleEditProduct(product)}>
+                Edit
+              </button>
 
-                  <button
-                    type="button"
-                    onClick={() => handleEditProduct(product)}
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteProduct(product.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </>
-        )}
+              <button
+                type="button"
+                onClick={() => handleDeleteProduct(product.id)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <Modal.Header>Edit Shop</Modal.Header>
+        <Modal.Header>Edit product</Modal.Header>
         <form onSubmit={handleUpdateProduct}>
           <Modal.Content className="modale">
             {selectedProduct && (
@@ -506,7 +481,7 @@ export default function AdminProducts() {
           </Modal.Content>
           <Modal.Actions className="modale">
             <Button style={{ backgroundColor: 'green' }} primary>
-              Update user
+              Update product
             </Button>
             <Button secondary onClick={() => setIsModalOpen(false)}>
               Close
@@ -514,7 +489,6 @@ export default function AdminProducts() {
           </Modal.Actions>
         </form>
       </Modal>
-
     </div>
   );
 }

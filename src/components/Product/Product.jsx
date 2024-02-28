@@ -8,7 +8,6 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
-import { Icon as Icons } from '@iconify/react';
 import { useCart } from '../React-Context/CartContext';
 
 export default function Product() {
@@ -70,17 +69,6 @@ export default function Product() {
       .catch((error) => console.error('Error:', error));
   }, [shopId]);
 
-  
-
-  /* useEffect(() => {
-    fetch(`http://localhost:3000/shop/${shopId}/average-rating`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAverageRating(data.average);
-      })
-      .catch((error) => console.error('Error:', error));
-  }, [shopId]); */
-
   return (
     <div className="product__container">
       <div className="product__img">
@@ -116,12 +104,16 @@ export default function Product() {
                 : 'Details not provided by the seller yet.'}
             </p>
             <div className="star__box">
-              <StarRatings
-                rating={parseFloat(rating)}
-                size={20}
-                starRatedColor="gold"
-                className="star__items"
-              />
+              {rating !== null && rating !== undefined ? (
+                <StarRatings
+                  rating={parseFloat(rating)}
+                  size={10}
+                  starRatedColor="gold"
+                  className="star__items"
+                />
+              ) : (
+                <p>This seller has not received any ratings yet.</p>
+              )}
             </div>
           </div>
         </div>
@@ -194,11 +186,6 @@ export default function Product() {
       </div>
 
       <div className="product__fees">
-        <Icons
-          icon="la:comments"
-          style={{ color: '#a3a3a3', fontSize: '3.5em' }}
-          className="product__chat"
-        />
         <p>
           Price ${product ? product.price : 'Loading...'} + Shipping fees $
           {product ? product.shipping_fees : 'Loading...'}

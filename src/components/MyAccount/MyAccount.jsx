@@ -9,21 +9,16 @@ export default function MyAccount() {
   const [userOrders, setUserOrders] = useState([]);
   const [userSales, setUserSales] = useState([]);
   const [newRating, setNewRating] = useState(0);
-  const [shopId, setShopId] = useState(0);
 
-  const storedUserId = localStorage.getItem('userId');
   useEffect(() => {
     const handleInfo = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await fetch(
-          `http://localhost:3000/user/${storedUserId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`http://localhost:3000/user`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error('Error fetching user data');
@@ -49,7 +44,7 @@ export default function MyAccount() {
       }
     };
     handleInfo();
-  }, [storedUserId]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,17 +65,14 @@ export default function MyAccount() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await fetch(
-        `http://localhost:3000/user/${storedUserId}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`http://localhost:3000/user`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (!response.ok) {
         throw new Error('erreur pendant la modification');
@@ -100,15 +92,12 @@ export default function MyAccount() {
     const fetchUserOrders = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const orders = await fetch(
-          `http://localhost:3000/user/orders/${storedUserId}`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const orders = await fetch(`http://localhost:3000/user/orders`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!orders.ok) {
           throw new Error('Error fetching user orders');
@@ -123,21 +112,18 @@ export default function MyAccount() {
       }
     };
     fetchUserOrders();
-  }, [storedUserId]);
+  }, []);
 
   useEffect(() => {
     const fetchUserSales = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const sales = await fetch(
-          `http://localhost:3000/user/sales/${storedUserId}`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const sales = await fetch(`http://localhost:3000/user/sales`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!sales.ok) {
           throw new Error('Error fetching user orders');
@@ -152,7 +138,7 @@ export default function MyAccount() {
       }
     };
     fetchUserSales();
-  }, [storedUserId]);
+  }, []);
 
   const handleUploadInvoice = async (e, orderId) => {
     e.preventDefault();
@@ -177,10 +163,10 @@ export default function MyAccount() {
 
       const responseData = await response.json();
       console.log(responseData);
-
-      // Mettez à jour l'état ou effectuez toute autre action nécessaire
+      setMessage('Invoice uploaded successfully');
     } catch (error) {
       console.error('Error uploading invoice:', error.message);
+      setMessage('Failed to upload invoice. Please try again.');
     }
   };
 
@@ -525,6 +511,7 @@ export default function MyAccount() {
                             : 'Invoice not available'}
                         </strong>
                       </p>
+
                       {soldProduct.invoice ? (
                         <p>
                           <a
@@ -544,6 +531,15 @@ export default function MyAccount() {
                         >
                           <input type="file" name="invoice" accept=".pdf" />
                           <button type="submit">Upload Invoice</button>
+                          {message && (
+                            <p
+                              className={`message ${
+                                message.includes('Error') ? 'error' : 'success'
+                              }`}
+                            >
+                              {message}
+                            </p>
+                          )}
                         </form>
                       )}
                     </div>

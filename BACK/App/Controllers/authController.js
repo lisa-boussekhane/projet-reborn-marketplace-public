@@ -64,7 +64,7 @@ const authController = {
       });
 
       const token = jwt.sign({ user_id: newUser.id }, process.env.SECRET, {
-        expiresIn: '1h',
+        expiresIn: '2h',
       });
 
       // Respond with the created user (excluding the password for security)
@@ -94,7 +94,7 @@ const authController = {
 
       if (user && user.validPassword(password)) {
         const token = jwt.sign({ user_id: user.id }, process.env.SECRET, {
-          expiresIn: '1h',
+          expiresIn: '2h',
         });
         return res.status(200).json({
           success: true,
@@ -116,12 +116,12 @@ const authController = {
 
   async updateAccount(req, res) {
     try {
-      const userId = req.params.id;
+      const user_id = req.user_id;
 
-      if (!userId) {
+      if (!user_id) {
         return res
           .status(404)
-          .json({ message: `User with id ${userId} not found.` });
+          .json({ message: `User with id ${user_id} not found.` });
       }
 
       const UserData = req.body;
@@ -136,7 +136,7 @@ const authController = {
       }
 
       // modifier l'utilisateur
-      await User.update(UserData, { where: { id: userId } });
+      await User.update(UserData, { where: { id: user_id } });
 
       res.status(200).json({
         message: 'user updated successfully',
@@ -150,13 +150,13 @@ const authController = {
 
   async deleteAccount(req, res) {
     try {
-      const userId = req.params.id;
-      const user = await User.findByPk(userId);
+      const user_id = req.user_id;
+      const user = await User.findByPk(user_id);
 
       if (!user) {
         return res
           .status(404)
-          .json({ message: `user with id ${userId} not found.` });
+          .json({ message: `user with id ${user_id} not found.` });
       }
 
       await user.destroy();
@@ -170,10 +170,10 @@ const authController = {
 
   async updatePassword(req, res) {
     try {
-      const { userId, currentPassword, newPassword } = req.body;
+      const { user_id, currentPassword, newPassword } = req.body;
 
       // Find the user by ID
-      const user = await User.findByPk(userId);
+      const user = await User.findByPk(user_id);
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }

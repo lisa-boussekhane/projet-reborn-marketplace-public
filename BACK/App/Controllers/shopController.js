@@ -10,12 +10,13 @@ const shopController = {
   // ne touche pas à showShop stp
   async showShop(req, res) {
     try {
-      const userId = req.params.id;
-      console.log(userId);
+      const user_id = req.user_id;
+
+      console.log(user_id);
       // Trouver le shop associé à l'utilisateur connecté
       const shop = await Shop.findOne({
         where: {
-          user_id: userId,
+          user_id: user_id,
         },
         include: [
           {
@@ -54,10 +55,10 @@ const shopController = {
       // Extract shop data from request body
       const shopData = req.body;
 
-      const userId = req.params.id;
+      const user_id = req.user_id;
 
       // Add user_id to shopData
-      shopData.user_id = userId;
+      shopData.user_id = user_id;
       // Create the shop record in the database
       const newShop = await Shop.create(shopData);
 
@@ -77,13 +78,13 @@ const shopController = {
 
   async deleteShop(req, res) {
     try {
-      const userId = req.params.id;
-      console.log(userId);
+      const user_id = req.user_id;
+      console.log(user_id);
 
       // trouver le shop associé au user
       const shop = await Shop.findOne({
         where: {
-          user_id: userId,
+          user_id: user_id,
         },
       });
 
@@ -111,10 +112,10 @@ const shopController = {
 
   async getAllUserOrdersWithDetails(req, res) {
     try {
-      const userId = req.params.id;
+      const user_id = req.user_id;
 
       const ordersWithDetails = await User_Order_Product.findAll({
-        where: { buyer_id: userId },
+        where: { buyer_id: user_id },
         include: [
           {
             model: User,
@@ -151,10 +152,10 @@ const shopController = {
   },
   async sellerOrdersWithDetails(req, res) {
     try {
-      const userId = req.params.id;
+      const user_id = req.user_id;
 
       const soldProducts = await User_Order_Product.findAll({
-        where: { seller_id: userId },
+        where: { seller_id: user_id },
         attributes: ['date', 'order_number', 'invoice', 'status', 'id'],
         include: [
           {
@@ -235,14 +236,14 @@ const shopController = {
     };
 
     try {
-      const { userId, productIds, sellerIds } = req.body;
-
+      const { productIds, sellerIds } = req.body;
+      const user_id = req.user_id;
       const orders = await Promise.all(
         productIds.map(async (productId) => {
           try {
             const order = await User_Order_Product.create(
               {
-                buyer_id: userId,
+                buyer_id: user_id,
                 product_id: productId,
                 seller_id: sellerIds[productIds.indexOf(productId)],
                 date: new Date(),

@@ -10,7 +10,10 @@ const authController = require('../App/Controllers/authController');
 const shopController = require('../App/Controllers/shopController');
 const contactController = require('../App/Controllers/contactController');
 const ratingController = require('../App/Controllers/ratingController');
-const verifyToken = require('../App/Middlewares/authMiddleware');
+const {
+  verifyToken,
+  requireAdmin,
+} = require('../App/Middlewares/authMiddleware');
 const {
   upload,
   uploadInvoice,
@@ -25,11 +28,11 @@ const router = express.Router();
 /// App Routes ///
 router.post('/contactus', contactController.sendEmail);
 
-router.get('/user/:id', verifyToken, userController.getUserInfos);
+router.get('/user', verifyToken, userController.getUserInfos);
 router.post('/resetrequest', userController.requestNewPassword);
 
-router.patch('/user/:id', verifyToken, authController.updateAccount);
-router.delete('/user/:id', verifyToken, authController.deleteAccount);
+router.patch('/user', verifyToken, authController.updateAccount);
+router.delete('/user', verifyToken, authController.deleteAccount);
 router.post('/signup', authController.createUserAccount);
 router.post('/login', authController.logAccount);
 router.patch('/updatepassword', verifyToken, authController.updatePassword);
@@ -47,7 +50,7 @@ router.post(
 router.get('/product/:id', productController.getOneProduct);
 router.get('/products', productController.getAllProducts);
 router.post(
-  '/product/:id',
+  '/product',
   verifyToken,
   upload.array('photo', 12),
   productController.createProduct
@@ -60,19 +63,15 @@ router.patch(
 );
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 
-router.get('/shop/:id', verifyToken, shopController.showShop);
-router.post('/createshop/:id', verifyToken, shopController.createShop);
-router.delete('/shop/:id', verifyToken, shopController.deleteShop);
+router.get('/shop', verifyToken, shopController.showShop);
+router.post('/createshop', verifyToken, shopController.createShop);
+router.delete('/shop', verifyToken, shopController.deleteShop);
 router.get(
-  '/user/orders/:id',
+  '/user/orders',
   verifyToken,
   shopController.getAllUserOrdersWithDetails
 );
-router.get(
-  '/user/sales/:id',
-  verifyToken,
-  shopController.sellerOrdersWithDetails
-);
+router.get('/user/sales', verifyToken, shopController.sellerOrdersWithDetails);
 router.patch(
   '/orders',
   verifyToken,
@@ -89,22 +88,26 @@ router.post('/shop/:id/rate', verifyToken, ratingController.postShopRating);
 router.get('/shop/:id/average-rating', ratingController.getAverageRating);
 
 /// ADMIN ROUTES ///
-router.get('/admin/users', aUserController.getAllUsers);
-router.patch('/admin/user/:id', aUserController.updateUser);
-router.delete('/admin/user', aUserController.deleteUser);
+router.get('/admin/users', verifyToken, aUserController.getAllUsers);
+router.patch('/admin/user/:id', verifyToken, aUserController.updateUser);
+router.delete('/admin/user', verifyToken, aUserController.deleteUser);
 
-router.get('/admin/products', aProductController.getAllProducts);
+router.get('/admin/products', verifyToken, aProductController.getAllProducts);
 
 router.patch(
   '/admin/product/:id',
   upload.array('photo', 12),
   aProductController.updateProduct
 );
-router.delete('/admin/product', aProductController.deleteProduct);
+router.delete('/admin/product', verifyToken, aProductController.deleteProduct);
 
-router.get('/admin/shops', aShopController.getAllShops);
-router.patch('/admin/updateshop/:id', aShopController.updateShop);
-router.delete('/admin/shop', aShopController.deleteShop);
-router.get('/admin/orders', aShopController.getAllUserOrdersWithDetails);
+router.get('/admin/shops', verifyToken, aShopController.getAllShops);
+router.patch('/admin/updateshop/:id', verifyToken, aShopController.updateShop);
+router.delete('/admin/shop', verifyToken, aShopController.deleteShop);
+router.get(
+  '/admin/orders',
+  verifyToken,
+  aShopController.getAllUserOrdersWithDetails
+);
 
 module.exports = router;

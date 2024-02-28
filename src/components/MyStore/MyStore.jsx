@@ -32,16 +32,12 @@ export default function MyStore() {
       // Récupérer les informations du shop du backend
       const fetchShopDetails = async () => {
         try {
-          const storedUserId = localStorage.getItem('userId');
           const token = localStorage.getItem('jwtToken');
-          const response = await fetch(
-            `http://localhost:3000/shop/${storedUserId}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          const response = await fetch(`http://localhost:3000/shop`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
 
           if (response.status === 200) {
             const shopData = await response.json();
@@ -109,16 +105,12 @@ export default function MyStore() {
   const deleteShop = async () => {
     try {
       const token = localStorage.getItem('jwtToken');
-      const storedUserId = localStorage.getItem('userId');
-      const response = await fetch(
-        `http://localhost:3000/shop/${storedUserId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:3000/shop`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       await response.json(); // Parse the response JSON
 
@@ -193,7 +185,7 @@ export default function MyStore() {
                 className={`products__card ${product.sold ? 'vendu' : ''}`}
               >
                 <div className="products__card__item">
-                  <Card >
+                  <Card>
                     <div className="image-link">
                       <NavLink to={`/product/${product.id}`}>
                         {product &&
@@ -203,7 +195,9 @@ export default function MyStore() {
                             <img
                               src={`http://localhost:5173/${product.Media[0].photo}`}
                               alt={`Product ${product.id}`}
-                              className={product.sold ? 'vendu-image' : 'product-image'}
+                              className={
+                                product.sold ? 'vendu-image' : 'product-image'
+                              }
                             />
                           )}
                       </NavLink>
