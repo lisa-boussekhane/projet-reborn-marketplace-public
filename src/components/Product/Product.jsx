@@ -104,7 +104,6 @@ export default function Product() {
                 : 'Details not provided by the seller yet.'}
             </p>
             <div className="star__box">
-
               {rating !== null && rating !== undefined ? (
                 <StarRatings
                   rating={parseFloat(rating)}
@@ -150,7 +149,10 @@ export default function Product() {
               ? product.Detail_product.belly_plate
               : 'Details not provided by the seller yet.'}
           </p>
-          <p>Unique ID: {product ? product.unique_id : 'Loading...'}</p>
+          <p>
+            Unique ID: {product ? product.unique_id : 'Loading...'} (this code
+            must be visible on the pictures to garantee security)
+          </p>
 
           <p>
             <p>

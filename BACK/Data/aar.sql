@@ -17,6 +17,7 @@ CREATE TABLE "user" (
   "address" VARCHAR(128),
   "zip_code" VARCHAR(9),
   "city" VARCHAR(128),
+  "country" VARCHAR(128),
   "state" VARCHAR(128),
   "role" VARCHAR(128),
   "pro" VARCHAR(12),

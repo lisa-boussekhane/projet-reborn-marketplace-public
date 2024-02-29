@@ -48,7 +48,7 @@ export default function ResetPassword() {
     <div className="form__content">
       <div>
         <h1>Change your password</h1>
-        {success && <div className="success-message">Password reset successfully!</div>}
+          {success && <div className="success-message">Password reset successfully!</div>}
       </div>
       <form
         className="form__change"

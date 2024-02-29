@@ -128,6 +128,7 @@ const shopController = {
               'city',
               'zip_code',
               'state',
+              'country',
             ],
           },
           {
@@ -172,6 +173,7 @@ const shopController = {
               'zip_code',
               'city',
               'state',
+              'country',
             ],
             as: 'buyer',
           },

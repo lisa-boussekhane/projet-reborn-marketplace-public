@@ -22,7 +22,7 @@ export default function Payment() {
     city: '',
     zip_code: '',
     state: '',
-    country: '',
+    country: 'United States',
   });
 
   // conversion en centimes pour stripe
@@ -87,17 +87,17 @@ export default function Payment() {
           console.log('Payment processed:', paymentData);
 
           // Update user information
-          const userUpdateResponse = await fetch(
-            `http://localhost:3000/user`,
-            {
-              method: 'PATCH',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify(formData),
-            }
-          );
+          const userUpdateResponse = await fetch(`http://localhost:3000/user`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              ...formData,
+              country: 'United States',
+            }),
+          });
 
           if (!userUpdateResponse.ok) {
             throw new Error('Error during user information update');
@@ -266,8 +266,8 @@ export default function Payment() {
                 name="country"
                 id="country"
                 value={formData.country}
-                onChange={handleChange}
                 placeholder="United States"
+                readOnly
                 required
               />
             </div>
