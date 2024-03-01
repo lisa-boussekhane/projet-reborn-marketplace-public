@@ -14,10 +14,7 @@ const {
   verifyToken,
   requireAdmin,
 } = require('../App/Middlewares/authMiddleware');
-const {
-  upload,
-  uploadInvoice,
-} = require('../App/Middlewares/multerMiddleware');
+const { upload, uploadInvoice, uploadPhotoVideo } = require('../App/Middlewares/multerMiddleware');
 
 const aUserController = require('../Admin/Controllers/aUserController');
 const aProductController = require('../Admin/Controllers/aProductController');
@@ -49,18 +46,8 @@ router.post(
 
 router.get('/product/:id', productController.getOneProduct);
 router.get('/products', productController.getAllProducts);
-router.post(
-  '/product',
-  verifyToken,
-  upload.array('photo', 12),
-  productController.createProduct
-);
-router.patch(
-  '/product/:id',
-  verifyToken,
-  upload.array('photo', 12),
-  productController.updateProduct
-);
+router.post('/product', verifyToken, uploadPhotoVideo.array('photo', 12), productController.createProduct);
+router.patch('/product/:id', verifyToken, uploadPhotoVideo.array('photo', 12), productController.updateProduct);
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 
 router.get('/shop', verifyToken, shopController.showShop);
