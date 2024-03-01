@@ -6,6 +6,7 @@ import { Modal, Button } from 'semantic-ui-react';
 export default function AdminProducts() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showImages, setShowImages] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -167,6 +168,52 @@ export default function AdminProducts() {
     }
   };
 
+  // filtrer les résultats en fonction de la valeur de searchTerm
+  const filteredProducts = searchTerm
+    ? products.filter((product) => {
+        return (
+          product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.kit_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.sculptor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.age_range.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.authenticity_card
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          product.Detail_product.localization
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          product.Detail_product.belly_plate
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          product.Detail_product.gender
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          product.Detail_product.eyes
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          product.Detail_product.hair
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          product.Detail_product.description
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          product.Detail_product.status
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          product.unique_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.seller.id === Number(searchTerm) ||
+          product.shop_id === Number(searchTerm) ||
+          product.Detail_product.year === Number(searchTerm) ||
+          product.size === Number(searchTerm) ||
+          product.weight === Number(searchTerm) ||
+          product.price === Number(searchTerm) ||
+          product.shipping_fees === Number(searchTerm) ||
+          product.id === Number(searchTerm)
+        );
+      })
+    : products;
+
   return (
     <div>
       <div className="admin-page">
@@ -185,10 +232,19 @@ export default function AdminProducts() {
           <NavLink to="/adminorders" activeClassName="active-link">
             All Orders
           </NavLink>
+          <div>
+            <input
+              id="search-input"
+              type="text"
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
       </div>
       <div className="product-card">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div key={product.id} className="product-info">
             <p>
               <strong>Product id:</strong> {product.id}

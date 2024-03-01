@@ -5,6 +5,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 export default function AdminUsers() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
   const storedToken = localStorage.getItem('jwtToken');
   useEffect(() => {
     const fetchOrders = async () => {
@@ -30,6 +32,37 @@ export default function AdminUsers() {
     fetchOrders();
   }, [navigate, storedToken]);
 
+  // filtrer les résultats en fonction de la valeur de searchTerm
+  const filteredOrders = searchTerm
+    ? orders.filter((order) => {
+        return (
+          order.order_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          order.buyer.first_name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          order.Product.title
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          order.buyer.last_name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          order.buyer.address
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          order.buyer.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          order.buyer.state.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          order.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          order.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          order.Product.seller.username
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          order.Product.seller.id === Number(searchTerm) ||
+          order.buyer.id === Number(searchTerm) ||
+          order.Product.price === Number(searchTerm)
+        );
+      })
+    : orders;
+
   return (
     <div>
       <div className="admin-page">
@@ -48,10 +81,19 @@ export default function AdminUsers() {
           <NavLink to="/adminorders" activeClassName="active-link">
             All Orders
           </NavLink>
+          <div>
+            <input
+              id="search-input"
+              type="text"
+              placeholder="Search orders..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
       </div>
       <div className="order-card">
-        {orders.map((order) => (
+        {filteredOrders.map((order) => (
           <div key={order.id} className="order-info">
             <p>
               <strong>Order id:</strong> {order.id}

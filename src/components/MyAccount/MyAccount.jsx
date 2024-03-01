@@ -217,7 +217,9 @@ export default function MyAccount() {
           <li>
             <Link to="/mystore">My store</Link>
           </li>
-          <li>Chat</li>
+          <li>
+            <Link to="/messages">Chat</Link>
+          </li>
           <li>
             <Link to="/deleteaccount">Delete account</Link>
           </li>

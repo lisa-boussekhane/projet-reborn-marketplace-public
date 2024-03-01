@@ -2,6 +2,7 @@ import './Payment.scss';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Modal, Dimmer, Loader } from 'semantic-ui-react';
 import { useCart } from '../React-Context/CartContext';
 
 export default function Payment() {
@@ -9,6 +10,8 @@ export default function Payment() {
   const stripe = useStripe();
   const elements = useElements();
   const location = useLocation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const searchParams = new URLSearchParams(location.search);
   const { clearCart, cart } = useCart();
   const amount = searchParams.get('amount');
@@ -69,6 +72,9 @@ export default function Payment() {
       };
 
       try {
+        setIsModalOpen(true);
+        setIsLoading(true);
+
         const response = await fetch('http://localhost:3000/process-payment', {
           method: 'POST',
           headers: {
@@ -118,13 +124,10 @@ export default function Payment() {
             }),
           });
 
-          // Check the response from createorder route
+          // verifier la réponse de la création de la commande
           if (createOrder.ok) {
             clearCart();
             const createOrderData = await createOrder.json();
-            setTimeout(() => {
-              navigate('/myaccount');
-            }, 5000);
             console.log('Order created successfully:', createOrderData);
             const orderNumbers = createOrderData.order_numbers;
             const successMessageOrder =
@@ -136,7 +139,11 @@ export default function Payment() {
                     ', '
                   )}. Redirecting to my account...`;
 
+            setIsLoading(false);
             setSuccessMessage(successMessageOrder);
+            setTimeout(() => {
+              navigate('/myaccount');
+            }, 5000);
           } else {
             console.error(
               'erreur dans la création de la commande:',
@@ -144,21 +151,22 @@ export default function Payment() {
             );
           }
         } else {
+          setIsModalOpen(false);
+          setIsLoading(false);
           setErrorMessage('Payment failed. Please try again.');
         }
       } catch (error) {
+        setIsModalOpen(false);
+        setIsLoading(false);
         console.error('Error processing payment:', error);
         setErrorMessage('Payment failed. Please try again.');
       }
     }
   };
-
   return (
     <div className="payment__container container">
       <h1 className="payment__title">Payment</h1>
-      {successMessage && (
-        <div className="success-message success">{successMessage}</div>
-      )}
+
       {errorMessage && (
         <div className="error-message error">{errorMessage}</div>
       )}
@@ -285,6 +293,22 @@ export default function Payment() {
           </button>
         </div>
       </form>
+      <Modal open={isModalOpen} size="tiny">
+        <Dimmer active={isLoading}>
+          <Loader>Loading...</Loader>
+        </Dimmer>
+        <Modal.Content>
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <Modal.Description>
+              {successMessage && (
+                <div className="success-message success">{successMessage}</div>
+              )}
+            </Modal.Description>
+          )}
+        </Modal.Content>
+      </Modal>
     </div>
   );
 }

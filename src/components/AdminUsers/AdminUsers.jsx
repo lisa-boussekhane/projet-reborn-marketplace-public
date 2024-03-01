@@ -11,6 +11,7 @@ export default function AdminUsers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [updatingUserId, setUpdatingUserId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const storedToken = localStorage.getItem('jwtToken');
   const [formData, setFormData] = useState({
     name: selectedUser ? selectedUser.name : '',
@@ -157,6 +158,44 @@ export default function AdminUsers() {
       console.error(error);
     }
   };
+  // filtrer les résultats en fonction de la valeur de searchTerm
+  const filteredUsers = searchTerm
+    ? users.filter((user) => {
+        const theUserRole = user && user.role ? user.role : '';
+        const userPhone = user && user.phone ? user.phone : '';
+        const userAddress = user && user.address ? user.address : '';
+        const userCity = user && user.city ? user.city : '';
+        const userState = user && user.state ? user.state : '';
+        const userPro = user && user.pro ? user.pro : '';
+        const userDuns = user && user.duns ? user.duns : '';
+        const userZipCode = user && user.zip_code ? user.zip_code : '';
+        const userDateOfBirth =
+          user && user.date_of_birth ? user.date_of_birth : '';
+
+        return (
+          user.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (theUserRole &&
+            theUserRole.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (userAddress &&
+            userAddress.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          user.id === Number(searchTerm) ||
+          (userPhone &&
+            userPhone.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (userCity &&
+            userCity.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (userState &&
+            userState.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (userPro &&
+            userPro.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (userDuns && userDuns === Number(searchTerm)) ||
+          (userZipCode && userZipCode === Number(searchTerm)) ||
+          (userDateOfBirth && userDateOfBirth === Number(searchTerm))
+        );
+      })
+    : users;
 
   return (
     <div>
@@ -179,6 +218,15 @@ export default function AdminUsers() {
               <NavLink to="/adminorders" activeClassName="active-link">
                 All Orders
               </NavLink>
+              <div>
+                <input
+                  id="search-input"
+                  type="text"
+                  placeholder="Search users..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
             </div>
           </>
         )}
@@ -187,7 +235,7 @@ export default function AdminUsers() {
         {errorMessage && <p>{errorMessage}</p>}
         {userRole === 'Admin' && (
           <>
-            {users.map((user) => (
+            {filteredUsers.map((user) => (
               <div key={user.id} className="user-info">
                 <p>
                   <strong>User id:</strong> {user.id}
@@ -212,7 +260,7 @@ export default function AdminUsers() {
                   <strong>User phone :</strong> {user.phone}
                 </p>
                 <p>
-                  <strong>User adress :</strong> {user.adress}
+                  <strong>User address :</strong> {user.address}
                 </p>
                 <p>
                   <strong>User zip_code :</strong> {user.zip_code}

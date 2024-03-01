@@ -32,6 +32,7 @@ import AdminUsers from '../AdminUsers/AdminUsers';
 import AdminShops from '../AdminShops/AdminShops';
 import AdminProducts from '../AdminProducts/AdminProducts';
 import AdminOrders from '../AdminOrders/AdminOrders';
+import ChatHomepage from '../Chat/ChatHomepage';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/messages" element={<ChatHomepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgotpassword" element={<ResetRequest />} />

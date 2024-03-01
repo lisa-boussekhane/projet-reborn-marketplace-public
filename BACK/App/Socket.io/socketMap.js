@@ -1,5 +1,7 @@
-const io = require('socket.io')(server);
+const { Server } = require("socket.io");
+const http = require('http');
 const userSocketMap = new Map(); // Map to store user ID to socket ID mapping
+const io = new Server(server);
 
 io.on('connection', (socket) => {
   console.log(`New connection: ${socket.id}`);

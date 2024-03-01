@@ -12,6 +12,7 @@ export default function AdminShops() {
   const [selectedShop, setSelectedShop] = useState(null);
   const [updatingShopId, setUpdatingShopId] = useState(null);
   const storedToken = localStorage.getItem('jwtToken');
+  const [searchTerm, setSearchTerm] = useState('');
   const [formData, setFormData] = useState({
     name: selectedShop ? selectedShop.name : '',
   });
@@ -49,7 +50,7 @@ export default function AdminShops() {
     };
 
     fetchProducts();
-  }, [navigate, userRole]);
+  }, [navigate, userRole, storedToken]);
 
   const handleDeleteShop = async (shopId) => {
     try {
@@ -117,6 +118,17 @@ export default function AdminShops() {
     }
   };
 
+  // filtrer les résultats en fonction de la valeur de searchTerm
+  const filteredShops = searchTerm
+    ? shops.filter((shop) => {
+        return (
+          shop.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          shop.id === Number(searchTerm) ||
+          shop.user_id === Number(searchTerm)
+        );
+      })
+    : shops;
+
   return (
     <div>
       <div className="admin-page">
@@ -138,6 +150,15 @@ export default function AdminShops() {
               <NavLink to="/adminorders" activeClassName="active-link">
                 All Orders
               </NavLink>
+              <div>
+                <input
+                  id="search-input"
+                  type="text"
+                  placeholder="Search shops..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
             </div>
           </>
         )}
@@ -146,7 +167,7 @@ export default function AdminShops() {
         {errorMessage && <p>{errorMessage}</p>}
         {userRole === 'Admin' && (
           <>
-            {shops.map((shop) => (
+            {filteredShops.map((shop) => (
               <div key={shop.id} className="shop-info">
                 <p>
                   <strong>Shop id:</strong> {shop.id}

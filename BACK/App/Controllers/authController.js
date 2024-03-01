@@ -55,7 +55,14 @@ const authController = {
           message: 'Password does not meet the requirements.',
         });
       }
+      const existingUser = await User.findOne({ where: { email: email } });
 
+      if (existingUser) {
+        // User already exists, send a message to the front-end
+        return res.status(400).json({
+          message: 'User with this email already has an account. Please login.',
+        });
+      }
       const newUser = await User.create({
         first_name: first_name,
         last_name: last_name,
@@ -75,8 +82,13 @@ const authController = {
       const mailOptions = {
         from: 'adoptareborn.contactus@gmail.com',
         to: email,
-        subject: 'Welcome to adopt a reborn !',
-        text: `Hello ${username},\n\nThank you for registering on our website. We are delighted to welcome you!\n\nSell or buy your first reborn now !\n\nOn our site: http://localhost:5173/  \n\nBest regards,\nAdopt a reborn team`,
+        subject: 'Welcome to the Adopt a Reborn Family !',
+        text: `Dear ${username},\n\nWe are thrilled to welcome you to our community!
+        \n\nYour decision to bring a reborn into your life is a journey we are so excited to be a part of.
+        \n\nThank you for choosing Adopt a Reborn. We are honored to be a part of this special time in your life. If you have any questions or need assistance, please don't hesitate to reach out to us at adoptareborn.contactus@gmail.com.
+        \n\nWelcome to the family!\n\nSell or buy your first reborn now !\n\nOn our site: http://localhost:5173/ 
+        \n\nWarm regards,
+        \n\nAdopt a Reborn team.`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -205,8 +217,8 @@ const authController = {
           .json({ message: 'Current password is incorrect' });
       }
 
-      // Update the user's password
-      await User.update({ password: newPassword });
+      // mettre à jour le mot de passe
+      await User.update({ password: newPassword }, { where: { id: user_id } });
 
       // Return a success response
       res.json({ message: 'Password updated successfully' });

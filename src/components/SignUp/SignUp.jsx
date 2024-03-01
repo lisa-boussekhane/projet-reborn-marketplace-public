@@ -58,14 +58,20 @@ export default function SignUp() {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Error during sign-up');
-      }
-
       const data = await response.json();
-      setRegistrationSuccess(true);
-      navigate('/login');
-      console.log(data);
+      if (response.status === 400 && data.message) {
+        // l'utilisateur existe déjà 
+        setRegistrationSuccess(false);
+        setPasswordError(data.message);
+      } else if (!response.ok) {
+        // erreur
+        throw new Error('Error during sign-up');
+      } else {
+        // inscrit sans soucis
+        setRegistrationSuccess(true);
+        navigate('/login');
+        console.log(data);
+      }
     } catch (error) {
       console.error('Error during sign-up:', error);
     }
