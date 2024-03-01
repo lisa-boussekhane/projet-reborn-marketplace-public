@@ -22,6 +22,7 @@ const uploadInvoice = multer({
     }
     cb(null, true);
   },
-});
+},
+);
 
 module.exports = { upload, uploadInvoice };
