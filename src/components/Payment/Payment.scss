@@ -1,8 +1,9 @@
 @use 'src/styles/variables' as v;
 
 .payment__container {
-  width: 62%;
+  width: 100%;
   margin: 0 auto;
+  padding-top: 7rem;
   margin-bottom: 5rem;
 
   h1 {
@@ -47,13 +48,13 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 .payment__elem input {
   font-size: 1em;
+  padding: 10px;
   border: 1px solid v.$midGrey;
-  padding: 8px;
   background: #fff;
 }
 
@@ -75,15 +76,14 @@
 .payment__group2 {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .payment__elem2 input {
   font-size: 1em;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid v.$midGrey;
   background: #fff;
 }
@@ -93,6 +93,7 @@
   margin: auto;
   border: 1px solid v.$midGrey;
   margin-top: 1.5rem;
+  margin-bottom: 6rem;
   padding: 15px;
   background: v.$lightGrey;
 }
@@ -102,43 +103,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.payment__elem3 input {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 1em;
-  border: 1px solid v.$midGrey;
-  padding: 8px;
-  margin: 20px auto;
-  margin-top: 1rem;
-  background: #fff;
-}
-
-.payment__group4 {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 10px;
-}
-
-.payment__elem4 input {
-  width: 75%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 1em;
-  border: 1px solid v.$midGrey;
-  padding: 8px;
-  margin: 20px auto;
-  margin-top: 1rem;
-  background: #fff;
 }
 
 .pay__buttons {
@@ -162,12 +126,12 @@
 }
 
 .pay__btn {
-  background-color: v.$blue;
-  margin-top: 0.5rem;
   font-size: 1.5rem;
   color: white;
-  padding: 1rem;
+  background-color: v.$blue;
+  margin-top: 0.5rem;
   margin-left: 5rem;
+  padding: 1rem;
   padding-left: 2rem;
   padding-right: 2rem;
   cursor: pointer;
@@ -175,21 +139,10 @@
 
 /*RESPONSIVE*/
 
-.container {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-/* xs */
-@media (min-width: 350px) {
-  .container {
-    max-width: 350px;
-  }
+/* 2xl */
+@media (max-width: 1536px) {
   .payment__container {
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
     margin-bottom: 5rem;
 
@@ -198,6 +151,68 @@
       text-align: center;
       margin-bottom: 2rem;
     }
+  }
+
+  .payment__box {
+    width: 65%;
+    margin: auto;
+    margin-bottom: 1.5rem;
+    border: 1px solid v.$midGrey;
+    padding: 15px;
+    background: v.$lightGrey;
+  }
+
+  .payment__box2 {
+    width: 65%;
+  }
+
+  .payment__box3 {
+    width: 65%;
+  }
+}
+
+/* xl */
+@media (max-width: 1440px) {
+  .payment__box {
+    width: 75%;
+  }
+
+  .payment__box2 {
+    width: 75%;
+  }
+
+  .payment__box3 {
+    width: 75%;
+  }
+
+  .pay__btn {
+    margin-left: 4rem;
+  }
+}
+
+/* xl */
+@media (max-width: 1280px) {
+  .payment__box {
+    width: 75%;
+  }
+
+  .payment__box2 {
+    width: 75%;
+  }
+
+  .payment__box3 {
+    width: 75%;
+  }
+
+  .pay__btn {
+    margin-left: 4rem;
+  }
+}
+
+/* lg */
+@media (max-width: 1024px) {
+  .payment__box {
+    width: 65%;
   }
 
   .payment__group {
@@ -205,44 +220,30 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-  }
-
-  .pay__btn {
-    margin: 15px auto;
-  }
-}
-
-/* lg */
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-  .payment__container {
-    width: 70%;
-    margin: 0 auto;
-    margin-bottom: 5rem;
-
-    h1 {
-      font-size: 2.4em;
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-  }
-
-  .payment__group {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    gap: 15px;
   }
 
   .payment__elem input {
-    width: 65px;
+    padding: 15px 20px;
   }
 
-  .pay__btn {
-    margin: 15px auto;
+  .payment__box2 {
+    width: 65%;
+  }
+
+  .payment__group2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .payment__elem2 input {
+    padding: 15px 20px;
+  }
+
+  .payment__box3 {
+    width: 65%;
   }
 }
