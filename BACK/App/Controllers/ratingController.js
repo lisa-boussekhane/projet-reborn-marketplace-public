@@ -4,7 +4,7 @@ const { sequelize } = require('../../Models/index');
 const Sequelize = require('sequelize');
 
 const ratingController = {
-  async getShopRating(req, res) {
+async getShopRating(req, res) {
     try {
       const { id } = req.params;
       console.log(id);
