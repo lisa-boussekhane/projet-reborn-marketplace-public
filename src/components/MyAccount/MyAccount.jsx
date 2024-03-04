@@ -508,7 +508,7 @@ export default function MyAccount() {
                       <p>
                         <strong>Delivery address :</strong>{' '}
                         {soldProduct.buyer.address} {soldProduct.buyer.zip_code}{' '}
-                        {soldProduct.buyer.city} {soldProduct.buyer.state}
+                        {soldProduct.buyer.city} {soldProduct.buyer.state}{' '}
                       </p>
                       <p>
                         <strong>Phone :</strong> {soldProduct.buyer.phone}

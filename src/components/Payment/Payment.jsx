@@ -22,7 +22,7 @@ export default function Payment() {
     city: '',
     zip_code: '',
     state: '',
-    country: '',
+    country: 'United States',
   });
 
   // conversion en centimes pour stripe
@@ -93,7 +93,12 @@ export default function Payment() {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify(formData),
+
+            body: JSON.stringify({
+              ...formData,
+              country: 'United States',
+            }),
+
           });
 
           if (!userUpdateResponse.ok) {
@@ -263,8 +268,8 @@ export default function Payment() {
                 name="country"
                 id="country"
                 value={formData.country}
-                onChange={handleChange}
                 placeholder="United States"
+                readOnly
                 required
               />
             </div>

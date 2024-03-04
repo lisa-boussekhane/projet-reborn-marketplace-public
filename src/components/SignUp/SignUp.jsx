@@ -15,7 +15,6 @@ export default function SignUp() {
   const [passwordError, setPasswordError] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
@@ -65,12 +64,7 @@ export default function SignUp() {
 
       const data = await response.json();
       setRegistrationSuccess(true);
-      navigate('/myaccount');
-      setIsLoggedIn(true);
-      const { token, user } = data;
-      // stocker le token et l'id dans localStorage
-      localStorage.setItem('jwtToken', token);
-      localStorage.setItem('userId', user.id);
+      navigate('/login');
       console.log(data);
     } catch (error) {
       console.error('Error during sign-up:', error);
@@ -116,7 +110,7 @@ export default function SignUp() {
               name="username"
               id="username"
               value={username}
-              placeholder="Last name"
+              placeholder="Username"
               required
               onChange={(e) => setUsername(e.target.value)}
             />

@@ -6,6 +6,7 @@ const validator = require('validator');
 const User = require('../../Models/user');
 const verifyToken = require('../Middlewares/authMiddleware');
 const { sendEmail } = require('./contactController');
+const nodemailer = require('nodemailer');
 
 const authController = {
   validatePassword(password) {
@@ -63,14 +64,32 @@ const authController = {
         username: username,
       });
 
-      const token = jwt.sign({ user_id: newUser.id }, process.env.SECRET, {
-        expiresIn: '2h',
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'adoptareborn.contactus@gmail.com',
+          pass: 'dxkv dkwr ykda olax',
+        },
+      });
+
+      const mailOptions = {
+        from: 'adoptareborn.contactus@gmail.com',
+        to: email,
+        subject: 'Welcome to adopt a reborn !',
+        text: `Hello ${username},\n\nThank you for registering on our website. We are delighted to welcome you!\n\nSell or buy your first reborn now !\n\nOn our site: http://localhost:5173/  \n\nBest regards,\nAdopt a reborn team`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error("Erreur lors de l'envoi de l'e-mail:", error);
+        } else {
+          console.log('E-mail envoyé avec succès:', info.response);
+        }
       });
 
       // Respond with the created user (excluding the password for security)
       res.status(201).json({
         user: { id: newUser.id },
-        token,
       });
     } catch (error) {
       console.error('Account creation failed:', error);
