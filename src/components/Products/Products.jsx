@@ -1,11 +1,30 @@
+import './Products.scss';
 import { useState, useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import { Card, Image } from 'semantic-ui-react';
-import './Products.scss';
+import {
+  Card,
+  Dropdown,
+  DropdownItem,
+  Image,
+  Checkbox,
+  Menu,
+  MenuItem,
+  DropdownMenu,
+} from 'semantic-ui-react';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [formData, setFormData] = useState({
+    type: false,
+    sculptor: false,
+    gender: false,
+    age_range: false,
+    eyes: false,
+    hair: false,
+    belly_plate: false,
+    authenticity_card: false,
+  });
   const { id } = useParams();
 
   useEffect(() => {
@@ -25,277 +44,239 @@ export default function Products() {
     fetchProducts();
   }, [id]);
 
+  // Filters
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
 
-  const handleKeyDown = (event, category) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      setSelectedCategory(category);
-    }
+  const handleCheckbox = (filter) => {
+    setFormData({
+      ...formData,
+      [filter]: !formData[filter],
+    });
   };
-  const filteredProducts = selectedCategory
-    ? products.filter(
-        (product) =>
-          product.type === selectedCategory ||
-          product.sculptor === selectedCategory ||
-          product.age_range === selectedCategory ||
-          product.authenticity_card === selectedCategory ||
-          product.Detail_product.gender === selectedCategory ||
-          product.Detail_product.eyes === selectedCategory ||
-          product.Detail_product.hair === selectedCategory ||
-          product.Detail_product.belly_plate === selectedCategory
-      )
-    : products;
+
+  const filteredProducts = products.filter((product) => {
+    // Category filters
+    if (
+      selectedCategory &&
+      product.type !== selectedCategory &&
+      product.sculptor !== selectedCategory &&
+      product.Detail_product.gender !== selectedCategory &&
+      product.age_range !== selectedCategory &&
+      product.Detail_product.eyes !== selectedCategory &&
+      product.Detail_product.hair !== selectedCategory &&
+      product.Detail_product.belly_plate !== selectedCategory &&
+      product.authenticity_card !== selectedCategory
+    ) {
+      return false;
+    }
+
+    // Checkbox filters
+    const activeFilters = Object.keys(formData).filter(
+      (filter) => formData[filter]
+    );
+    if (
+      activeFilters.length > 0 &&
+      !activeFilters.includes(product.type) &&
+      !activeFilters.includes(product.sculptor) &&
+      !activeFilters.includes(product.Detail_product.gender) &&
+      !activeFilters.includes(product.age_range) &&
+      !activeFilters.includes(product.Detail_product.eyes) &&
+      !activeFilters.includes(product.Detail_product.hair) &&
+      !activeFilters.includes(product.Detail_product.belly_plate) &&
+      !activeFilters.includes(product.authenticity_card)
+    ) {
+      return false;
+    }
+    return true;
+  });
 
   return (
     <>
       <div className="products__menu">
-        <div className="products__category">
-          <h3>Material</h3>
-          <ul className="products__item">
-            <li
-              onClick={() => handleCategoryClick('Vinyl')}
-              onKeyDown={(event) => handleKeyDown(event, 'Vinyl')}
-              tabIndex={0}
-            >
-              Vinyl
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Silicone')}
-              onKeyDown={(event) => handleKeyDown(event, 'Silicone')}
-              tabIndex={0}
-            >
-              {' '}
-              Silicone
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Cuddle')}
-              onKeyDown={(event) => handleKeyDown(event, 'Cuddle')}
-              tabIndex={0}
-            >
-              Cuddle
-            </li>
-          </ul>
-        </div>
+        <h4>Material</h4>
+        <Checkbox
+          label="Vinyl"
+          checked={formData.type.Vinyl}
+          onChange={() => handleCheckbox.Vinyl}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="Silicone"
+          checked={formData.type.Silicone}
+          onChange={() => handleCheckbox('Silicone')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="Cuddle"
+          checked={formData.type.Cuddle}
+          onChange={() => handleCheckbox('Cuddle')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
 
-        <div className="products__category">
-          <h3>Kit Sculptor</h3>
-          <ul className="products__item">
-            <li
-              onClick={() => handleCategoryClick('Linde Scherer')}
-              onKeyDown={(event) => handleKeyDown(event, 'Linde Scherer')}
-              tabIndex={0}
-            >
-              Linde Scherer
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Olga Auer')}
-              onKeyDown={(event) => handleKeyDown(event, 'Olga Auer')}
-              tabIndex={0}
-            >
-              Olga Auer
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Laura Lee Eagles')}
-              onKeyDown={(event) => handleKeyDown(event, 'Laura Lee Eagles')}
-              tabIndex={0}
-            >
-              Laura Lee Eagles
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Ina Volprich')}
-              onKeyDown={(event) => handleKeyDown(event, 'Ina Volprich')}
-              tabIndex={0}
-            >
-              Ina Volprich
-            </li>
-          </ul>
-        </div>
+        <h4>Sculptor</h4>
+        <Checkbox
+          label="Linde Scherer"
+          checked={formData.sculptor['Linde Scherer']}
+          onChange={() => handleCheckbox('Linde Scherer')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="Olga Auer"
+          checked={formData.sculptor['Olga Auer']}
+          onChange={() => handleCheckbox('Olga Auer')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="Laura Lee Eagles"
+          checked={formData.sculptor['Laura Lee Eagles']}
+          onChange={() => handleCheckbox('Laura Lee Eagles')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="Ina Volprich"
+          checked={formData.sculptor['Ina Volprich']}
+          onChange={() => handleCheckbox('Ina Volprich')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
 
-        <div className="products__category">
-          <h3>Gender</h3>
-          <ul className="products__item">
-            <li
-              onClick={() => handleCategoryClick('Girl')}
-              onKeyDown={(event) => handleKeyDown(event, 'Girl')}
-              tabIndex={0}
-            >
-              Girl
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Boy')}
-              onKeyDown={(event) => handleKeyDown(event, 'Boy')}
-              tabIndex={0}
-            >
-              {' '}
-              Boy
-            </li>
-            <li
-              onClick={() => handleCategoryClick('None')}
-              onKeyDown={(event) => handleKeyDown(event, 'None')}
-              tabIndex={0}
-            >
-              None
-            </li>
-          </ul>
-        </div>
+        <h4>Gender</h4>
+        <Checkbox
+          label="Girl"
+          checked={formData.gender.Girl}
+          onChange={() => handleCheckbox('Girl')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="Boy"
+          checked={formData.gender.Boy}
+          onChange={() => handleCheckbox('Boy')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="None"
+          checked={formData.gender.None}
+          onChange={() => handleCheckbox('None')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <h4>Age range</h4>
+        <Checkbox
+          label="Baby"
+          checked={formData.age_range.Baby}
+          onChange={() => handleCheckbox('Baby')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="Toddler"
+          checked={formData.age_range.Toddler}
+          onChange={() => handleCheckbox('Toddler')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
 
-        <div className="products__category">
-          <h3>Age range</h3>
-          <ul className="products__item">
-            <li
-              onClick={() => handleCategoryClick('Baby')}
-              onKeyDown={(event) => handleKeyDown(event, 'Baby')}
-              tabIndex={0}
-            >
-              Baby
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Toddler')}
-              onKeyDown={(event) => handleKeyDown(event, 'Toddler')}
-              tabIndex={0}
-            >
-              Toddler
-            </li>
-          </ul>
-        </div>
+        <h4>Eyes</h4>
+        <Checkbox
+          label="Closed"
+          checked={formData.eyes.Closed}
+          onChange={() => handleCheckbox('Closed')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="Brown"
+          checked={formData.eyes.Brown}
+          onChange={() => handleCheckbox('Brown')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="Blue"
+          checked={formData.eyes.Blue}
+          onChange={() => handleCheckbox('Blue')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="Green"
+          checked={formData.eyes.Green}
+          onChange={() => handleCheckbox('Green')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="Other"
+          checked={formData.eyes.Other}
+          onChange={() => handleCheckbox('Other')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
 
-        <div className="products__category">
-          <h3>Eyes</h3>
-          <ul className="products__item">
-            <li
-              onClick={() => handleCategoryClick('Closed')}
-              onKeyDown={(event) => handleKeyDown(event, 'Closed')}
-              tabIndex={0}
-            >
-              Closed
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Brown')}
-              onKeyDown={(event) => handleKeyDown(event, 'Brown')}
-              tabIndex={0}
-            >
-              Brown
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Blue')}
-              onKeyDown={(event) => handleKeyDown(event, 'Blue')}
-              tabIndex={0}
-            >
-              Blue
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Green')}
-              onKeyDown={(event) => handleKeyDown(event, 'Green')}
-              tabIndex={0}
-            >
-              Green
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Other')}
-              onKeyDown={(event) => handleKeyDown(event, 'Other')}
-              tabIndex={0}
-            >
-              Other
-            </li>
-          </ul>
-        </div>
+        <h4>Hair</h4>
+        <Checkbox
+          label="Bald"
+          checked={formData.hair.Bald}
+          onChange={() => handleCheckbox('Bald')}
+          style={{ fontSize: '1.3em', marginLeft: '0.4em' }}
+        />
+        <Checkbox
+          label="Hair painting"
+          checked={formData.hair['Hair painting']}
+          onChange={() => handleCheckbox('Hair painting')}
+          style={{ fontSize: '1.3em', marginLeft: '0.4em' }}
+        />
+        <Checkbox
+          label="Brown"
+          checked={formData.hair.Brown}
+          onChange={() => handleCheckbox('Brown')}
+          style={{ fontSize: '1.3em', marginLeft: '0.2em' }}
+        />
+        <Checkbox
+          label="Blonde"
+          checked={formData.hair.Blonde}
+          onChange={() => handleCheckbox('Blonde')}
+          style={{ fontSize: '1.3em', marginLeft: '0.2em' }}
+        />
+        <Checkbox
+          label="Black"
+          checked={formData.hair.Black}
+          onChange={() => handleCheckbox('Black')}
+          style={{ fontSize: '1.3em', marginLeft: '0.3em' }}
+        />
+        <Checkbox
+          label="Red"
+          checked={formData.hair.Red}
+          onChange={() => handleCheckbox('Red')}
+          style={{ fontSize: '1.3em', marginLeft: '0.3em' }}
+        />
+        <Checkbox
+          label="Other"
+          checked={formData.hair.Other}
+          onChange={() => handleCheckbox('Other')}
+          style={{ fontSize: '1.3em', marginLeft: '0.3em' }}
+        />
 
-        <div className="products__category">
-          <h3>Hair</h3>
-          <ul className="products__item">
-            <li
-              onClick={() => handleCategoryClick('Bald')}
-              onKeyDown={(event) => handleKeyDown(event, 'Bald')}
-              tabIndex={0}
-            >
-              Bald
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Hair painting')}
-              onKeyDown={(event) => handleKeyDown(event, 'Hair painting')}
-              tabIndex={0}
-            >
-              Hair painting
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Brown')}
-              onKeyDown={(event) => handleKeyDown(event, 'Brown')}
-              tabIndex={0}
-            >
-              Brown
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Blonde')}
-              onKeyDown={(event) => handleKeyDown(event, 'Blonde')}
-              tabIndex={0}
-            >
-              Blonde
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Black')}
-              onKeyDown={(event) => handleKeyDown(event, 'Black')}
-              tabIndex={0}
-            >
-              Black
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Red')}
-              onKeyDown={(event) => handleKeyDown(event, 'Red')}
-              tabIndex={0}
-            >
-              Red
-            </li>
-            <li
-              onClick={() => handleCategoryClick('Other')}
-              onKeyDown={(event) => handleKeyDown(event, 'Other')}
-              tabIndex={0}
-            >
-              Other
-            </li>
-          </ul>
-        </div>
+        <h4>Belly plate</h4>
+        <Checkbox
+          label="Yes"
+          checked={formData.belly_plate.Yes}
+          onChange={() => handleCheckbox('Yes')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="No"
+          checked={formData.belly_plate.No}
+          onChange={() => handleCheckbox('No')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
 
-        <div className="products__category">
-          <h3>Belly plate</h3>
-          <ul className="products__item">
-            <li
-              onClick={() => handleCategoryClick('Yes')}
-              onKeyDown={(event) => handleKeyDown(event, 'Yes')}
-              tabIndex={0}
-            >
-              Yes
-            </li>
-            <li
-              onClick={() => handleCategoryClick('No')}
-              onKeyDown={(event) => handleKeyDown(event, 'No')}
-              tabIndex={0}
-            >
-              No
-            </li>
-          </ul>
-        </div>
-
-        <div className="products__category">
-          <h3>Authenticity card</h3>
-          <ul className="products__item">
-            <li
-              onClick={() => handleCategoryClick('Yes')}
-              onKeyDown={(event) => handleKeyDown(event, 'Yes')}
-              tabIndex={0}
-            >
-              Yes
-            </li>
-            <li
-              onClick={() => handleCategoryClick('No')}
-              onKeyDown={(event) => handleKeyDown(event, 'No')}
-              tabIndex={0}
-            >
-              No
-            </li>
-          </ul>
-        </div>
+        <h4>Authenticity card</h4>
+        <Checkbox
+          label="Yes"
+          checked={formData.authenticity_card.Yes}
+          onChange={() => handleCheckbox('Yes')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
+        <Checkbox
+          label="No"
+          checked={formData.authenticity_card.No}
+          onChange={() => handleCheckbox('No')}
+          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
+        />
       </div>
 
       <div className="products__wrapper">
