@@ -1,11 +1,12 @@
 @use 'src/styles/variables' as v;
 
 .single-message-container {
-    
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-  
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin-bottom: calc(1rem);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -14,12 +15,13 @@
       margin-bottom: 20px;
       font-size: 16px;
       color: #555;
+      
     }
   
     ul {
       list-style: none;
       padding: 0;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
   
       li {
         margin-bottom: 10px;
@@ -28,15 +30,24 @@
   
         strong {
             margin-right: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
         }
       }
+    }
+
+    .form-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+     position: absolute;
+      padding: 10px;
     }
   
     #form {
       display: flex;
-      margin-bottom: 25px;
-      margin-top: 20rem;
+     
+      
   
       #input {
         flex: 1;
@@ -64,10 +75,12 @@
   }
   .message-left {
     text-align: left;
+    
   }
   .message-right {
     margin-right: 1rem;
     text-align: right;
+   
   }
 
   .return-button {
@@ -84,4 +97,11 @@
     &:hover {
       background-color: lightgray; 
   }
+}
+
+.message-bubble {
+  padding: 10px;
+  border-radius: 20px;
+  display: inline-block;
+  background-color: lightgrey;
 }

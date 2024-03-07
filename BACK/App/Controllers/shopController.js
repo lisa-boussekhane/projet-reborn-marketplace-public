@@ -176,6 +176,7 @@ const shopController = {
               'city',
               'state',
               'country',
+              'id',
             ],
             as: 'buyer',
           },

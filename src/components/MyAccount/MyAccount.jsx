@@ -394,6 +394,12 @@ export default function MyAccount() {
                 {userOrders.map((order) => (
                   <li key={order.id} className="order__item">
                     <div className="order__details">
+                      <Link
+                        to={`/messages/${order.Product.seller.id}`}
+                        className="contact__seller"
+                      >
+                        Contact the seller
+                      </Link>
                       <p>
                         <strong>Order number :</strong> {order.order_number}
                       </p>
@@ -472,12 +478,6 @@ export default function MyAccount() {
                             />
                           </button>
                         ))}
-                        <Link
-                          to={`/messages/${order.Product.seller.id}`}
-                          className="contact__seller"
-                        >
-                          Contact the seller
-                        </Link>
                       </div>
                     </div>
                   </li>
@@ -501,6 +501,12 @@ export default function MyAccount() {
                 {userSales.map((soldProduct, index) => (
                   <li key={index} className="order__item">
                     <div className="order__details">
+                      <Link
+                        to={`/messages/${soldProduct.buyer.id}`}
+                        className="contact__buyer"
+                      >
+                        Contact the buyer
+                      </Link>
                       <p>
                         <strong>Order number :</strong>{' '}
                         {soldProduct.order_number}

@@ -1,5 +1,5 @@
 import './SingleMessagePage.scss';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
@@ -10,6 +10,21 @@ export default function SingleMessagePage() {
   const [fetchedMessages, setFetchedMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [loggedUser, setLoggedUser] = useState(null);
+  const messagesEndRef = useRef(null);
+
+  // scroll à la fin de la page
+  // rajout d'une div vide à la fin de la page
+  // et on scroll jusqu'à cette div
+  // https://stackoverflow.com/questions/37620694/how-to-scroll-to-bottom-in-react
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [fetchedMessages]);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -99,20 +114,27 @@ export default function SingleMessagePage() {
                     : 'message-left'
                 }
               >
-                <strong>{message.sender.username}:</strong> {message.content}
+                <div className="message-bubble">
+                  <strong>{message.sender.username}</strong>
+                  <br />
+                  {message.content}
+                </div>
               </li>
             ))}
           </ul>
         )}
-        <form id="form" onSubmit={handleSubmit}>
-          <input
-            id="input"
-            autoComplete="off"
-            value={inputValue}
-            onChange={handleInputChange}
-          />
-          <button type="submit">Send</button>
-        </form>
+        <div ref={messagesEndRef} />
+        <div className="form-container">
+          <form id="form" onSubmit={handleSubmit}>
+            <input
+              id="input"
+              autoComplete="off"
+              value={inputValue}
+              onChange={handleInputChange}
+            />
+            <button type="submit">Send</button>
+          </form>
+        </div>
       </div>
     </>
   );
