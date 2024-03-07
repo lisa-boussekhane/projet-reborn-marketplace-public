@@ -10,7 +10,6 @@ const multer = require('multer');
 const http = require('http');
 const socketIo = require('socket.io');
 const bodyParser = require('body-parser');
-
 const router = require('./BACK/Router/router');
 const app = express();
 const port = process.env.PORT;
@@ -18,7 +17,7 @@ const port = process.env.PORT;
 app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.static('/public'));
 // app.use(cors());
-
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({

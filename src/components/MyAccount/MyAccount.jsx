@@ -168,6 +168,15 @@ export default function MyAccount() {
 
       const responseData = await response.json();
       console.log(responseData);
+
+      setUserSales((prevUserSales) =>
+        prevUserSales.map((soldProduct) =>
+          soldProduct.id === orderId
+            ? { ...soldProduct, invoice: responseData.invoice }
+            : soldProduct
+        )
+      );
+
       setMessage('Invoice uploaded successfully');
     } catch (error) {
       console.error('Error uploading invoice:', error.message);
@@ -463,6 +472,12 @@ export default function MyAccount() {
                             />
                           </button>
                         ))}
+                        <Link
+                          to={`/messages/${order.Product.seller.id}`}
+                          className="contact__seller"
+                        >
+                          Contact the seller
+                        </Link>
                       </div>
                     </div>
                   </li>

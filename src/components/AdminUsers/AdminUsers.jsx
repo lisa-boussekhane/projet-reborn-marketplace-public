@@ -5,9 +5,7 @@ import { Modal, Button } from 'semantic-ui-react';
 
 export default function AdminUsers() {
   const navigate = useNavigate();
-  const userRole = localStorage.getItem('userRole');
   const [users, setUsers] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [updatingUserId, setUpdatingUserId] = useState(null);
@@ -31,17 +29,8 @@ export default function AdminUsers() {
   });
 
   useEffect(() => {
-    if (userRole !== 'Admin') {
-      setErrorMessage('You do not have the permissions to access this page.');
-
-      const timeoutId = setTimeout(() => {
-        navigate('/');
-      }, 3000);
-
-      return () => clearTimeout(timeoutId);
-    }
-
     const fetchUsers = async () => {
+      console.log(storedToken);
       try {
         const response = await fetch('http://localhost:3000/admin/users', {
           headers: {
@@ -62,7 +51,7 @@ export default function AdminUsers() {
     };
 
     fetchUsers();
-  }, [navigate, userRole, storedToken]);
+  }, [navigate, storedToken]);
 
   const handleDeleteUser = async (userId) => {
     try {
@@ -95,10 +84,9 @@ export default function AdminUsers() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => {
-      // Utilisez Object.keys() pour obtenir les clés de l'objet
       const formDataCopy = { ...prevFormData };
 
-      // Vérifiez si la clé existe avant de mettre à jour
+      // vérifier si le nom existe avant de le mettre à jour
       if (Object.keys(formDataCopy).includes(name)) {
         formDataCopy[name] = value;
       }
@@ -200,101 +188,88 @@ export default function AdminUsers() {
   return (
     <div>
       <div className="admin-page">
-        {errorMessage && <p>{errorMessage}</p>}
-        {userRole === 'Admin' && (
-          <>
-            <div className="admin-header">Admin dashboard</div>
-            <div className="admin-nav">
-              <NavLink to="/adminusers" activeClassName="active-link">
-                All Users
-              </NavLink>
-              <NavLink to="/adminshops" activeClassName="active-link">
-                All Shops
-              </NavLink>
-              <NavLink to="/adminproducts" activeClassName="active-link">
-                {' '}
-                All Products
-              </NavLink>
-              <NavLink to="/adminorders" activeClassName="active-link">
-                All Orders
-              </NavLink>
-              <div>
-                <input
-                  id="search-input"
-                  type="text"
-                  placeholder="Search users..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-            </div>
-          </>
-        )}
+        <div className="admin-header">Admin dashboard</div>
+        <div className="admin-nav">
+          <NavLink to="/adminusers" activeClassName="active-link">
+            All Users
+          </NavLink>
+          <NavLink to="/adminshops" activeClassName="active-link">
+            All Shops
+          </NavLink>
+          <NavLink to="/adminproducts" activeClassName="active-link">
+            {' '}
+            All Products
+          </NavLink>
+          <NavLink to="/adminorders" activeClassName="active-link">
+            All Orders
+          </NavLink>
+          <div>
+            <input
+              id="search-input"
+              type="text"
+              placeholder="Search users..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
       <div className="user-card">
-        {errorMessage && <p>{errorMessage}</p>}
-        {userRole === 'Admin' && (
-          <>
-            {filteredUsers.map((user) => (
-              <div key={user.id} className="user-info">
-                <p>
-                  <strong>User id:</strong> {user.id}
-                </p>
-                <p>
-                  <strong>User first_name :</strong> {user.first_name}
-                </p>
-                <p>
-                  <strong>User last_name :</strong> {user.last_name}
-                </p>
-                <p>
-                  <strong>User username :</strong> {user.username}
-                </p>
-                <p>
-                  <strong>User email :</strong> {user.email}
-                </p>
-                <p>
-                  <strong>User date of birth :</strong>
-                  {user.date_of_birth}
-                </p>
-                <p>
-                  <strong>User phone :</strong> {user.phone}
-                </p>
-                <p>
-                  <strong>User address :</strong> {user.address}
-                </p>
-                <p>
-                  <strong>User zip_code :</strong> {user.zip_code}
-                </p>
-                <p>
-                  <strong>User city :</strong> {user.city}
-                </p>
-                <p>
-                  <strong>User state :</strong> {user.state}
-                </p>
-                <p>
-                  <strong>User role :</strong> {user.role}
-                </p>
-                <p>
-                  <strong>User pro :</strong> {user.pro}
-                </p>
-                <p>
-                  <strong>User duns :</strong> {user.duns}
-                </p>
-                <div className="user-actions">
-                  <button type="button" onClick={() => handleEditUser(user)}>
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteUser(user.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </>
-        )}
+        {filteredUsers.map((user) => (
+          <div key={user.id} className="user-info">
+            <p>
+              <strong>User id:</strong> {user.id}
+            </p>
+            <p>
+              <strong>User first_name :</strong> {user.first_name}
+            </p>
+            <p>
+              <strong>User last_name :</strong> {user.last_name}
+            </p>
+            <p>
+              <strong>User username :</strong> {user.username}
+            </p>
+            <p>
+              <strong>User email :</strong> {user.email}
+            </p>
+            <p>
+              <strong>User date of birth :</strong>
+              {user.date_of_birth}
+            </p>
+            <p>
+              <strong>User phone :</strong> {user.phone}
+            </p>
+            <p>
+              <strong>User address :</strong> {user.address}
+            </p>
+            <p>
+              <strong>User zip_code :</strong> {user.zip_code}
+            </p>
+            <p>
+              <strong>User city :</strong> {user.city}
+            </p>
+            <p>
+              <strong>User state :</strong> {user.state}
+            </p>
+            <p>
+              <strong>User role :</strong> {user.role}
+            </p>
+            <p>
+              <strong>User pro :</strong> {user.pro}
+            </p>
+            <p>
+              <strong>User duns :</strong> {user.duns}
+            </p>
+            <div className="user-actions">
+              <button type="button" onClick={() => handleEditUser(user)}>
+                Edit
+              </button>
+              <button type="button" onClick={() => handleDeleteUser(user.id)}>
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>

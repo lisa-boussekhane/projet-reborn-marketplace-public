@@ -5,7 +5,6 @@ import { Modal, Button } from 'semantic-ui-react';
 
 export default function AdminShops() {
   const navigate = useNavigate();
-  const userRole = localStorage.getItem('userRole');
   const [shops, setShops] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,16 +17,6 @@ export default function AdminShops() {
   });
 
   useEffect(() => {
-    if (userRole !== 'Admin') {
-      setErrorMessage('You do not have the permissions to access this page.');
-
-      const timeoutId = setTimeout(() => {
-        navigate('/');
-      }, 3000);
-
-      return () => clearTimeout(timeoutId);
-    }
-
     const fetchProducts = async () => {
       try {
         const response = await fetch('http://localhost:3000/admin/shops', {
@@ -50,7 +39,7 @@ export default function AdminShops() {
     };
 
     fetchProducts();
-  }, [navigate, userRole, storedToken]);
+  }, [navigate, storedToken]);
 
   const handleDeleteShop = async (shopId) => {
     try {
@@ -132,69 +121,56 @@ export default function AdminShops() {
   return (
     <div>
       <div className="admin-page">
-        {errorMessage && <p>{errorMessage}</p>}
-        {userRole === 'Admin' && (
-          <>
-            <div className="admin-header">Admin dashboard</div>
-            <div className="admin-nav">
-              <NavLink to="/adminusers" activeClassName="active-link">
-                All Users
-              </NavLink>
-              <NavLink to="/adminshops" activeClassName="active-link">
-                All Shops
-              </NavLink>
-              <NavLink to="/adminproducts" activeClassName="active-link">
-                All Products
-              </NavLink>
+        <div className="admin-header">Admin dashboard</div>
+        <div className="admin-nav">
+          <NavLink to="/adminusers" activeClassName="active-link">
+            All Users
+          </NavLink>
+          <NavLink to="/adminshops" activeClassName="active-link">
+            All Shops
+          </NavLink>
+          <NavLink to="/adminproducts" activeClassName="active-link">
+            All Products
+          </NavLink>
 
-              <NavLink to="/adminorders" activeClassName="active-link">
-                All Orders
-              </NavLink>
-              <div>
-                <input
-                  id="search-input"
-                  type="text"
-                  placeholder="Search shops..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-            </div>
-          </>
-        )}
+          <NavLink to="/adminorders" activeClassName="active-link">
+            All Orders
+          </NavLink>
+          <div>
+            <input
+              id="search-input"
+              type="text"
+              placeholder="Search shops..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
       <div className="shop-card">
-        {errorMessage && <p>{errorMessage}</p>}
-        {userRole === 'Admin' && (
-          <>
-            {filteredShops.map((shop) => (
-              <div key={shop.id} className="shop-info">
-                <p>
-                  <strong>Shop id:</strong> {shop.id}
-                </p>
-                <p>
-                  <strong>Shop name :</strong> {shop.name}
-                </p>
-                <p>
-                  <strong>Shop creator id :</strong> {shop.user_id}
-                </p>
+        {filteredShops.map((shop) => (
+          <div key={shop.id} className="shop-info">
+            <p>
+              <strong>Shop id:</strong> {shop.id}
+            </p>
+            <p>
+              <strong>Shop name :</strong> {shop.name}
+            </p>
+            <p>
+              <strong>Shop creator id :</strong> {shop.user_id}
+            </p>
 
-                <div className="shop-actions">
-                  <button type="button" onClick={() => handleEditShop(shop)}>
-                    Edit
-                  </button>
+            <div className="shop-actions">
+              <button type="button" onClick={() => handleEditShop(shop)}>
+                Edit
+              </button>
 
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteShop(shop.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </>
-        )}
+              <button type="button" onClick={() => handleDeleteShop(shop.id)}>
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>

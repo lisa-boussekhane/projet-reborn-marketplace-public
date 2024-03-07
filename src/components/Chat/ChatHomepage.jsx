@@ -1,38 +1,52 @@
+import { NavLink } from 'react-router-dom';
 import './ChatHomepage.scss';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import { useAuth } from '../React-Context/AuthContext';
 
 export default function ChatHomepage() {
-  const [messages, setMessages] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [conversations, setConversations] = useState([]);
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
+  useEffect(() => {
+    const token = localStorage.getItem('jwtToken');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (inputValue.trim() !== '') {
-      setMessages([...messages, inputValue]);
-      setInputValue('');
-    }
-  };
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/chat`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch chat messages');
+        }
+
+        const data = await response.json();
+        setConversations(data);
+        console.log('conversation', data);
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    };
+
+    fetchMessages();
+  }, []);
+
   return (
-    <div>
-      <ul id="messages">
-        {messages.map((message, index) => (
-          <li key={index}>{message}</li>
+    <div className="chat-container">
+      <h2>All Messages</h2>
+      <ul>
+        {conversations.map((conversation) => (
+          <div key={conversation.id}>
+            <li key={conversation.id}>
+            {console.log('Other User ID:', conversation?.otherUser.id)}
+              <NavLink to={`/messages/${conversation?.otherUser.id}`}>
+                {conversation.otherUser.username} : {conversation.content}...
+              </NavLink>
+            </li>
+          </div>
         ))}
       </ul>
-      <form id="form" onSubmit={handleSubmit}>
-        <input
-          id="input"
-          autoComplete="off"
-          value={inputValue}
-          onChange={handleInputChange}
-        />
-        <button type="submit">Send</button>
-      </form>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import './Payment.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Modal, Dimmer, Loader } from 'semantic-ui-react';
@@ -27,6 +27,17 @@ export default function Payment() {
     state: '',
     country: 'United States',
   });
+  const [userInformation, setUserInformation] = useState({
+    first_name: '',
+    last_name: '',
+    phone: '',
+    email: '',
+    address: '',
+    city: '',
+    zip_code: '',
+    state: '',
+    country: 'United States',
+  });
 
   // conversion en centimes pour stripe
   const convertedAmout = baseAmount * 100;
@@ -36,16 +47,44 @@ export default function Payment() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData((prevFormData) => {
-      const formDataCopy = { ...prevFormData };
-
-      if (Object.keys(formDataCopy).includes(name)) {
-        formDataCopy[name] = value;
-      }
-
-      return formDataCopy;
-    });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
+
+  // récupérer les informations de l'utilisateur au chargement de la page
+  useEffect(() => {
+    const handleInfo = async () => {
+      try {
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch(`http://localhost:3000/user`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Error fetching user data');
+        }
+        const data = await response.json();
+        setUserInformation({
+          first_name: data.targetedUser.first_name || '',
+          last_name: data.targetedUser.last_name || '',
+          phone: data.targetedUser.phone || '',
+          email: data.targetedUser.email || '',
+          address: data.targetedUser.address || '',
+          city: data.targetedUser.city || '',
+          zip_code: data.targetedUser.zip_code || '',
+          state: data.targetedUser.state || '',
+          country: 'United States',
+        });
+      } catch (error) {
+        console.log({ error });
+      }
+    };
+    handleInfo();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -153,7 +192,6 @@ export default function Payment() {
         } else {
           setIsModalOpen(false);
           setIsLoading(false);
-          setErrorMessage('Payment failed. Please try again.');
         }
       } catch (error) {
         setIsModalOpen(false);
@@ -179,7 +217,7 @@ export default function Payment() {
                 type="text"
                 name="first_name"
                 id="firstname"
-                value={formData.first_name}
+                value={formData.first_name || userInformation.first_name}
                 onChange={handleChange}
                 placeholder="Name"
                 required
@@ -190,7 +228,7 @@ export default function Payment() {
                 type="text"
                 name="last_name"
                 id="lastname"
-                value={formData.last_name}
+                value={formData.last_name || userInformation.last_name}
                 onChange={handleChange}
                 placeholder="Last name"
                 required
@@ -201,7 +239,7 @@ export default function Payment() {
                 type="tel"
                 name="phone"
                 id="phone"
-                value={formData.phone}
+                value={formData.phone || userInformation.phone}
                 onChange={handleChange}
                 placeholder="Phone number"
                 required
@@ -212,7 +250,7 @@ export default function Payment() {
                 type="email"
                 name="email"
                 id="email"
-                value={formData.email}
+                value={formData.email || userInformation.email}
                 onChange={handleChange}
                 placeholder="Email"
                 required
@@ -229,7 +267,7 @@ export default function Payment() {
                 name="address"
                 id="address"
                 placeholder="Address"
-                value={formData.address}
+                value={formData.address || userInformation.address}
                 onChange={handleChange}
                 required
               />
@@ -240,7 +278,7 @@ export default function Payment() {
                 name="city"
                 id="city"
                 placeholder="City"
-                value={formData.city}
+                value={formData.city || userInformation.city}
                 onChange={handleChange}
                 required
               />
@@ -251,7 +289,7 @@ export default function Payment() {
                 name="zip_code"
                 id="zip_code"
                 placeholder="Zip code"
-                value={formData.zip_code}
+                value={formData.zip_code || userInformation.zip_code}
                 onChange={handleChange}
                 pattern="[0-9]*"
                 required
@@ -262,7 +300,7 @@ export default function Payment() {
                 type="text"
                 name="state"
                 id="state"
-                value={formData.state}
+                value={formData.state || userInformation.state}
                 onChange={handleChange}
                 placeholder="State"
                 required
@@ -273,7 +311,7 @@ export default function Payment() {
                 type="text"
                 name="country"
                 id="country"
-                value={formData.country}
+                value={formData.country || userInformation.country}
                 placeholder="United States"
                 readOnly
                 required

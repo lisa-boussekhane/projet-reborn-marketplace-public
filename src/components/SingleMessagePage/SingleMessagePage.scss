@@ -1,0 +1,87 @@
+@use 'src/styles/variables' as v;
+
+.single-message-container {
+    
+    margin: 0 auto;
+    padding: 20px;
+  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+  
+    p {
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: #555;
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 20px;
+  
+      li {
+        margin-bottom: 10px;
+        word-break: break-word;
+        font-size: 1.1rem;
+  
+        strong {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+      }
+    }
+  
+    #form {
+      display: flex;
+      margin-bottom: 25px;
+      margin-top: 20rem;
+  
+      #input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid lightgray;
+        background-color: lightgray;
+        border-radius: 4px;
+        margin-right: 10px;
+      }
+  
+      button {
+        background-color: v.$pink;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: lightpink;
+        }
+      }
+    }
+  }
+  .message-left {
+    text-align: left;
+  }
+  .message-right {
+    margin-right: 1rem;
+    text-align: right;
+  }
+
+  .return-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+    background-color: v.$blue; 
+    color: #ffffff; 
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: lightgray; 
+  }
+}

@@ -33,6 +33,7 @@ import AdminShops from '../AdminShops/AdminShops';
 import AdminProducts from '../AdminProducts/AdminProducts';
 import AdminOrders from '../AdminOrders/AdminOrders';
 import ChatHomepage from '../Chat/ChatHomepage';
+import SingleMessagePage from '../SingleMessagePage/SingleMessagePage';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/messages" element={<ChatHomepage />} />
+        <Route path="/messages/:receiverId" element={<SingleMessagePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgotpassword" element={<ResetRequest />} />

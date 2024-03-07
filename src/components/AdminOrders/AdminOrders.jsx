@@ -8,6 +8,7 @@ export default function AdminUsers() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const storedToken = localStorage.getItem('jwtToken');
+  console.log('Stored Token:', storedToken);
   useEffect(() => {
     const fetchOrders = async () => {
       try {

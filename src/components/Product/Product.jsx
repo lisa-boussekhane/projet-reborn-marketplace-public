@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+  faMessage,
   faStar,
   faChevronLeft,
   faChevronRight,
@@ -103,6 +104,7 @@ export default function Product() {
                 ? product.seller.username
                 : 'Details not provided by the seller yet.'}
             </p>
+
             <div className="star__box">
               {rating !== null && rating !== undefined ? (
                 <StarRatings
@@ -115,6 +117,12 @@ export default function Product() {
                 <p>This seller has not received any ratings yet.</p>
               )}
             </div>
+            <NavLink
+              to={`/messages/${product && product.seller ? product.seller.id : ''}`}
+              className="message__seller"
+            >
+              Contact the seller
+            </NavLink>
           </div>
         </div>
 

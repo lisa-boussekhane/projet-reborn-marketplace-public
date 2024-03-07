@@ -11,6 +11,7 @@ DELETE FROM "detail_product";
 DELETE FROM "product";
 DELETE FROM "shop";
 DELETE FROM "user";
+DELETE FROM "discussion";
 
 ----------------------------------------------
 -- Déchargement des données de la table "user"
@@ -93,12 +94,17 @@ SELECT setval('"media_id_seq"', (SELECT MAX(id) + 1 FROM "media"));
 ------------------------------------------------
 -- Déchargement des données de la table "message"
 ------------------------------------------------
+INSERT INTO "discussion" ("id", "user1_id", "user2_id") OVERRIDING SYSTEM VALUE VALUES
+(1, 2, 1);
 
-INSERT INTO "message" ("id", "content", "sender_id", "receiver_id") OVERRIDING SYSTEM VALUE VALUES
-(1, 'Hi I''m interested in your Sebastian doll, I live in San Diego.', 2, 1),
-(2, 'Hi the delivery is $80. Ok for you?', 1, 2),
-(3, 'Yes perfect for me.', 2, 1),
-(4, 'Thanks for ordering on my shop. The reborn will be sent to you tomorrow.', 1, 2);
+INSERT INTO "message" ("id", "content", "sender_id", "receiver_id", "discussion_id") OVERRIDING SYSTEM VALUE VALUES
+(1, 'Hi I''m interested in your Sebastian doll, I live in San Diego.', 2, 1, 1),
+(2, 'Hi the delivery is $80. Ok for you?', 1, 2, 1),
+(3, 'Yes perfect for me.', 2, 1, 1),
+(4, 'Thanks for ordering on my shop. The reborn will be sent to you tomorrow.', 1, 2, 1);
+
+
+------------------------------------------------
 ------------------------------------------------
 -- Déchargement des données de la table "user_order_product"
 ------------------------------------------------

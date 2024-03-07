@@ -5,6 +5,8 @@ const Product = require('./product');
 const Shop = require('./shop');
 const User_Rate_Shop = require('./user_rate_shop');
 const User_Order_Product = require('./user_order_product');
+const Message = require('./message');
+const Discussion = require('./discussion');
 
 User.hasMany(Shop, { foreignKey: 'user_id' });
 Shop.belongsTo(User, { foreignKey: 'user_id' });
@@ -36,6 +38,25 @@ Shop.belongsToMany(User, {
   foreignKey: 'shop_id',
 });
 
+Message.belongsTo(User, {
+  foreignKey: 'sender_id',
+  as: 'sender',
+});
+
+Message.belongsTo(User, {
+  foreignKey: 'receiver_id',
+  as: 'receiver',
+});
+
+User.hasMany(Discussion, { foreignKey: 'user1_id' });
+User.hasMany(Discussion, { foreignKey: 'user2_id' });
+
+Discussion.belongsTo(User, { foreignKey: 'user1_id', as: 'User1' });
+Discussion.belongsTo(User, { foreignKey: 'user2_id', as: 'User2' });
+Discussion.hasMany(Message, { foreignKey: 'discussion_id' });
+
+Message.belongsTo(Discussion, { foreignKey: 'discussion_id' });
+
 module.exports = {
   User,
   Detail_product,
@@ -44,4 +65,6 @@ module.exports = {
   Media,
   User_Rate_Shop,
   User_Order_Product,
+  Message,
+  Discussion,
 };

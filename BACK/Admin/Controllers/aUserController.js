@@ -19,6 +19,27 @@ const aUserController = {
       return res.status(500).json({ message: 'An unexpected error occurred.' });
     }
   },
+  async getUserInfoForMiddleware(req) {
+    try {
+      const user_id = req.user_id;
+      console.log('User ID:', user_id);
+
+      if (!user_id) {
+        throw new Error('User ID not provided.');
+      }
+
+      const targetedUser = await User.findByPk(user_id);
+
+      if (!targetedUser) {
+        throw new Error(`User with id ${user_id} not found.`);
+      }
+
+      return targetedUser;
+    } catch (error) {
+      console.error(error);
+      throw new Error('An unexpected error occurred.');
+    }
+  },
 
   async updateUser(req, res) {
     try {

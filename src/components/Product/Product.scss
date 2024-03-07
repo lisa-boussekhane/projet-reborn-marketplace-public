@@ -6,6 +6,22 @@
   
 }
 
+.message__seller {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-left: 2rem;
+  margin-bottom: 1.5rem;
+  background-color: v.$blue; 
+  color: #ffffff; 
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: lightgray; 
+}
+}
+
 .product__img {
   flex: 1;
   padding: 20px;
