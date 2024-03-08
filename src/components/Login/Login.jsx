@@ -31,7 +31,6 @@ export default function Login() {
       // stocker le token et l'id dans localStorage
 
       localStorage.setItem('jwtToken', token);
-      localStorage.setItem('userRole', user.role);
 
       if (data.success) {
         setLoginSuccess(true);

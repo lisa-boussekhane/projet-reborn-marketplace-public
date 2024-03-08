@@ -169,6 +169,15 @@ export default function MyAccount() {
 
       const responseData = await response.json();
       console.log(responseData);
+
+      setUserSales((prevUserSales) =>
+        prevUserSales.map((soldProduct) =>
+          soldProduct.id === orderId
+            ? { ...soldProduct, invoice: responseData.invoice }
+            : soldProduct
+        )
+      );
+
       setMessage('Invoice uploaded successfully');
     } catch (error) {
       console.error('Error uploading invoice:', error.message);
@@ -251,7 +260,9 @@ export default function MyAccount() {
           <li>
             <Link to="/mystore">My store</Link>
           </li>
-          <li>Chat</li>
+          <li>
+            <Link to="/messages">Chat</Link>
+          </li>
           <li>
             <Link to="/deleteaccount">Delete account</Link>
           </li>
@@ -417,6 +428,12 @@ export default function MyAccount() {
                 {userOrders.map((order) => (
                   <li key={order.id} className="order__item">
                     <div className="order__details">
+                      <Link
+                        to={`/messages/${order.Product.seller.id}`}
+                        className="contact__seller"
+                      >
+                        Contact the seller
+                      </Link>
                       <p>
                         <strong>Order number :</strong> {order.order_number}
                       </p>
@@ -518,6 +535,12 @@ export default function MyAccount() {
                 {userSales.map((soldProduct, index) => (
                   <li key={index} className="order__item">
                     <div className="order__details">
+                      <Link
+                        to={`/messages/${soldProduct.buyer.id}`}
+                        className="contact__buyer"
+                      >
+                        Contact the buyer
+                      </Link>
                       <p>
                         <strong>Order number :</strong>{' '}
                         {soldProduct.order_number}

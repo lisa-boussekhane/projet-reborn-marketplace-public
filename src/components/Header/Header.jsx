@@ -8,11 +8,35 @@ import { useAuth } from '../React-Context/AuthContext';
 
 export default function Header() {
   const [showLinks, setShowLinks] = useState(false);
-  const userRole = localStorage.getItem('userRole');
   const { isLoggedIn, setIsLoggedIn } = useAuth();
-
+  
+  
   const navigate = useNavigate();
-
+  useEffect(() => {
+    const storedToken = localStorage.getItem('jwtToken');
+  
+    if (storedToken) {
+      setIsLoggedIn(true);
+      
+      fetch('http://localhost:3000/check-admin-role', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${storedToken}`,
+        },
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        const isAdmin = data.isAdmin;
+        localStorage.setItem('isAdmin', isAdmin);
+        console.log('isAdminTrue:', isAdmin);
+      })
+        .catch((error) => {
+          console.error('Error checking admin role:', error);
+        });
+    }
+  }, [setIsLoggedIn]);
+  const isAdminTrue = localStorage.getItem('isAdmin');
+  
   const handleSearch = (event) => {
     event.preventDefault();
     const search = event.target.search.value;
@@ -40,7 +64,7 @@ export default function Header() {
   };
 
   const toggleLoginOrAccount = () => {
-    if (userRole === 'Admin') {
+    if (isAdminTrue) {
       return (
         <>
           <NavLink to="/admindashboard">

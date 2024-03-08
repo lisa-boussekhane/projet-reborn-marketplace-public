@@ -225,6 +225,33 @@
   cursor: pointer;
 }
 
+.contact__seller {
+  float: right;
+  padding: 8px 10px;
+  background-color: v.$blue;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: lightgray;
+  }
+}
+.contact__buyer {
+  float: right;
+   padding: 8px 10px;
+   background-color: v.$blue;
+   color: #ffffff;
+   text-decoration: none;
+   border-radius: 4px;
+   transition: background-color 0.3s ease;
+ 
+   &:hover {
+     background-color: lightgray;
+   }
+ }
+
 /*RESPONSIVE*/
 
 /* xs */

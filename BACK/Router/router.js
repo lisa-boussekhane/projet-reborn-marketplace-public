@@ -10,15 +10,18 @@ const authController = require('../App/Controllers/authController');
 const shopController = require('../App/Controllers/shopController');
 const contactController = require('../App/Controllers/contactController');
 const ratingController = require('../App/Controllers/ratingController');
-const {
-  verifyToken,
-  requireAdmin,
-} = require('../App/Middlewares/authMiddleware');
-const { upload, uploadInvoice, uploadPhotoVideo } = require('../App/Middlewares/multerMiddleware');
-
 const aUserController = require('../Admin/Controllers/aUserController');
 const aProductController = require('../Admin/Controllers/aProductController');
 const aShopController = require('../Admin/Controllers/aShopController');
+const {
+  adminPageMiddleware,
+} = require('../App/Middlewares/authMiddlewareAdmin');
+const { verifyToken } = require('../App/Middlewares/authMiddleware');
+const {
+  upload,
+  uploadInvoice,
+  uploadPhotoVideo,
+} = require('../App/Middlewares/multerMiddleware');
 
 const router = express.Router();
 
@@ -46,8 +49,18 @@ router.post(
 
 router.get('/product/:id', productController.getOneProduct);
 router.get('/products', productController.getAllProducts);
-router.post('/product', verifyToken, uploadPhotoVideo.array('photo', 12), productController.createProduct);
-router.patch('/product/:id', verifyToken, uploadPhotoVideo.array('photo', 12), productController.updateProduct);
+router.post(
+  '/product',
+  verifyToken,
+  uploadPhotoVideo.array('photo', 12),
+  productController.createProduct
+);
+router.patch(
+  '/product/:id',
+  verifyToken,
+  uploadPhotoVideo.array('photo', 12),
+  productController.updateProduct
+);
 router.delete('/product/:id', verifyToken, productController.deleteProduct);
 
 router.get('/shop', verifyToken, shopController.showShop);
@@ -67,7 +80,7 @@ router.patch(
 );
 
 router.get('/chat/:id', verifyToken, chatController.getMessage);
-router.get('/chat/:id', verifyToken, chatController.getAllMessages);
+router.get('/chat', verifyToken, chatController.getAllMessages);
 router.post('/chat/message/room/:id', verifyToken, chatController.sendMessage);
 
 router.get('/shop/:id/ratings', ratingController.getShopRating);
@@ -75,25 +88,72 @@ router.post('/shop/:id/rate', verifyToken, ratingController.postShopRating);
 router.get('/shop/:id/average-rating', ratingController.getAverageRating);
 
 /// ADMIN ROUTES ///
-router.get('/admin/users', verifyToken, aUserController.getAllUsers);
-router.patch('/admin/user/:id', verifyToken, aUserController.updateUser);
-router.delete('/admin/user', verifyToken, aUserController.deleteUser);
+router.get(
+  '/check-admin-role',
+  verifyToken,
+  adminPageMiddleware,
+  (req, res) => {
+    res.status(200).json({ isAdmin: true });
+  }
+);
+router.get(
+  '/admin/users',
+  verifyToken,
+  adminPageMiddleware,
+  aUserController.getAllUsers
+);
+router.patch(
+  '/admin/user/:id',
+  adminPageMiddleware,
+  aUserController.updateUser
+);
+router.delete(
+  '/admin/user',
+  verifyToken,
+  adminPageMiddleware,
+  aUserController.deleteUser
+);
 
-router.get('/admin/products', verifyToken, aProductController.getAllProducts);
+router.get(
+  '/admin/products',
+  verifyToken,
+  adminPageMiddleware,
+  aProductController.getAllProducts
+);
 
 router.patch(
   '/admin/product/:id',
   upload.array('photo', 12),
   aProductController.updateProduct
 );
-router.delete('/admin/product', verifyToken, aProductController.deleteProduct);
+router.delete(
+  '/admin/product',
+  verifyToken,
+  adminPageMiddleware,
+  aProductController.deleteProduct
+);
 
-router.get('/admin/shops', verifyToken, aShopController.getAllShops);
-router.patch('/admin/updateshop/:id', verifyToken, aShopController.updateShop);
-router.delete('/admin/shop', verifyToken, aShopController.deleteShop);
+router.get(
+  '/admin/shops',
+  verifyToken,
+  adminPageMiddleware,
+  aShopController.getAllShops
+);
+router.patch(
+  '/admin/updateshop/:id',
+  adminPageMiddleware,
+  aShopController.updateShop
+);
+router.delete(
+  '/admin/shop',
+  verifyToken,
+  adminPageMiddleware,
+  aShopController.deleteShop
+);
 router.get(
   '/admin/orders',
   verifyToken,
+  adminPageMiddleware,
   aShopController.getAllUserOrdersWithDetails
 );
 

@@ -1,105 +1,155 @@
-const { Message, User } = require('../../Models');
-const { sequelize } = require('../../Models/index'); // Import Sequelize instance
+const { Op } = require('sequelize');
+const Sequelize = require('sequelize');
+const { Message, User, Discussion } = require('../../Models');
+const { Sequelize1 } = require('../../Models/index'); // Import Sequelize instance
 
 const chatController = {
-async getMessage(req, res) {
-        try {
-            // Extract message ID or other filters from request parameters or query
-            const { messageId } = req.params.id; // Example for fetching a specific message
-    
-            // Fetch the message from the database, including user information
-            // Adjust the include to match your association (e.g., sender, receiver)
-            const message = await Message.findByPk(messageId, {
-                include: [
-                    {
-                        model: User,
-                        as: 'sender', // Use the correct association alias for the sender
-                        attributes: ['id', 'username', 'email'] // Specify attributes you want to include
-                    },
-                    {
-                        model: User,
-                        as: 'receiver', // Use the correct association alias for the receiver
-                        attributes: ['id', 'username', 'email'] // Specify attributes you want to include
-                    }
-                ]
-            });
-    
-            if (!message) {
-                // If the message is not found, return a 404 Not Found response
-                return res.status(404).json({
-                    message: 'Message not found'
-                });
-            }
-    
-            // If the message is found, return it along with user information
-            res.status(200).json(message);
-        } catch (error) {
-            // If there's an error, respond with a 500 status code and the error message
-            res.status(500).json({
-                message: 'Failed to retrieve message',
-                error: error.message
-            });
-        }
-    },
+  async getMessage(req, res) {
+    try {
+      const senderId = req.user_id;
+      const receiverId = req.params.id;
+      const loggedUserId = req.user_id;
+      // Fetch all messages in the specified discussion, including user information
+      const messages = await Message.findAll({
+        where: {
+          [Op.or]: [
+            Sequelize.literal(`
+              ("discussion_id" IN (
+                SELECT id FROM "discussion"
+                WHERE ("user1_id" = ${senderId} AND "user2_id" = ${receiverId})
+                OR ("user1_id" = ${receiverId} AND "user2_id" = ${senderId})
+              ))
+            `),
+          ],
+        },
+        include: [
+          {
+            model: User,
+            as: 'sender',
+            attributes: ['id', 'username', 'email'],
+          },
+          {
+            model: User,
+            as: 'receiver',
+            attributes: ['id', 'username', 'email'],
+          },
+        ],
+        order: [['created_at', 'ASC']],
+      });
 
-async sendMessage(req, res) {
-        try {
-            // Extract message and user information from request body
-            const { content, senderId, receiverId } = req.body;
-    
-            // Create the message record in the database, associating it with the sender
-            const newMessage = await Message.create({
-                content,
-                senderId,
-                receiverId, 
-            });
-    
-            const sender = await User.findByPk(senderId);
-            let receiver = receiverId;
-            if (receiverId) {
-                receiver = await User.findByPk(receiverId);
-            }
-    
-            // Return the new message along with associated sender (and receiver) details
-            res.status(201).json({
-                message: 'Message sent successfully',
-                data: {
-                    content: newMessage.content,
-                    sender: sender ? { id: sender.id, username: sender.username } : null, // null: If sender is falsy (meaning no user was found for the given senderId, possibly because the ID was invalid or the user does not exist), the ternary operation results in null. This indicates the absence of a valid sender in the response.
-                    receiver: receiver ? { id: receiver.id, username: receiver.username } : null,
-                }
-            });
-        } catch (error) {
-            // If there's an error, return an error message
-            res.status(500).json({
-                message: 'Failed to send message',
-                error: error.message
-            });
-        }
-    },
+      // si aucun message n'est trouvé, retourné un tableau vide
+      if (!messages || messages.length === 0) {
+        return res.status(404).json({
+          message: 'No messages found in the specified discussion',
+        });
+      }
 
-async getAllMessages(req, res) {
-        try {
-            const userId = req.user.id; 
-            
-            const messages = await Message.findAll({
-                where: {
-                    [Sequelize.Op.or]: [{senderId: userId}, {receiverId: userId}]
-                },
-                include: [
-                    { model: User, as: 'Sender', attributes: ['id', 'username'] },
-                    { model: User, as: 'Receiver', attributes: ['id', 'username'] }
-                ],
-                order: [['created_at', 'DESC']] 
-            });
-    
-            res.json(messages);
-        } catch (error) {
-            console.error('Failed to retrieve messages:', error);
-            res.status(500).json({ message: 'Failed to get messages', error: error.message });
-        }
+      // si des messages sont trouvés, les retourner
+      res.status(200).json({
+        messages,
+        loggedUserId: loggedUserId,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: 'Failed to retrieve messages',
+        error: error.message,
+      });
     }
-    
-  };
-  
-  module.exports = chatController;
+  },
+
+  async sendMessage(req, res) {
+    try {
+      const senderId = req.user_id;
+      const receiverId = req.params.id;
+      const { content } = req.body;
+
+      // Trouver ou créer la discussion entre l'expéditeur et le destinataire
+      let discussion = await Discussion.findOne({
+        where: {
+          [Op.or]: [
+            { user1_id: senderId, user2_id: receiverId },
+            { user1_id: receiverId, user2_id: senderId },
+          ],
+        },
+      });
+
+      if (!discussion) {
+        discussion = await Discussion.create({
+          user1_id: senderId,
+          user2_id: receiverId,
+        });
+      }
+
+      // Créer le message associé à la discussion
+      const newMessage = await Message.create({
+        content: content,
+        sender_id: senderId,
+        receiver_id: receiverId,
+        discussion_id: discussion.id,
+      });
+
+      res.status(201).json({
+        message: 'Message sent successfully',
+        newMessage,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: 'Failed to send message',
+        error: error.message,
+      });
+    }
+  },
+
+  async getAllMessages(req, res) {
+    try {
+      const userId = req.user_id;
+
+      // Fetch all discussions for the current user
+      const discussions = await Discussion.findAll({
+        where: {
+          [Op.or]: [{ user1_id: userId }, { user2_id: userId }],
+        },
+        include: [
+          { model: User, as: 'User1', attributes: ['id', 'username'] },
+          { model: User, as: 'User2', attributes: ['id', 'username'] },
+          {
+            model: Message,
+            as: 'Messages',
+            attributes: ['content'],
+            limit: 1,
+            order: [['created_at', 'DESC']],
+          },
+        ],
+        order: [['updated_at', 'DESC']], // Ordonnez par la date de dernière mise à jour
+      });
+
+      // Mise en forme des données pour les renvoyer au client
+      const formattedDiscussions = discussions.map((discussion) => {
+        const otherUser =
+          discussion.user1_id === userId ? discussion.User2 : discussion.User1;
+
+        const lastMessageContent =
+          discussion.Messages.length > 0
+            ? discussion.Messages[0].content
+            : null;
+        return {
+          id: discussion.id,
+          otherUser: {
+            id: otherUser.id,
+            username: otherUser.username,
+          },
+          content: lastMessageContent,
+        };
+      });
+
+      res.json(formattedDiscussions);
+    } catch (error) {
+      console.error('Failed to retrieve discussions:', error);
+      res
+        .status(500)
+        .json({ message: 'Failed to get discussions', error: error.message });
+    }
+  },
+};
+
+module.exports = chatController;

@@ -134,7 +134,9 @@ const shopController = {
           {
             model: Product,
             attributes: ['title', 'price', 'shipping_fees', 'shop_id'],
-            include: [{ model: User, as: 'seller', attributes: ['username'] }],
+            include: [
+              { model: User, as: 'seller', attributes: ['username', 'id'] },
+            ],
           },
         ],
         attributes: ['status', 'id', 'date', 'order_number', 'invoice'],
@@ -174,6 +176,7 @@ const shopController = {
               'city',
               'state',
               'country',
+              'id',
             ],
             as: 'buyer',
           },
