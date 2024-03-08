@@ -52,7 +52,7 @@ export default function Header() {
     }
   }, [setIsLoggedIn]);
 
-  // on efface l'élément dans le localStorage
+  // Clear element in localStorage
   const logOut = () => {
     localStorage.clear();
     setIsLoggedIn(false);
@@ -66,13 +66,17 @@ export default function Header() {
   const toggleLoginOrAccount = () => {
     if (isAdminTrue) {
       return (
-        <><NavLink to="/admindashboard">
-          <li className="navbar__item_admin">Admin</li>
-        </NavLink><NavLink to="/myaccount">
+        <>
+          <NavLink to="/admindashboard">
+            <li className="navbar__item_admin">Admin</li>
+          </NavLink>
+          <NavLink to="/myaccount">
             <li className="navbar__item">My Account</li>
-          </NavLink></>
+          </NavLink>
+        </>
       );
-      } if  (isLoggedIn) {
+    }
+    if (isLoggedIn) {
       return (
         <NavLink to="/myaccount">
           <li className="navbar__item">My Account</li>
@@ -93,7 +97,7 @@ export default function Header() {
 
   return (
     <nav className={`navbar ${showLinks ? 'show-nav' : 'hide-nav'}`}>
-      <div className="navbar___logo">
+      <div className="navbar__logo">
         <NavLink to="/">
           <img
             src="./AdoptAReborn2.png"

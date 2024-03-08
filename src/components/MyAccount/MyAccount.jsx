@@ -14,6 +14,7 @@ export default function MyAccount() {
   const [selectedRating, setSelectedRating] = useState(0);
   const [selectedOrderRating, setSelectedOrderRating] = useState(0);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [ratedSeller, setRatedSeller] = useState([]);
 
   useEffect(() => {
     const handleInfo = async () => {
@@ -198,7 +199,40 @@ export default function MyAccount() {
       .catch((error) => console.error('Error:', error));
   };
 
+  // Checks if there is rated seller in localStorage
+  useEffect(() => {
+    const storedOrders = localStorage.getItem('ratedSeller');
+    if (storedOrders) {
+      setRatedSeller(JSON.parse(storedOrders));
+    }
+  }, []);
+
+  // Saves seller rating to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem('ratedSeller', JSON.stringify(ratedSeller));
+  }, [ratedSeller]);
+
+  // Clears message about already rated seller
+  const clearMessage = () => {
+    setMessage('');
+  };
+
+  // Clears message after 3 seconds when it changes
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      clearMessage();
+    }, 3000);
+
+    // Function that cancels a timeout
+    return () => clearTimeout(delay);
+  }, [message]);
+
   const handleRating = (shopNumb, rating, orderId) => {
+    if (ratedSeller.includes(orderId)) {
+      setMessage('You have already rated this seller.');
+      return;
+    }
+
     console.log(
       `l'utilisateur a cliqué sur ${rating} pour le shop ${shopNumb}`
     );
@@ -207,8 +241,8 @@ export default function MyAccount() {
     setMessage('Thank you for your feedback ');
     setSelectedRating(rating);
     setSelectedOrderRating(rating);
-
     setSelectedOrder(orderId);
+    setRatedSeller([...ratedSeller, orderId]);
   };
 
   return (
@@ -470,7 +504,7 @@ export default function MyAccount() {
                             <FontAwesomeIcon
                               icon={faStar}
                               color={
-                                order.id === selectedOrder &&
+                                ratedSeller.includes(order.id) &&
                                 rating <= selectedOrderRating
                                   ? 'gold'
                                   : 'gray'

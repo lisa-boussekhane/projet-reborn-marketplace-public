@@ -262,13 +262,19 @@
     justify-content: center;
   }
 
+  .profile__information,
+  .order__container {
+    width: 250px;
+  }
+
   .profile__title h1 {
     margin-top: 5.5rem;
     margin-left: 2rem;
   }
 
-  #orders h1 {
-    margin-top: 2rem;
+  .orders h1 {
+    display: flex;
+    margin-top: 0.2rem;
     margin-left: 6rem;
   }
 }
@@ -288,15 +294,6 @@
   .profile__subtitle h2 {
     font-size: 1.5em;
   }
-
-  #orders {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    margin-right: 10rem;
-  }
 }
 
 /* md */
@@ -314,13 +311,9 @@
     margin-left: 5rem;
   }
 
-  #orders {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    margin-right: 10rem;
+  .profile__information,
+  .order__container {
+    width: 450px;
   }
 }
 
@@ -331,13 +324,9 @@
     margin-bottom: 3rem;
   }
 
-  #orders {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    margin-right: 10rem;
+  .profile__information,
+  .order__container {
+    width: 750px;
   }
 }
 
@@ -347,13 +336,9 @@
     margin-bottom: 2rem;
   }
 
-  #orders {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    margin-right: 10rem;
+  .profile__information,
+  .order__container {
+    width: 80%;
   }
 }
 
@@ -371,15 +356,6 @@
   .profile__title h1 {
     margin-right: 5rem;
     margin-bottom: 2rem;
-  }
-
-  #orders {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    margin-right: 10rem;
   }
 
   .order__container p {

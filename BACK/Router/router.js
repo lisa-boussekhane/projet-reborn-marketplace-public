@@ -13,13 +13,14 @@ const ratingController = require('../App/Controllers/ratingController');
 const aUserController = require('../Admin/Controllers/aUserController');
 const aProductController = require('../Admin/Controllers/aProductController');
 const aShopController = require('../Admin/Controllers/aShopController');
-const { verifyToken } = require('../App/Middlewares/authMiddleware');
 const {
   adminPageMiddleware,
 } = require('../App/Middlewares/authMiddlewareAdmin');
+const { verifyToken } = require('../App/Middlewares/authMiddleware');
 const {
   upload,
   uploadInvoice,
+  uploadPhotoVideo,
 } = require('../App/Middlewares/multerMiddleware');
 
 const router = express.Router();
@@ -51,13 +52,13 @@ router.get('/products', productController.getAllProducts);
 router.post(
   '/product',
   verifyToken,
-  upload.array('photo', 12),
+  uploadPhotoVideo.array('photo', 12),
   productController.createProduct
 );
 router.patch(
   '/product/:id',
   verifyToken,
-  upload.array('photo', 12),
+  uploadPhotoVideo.array('photo', 12),
   productController.updateProduct
 );
 router.delete('/product/:id', verifyToken, productController.deleteProduct);

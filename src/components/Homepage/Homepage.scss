@@ -1,9 +1,149 @@
 @use 'src/styles/variables' as v;
 
 .homepage {
+  display: flex;
+  flex-direction: column;
+
+  &-img {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    max-width: 3000px;
+
+    img {
+      width: 25%;
+    }
+  }
+
+  &-text {
+    font-size: 2rem;
+    border-top: solid 8px lightgray;
+    border-bottom: solid 8px lightgray;
+    text-align: center;
+    padding: 30px;
+    margin: 20px;
+    letter-spacing: 0.5px;
+    line-height: 10px;
+  }
+
+  &-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    padding-top: 40px;
+    margin: 20px;
+    gap: 40px;
+    font-size: 1.5rem;
+    font-weight: 700;
+
+    button {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    img {
+      max-width: 550px;
+      margin-left: 25px;
+    }
+  }
+}
+
+#btn-account {
+  background-color: v.$pink;
+  padding: 20px;
+  width: 600px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#btn-adopt {
+  background-color: v.$blue;
+  padding: 20px;
+  width: 600px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#btn-contact {
+  background-color: v.$yellow;
+  padding: 20px;
+  width: 600px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+/* xs */
+@media (min-width: 350px) {
+  .homepage-buttons {
     display: flex;
     flex-direction: column;
-  
+    align-items: center;
+    margin: 0 auto;
+    margin-left: 2rem;
+  }
+
+  .homepage-text p {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    margin-left: 10rem;
+    padding: 30px;
+  }
+
+  .homepage-text {
+    border-top: none;
+    border-bottom: none;
+  }
+
+  .homepage-img {
+    display: none;
+  }
+}
+
+@media (min-width: 475px) {
+  .homepage-text p {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    margin-left: 8rem;
+    padding: 30px;
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .homepage-buttons {
+    margin-left: 4rem;
+  }
+
+  .homepage-text p {
+    margin-left: 4rem;
+  }
+}
+
+/* md */
+@media (min-width: 767px) {
+  .homepage-buttons {
+    margin-left: 6rem;
+  }
+
+  .homepage-text p {
+    margin-left: 2rem;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .homepage {
+    display: flex;
+    flex-direction: column;
+
     &-img {
       display: flex;
       flex-direction: row;
@@ -11,33 +151,31 @@
       margin-bottom: 20px;
       padding-top: 30px;
       padding-bottom: 30px;
-      max-width: 3000px;
-  
-      img {
+
+      /* img {
         width: 25%;
-      }
+      }*/
     }
-  
+
     &-text {
       font-size: 2rem;
       border-top: solid 8px lightgray;
       border-bottom: solid 8px lightgray;
       text-align: center;
       padding: 30px;
-      margin: 20px;
+      margin: 50px;
       letter-spacing: 0.5px;
       line-height: 10px;
     }
-  
-   
+
     &-buttons {
       display: flex;
       flex-direction: row;
-      justify-content: space-around; 
+      justify-content: space-around;
       padding: 10px;
       padding-top: 40px;
-      margin: 20px;
-      gap: 40px;
+      margin: 15px;
+      gap: 15px;
       font-size: 1.5rem;
       font-weight: 700;
 
@@ -47,23 +185,118 @@
       }
 
       img {
-        max-width: 550px; 
-        margin-left: 25px;
+        max-width: 500px;
+        margin: 0 auto;
       }
-    } 
-
+    }
   }
-  
-  
+
+  #btn-account,
+  #btn-adopt,
+  #btn-contact {
+    width: 150px;
+  }
+}
+
+/* xl */
+@media (min-width: 1280px) {
+  .homepage {
+    display: flex;
+    flex-direction: column;
+
+    &-img {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-bottom: 20px;
+      padding-top: 30px;
+      padding-bottom: 30px;
+
+      img {
+        width: 25%;
+        margin-left: 1rem;
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 10px;
+      padding-top: 40px;
+      margin: 15px;
+      gap: 18px;
+      width: 100%;
+
+      button {
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+      }
+
+      img {
+        max-width: 450px;
+        margin: 0 auto;
+      }
+    }
+
+    #btn-account,
+    #btn-adopt,
+    #btn-contact {
+      width: 100%;
+    }
+  }
+}
+
+/* 2xl */
+@media (min-width: 1536px) {
+  .homepage {
+    display: flex;
+    flex-direction: column;
+
+    &-img {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-bottom: 20px;
+      padding-top: 30px;
+      padding-bottom: 30px;
+
+      img {
+        width: 25%;
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 10px;
+      padding-top: 40px;
+      margin: 20px;
+      gap: 40px;
+      width: 100%;
+
+      button {
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+      }
+
+      img {
+        max-width: 550px;
+        margin-left: 3rem;
+        margin-right: 3rem;
+      }
+    }
+  }
+
   #btn-account {
     background-color: v.$pink;
     padding: 20px;
     width: 600px;
     text-align: center;
     cursor: pointer;
-
   }
-  
+
   #btn-adopt {
     background-color: v.$blue;
     padding: 20px;
@@ -71,7 +304,7 @@
     text-align: center;
     cursor: pointer;
   }
-  
+
   #btn-contact {
     background-color: v.$yellow;
     padding: 20px;
@@ -79,12 +312,11 @@
     text-align: center;
     cursor: pointer;
   }
+}
 
-
-  @media screen and (max-width: 767px) {
-
-.homepage {
-    &-text {
+/*@media screen and (max-width: 767px) {
+  .homepage {
+    /* &-text {
       font-size: 1.5rem;
       border-top: solid 5px lightgray;
       border-bottom: solid 5px lightgray;
@@ -94,28 +326,28 @@
       letter-spacing: 0.5px;
       line-height: 10px;
       margin-bottom: 40px;
-    }
+    }*/
 
-    &-img {
+/* &-img {
       display: none;
-    }
+    }*/
 
-          &-buttons {
-            display: flex;
-            flex-direction: column; 
-            align-items: center;    
-            gap: 40px;              
-            font-size: 1.3rem;
-            font-weight: 700;
-            
-            button {
-              font-size: 1.5rem;
-            }
+/* &-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      font-size: 1.3rem;
+      font-weight: 700;
 
-            img {
-              max-width: 500px; 
-              margin-left: 50px;
-            }
+      button {
+        font-size: 1.5rem;
       }
-}
+
+      img {
+        max-width: 500px;
+        margin-left: 50px;
+      }
+    }
   }
+}*/
