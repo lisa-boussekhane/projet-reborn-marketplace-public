@@ -62,3 +62,21 @@
 .reset__buttons {
   margin-bottom: 27rem;
 }
+
+/* RESPONSIVE */
+
+/* xs */
+@media (min-width: 350px) {
+  .form__box {
+    margin: 0 auto;
+    margin-top: 2rem;
+    margin-left: 5rem;
+  }
+
+  .form__box h1 {
+    margin-left: 12rem;
+  }
+  .reset__btn {
+    margin-bottom: 1.5rem;
+  }
+}

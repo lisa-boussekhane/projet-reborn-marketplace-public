@@ -13,9 +13,42 @@ export default function Footer() {
             <p>Join us</p>
           </div>
           <div className="network-logos">
-            <img src="./fb.png" alt="logo fb" className="network-logo" />
-            <img src="./insta.png" alt="logo insta" className="network-logo" />
-            <img src="./twitter.png" alt="logo twi" className="network-logo" />
+            <a
+              href="https://www.facebook.com/adoptreborn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="./fb.png"
+                alt="logo fb"
+                className="network-logo"
+                style={{ width: '850px' }}
+              />
+            </a>
+            <a
+              href="https://www.instagram.com/adoptreborn/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="./insta.png"
+                alt="logo insta"
+                className="network-logo"
+                style={{ width: '850px' }}
+              />
+            </a>
+            <a
+              href="https://twitter.com/AAReborns"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="./twitter.png"
+                alt="logo twi"
+                className="network-logo"
+                style={{ width: '850px' }}
+              />
+            </a>
           </div>
         </div>
         <div className="footer-right">

@@ -1,7 +1,6 @@
 @use 'src/styles/variables' as v;
 
 .form__container {
-  
   width: 300px;
   padding: 20px;
   margin: 60px auto;
@@ -9,7 +8,6 @@
   border: 1px solid v.$midGrey;
   border-radius: 10px;
   margin-bottom: 4rem;
-  
 
   h1 {
     font-size: 2.5em;
@@ -81,7 +79,7 @@
 }
 
 .form__group__password input {
-  font-size: 16px; 
+  font-size: 16px;
   font-weight: bold;
   width: 90%;
   border: 1px solid v.$midGrey;
@@ -89,7 +87,48 @@
 }
 
 .form__group__password {
-font-size: 16px; 
-font-weight: bold;
-margin-bottom: 2rem;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+/* RESPONSIVE */
+
+/* xs */
+@media (min-width: 350px) {
+  .form__container,
+  .signup__box {
+    margin-left: 14rem;
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .form__container {
+    margin-left: 14rem;
+  }
+
+  .signup__box {
+    margin-right: 17rem;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .signup__box {
+    margin-right: 20rem;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .form__container {
+    margin: 0 auto;
+    margin-top: 5rem;
+  }
+
+  .signup__box {
+    margin-right: 14rem;
+    padding-bottom: 10rem;
+  }
 }

@@ -67,8 +67,6 @@ function App() {
         <Route path="/results" element={<Result />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/reborns" element={<Products />} />
-        <Route path="/faq" element={<Faq />} />
-        <Route path="/howitworks" element={<HowItWorks />} />
       </Routes>
       <Footer />
     </div>
