@@ -8,7 +8,7 @@
   margin-bottom: 10rem;
   gap: 50px;
   margin-top: 2rem;
-  margin-left: -20rem;
+  margin-left: -10rem;
 }
 
 .sell__container {
@@ -107,6 +107,11 @@ h3 {
   margin-top: 1rem;
 }
 
+.sell__wrapper file {
+  margin-left: -10rem;
+
+}
+
 .sell__desc,
 .sell__btn {
   width: 100%;
@@ -152,26 +157,26 @@ h3 {
 
 /*RESPONSIVE*/
 
-/* lg */
-@media (max-width: 1024px) {
-  .sell__col2 {
-    margin-left: 10rem;
-  }
-}
+// /* lg */
+// @media (max-width: 1024px) {
+//   .sell__col2 {
+//     margin-left: 10rem;
+//   }
+// }
 
 /* xl */
-@media (max-width: 1280px) {
-  .sell__col2 {
-    margin-left: 10rem;
-  }
+// @media (max-width: 1280px) {
+//   // .sell__col2 {
+//   //   margin-left: 10rem;
+//   // }
 
-  .sell__wrapper.file {
-    margin-left: 10rem;
-  }
+//   .sell__wrapper.file {
+//     margin-left: 10rem;
+//   }
 
-  .sell__col3 textarea {
-    display: block;
-    margin-top: 25rem;
-    margin-left: -20rem;
-  }
-}
+//   .sell__col3 textarea {
+//     display: block;
+//     margin-top: 25rem;
+//     margin-left: -20rem;
+//   }
+// }

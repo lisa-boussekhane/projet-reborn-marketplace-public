@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const Sequelize = require('sequelize');
-const { Message, User, Discussion } = require('../../Models');
+const { Message, User, User_Discuss_Message } = require('../../Models');
 const { Sequelize1 } = require('../../Models/index'); // Import Sequelize instance
 
 const chatController = {
@@ -15,7 +15,7 @@ const chatController = {
           [Op.or]: [
             Sequelize.literal(`
               ("discussion_id" IN (
-                SELECT id FROM "discussion"
+                SELECT id FROM "User_Discuss_Message"
                 WHERE ("user1_id" = ${senderId} AND "user2_id" = ${receiverId})
                 OR ("user1_id" = ${receiverId} AND "user2_id" = ${senderId})
               ))
@@ -64,7 +64,7 @@ const chatController = {
       const { content } = req.body;
 
       // Trouver ou créer la discussion entre l'expéditeur et le destinataire
-      let discussion = await Discussion.findOne({
+      let discussion = await User_Discuss_Message.findOne({
         where: {
           [Op.or]: [
             { user1_id: senderId, user2_id: receiverId },
@@ -74,7 +74,7 @@ const chatController = {
       });
 
       if (!discussion) {
-        discussion = await Discussion.create({
+        discussion = await User_Discuss_Message.create({
           user1_id: senderId,
           user2_id: receiverId,
         });
@@ -105,7 +105,7 @@ const chatController = {
       const userId = req.user_id;
 
       // Fetch all discussions for the current user
-      const discussions = await Discussion.findAll({
+      const discussions = await User_Discuss_Message.findAll({
         where: {
           [Op.or]: [{ user1_id: userId }, { user2_id: userId }],
         },

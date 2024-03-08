@@ -3,7 +3,7 @@
 --------------------------------
 BEGIN;
 
-DROP TABLE IF EXISTS "user", "media", "detail_product", "product", "message", "shop", "user_order_product", "user_rate_shop", "discussion" CASCADE;
+DROP TABLE IF EXISTS "user", "media", "detail_product", "product", "message", "shop", "user_order_product", "user_rate_shop", "User_Discuss_Message" CASCADE;
 
 CREATE TABLE "user" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -80,7 +80,7 @@ CREATE TABLE "detail_product" (
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE "discussion"(
+CREATE TABLE "User_Discuss_Message"(
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "user1_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
   "user2_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
@@ -95,12 +95,13 @@ CREATE TABLE "message" (
   "receiver_id" INTEGER NOT NULL,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "discussion_id" INTEGER NOT NULL REFERENCES "discussion"("id") ON DELETE CASCADE
+  "discussion_id" INTEGER NOT NULL REFERENCES "User_Discuss_Message"("id") ON DELETE CASCADE
 );
 
 --------------------------------
 -- Tables de liaison
 --------------------------------
+
 
 CREATE TABLE "User_Order_Product"(
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
