@@ -7,6 +7,7 @@
   justify-content: space-between;
   padding: 1.5rem;
   margin: 1.5rem;
+  margin-left: 10rem;
   padding-left: 0;
   padding-top: 0;
   padding-bottom: 0;
@@ -14,12 +15,13 @@
   color: black;
   font-weight: 700;
   font-size: 18.8px;
-
+  width: 100%;
+  height: 90px;
 
   &__links {
     display: flex;
     gap: 40px;
-    margin-right: 0.5rem;
+    margin-right: 10rem;
   }
 
   &__item {
@@ -41,7 +43,8 @@
   }
 
   &-logo {
-    width: 50%;
+    width: 62%;
+    margin-left: -9rem;
     background-color: white;
   }
 }
@@ -54,7 +57,6 @@
 }
 
 .logout__btn {
-  
   cursor: pointer;
 }
 
@@ -62,7 +64,26 @@
   color: rgb(46, 119, 208);
 }
 
-@media screen and (max-width: 767px) {
+/* RESPONSIVE */
+
+/* xs */
+@media (min-width: 350px) {
+  .navbar__burger {
+    display: block;
+    margin-left: -10rem;
+    background-color: lightgrey;
+    width: 70px;
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .navbar__burger {
+    margin-left: -5rem;
+  }
+}
+
+@media screen and (max-width: 969px) {
   .navbar {
     background-color: white;
     display: flex;
@@ -90,7 +111,7 @@
     }
 
     &-logo {
-      width: 150%;
+      width: 50%;
       margin-left: 5rem;
     }
   }
@@ -149,6 +170,110 @@
 
   .navbar-cart {
     width: 25px;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .navbar {
+    justify-content: space-between;
+    padding-top: 2rem;
+    padding: 2rem;
+    margin-left: 8rem;
+    background-color: v.$yellow;
+    width: calc(100% + 16rem);
+  }
+
+  .navbar__links {
+    display: flex;
+    margin-left: 2rem;
+    margin-right: 10rem;
+    margin-top: 0.7rem;
+    gap: 35px;
+  }
+
+  .search-input {
+    width: 80%;
+    margin-right: 250px;
+    margin-left: 4rem;
+  }
+
+  .navbar-cart {
+    margin-right: 35px;
+  }
+
+  .navbar__burger {
+    display: none;
+  }
+
+  .navbar-logo {
+    width: 60%;
+    margin-left: 6rem;
+  }
+}
+
+/* xl */
+@media (min-width: 1280px) {
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    margin: 1.5rem;
+    padding-left: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &__links {
+      display: flex;
+      gap: 40px;
+      margin-right: 12rem;
+    }
+
+    &__item {
+      padding: 0 0.3rem;
+      color: inherit;
+    }
+
+    &__burger {
+      display: none;
+    }
+
+    &-logo {
+      width: 50%;
+      background-color: white;
+      padding: 30px;
+      margin-left: -1rem;
+    }
+  }
+
+  .search-input {
+    width: 100%;
+    border: solid 4px lightgray;
+    margin-right: 250px;
+    margin-left: -100px;
+  }
+}
+
+/* 2xl */
+@media (min-width: 1536px) {
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    margin: 1.5rem;
+    padding-left: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &__links {
+      display: flex;
+      gap: 40px;
+      padding-right: 5rem;
+    }
   }
 }
 

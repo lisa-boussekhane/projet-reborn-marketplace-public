@@ -21,3 +21,33 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+/* xs */
+@media (min-width: 350px) {
+  .delete__container {
+    margin-left: 14rem;
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .delete__container {
+    margin-left: 9rem;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .delete__container {
+    margin-left: 6rem;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .delete__container {
+    margin: 0 auto;
+    margin-top: 5rem;
+    margin-bottom: 40rem;
+  }
+}

@@ -12,7 +12,6 @@
   flex-direction: column;
   align-items: center;
 
-
   h1 {
     font-size: 2rem;
     margin-bottom: 20px;
@@ -43,7 +42,6 @@
 }
 
 .account__container {
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,21 +77,20 @@
   }
 
   #profile,
-.orders {
-  margin-top: 20px;
-  width: 100%;
+  .orders {
+    margin-top: 20px;
+    width: 100%;
 
-  .profile__information,
-  .order__container {
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin-bottom: 20px;
-    margin-left: 20rem;
-    margin-right: 10rem;
-    background-color: #f5f5f5; // Light gray background color
-    border-radius: 8px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-
+    .profile__information,
+    .order__container {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+      margin-left: 20rem;
+      margin-right: 10rem;
+      background-color: #f5f5f5; // Light gray background color
+      border-radius: 8px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 
       .profile__title {
         display: flex;
@@ -102,11 +99,11 @@
 
         .message {
           font-size: 1.3rem;
-          display: flex; 
-          align-items: center; 
-          justify-content: center; 
-          text-align: center; 
-          margin: 20px 0; 
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          margin: 20px 0;
           &.success {
             color: green;
           }
@@ -193,11 +190,11 @@
 
             input[type='file'] {
               margin-right: 10px;
-              background-color:lightgray;
+              background-color: lightgray;
             }
 
             button {
-              background-color:v.$blue;
+              background-color: v.$blue;
               color: #fff;
               padding: 4px;
               border: 2px solid v.$blue;
@@ -224,10 +221,9 @@
 }
 
 .star-btn {
-  margin-right: 10px; 
+  margin-right: 10px;
   cursor: pointer;
 }
-
 
 /*RESPONSIVE*/
 
@@ -239,13 +235,19 @@
     justify-content: center;
   }
 
+  .profile__information,
+  .order__container {
+    width: 250px;
+  }
+
   .profile__title h1 {
     margin-top: 5.5rem;
     margin-left: 2rem;
   }
 
-  #orders h1 {
-    margin-top: 2rem;
+  .orders h1 {
+    display: flex;
+    margin-top: 0.2rem;
     margin-left: 6rem;
   }
 }
@@ -265,15 +267,6 @@
   .profile__subtitle h2 {
     font-size: 1.5em;
   }
-
-  #orders {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    margin-right: 10rem;
-  }
 }
 
 /* md */
@@ -291,13 +284,9 @@
     margin-left: 5rem;
   }
 
-  #orders {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    margin-right: 10rem;
+  .profile__information,
+  .order__container {
+    width: 450px;
   }
 }
 
@@ -308,13 +297,9 @@
     margin-bottom: 3rem;
   }
 
-  #orders {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    margin-right: 10rem;
+  .profile__information,
+  .order__container {
+    width: 750px;
   }
 }
 
@@ -324,13 +309,9 @@
     margin-bottom: 2rem;
   }
 
-  #orders {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    margin-right: 10rem;
+  .profile__information,
+  .order__container {
+    width: 80%;
   }
 }
 
@@ -350,17 +331,7 @@
     margin-bottom: 2rem;
   }
 
-  #orders {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    margin-right: 10rem;
-  }
-
   .order__container p {
     margin-top: 2rem;
   }
 }
-
