@@ -60,7 +60,7 @@ export default function SignUp() {
 
       const data = await response.json();
       if (response.status === 400 && data.message) {
-        // l'utilisateur existe déjà 
+        // l'utilisateur existe déjà
         setRegistrationSuccess(false);
         setPasswordError(data.message);
       } else if (!response.ok) {
@@ -159,6 +159,8 @@ export default function SignUp() {
                 }}
               />
             </label>
+            <p>Password requirements: </p>
+            <p>At least 8 characters, one uppercase and 2 digits.</p>
           </div>
           {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
         </div>
