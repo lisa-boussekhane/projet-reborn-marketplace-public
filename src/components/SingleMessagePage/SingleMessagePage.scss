@@ -10,6 +10,7 @@
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 37rem;
   
     p {
       margin-bottom: 20px;
@@ -37,11 +38,12 @@
 
     .form-container {
       position: fixed;
-      bottom: 0;
+     top: 100%;
       left: 0;
       width: 100%;
      position: absolute;
       padding: 10px;
+      
     }
   
     #form {

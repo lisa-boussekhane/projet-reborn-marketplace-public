@@ -2,9 +2,9 @@ const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('./sequelize');
 
-class Discussion extends Model {}
+class User_Discuss_Message extends Model {}
 
-Discussion.init(
+User_Discuss_Message.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -32,11 +32,11 @@ Discussion.init(
   },
   {
     sequelize,
-    modelName: 'Discussion',
-    tableName: 'discussion',
+    modelName: 'User_Discuss_Message',
+    tableName: 'User_Discuss_Message',
     createdAt: 'created_at',
     updatedAt: 'updated_at',
   }
 );
 
-module.exports = Discussion;
+module.exports = User_Discuss_Message;

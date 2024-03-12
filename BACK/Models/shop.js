@@ -10,10 +10,6 @@ Shop.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    rating: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: true,

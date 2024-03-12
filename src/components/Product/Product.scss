@@ -10,15 +10,15 @@
   padding: 10px 20px;
   margin-left: 2rem;
   margin-bottom: 1.5rem;
-  background-color: v.$blue; 
-  color: #ffffff; 
+  background-color: v.$blue;
+  color: #ffffff;
   text-decoration: none;
   border-radius: 4px;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: lightgray; 
-}
+    background-color: lightgray;
+  }
 }
 
 .product__img {
@@ -133,9 +133,9 @@
 /* xs */
 
 @media (min-width: 350px) {
-  .product__container {
-    margin-left: 12rem;
-  }
+  // .product__container {
+  //   margin-left: 12rem;
+  // }
 
   .product__chat {
     display: block;
@@ -147,7 +147,7 @@
     font-size: 3.6em;
   }
 
-  .product__rating {
-    width: 425px;
-  }
+  // .product__rating {
+  //   width: 400px;
+  // }
 }

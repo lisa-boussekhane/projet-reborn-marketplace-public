@@ -11,7 +11,7 @@ DELETE FROM "detail_product";
 DELETE FROM "product";
 DELETE FROM "shop";
 DELETE FROM "user";
-DELETE FROM "discussion";
+DELETE FROM "User_Discuss_Message";
 
 ----------------------------------------------
 -- Déchargement des données de la table "user"
@@ -31,9 +31,9 @@ SELECT setval('"user_id_seq"', (SELECT MAX(id) + 1 FROM "user"));
 -- Déchargement des données de la table "shop"
 ----------------------------------------------
 
-INSERT INTO "shop" ("id", "name", "rating", "user_id") OVERRIDING SYSTEM VALUE VALUES
-(1,'Enchanted Reborn Store',NULL, 1),
-(2,'Reborn Wonderful', NULL, 3);
+INSERT INTO "shop" ("id", "name", "user_id") OVERRIDING SYSTEM VALUE VALUES
+(1,'Enchanted Reborn Store', 1),
+(2,'Reborn Wonderful', 3);
 SELECT setval('"shop_id_seq"', (SELECT MAX(id) + 1 FROM "shop"));
 ----------------------------------------------
 -- Déchargement des données de la table "product"
@@ -94,7 +94,7 @@ SELECT setval('"media_id_seq"', (SELECT MAX(id) + 1 FROM "media"));
 ------------------------------------------------
 -- Déchargement des données de la table "message"
 ------------------------------------------------
-INSERT INTO "discussion" ("id", "user1_id", "user2_id") OVERRIDING SYSTEM VALUE VALUES
+INSERT INTO "User_Discuss_Message" ("id", "user1_id", "user2_id") OVERRIDING SYSTEM VALUE VALUES
 (1, 2, 1);
 
 INSERT INTO "message" ("id", "content", "sender_id", "receiver_id", "discussion_id") OVERRIDING SYSTEM VALUE VALUES
