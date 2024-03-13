@@ -80,7 +80,10 @@
 
 /* xs */
 @media (min-width: 350px) {
-  .homepage-buttons {
+  .homepage {
+    display: flex;
+    flex-direction: column;
+  &-buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -88,7 +91,7 @@
     margin-left: 2rem;
   }
 
-  .homepage-text p {
+  &-text p {
     width: 100%;
     margin: 0 auto;
     text-align: center;
@@ -96,14 +99,12 @@
     padding: 30px;
   }
 
-  .homepage-text {
+  &-text {
     border-top: none;
     border-bottom: none;
   }
 
-  .homepage-img {
-    display: none;
-  }
+}
 }
 
 @media (min-width: 475px) {

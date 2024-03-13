@@ -131,7 +131,7 @@ export default function Payment() {
           const paymentData = await response.json();
           console.log('Payment processed:', paymentData);
 
-          // Update user information
+          // mettre à jour les informations de l'utilisateur
           const userUpdateResponse = await fetch(`http://localhost:3000/user`, {
             method: 'PATCH',
             headers: {
@@ -143,7 +143,6 @@ export default function Payment() {
               ...formData,
               country: 'United States',
             }),
-
           });
 
           if (!userUpdateResponse.ok) {
