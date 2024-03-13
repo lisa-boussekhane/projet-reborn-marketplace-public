@@ -1,0 +1,150 @@
+@use 'src/styles/variables' as v;
+
+.notice__box h1 {
+  font-size: 3em;
+  font-weight: 700;
+  margin-left: 1.25rem;
+  margin-right: 1.8rem;
+  border-bottom: 3px solid lightgray;
+}
+
+.notice__container {
+  width: 90%;
+  margin-left: 1.25rem;
+
+  h2 {
+    font-size: 1.7em;
+    margin-top: 1.25rem;
+  }
+
+  p {
+    font-size: 1.2em;
+  }
+}
+
+.notice__wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.notice__group {
+  margin: 20px;
+  margin-bottom: -6rem;
+}
+
+.notice__group h2 {
+  margin-top: 3.5rem;
+  font-size: 2em;
+  text-align: center;
+}
+
+.notice__group p {
+  font-size: 1.2em;
+  text-align: center;
+  border: 2px solid v.$midGrey;
+  padding: 10px;
+}
+
+.notice__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15rem;
+}
+
+.notice__btn__item {
+  width: 300px;
+  margin: 2rem;
+  padding: 0.6rem;
+  font-size: 1.4em;
+  color: #fff;
+  background: v.$blue;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.notice__btn__item:hover {
+  background: #7e94e2;
+  transition: background 0.3s ease;
+}
+
+/*RESPONSIVE*/
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* xs */
+@media (min-width: 350px) {
+  .container {
+    max-width: 350px;
+  }
+
+  .notice__box {
+    font-size: 1.2em;
+    margin: 0 auto;
+  }
+
+  .notice__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .notice__group p {
+    margin-bottom: 3rem;
+  }
+
+  .notice__btn__item {
+    margin-bottom: 20rem;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+  .notice__box {
+    font-size: 1.3em;
+    margin: 0 auto;
+  }
+
+  .notice__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+}
+
+/* xl */
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+
+  .notice__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .notice__group h2 {
+    margin-top: 3.5rem;
+    font-size: 1.5em;
+    text-align: center;
+  }
+}

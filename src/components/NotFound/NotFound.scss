@@ -1,0 +1,38 @@
+@use 'src/styles/variables' as v;
+
+.not-found {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
+  font-size: 1.4rem;
+
+  img {
+    width: 50%;
+  }
+}
+
+#go-homepage {
+  background-color: v.$blue;
+  margin: 20px;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+@media screen and (max-width: 767px) {
+  .not-found {
+    margin-bottom: 48px;
+    margin-left: 40px;
+    margin-right: 40px;
+
+    img {
+      width: 60%;
+    }
+  }
+}

@@ -1,0 +1,56 @@
+.user-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  padding: 10px;
+  margin-bottom: 10px;
+
+  .user-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+    border-bottom: 3px solid #ccc; 
+    padding-bottom: 8px;
+    margin-left: 1.5rem;
+  }
+
+  .user-actions {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 3rem;
+    
+
+    button {
+      padding: 5px 10px;
+      cursor: pointer;
+      border: 2px solid grey;
+      background-color: grey;
+      border-radius: 5px;
+    }
+  }
+}
+
+.modale {
+  margin: 1rem;
+  display: flex;
+  flex-direction:column;
+
+  input {
+    margin-left: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid grey;
+  }
+}
+
+#search-input {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+}
+

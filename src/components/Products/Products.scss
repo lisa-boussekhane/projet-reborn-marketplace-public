@@ -1,0 +1,134 @@
+@use 'src/styles/variables' as v;
+
+.products__menu {
+  position: fixed;
+  margin-top: 1.5rem;
+  margin-left: 1.7rem;
+
+  h4 {
+    font-size: 1.5em;
+  }
+}
+
+.products__item {
+  font-size: 8em;
+}
+
+body {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.products__wrapper {
+  display: grid;
+  grid-template-columns: 350px 350px 350px;
+  margin-left: 32rem;
+}
+
+.product-img {
+  height: 480px;
+}
+
+.products__card {
+  width: 100%;
+  margin-left: 18rem;
+  margin-bottom: 3rem;
+}
+
+.products__card {
+  position: relative;
+}
+
+.vendu-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 0, 0, 0.322);
+  color: white;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.vendu-image {
+  filter: blur(5px);
+}
+
+/*RESPONSIVE*/
+
+/* xs */
+@media (min-width: 350px) {
+  .products__wrapper {
+    display: grid;
+    grid-template-columns: 350px 350px;
+    margin-left: 3rem;
+    align-items: stretch;
+  }
+
+  .products__menu {
+    position: fixed;
+    margin-top: 1.5rem;
+    margin-left: 1.7rem;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* xs */
+@media (min-width: 475px) {
+  .products__wrapper {
+    display: grid;
+    grid-template-columns: 350px 350px;
+    margin-left: -2rem;
+    align-items: stretch;
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .products__wrapper {
+    display: grid;
+    grid-template-columns: 350px 350px;
+    margin-left: -2rem;
+    align-items: stretch;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .products__wrapper {
+    display: grid;
+    grid-template-columns: 350px 350px;
+    margin-left: -2rem;
+    align-items: stretch;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .products__wrapper {
+    display: grid;
+    grid-template-columns: 350px 350px 350px;
+    margin-left: 8rem;
+    align-items: stretch;
+  }
+}
+
+/* xl */
+@media (min-width: 1280px) {
+  .products__wrapper {
+    display: grid;
+    grid-template-columns: 350px 350px 350px;
+    align-items: stretch;
+    margin-left: 32rem;
+  }
+
+  .products__menu {
+    position: fixed;
+    margin-top: 1.5rem;
+    margin-left: 1.7rem;
+    display: block;
+  }
+}

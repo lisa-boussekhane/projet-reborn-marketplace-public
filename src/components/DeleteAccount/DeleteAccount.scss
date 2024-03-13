@@ -1,0 +1,53 @@
+@use 'src/styles/variables' as v;
+
+.delete__container {
+  text-align: center;
+  margin-top: 5rem;
+  margin-bottom: 30rem;
+}
+
+.delete__p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.btn_delete {
+  margin-top: 3rem;
+  padding: 2rem;
+  font-size: 1.5em;
+  color: #fff;
+  background-color: #ff0000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* xs */
+@media (min-width: 350px) {
+  .delete__container {
+    margin-left: 14rem;
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .delete__container {
+    margin-left: 9rem;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .delete__container {
+    margin-left: 6rem;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .delete__container {
+    margin: 0 auto;
+    margin-top: 5rem;
+    margin-bottom: 40rem;
+  }
+}

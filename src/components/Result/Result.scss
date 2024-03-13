@@ -1,0 +1,107 @@
+@use 'src/styles/variables' as v;
+
+.result__container {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 15rem;
+}
+
+.result__input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.result__box {
+  display: grid;
+  grid-template-columns: 350px 350px 350px;
+  margin-left: 8rem;
+  align-items: stretch;
+}
+
+.result__card {
+  position: relative;
+}
+.product-img {
+  height: 500px;
+}
+
+.vendu-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 0, 0, 0.322);
+  color: white;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.vendu-image {
+  filter: blur(5px);
+}
+
+.product-title {
+  padding: 1rem;
+}
+
+/*RESPONSIVE*/
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* xs */
+@media (min-width: 350px) {
+  .container {
+    max-width: 350px;
+  }
+
+  .result__box {
+    display: grid;
+    grid-template-columns: 350px 350px;
+    margin-left: 8rem;
+    align-items: stretch;
+  }
+
+  .result__input {
+    display: block;
+    margin-left: 8rem;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+
+  .result__box {
+    display: grid;
+    grid-template-columns: 350px 350px;
+    margin-left: 8rem;
+    align-items: stretch;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+
+  .result__box {
+    display: grid;
+    grid-template-columns: 350px 350px 350px;
+    margin-left: 8rem;
+    align-items: stretch;
+  }
+}

@@ -1,0 +1,134 @@
+@use 'src/styles/variables' as v;
+
+.form__container {
+  width: 300px;
+  padding: 20px;
+  margin: 60px auto;
+  background: v.$lightGrey;
+  border: 1px solid v.$midGrey;
+  border-radius: 10px;
+  margin-bottom: 4rem;
+
+  h1 {
+    font-size: 2.5em;
+    text-align: center;
+    padding-bottom: 2rem;
+  }
+}
+
+.form__group {
+  margin-bottom: 15px;
+}
+
+.form__group label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form__group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.login__btn {
+  display: block;
+  width: 100%;
+  padding: 0.3rem;
+  font-size: 1.4em;
+  color: #fff;
+  background: v.$blue;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login__btn:hover {
+  background: #7e94e2;
+  transition: background 0.3s ease;
+}
+
+.signup__box {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 10.5rem;
+}
+
+.sign__btn {
+  width: 300px;
+  margin: 0 auto;
+  padding: 0.3rem;
+  font-size: 1.4em;
+  border: 1px solid v.$blue;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.sign__btn:hover {
+  background: v.$blue;
+  transition: background 0.3s ease-out;
+}
+
+.sign__btn input[type='submit']:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.form__group__password input {
+  font-size: 16px;
+  font-weight: bold;
+  width: 90%;
+  border: 1px solid v.$midGrey;
+  color: darkgray;
+}
+
+.form__group__password {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+/* RESPONSIVE */
+
+/* xs */
+@media (min-width: 350px) {
+  .form__container,
+  .signup__box {
+    margin-left: 14rem;
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .form__container {
+    margin-left: 14rem;
+  }
+
+  .signup__box {
+    margin-right: 17rem;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .signup__box {
+    margin-right: 20rem;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .form__container {
+    margin: 0 auto;
+    margin-top: 5rem;
+  }
+
+  .signup__box {
+    margin-right: 14rem;
+    padding-bottom: 10rem;
+  }
+}

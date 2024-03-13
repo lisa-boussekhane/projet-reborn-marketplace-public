@@ -1,0 +1,282 @@
+@use 'src/styles/variables' as v;
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  margin: 1.5rem;
+  margin-left: 10rem;
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: v.$yellow;
+  color: black;
+  font-weight: 700;
+  font-size: 17.8px;
+  width: 100%;
+  height: 90px;
+
+  &__links {
+    display: flex;
+    gap: 40px;
+    margin-right: 10rem;
+  }
+
+  &__item {
+    padding: 0 0.3rem;
+    color: inherit;
+  }
+
+  &-cart {
+    width: 30px;
+    margin-right: 1rem;
+  }
+
+  &__burger {
+    width: 30px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    display: none;
+  }
+
+  &-logo {
+    width: 62%;
+    margin-left: -9rem;
+    background-color: white;
+  }
+}
+
+.search-input {
+  width: 100%;
+  border: solid 4px lightgray;
+  margin-right: 250px;
+  margin-left: -100px;
+}
+
+.logout__btn {
+  cursor: pointer;
+}
+
+.logout__btn:hover {
+  color: rgb(46, 119, 208);
+}
+
+/* RESPONSIVE */
+
+/* xs */
+@media (min-width: 350px) {
+  .navbar__burger {
+    display: block;
+    margin-left: -10rem;
+    background-color: lightgrey;
+    width: 70px;
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .navbar__burger {
+    margin-left: -5rem;
+  }
+}
+
+@media screen and (max-width: 969px) {
+  .navbar {
+    background-color: white;
+    display: flex;
+    padding: 0;
+    padding-right: 1rem;
+    margin: 0rem;
+    max-height: 10rem;
+
+    &__links {
+      flex-direction: column;
+      background-color: lightgray;
+      align-items: center;
+      visibility: hidden;
+      gap: 3px;
+      padding: 1rem;
+      padding-top: 0;
+    }
+
+    &__item {
+      font-size: 1.3rem;
+      margin-left: 2rem;
+      margin-right: 3.5rem;
+      padding: 0.5px;
+      width: 100%;
+    }
+
+    &-logo {
+      width: 100%;
+      margin-left: 5rem;
+    }
+  }
+
+  .show-nav .navbar__links {
+    width: 40vw;
+    visibility: visible;
+    transform: translateY(135px);
+  }
+
+  .navbar__burger {
+    display: block;
+    background-color: lightgrey;
+    width: 70px;
+    margin-right: 3rem;
+  }
+
+  .navbar__burger:hover {
+    cursor: pointer;
+  }
+
+  .burger-bar {
+    display: block;
+    width: 50px;
+    height: 4px;
+    position: relative;
+    border-radius: 3px;
+    background-color: grey;
+    flex-direction: column;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 4px;
+      border-radius: 3px;
+      background-color: grey;
+    }
+
+    &::before {
+      top: -12px;
+    }
+
+    &::after {
+      bottom: -12px;
+    }
+  }
+
+  .search-input {
+    display: flex;
+    font-size: 1.5rem;
+    width: 70%;
+    margin-left: 10rem;
+  }
+
+  .navbar-cart {
+    width: 25px;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .navbar {
+    justify-content: space-between;
+    padding-top: 2rem;
+    padding: 2rem;
+    margin-left: 8rem;
+    background-color: v.$yellow;
+    width: calc(100% + 16rem);
+  }
+
+  .navbar__links {
+    display: flex;
+    margin-left: 2rem;
+    margin-right: 10rem;
+    margin-top: 0.7rem;
+    gap: 35px;
+  }
+
+  .search-input {
+    width: 80%;
+    margin-right: 250px;
+    margin-left: 4rem;
+  }
+
+  .navbar-cart {
+    margin-right: 35px;
+  }
+
+  .navbar__burger {
+    display: none;
+  }
+
+  .navbar-logo {
+    width: 60%;
+    margin-left: 6rem;
+  }
+}
+
+/* xl */
+@media (min-width: 1280px) {
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    margin: 1.5rem;
+    padding-left: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &__links {
+      display: flex;
+      gap: 40px;
+      margin-right: 12rem;
+    }
+
+    &__item {
+      padding: 0 0.3rem;
+      color: inherit;
+    }
+
+    &__burger {
+      display: none;
+    }
+
+    &-logo {
+      width: 50%;
+      background-color: white;
+      padding: 30px;
+      margin-left: -1rem;
+    }
+  }
+
+  .search-input {
+    width: 100%;
+    border: solid 4px lightgray;
+    margin-right: 250px;
+    margin-left: -100px;
+  }
+}
+
+/* 2xl */
+@media (min-width: 1536px) {
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    margin: 1.5rem;
+    padding-left: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &__links {
+      display: flex;
+      gap: 40px;
+      padding-right: 5rem;
+    }
+  }
+}
+
+.navbar__item_admin {
+  color: white;
+}

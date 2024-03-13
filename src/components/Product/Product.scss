@@ -1,0 +1,153 @@
+@use 'src/styles/variables' as v;
+
+.product__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.message__seller {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-left: 2rem;
+  margin-bottom: 1.5rem;
+  background-color: v.$blue;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: lightgray;
+  }
+}
+
+.product__img {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+
+  .image-container {
+    position: relative;
+
+    img {
+      max-width: 90%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .arrow-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+
+      &.left {
+        left: 10px;
+      }
+
+      &.right {
+        right: 10px;
+      }
+    }
+  }
+}
+
+.product__infos {
+  flex: 1;
+  margin-left: 2rem;
+}
+
+.product__infos p {
+  font-size: 1.2rem;
+}
+
+.product__infos_row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  gap: 20px;
+}
+
+.product__infos_row h2 {
+  font-size: 2rem;
+}
+
+.product__group__column1 {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.product__group__column__row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product__fees {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 5rem;
+  margin-top: 1.5rem;
+  gap: 8px;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.product__fees button {
+  padding: 1rem;
+}
+
+.product__rating {
+  display: flex;
+  align-items: baseline;
+}
+
+.star__box {
+  margin-left: 10px;
+}
+
+#cart-button {
+  cursor: pointer;
+}
+
+.cart-button {
+  cursor: pointer;
+  background-color: v.$blue;
+  border: 2px solid v.$blue;
+  border-radius: 3px;
+}
+
+.sold-out {
+  background-color: rgb(187, 180, 180);
+  border-radius: 8px;
+  cursor: not-allowed;
+}
+
+// /*RESPONSIVE*/
+
+/* xs */
+
+@media (min-width: 350px) {
+  // .product__container {
+  //   margin-left: 12rem;
+  // }
+
+  .product__chat {
+    display: block;
+    margin-left: 20rem;
+    width: 45px;
+  }
+
+  .product__infos_row h2 {
+    font-size: 3.6em;
+  }
+
+  // .product__rating {
+  //   width: 400px;
+  // }
+}
