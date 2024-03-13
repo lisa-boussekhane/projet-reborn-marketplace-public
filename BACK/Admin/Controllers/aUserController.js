@@ -89,6 +89,10 @@ const aUserController = {
       res.status(500).json({ message: 'an unexpected error occured...' });
     }
   },
+
+  async checkAdminRole(req, res) {
+    res.status(200).json({ isAdmin: true });
+  },
 };
 
 module.exports = aUserController;

@@ -92,9 +92,7 @@ router.get(
   '/check-admin-role',
   verifyToken,
   adminPageMiddleware,
-  (req, res) => {
-    res.status(200).json({ isAdmin: true });
-  }
+  aUserController.checkAdminRole
 );
 router.get(
   '/admin/users',
