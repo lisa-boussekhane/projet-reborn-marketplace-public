@@ -37,7 +37,7 @@ const chatController = {
         order: [['created_at', 'ASC']],
       });
 
-      // si aucun message n'est trouvé, retourné un tableau vide
+      // si aucun message n'est trouvé, retourner un tableau vide
       if (!messages || messages.length === 0) {
         return res.status(404).json({
           message: 'No messages found in the specified discussion',
@@ -63,7 +63,7 @@ const chatController = {
       const receiverId = req.params.id;
       const { content } = req.body;
 
-      // Trouver ou créer la discussion entre l'expéditeur et le destinataire
+      // trouver ou créer la discussion entre l'expéditeur et le destinataire
       let discussion = await User_Discuss_Message.findOne({
         where: {
           [Op.or]: [
@@ -80,7 +80,7 @@ const chatController = {
         });
       }
 
-      // Créer le message associé à la discussion
+      // créer le message associé à la discussion
       const newMessage = await Message.create({
         content: content,
         sender_id: senderId,
@@ -104,7 +104,7 @@ const chatController = {
     try {
       const userId = req.user_id;
 
-      // Fetch all discussions for the current user
+      // récupérer toutes les discussions associées à l'utilisateur
       const discussions = await User_Discuss_Message.findAll({
         where: {
           [Op.or]: [{ user1_id: userId }, { user2_id: userId }],
@@ -120,7 +120,7 @@ const chatController = {
             order: [['created_at', 'DESC']],
           },
         ],
-        order: [['updated_at', 'DESC']], // Ordonnez par la date de dernière mise à jour
+        order: [['updated_at', 'DESC']], // ordonner par la date de dernière mise à jour
       });
 
       // Mise en forme des données pour les renvoyer au client

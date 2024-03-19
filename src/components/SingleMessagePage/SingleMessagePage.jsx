@@ -85,10 +85,10 @@ export default function SingleMessagePage() {
 
         const responseData = await response.json();
         window.location.reload();
-        // Update state with the new message
+        // mettre à jour avec le nouveau message
         setFetchedMessages([...fetchedMessages, responseData.data]);
 
-        // Clear the input field
+        // vider l'input
         setInputValue('');
       } catch (error) {
         console.error('Failed to send message:', error);

@@ -7,12 +7,19 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const multer = require('multer');
 const http = require('http');
 const bodyParser = require('body-parser');
+const path = require('path');
 const router = require('./BACK/Router/router');
+
 const app = express();
 const port = process.env.PORT;
 
 app.use(express.static('/public'));
-app.use(cors());
+app.use(
+  cors({
+    origin: '*',
+  })
+);
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

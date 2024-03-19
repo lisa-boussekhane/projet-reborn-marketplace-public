@@ -2,7 +2,7 @@ import './AdminOrders.scss';
 import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-export default function AdminUsers() {
+export default function AdminOrders() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');

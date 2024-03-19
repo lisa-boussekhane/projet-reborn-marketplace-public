@@ -99,7 +99,7 @@ export default function Products() {
         <Checkbox
           label="Vinyl"
           checked={formData.type.Vinyl}
-          onChange={() => handleCheckbox.Vinyl}
+          onChange={() => handleCheckbox('Vinyl')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
         <Checkbox
