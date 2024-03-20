@@ -26,5 +26,5 @@ app.use(express.json());
 app.use(router);
 
 app.listen(port, () => {
-  console.log(`Adopt a Reborn REST API is running on http://localhost:${port}`);
+  console.log(`Adopt a Reborn REST API is running on http://localhost:${port}`, '127.0.0.1',);
 });
