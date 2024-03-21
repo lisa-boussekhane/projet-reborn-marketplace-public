@@ -20,7 +20,6 @@ app.use(
   })
 );
 
-console.log(process.env.REACT_APP_API_URL);
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

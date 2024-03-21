@@ -49,7 +49,7 @@ const userController = {
         },
       });
 
-      const htmlContent = `<a href='http://localhost:5173/resetpassword/${password_token}'> generate new password</a>`;
+      const htmlContent = `<a href=${process.env.REACT_APP_IMAGES_URL}/resetpassword/${password_token}> generate new password</a>`;
 
       // Send mail with defined transport object
       const mailOptions = await transporter.sendMail({

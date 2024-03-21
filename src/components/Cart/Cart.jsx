@@ -45,7 +45,7 @@ export default function Cart() {
     const handleInfo = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/user`, {
+        const response = await fetch(`${import.meta.env.REACT_APP_API_URL}/user`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

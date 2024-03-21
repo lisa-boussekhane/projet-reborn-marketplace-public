@@ -13,7 +13,6 @@ import './styles/index.scss';
 const stripePromise = loadStripe(
   `${import.meta.env.REACT_APP_STRIPE_PUBLIC_KEY}`
 );
-// const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>

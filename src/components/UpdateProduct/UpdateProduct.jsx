@@ -283,7 +283,7 @@ export default function UpdateProduct() {
                   product.Media.length > 0 &&
                   product.Media[0].photo && (
                     <img
-                      src={`http://localhost:5173/${product.Media[0].photo}`}
+                      src={`${import.meta.env.REACT_APP_IMAGES_URL}/${product.Media[0].photo}`}
                       alt={`Product ${product.id}`}
                     />
                   )}

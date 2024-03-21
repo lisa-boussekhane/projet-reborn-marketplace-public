@@ -86,7 +86,7 @@ const authController = {
         text: `Dear ${username},\n\nWe are thrilled to welcome you to our community!
         \n\nYour decision to bring a reborn into your life is a journey we are so excited to be a part of.
         \n\nThank you for choosing Adopt a Reborn. We are honored to be a part of this special time in your life. If you have any questions or need assistance, please don't hesitate to reach out to us at adoptareborn.contactus@gmail.com.
-        \n\nWelcome to the family!\n\nSell or buy your first reborn now !\n\nOn our site: http://localhost:5173/ 
+        \n\nWelcome to the family!\n\nSell or buy your first reborn now !\n\nOn our site: www.adoptareborn.com 
         \n\nWarm regards,
         \n\nAdopt a Reborn team.`,
       };
