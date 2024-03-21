@@ -62,7 +62,7 @@ export default function MyStore() {
     try {
       const token = localStorage.getItem('jwtToken');
       const response = await fetch(
-        `${import.meta.env.REACT_APP_API_URL} +/product/${productId}`,
+        `${import.meta.env.REACT_APP_API_URL}/product/${productId}`,
         {
           method: 'DELETE',
           headers: {
