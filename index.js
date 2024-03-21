@@ -9,7 +9,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const path = require('path');
 const router = require('./BACK/Router/router');
-
+const bodySanitizer = require('./BACK/App/Middlewares/bodySanitizer');
 const app = express();
 const port = process.env.PORT;
 
@@ -23,6 +23,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodySanitizer);
 app.use(router);
 
 app.listen(port, '127.0.0.1', () => {
