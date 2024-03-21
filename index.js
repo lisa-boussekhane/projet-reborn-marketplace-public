@@ -14,12 +14,12 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.static('/public'));
-// app.use(
-//   cors({
-//     origin: ['https://adoptareborn.com', 'https://www.adoptareborn.com'],
-//   })
-// );
-app.use(cors('*'));
+app.use(
+  cors({
+    origin: ['https://adoptareborn.com', 'https://www.adoptareborn.com'],
+  })
+);
+
 console.log(process.env.REACT_APP_API_URL);
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
