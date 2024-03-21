@@ -90,31 +90,19 @@ router.get('/shop/:id/average-rating', ratingController.getAverageRating);
 /// ADMIN ROUTES ///
 router.get(
   '/check-admin-role',
-  verifyToken,
   adminPageMiddleware,
   aUserController.checkAdminRole
 );
-router.get(
-  '/admin/users',
-  verifyToken,
-  adminPageMiddleware,
-  aUserController.getAllUsers
-);
+router.get('/admin/users', adminPageMiddleware, aUserController.getAllUsers);
 router.patch(
   '/admin/user/:id',
   adminPageMiddleware,
   aUserController.updateUser
 );
-router.delete(
-  '/admin/user',
-  verifyToken,
-  adminPageMiddleware,
-  aUserController.deleteUser
-);
+router.delete('/admin/user', adminPageMiddleware, aUserController.deleteUser);
 
 router.get(
   '/admin/products',
-  verifyToken,
   adminPageMiddleware,
   aProductController.getAllProducts
 );
@@ -126,31 +114,19 @@ router.patch(
 );
 router.delete(
   '/admin/product',
-  verifyToken,
   adminPageMiddleware,
   aProductController.deleteProduct
 );
 
-router.get(
-  '/admin/shops',
-  verifyToken,
-  adminPageMiddleware,
-  aShopController.getAllShops
-);
+router.get('/admin/shops', adminPageMiddleware, aShopController.getAllShops);
 router.patch(
   '/admin/updateshop/:id',
   adminPageMiddleware,
   aShopController.updateShop
 );
-router.delete(
-  '/admin/shop',
-  verifyToken,
-  adminPageMiddleware,
-  aShopController.deleteShop
-);
+router.delete('/admin/shop', adminPageMiddleware, aShopController.deleteShop);
 router.get(
   '/admin/orders',
-  verifyToken,
   adminPageMiddleware,
   aShopController.getAllUserOrdersWithDetails
 );

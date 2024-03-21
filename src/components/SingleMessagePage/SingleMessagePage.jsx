@@ -31,7 +31,7 @@ export default function SingleMessagePage() {
       const token = localStorage.getItem('jwtToken');
       try {
         const response = await fetch(
-          `http://localhost:3000/chat/${actualReceiverId}`,
+          `${import.meta.env.REACT_APP_API_URL}/chat/${actualReceiverId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ export default function SingleMessagePage() {
     if (inputValue.trim() !== '') {
       try {
         const response = await fetch(
-          `http://localhost:3000/chat/message/room/${actualReceiverId}`,
+          `${import.meta.env.REACT_APP_API_URL}/chat/message/room/${actualReceiverId}`,
           {
             method: 'POST',
             headers: {

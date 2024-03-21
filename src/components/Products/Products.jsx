@@ -1,16 +1,7 @@
 import './Products.scss';
 import { useState, useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import {
-  Card,
-  Dropdown,
-  DropdownItem,
-  Image,
-  Checkbox,
-  Menu,
-  MenuItem,
-  DropdownMenu,
-} from 'semantic-ui-react';
+import { Card, Image, Checkbox } from 'semantic-ui-react';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -25,20 +16,23 @@ export default function Products() {
     belly_plate: false,
     authenticity_card: false,
   });
+
   const { id } = useParams();
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/products`);
+        const response = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/products`
+        );
+
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
         const data = await response.json();
         setProducts(data);
-        console.log(data);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.log();
       }
     };
     fetchProducts();
@@ -50,67 +44,55 @@ export default function Products() {
   };
 
   const handleCheckbox = (filter) => {
-    setFormData({
-      ...formData,
-      [filter]: !formData[filter],
-    });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [filter]: !prevFormData[filter], // Inverser la valeur actuelle du filtre
+    }));
+
+    // // Toggle the visibility of sub-categories
+    // setSubCategoryVisibility((prevVisibility) => ({
+    //   ...prevVisibility,
+    //   [filter]: !prevVisibility[filter], // Inverser la visibilité actuelle du filtre
+    // }));
   };
 
   const filteredProducts = products.filter((product) => {
-    // Category filters
-    if (
-      selectedCategory &&
-      product.type !== selectedCategory &&
-      product.sculptor !== selectedCategory &&
-      product.Detail_product.gender !== selectedCategory &&
-      product.age_range !== selectedCategory &&
-      product.Detail_product.eyes !== selectedCategory &&
-      product.Detail_product.hair !== selectedCategory &&
-      product.Detail_product.belly_plate !== selectedCategory &&
-      product.authenticity_card !== selectedCategory
-    ) {
-      return false;
+    if (!selectedCategory) {
+      return true; // Si aucune catégorie n'est sélectionnée, afficher tous les produits
     }
-
-    // Checkbox filters
-    const activeFilters = Object.keys(formData).filter(
-      (filter) => formData[filter]
+    // Vérifier si la catégorie sélectionnée correspond à une propriété du produit
+    return (
+      product.type === selectedCategory ||
+      product.sculptor === selectedCategory ||
+      product.Detail_product.gender === selectedCategory ||
+      product.age_range === selectedCategory ||
+      product.Detail_product.eyes === selectedCategory ||
+      product.Detail_product.hair === selectedCategory ||
+      product.Detail_product.belly_plate === selectedCategory ||
+      product.authenticity_card === selectedCategory
     );
-    if (
-      activeFilters.length > 0 &&
-      !activeFilters.includes(product.type) &&
-      !activeFilters.includes(product.sculptor) &&
-      !activeFilters.includes(product.Detail_product.gender) &&
-      !activeFilters.includes(product.age_range) &&
-      !activeFilters.includes(product.Detail_product.eyes) &&
-      !activeFilters.includes(product.Detail_product.hair) &&
-      !activeFilters.includes(product.Detail_product.belly_plate) &&
-      !activeFilters.includes(product.authenticity_card)
-    ) {
-      return false;
-    }
-    return true;
   });
 
   return (
     <>
       <div className="products__menu">
-        <h4>Material</h4>
+        <h4 onClick={() => handleCategoryClick('type')}>Material</h4>
+
         <Checkbox
           label="Vinyl"
-          checked={formData.type.Vinyl}
+          // checked={formData.type.Vinyl}
           onChange={() => handleCheckbox('Vinyl')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
         <Checkbox
           label="Silicone"
-          checked={formData.type.Silicone}
+          // checked={formData.type.Silicone}
           onChange={() => handleCheckbox('Silicone')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
         <Checkbox
           label="Cuddle"
-          checked={formData.type.Cuddle}
+          // checked={formData.type.Cuddle}
           onChange={() => handleCheckbox('Cuddle')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
@@ -118,13 +100,13 @@ export default function Products() {
         <h4>Sculptor</h4>
         <Checkbox
           label="Linde Scherer"
-          checked={formData.sculptor['Linde Scherer']}
+          // checked={formData.sculptor['Linde Scherer']}
           onChange={() => handleCheckbox('Linde Scherer')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
         <Checkbox
           label="Olga Auer"
-          checked={formData.sculptor['Olga Auer']}
+          // checked={formData.sculptor['Olga Auer']}
           onChange={() => handleCheckbox('Olga Auer')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
@@ -136,7 +118,7 @@ export default function Products() {
         />
         <Checkbox
           label="Ina Volprich"
-          checked={formData.sculptor['Ina Volprich']}
+          // checked={formData.sculptor['Ina Volprich']}
           onChange={() => handleCheckbox('Ina Volprich')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
@@ -144,32 +126,32 @@ export default function Products() {
         <h4>Gender</h4>
         <Checkbox
           label="Girl"
-          checked={formData.gender.Girl}
+          // checked={formData.gender.Girl}
           onChange={() => handleCheckbox('Girl')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
         <Checkbox
           label="Boy"
-          checked={formData.gender.Boy}
+          // checked={formData.gender.Boy}
           onChange={() => handleCheckbox('Boy')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
         <Checkbox
           label="None"
-          checked={formData.gender.None}
+          // checked={formData.gender.None}
           onChange={() => handleCheckbox('None')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
         <h4>Age range</h4>
         <Checkbox
           label="Baby"
-          checked={formData.age_range.Baby}
+          // checked={formData.age_range.Baby}
           onChange={() => handleCheckbox('Baby')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
         <Checkbox
           label="Toddler"
-          checked={formData.age_range.Toddler}
+          // checked={formData.age_range.Toddler}
           onChange={() => handleCheckbox('Toddler')}
           style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
         />
@@ -280,39 +262,44 @@ export default function Products() {
       </div>
 
       <div className="products__wrapper">
-        {filteredProducts.map((product) => (
-          <div
-            key={product.id}
-            className={`products__card ${product.sold ? 'vendu' : ''}`}
-          >
-            <div className="products__card__item">
-              <Card className="product-img">
-                <NavLink to={`/product/${product.id}`}>
-                  {product.Media &&
-                    product.Media.length > 0 &&
-                    product.Media[0].photo && (
-                      <Image
-                        src={`${product.Media[0].photo}`}
-                        alt={`Product ${product.id}`}
-                        wrapped
-                        ui={false}
-                        className={product.sold ? 'vendu-image' : ''}
-                      />
-                    )}
-                  <Card.Content>
-                    {product.sold === true && (
-                      <div className="vendu-banner">Sold</div>
-                    )}
+        {filteredProducts.map(
+          (product) => (
+            console.log(filteredProducts),
+            (
+              <div
+                key={product.id}
+                className={`products__card ${product.sold ? 'vendu' : ''}`}
+              >
+                <div className="products__card__item">
+                  <Card className="product-img">
+                    <NavLink to={`/product/${product.id}`}>
+                      {product.Media &&
+                        product.Media.length > 0 &&
+                        product.Media[0].photo && (
+                          <Image
+                            src={`${product.Media[0].photo}`}
+                            alt={`Product ${product.id}`}
+                            wrapped
+                            ui={false}
+                            className={product.sold ? 'vendu-image' : ''}
+                          />
+                        )}
+                      <Card.Content>
+                        {product.sold === true && (
+                          <div className="vendu-banner">Sold</div>
+                        )}
 
-                    <Card.Header className="product-title">
-                      {product.title}
-                    </Card.Header>
-                  </Card.Content>
-                </NavLink>
-              </Card>
-            </div>
-          </div>
-        ))}
+                        <Card.Header className="product-title">
+                          {product.title}
+                        </Card.Header>
+                      </Card.Content>
+                    </NavLink>
+                  </Card>
+                </div>
+              </div>
+            )
+          )
+        )}
       </div>
     </>
   );

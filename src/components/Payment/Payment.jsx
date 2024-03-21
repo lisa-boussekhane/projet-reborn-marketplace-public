@@ -58,11 +58,14 @@ export default function Payment() {
     const handleInfo = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await fetch(`http://localhost:3000/user`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/user`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error('Error fetching user data');
@@ -114,14 +117,17 @@ export default function Payment() {
         setIsModalOpen(true);
         setIsLoading(true);
 
-        const response = await fetch('http://localhost:3000/process-payment', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`, // token récupéré dans le local storage
-          },
-          body: JSON.stringify(paymentFormData),
-        });
+        const response = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/process-payment`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`, // token récupéré dans le local storage
+            },
+            body: JSON.stringify(paymentFormData),
+          }
+        );
 
         if (!token) {
           setErrorMessage('Please log in.'); // message si la personne n'est pas connectée
@@ -132,18 +138,21 @@ export default function Payment() {
           console.log('Payment processed:', paymentData);
 
           // mettre à jour les informations de l'utilisateur
-          const userUpdateResponse = await fetch(`http://localhost:3000/user`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
+          const userUpdateResponse = await fetch(
+            `${import.meta.env.REACT_APP_API_URL}/user`,
+            {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
 
-            body: JSON.stringify({
-              ...formData,
-              country: 'United States',
-            }),
-          });
+              body: JSON.stringify({
+                ...formData,
+                country: 'United States',
+              }),
+            }
+          );
 
           if (!userUpdateResponse.ok) {
             throw new Error('Error during user information update');
@@ -152,17 +161,20 @@ export default function Payment() {
           console.log('User information updated!');
           const productIds = cart.map((item) => item.id);
           const sellerIds = cart.map((item) => item.seller.id);
-          const createOrder = await fetch('http://localhost:3000/createorder', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`, // token récupéré dans le local storage
-            },
-            body: JSON.stringify({
-              productIds: productIds,
-              sellerIds: sellerIds,
-            }),
-          });
+          const createOrder = await fetch(
+            `${import.meta.env.REACT_APP_API_URL}/createorder`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // token récupéré dans le local storage
+              },
+              body: JSON.stringify({
+                productIds: productIds,
+                sellerIds: sellerIds,
+              }),
+            }
+          );
 
           // verifier la réponse de la création de la commande
           if (createOrder.ok) {

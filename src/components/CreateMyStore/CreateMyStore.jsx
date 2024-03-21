@@ -19,14 +19,17 @@ export default function CreateMyStore() {
 
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await fetch(`http://localhost:3000/createshop`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${import.meta.env.REACT_APP_API_URL}/createshop`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();

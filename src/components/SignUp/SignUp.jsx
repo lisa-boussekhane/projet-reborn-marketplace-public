@@ -44,19 +44,22 @@ export default function SignUp() {
       return;
     }
     try {
-      const response = await fetch('http://localhost:3000/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          first_name: firstname,
-          last_name: lastname,
-          email,
-          password,
-          username,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.REACT_APP_API_URL}/signup`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            first_name: firstname,
+            last_name: lastname,
+            email,
+            password,
+            username,
+          }),
+        }
+      );
 
       const data = await response.json();
       if (response.status === 400 && data.message) {

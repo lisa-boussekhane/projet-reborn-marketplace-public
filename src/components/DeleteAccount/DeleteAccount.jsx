@@ -11,13 +11,16 @@ export default function DeleteAccount() {
   const confirmDelete = async () => {
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await fetch(`http://localhost:3000/user`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // token récupéré dans le local storage
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.REACT_APP_API_URL}/user`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // token récupéré dans le local storage
+          },
+        }
+      );
 
       if (response.status === 204) {
         // compte supprimé

@@ -12,7 +12,7 @@ export default function Result() {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/results?search=${search}`
+          `${import.meta.env.REACT_APP_API_URL}/results?search=${search}`
         );
         if (!response.ok) {
           throw new Error('Error fetching products');

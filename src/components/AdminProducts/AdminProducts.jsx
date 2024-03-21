@@ -36,12 +36,15 @@ export default function AdminProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/admin/products', {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${storedToken}`,
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/admin/products`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${storedToken}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error('Failed to fetch products.');
@@ -64,14 +67,17 @@ export default function AdminProducts() {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      const response = await fetch('http://localhost:3000/admin/product', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${storedToken}`,
-        },
-        body: JSON.stringify({ id: productId }),
-      });
+      const response = await fetch(
+        `${import.meta.env.REACT_APP_API_URL}/admin/product`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${storedToken}`,
+          },
+          body: JSON.stringify({ id: productId }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to delete product.');
@@ -136,7 +142,7 @@ export default function AdminProducts() {
       if (formData.status) updatedFields.status = formData.status;
 
       const response = await fetch(
-        `http://localhost:3000/admin/product/${updatingProductId}`,
+        `${import.meta.env.REACT_APP_API_URL}/admin/product/${updatingProductId}`,
         {
           method: 'PATCH',
           headers: {

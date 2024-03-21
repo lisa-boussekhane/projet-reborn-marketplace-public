@@ -144,12 +144,15 @@ export default function UpdateProduct() {
     const fetchProductDetails = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await fetch(`http://localhost:3000/product/${id}`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/product/${id}`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const data = await response.json();
         console.log(data);
         setProduct(data);
@@ -228,7 +231,7 @@ export default function UpdateProduct() {
         }
       }
 
-      await fetch(`http://localhost:3000/product/${id}`, {
+      await fetch(`${import.meta.env.REACT_APP_API_URL}/product/${id}`, {
         method: 'PATCH',
         body: formDataToUpdate,
         headers: {

@@ -21,7 +21,7 @@ export default function ResetPassword() {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/resetpassword/${token}`,
+        `${import.meta.env.REACT_APP_API_URL}/resetpassword/${token}`,
         {
           method: 'POST',
           headers: {
@@ -36,11 +36,11 @@ export default function ResetPassword() {
       if (!response.ok) {
         throw new Error('Failed to reset password');
       }
-      setSuccess(true); 
+      setSuccess(true);
       console.log('Password reset successfully');
     } catch (error) {
       console.error('Failed to reset password', error);
-      setError('Failed to reset password. Please try again.'); 
+      setError('Failed to reset password. Please try again.');
     }
   };
 
@@ -48,7 +48,9 @@ export default function ResetPassword() {
     <div className="form__content">
       <div>
         <h1>Change your password</h1>
-          {success && <div className="success-message">Password reset successfully!</div>}
+        {success && (
+          <div className="success-message">Password reset successfully!</div>
+        )}
       </div>
       <form
         className="form__change"

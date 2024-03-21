@@ -19,12 +19,15 @@ export default function AdminShops() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/admin/shops', {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${storedToken}`,
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/admin/shops`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${storedToken}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error('Failed to fetch shops.');
@@ -43,14 +46,17 @@ export default function AdminShops() {
 
   const handleDeleteShop = async (shopId) => {
     try {
-      const response = await fetch('http://localhost:3000/admin/shop', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${storedToken}`,
-        },
-        body: JSON.stringify({ id: shopId }),
-      });
+      const response = await fetch(
+        `${import.meta.env.REACT_APP_API_URL}/admin/shop`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${storedToken}`,
+          },
+          body: JSON.stringify({ id: shopId }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to delete product.');
@@ -81,7 +87,7 @@ export default function AdminShops() {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/admin/updateshop/${updatingShopId}`,
+        `${import.meta.env.REACT_APP_API_URL}/admin/updateshop/${updatingShopId}`,
         {
           method: 'PATCH',
           headers: {

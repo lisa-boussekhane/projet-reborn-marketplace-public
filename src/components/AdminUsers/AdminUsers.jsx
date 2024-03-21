@@ -32,12 +32,15 @@ export default function AdminUsers() {
     const fetchUsers = async () => {
       console.log(storedToken);
       try {
-        const response = await fetch('http://localhost:3000/admin/users', {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${storedToken}`,
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/admin/users`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${storedToken}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error('Failed to fetch users.');
@@ -55,14 +58,17 @@ export default function AdminUsers() {
 
   const handleDeleteUser = async (userId) => {
     try {
-      const response = await fetch('http://localhost:3000/admin/user', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${storedToken}`,
-        },
-        body: JSON.stringify({ id: userId }),
-      });
+      const response = await fetch(
+        `${import.meta.env.REACT_APP_API_URL}/admin/user`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${storedToken}`,
+          },
+          body: JSON.stringify({ id: userId }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to delete product.');
@@ -117,7 +123,7 @@ export default function AdminUsers() {
       if (formData.duns) updatedFields.duns = formData.duns;
 
       const response = await fetch(
-        `http://localhost:3000/admin/user/${updatingUserId}`,
+        `${import.meta.env.REACT_APP_API_URL}/admin/user/${updatingUserId}`,
         {
           method: 'PATCH',
           headers: {

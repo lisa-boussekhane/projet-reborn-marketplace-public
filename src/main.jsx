@@ -3,13 +3,17 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import App from '@/components/App/App';
 import { BrowserRouter } from 'react-router-dom';
+
+
 import { AuthProvider } from './components/React-Context/AuthContext';
 import { CartProvider } from './components/React-Context/CartContext';
+
 import './styles/index.scss';
 
 const stripePromise = loadStripe(
-  'pk_test_51OkOJnAA29sLu6FEl6eRHqbeQxLxgC6i4ncde88Q6v52tFqRGi11OW0d3fcZnWWyiXlX9RMzI6xisKrMxFQanibD00GF43xsXW'
+  `${import.meta.env.REACT_APP_STRIPE_PUBLIC_KEY}`
 );
+// const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>

@@ -11,11 +11,14 @@ export default function ChatHomepage() {
 
     const fetchMessages = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/chat`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/chat`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error('Failed to fetch chat messages');
@@ -39,7 +42,7 @@ export default function ChatHomepage() {
         {conversations.map((conversation) => (
           <div key={conversation.id}>
             <li key={conversation.id}>
-            {console.log('Other User ID:', conversation?.otherUser.id)}
+              {console.log('Other User ID:', conversation?.otherUser.id)}
               <NavLink to={`/messages/${conversation?.otherUser.id}`}>
                 {conversation.otherUser.username} : {conversation.content}...
               </NavLink>

@@ -33,11 +33,14 @@ export default function MyStore() {
       const fetchShopDetails = async () => {
         try {
           const token = localStorage.getItem('jwtToken');
-          const response = await fetch(`http://localhost:3000/shop`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const response = await fetch(
+            `${import.meta.env.REACT_APP_API_URL}/shop`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
 
           if (response.status === 200) {
             const shopData = await response.json();
@@ -59,7 +62,7 @@ export default function MyStore() {
     try {
       const token = localStorage.getItem('jwtToken');
       const response = await fetch(
-        `http://localhost:3000/product/${productId}`,
+        `${import.meta.env.REACT_APP_API_URL} +/product/${productId}`,
         {
           method: 'DELETE',
           headers: {
@@ -105,12 +108,15 @@ export default function MyStore() {
   const deleteShop = async () => {
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await fetch(`http://localhost:3000/shop`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.REACT_APP_API_URL}/shop`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       await response.json(); // Parse the response JSON
 

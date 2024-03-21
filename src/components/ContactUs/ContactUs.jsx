@@ -19,13 +19,16 @@ export default function ContactUs() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/contactus', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${import.meta.env.REACT_APP_API_URL}/contactus`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await response.json();
 
       if (response.ok) {

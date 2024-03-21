@@ -20,11 +20,14 @@ export default function MyAccount() {
     const handleInfo = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await fetch(`http://localhost:3000/user`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/user`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error('Error fetching user data');
@@ -71,14 +74,17 @@ export default function MyAccount() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await fetch(`http://localhost:3000/user`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${import.meta.env.REACT_APP_API_URL}/user`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error('erreur pendant la modification');
@@ -98,12 +104,15 @@ export default function MyAccount() {
     const fetchUserOrders = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const orders = await fetch(`http://localhost:3000/user/orders`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const orders = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/user/orders`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!orders.ok) {
           throw new Error('Error fetching user orders');
@@ -124,12 +133,15 @@ export default function MyAccount() {
     const fetchUserSales = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const sales = await fetch(`http://localhost:3000/user/sales`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const sales = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/user/sales`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!sales.ok) {
           throw new Error('Error fetching user orders');
@@ -155,13 +167,16 @@ export default function MyAccount() {
 
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await fetch('http://localhost:3000/orders', {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: invoiceFormData,
-      });
+      const response = await fetch(
+        `${import.meta.env.REACT_APP_API_URL}/orders`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: invoiceFormData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Error uploading invoice');
@@ -187,7 +202,7 @@ export default function MyAccount() {
 
   const fetchRating = (shopNumb, rating) => {
     const token = localStorage.getItem('jwtToken');
-    fetch(`http://localhost:3000/shop/${shopNumb}/rate`, {
+    fetch(`${import.meta.env.REACT_APP_API_URL}/shop/${shopNumb}/rate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

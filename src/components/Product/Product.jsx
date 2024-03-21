@@ -24,7 +24,9 @@ export default function Product() {
   useEffect(() => {
     const fetchProductDetail = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/product/${id}`);
+        const response = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/product/${id}`
+        );
         if (!response.ok) {
           throw new Error('Error fetching products');
         }
@@ -61,7 +63,7 @@ export default function Product() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/shop/${shopId}/ratings`)
+    fetch(`${import.meta.env.REACT_APP_API_URL}/shop/${shopId}/ratings`)
       .then((response) => response.json())
       .then((data) => {
         setRating(data.averageRating);
@@ -82,7 +84,7 @@ export default function Product() {
               size="2x"
             />
             <img
-              src={`http://localhost:5173/${product.Media[currentImageIndex].photo}`}
+              src={`${import.meta.env.REACT_APP_IMAGES_URL}/${product.Media[currentImageIndex].photo}`}
               alt={`Product ${product.id} ${currentImageIndex + 1}`}
             />
             <FontAwesomeIcon
