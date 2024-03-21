@@ -233,7 +233,6 @@ const productController = {
           },
         ],
       });
-      console.log(products);
       res.status(200).json(products);
     } catch (error) {
       console.error(error);
