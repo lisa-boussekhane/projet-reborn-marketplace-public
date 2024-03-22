@@ -16,11 +16,11 @@ const Sequelize = require('sequelize');
 // initalize sequelize with session store
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
 const port = process.env.PORT;
-const dbName = process.env.dbName;
-const dbUser = process.env.dbUser;
-const dbPass = process.env.dbPass;
-const host = process.env.dbHost;
-const expressSessionSecret = process.env.expressSessionSecret;
+const dbName = process.env.DB_NAME;
+const dbUser = process.env.DB_USER;
+const dbPass = process.env.DB_PASS;
+const host = process.env.DB_HOST;
+const expressSessionSecret = process.env.EXPRESS_SESSION_SECRET;
 
 app.use(express.static('/public'));
 app.use(
