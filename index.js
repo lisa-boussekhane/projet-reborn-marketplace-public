@@ -14,7 +14,7 @@ const app = express();
 const session = require('express-session');
 const Sequelize = require('sequelize');
 // initalize sequelize with session store
-var SequelizeStore = require("connect-session-sequelize")(session.Store);
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
 const port = process.env.PORT;
 const dbName = process.env.DB_NAME;
 const dbUser = process.env.DB_USER;
@@ -48,7 +48,6 @@ app.use(
     proxy: true, // SSL outside of node
   })
 );
-
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
