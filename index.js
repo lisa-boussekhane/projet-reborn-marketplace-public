@@ -21,6 +21,7 @@ const dbUser = process.env.DB_USER;
 const dbPass = process.env.DB_PASS;
 const host = process.env.DB_HOST;
 const expressSessionSecret = process.env.EXPRESS_SESSION_SECRET;
+const dbPort = process.env.DB_PORT;
 
 app.use(express.static('/public'));
 app.use(
@@ -33,7 +34,7 @@ app.use(
 const sequelize = new Sequelize(dbName, dbUser, dbPass, {
   host: host, // L'adresse du serveur de base de données
   dialect: 'postgres', // Indique que vous utilisez PostgreSQL comme système de gestion de base de données
-  port: port, // Le port
+  port: dbPort, // Le port
 });
 
 app.use(
