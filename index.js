@@ -11,7 +11,16 @@ const path = require('path');
 const router = require('./BACK/Router/router');
 const bodySanitizer = require('./BACK/App/Middlewares/bodySanitizer');
 const app = express();
+const session = require('express-session');
+const Sequelize = require('sequelize');
+// initalize sequelize with session store
+var SequelizeStore = require("connect-session-sequelize")(session.Store);
 const port = process.env.PORT;
+const dbName = process.env.dbName;
+const dbUser = process.env.dbUser;
+const dbPass = process.env.dbPass;
+const host = process.env.dbHost;
+const expressSessionSecret = process.env.expressSessionSecret;
 
 app.use(express.static('/public'));
 app.use(
@@ -19,6 +28,27 @@ app.use(
     origin: ['https://adoptareborn.com', 'https://www.adoptareborn.com'],
   })
 );
+
+// create database, 'postgresql' in your package.json
+const sequelize = new Sequelize(dbName, dbUser, dbPass, {
+  host: host, // L'adresse du serveur de base de données
+  dialect: 'postgres', // Indique que vous utilisez PostgreSQL comme système de gestion de base de données
+  port: port, // Le port
+});
+
+app.use(
+  session({
+    secret: expressSessionSecret,
+    store: new SequelizeStore({
+      db: sequelize,
+    }),
+    resave: false, // Determines whether the session should be saved back to the session store, even if the session was never modified during the request.
+    saveUninitialized: false, // Controls whether a new session that has not been modified (i.e., no data added to the session object) should be saved to the store.
+    //This reduces the load on the database.
+    proxy: true, // SSL outside of node
+  })
+);
+
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
