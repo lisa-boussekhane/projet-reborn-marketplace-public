@@ -26,7 +26,8 @@ const dbPort = process.env.DB_PORT;
 app.use(express.static('/public'));
 app.use(
   cors({
-    origin: ['https://adoptareborn.com', 'https://www.adoptareborn.com'],
+    origin: ['*']
+    //['https://adoptareborn.com', 'https://www.adoptareborn.com'],
   })
 );
 
@@ -60,3 +61,4 @@ app.use(router);
 app.listen(port, '127.0.0.1', () => {
   console.log(`Adopt a Reborn REST API is running on http://localhost:${port}`);
 });
+
