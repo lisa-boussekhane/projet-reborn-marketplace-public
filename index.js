@@ -22,11 +22,12 @@ const dbPass = process.env.DB_PASS;
 const host = process.env.DB_HOST;
 const expressSessionSecret = process.env.EXPRESS_SESSION_SECRET;
 const dbPort = process.env.DB_PORT;
+const CORS_domains = JSON.parse(process.env.CORS_DOMAINS);
 
 app.use(express.static('/public'));
 app.use(
   cors({
-    origin: ['*']
+    origin: CORS_domains,
     //['https://adoptareborn.com', 'https://www.adoptareborn.com'],
   })
 );
