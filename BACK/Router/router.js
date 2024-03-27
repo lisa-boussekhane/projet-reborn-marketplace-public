@@ -55,6 +55,7 @@ router.post(
   uploadPhotoVideo.array('photo', 12),
   productController.createProduct
 );
+router.post('/products', productController.getProductsByCategory);
 router.patch(
   '/product/:id',
   verifyToken,

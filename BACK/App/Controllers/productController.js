@@ -1,5 +1,5 @@
+const { Op } = require('sequelize');
 const { Product, Detail_product, Media, User, Shop } = require('../../Models');
-
 const { sequelize } = require('../../Models/index');
 
 const productController = {
@@ -218,6 +218,45 @@ const productController = {
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'an unexpected error occured...' });
+    }
+  },
+
+  async getProductsByCategory(req, res) {
+    const { subcategory } = req.body;
+
+    try {
+      // Filtrer les produits par sous-catégorie
+      const filteredProducts = await Product.findAll({
+        include: [
+          {
+            model: Detail_product,
+            attributes: ['gender', 'eyes', 'hair', 'belly_plate'],
+          },
+          {
+            model: Media,
+            attributes: ['photo'],
+          },
+        ],
+        where: {
+          [Op.or]: [
+            { type: subcategory },
+            { sculptor: subcategory },
+            { '$Detail_product.gender$': subcategory },
+            { age_range: subcategory },
+            { '$Detail_product.eyes$': subcategory },
+            { '$Detail_product.hair$': subcategory },
+            { '$Detail_product.belly_plate$': subcategory },
+            { authenticity_card: subcategory },
+          ],
+        },
+      });
+
+      res.status(200).json(filteredProducts);
+    } catch (error) {
+      res.status(500).json({
+        message: 'Failed to retrieve products by subcategory',
+        error: error.message,
+      });
     }
   },
 
