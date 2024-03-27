@@ -243,8 +243,9 @@ const shopController = {
     try {
       const { productIds, sellerIds } = req.body;
       const user_id = req.user_id;
+      const itemsArr = productIds.split(',');
       const orders = await Promise.all(
-        productIds.map(async (productId) => {
+        itemsArr.map(async (productId) => {
           try {
             const order = await User_Order_Product.create(
               {
