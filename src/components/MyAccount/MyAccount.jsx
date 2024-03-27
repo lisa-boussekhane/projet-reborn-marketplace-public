@@ -133,6 +133,7 @@ export default function MyAccount() {
     const fetchUserSales = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
+        console.log('Fetching user sales....');
         const sales = await fetch(
           `${import.meta.env.REACT_APP_API_URL}/user/sales`,
           {

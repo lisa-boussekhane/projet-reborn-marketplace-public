@@ -156,7 +156,7 @@ const shopController = {
   async sellerOrdersWithDetails(req, res) {
     try {
       const user_id = req.user_id;
-
+      console.log('id du seller : ', user_id);
       const soldProducts = await User_Order_Product.findAll({
         where: { seller_id: user_id },
         attributes: ['date', 'order_number', 'invoice', 'status', 'id'],
@@ -164,13 +164,6 @@ const shopController = {
           {
             model: Product,
             attributes: ['title', 'price'],
-            include: [
-              {
-                model: User,
-                as: 'seller',
-                attributes: ['username', 'id'],
-              },
-            ],
           },
           {
             model: User,
