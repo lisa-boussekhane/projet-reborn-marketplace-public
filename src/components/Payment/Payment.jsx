@@ -92,6 +92,8 @@ export default function Payment() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    console.log('Starting payment process...');
+
     if (!stripe || !elements) return;
 
     const cardElement = elements.getElement(CardElement);
