@@ -144,11 +144,10 @@ export default function MyAccount() {
         );
 
         if (!sales.ok) {
-          throw new Error('Error fetching user orders');
+          throw new Error('Error fetching user sales');
         }
 
         const salesData = await sales.json();
-        console.log('Sales Data:', salesData);
         const { soldProducts } = salesData;
         console.log('Orders sold Data:', soldProducts);
         setUserSales(soldProducts);

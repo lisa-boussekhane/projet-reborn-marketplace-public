@@ -167,6 +167,7 @@ const shopController = {
           },
           {
             model: User,
+            as: 'buyer',
             attributes: [
               'first_name',
               'last_name',
@@ -178,7 +179,6 @@ const shopController = {
               'country',
               'id',
             ],
-            as: 'buyer',
           },
         ],
       });

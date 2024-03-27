@@ -164,6 +164,7 @@ export default function Payment() {
           console.log('User information updated!');
           const productIds = cart.map((item) => item.id);
           const sellerIds = cart.map((item) => item.seller.id);
+          console.log('sellerIds:', sellerIds);
           const createOrder = await fetch(
             `${import.meta.env.REACT_APP_API_URL}/createorder`,
             {
