@@ -148,6 +148,7 @@ export default function MyAccount() {
         }
 
         const salesData = await sales.json();
+        console.log('Sales Data:', salesData);
         const { soldProducts } = salesData;
         console.log('Orders sold Data:', soldProducts);
         setUserSales(soldProducts);
@@ -540,15 +541,15 @@ export default function MyAccount() {
             <h1>Products sold</h1>
           </div>
           <div className="order__container">
-            {userSales.length === 0 ? (
+            {!userInfo || userSales.length === 0 ? (
               <p>You haven't sold any products yet</p>
             ) : (
               <ul className="order__list">
-                {(!userInfo || userSales.length === 0) && (
+                {userSales.length === 0 && (
                   <p>You haven't sold any products yet</p>
                 )}
-                {userSales.map((soldProduct, index) => (
-                  <li key={index} className="order__item">
+                {userSales.map((soldProduct) => (
+                  <li key={soldProduct.id} className="order__item">
                     <div className="order__details">
                       <Link
                         to={`/messages/${soldProduct.buyer.id}`}
