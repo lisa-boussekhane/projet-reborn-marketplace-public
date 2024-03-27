@@ -130,6 +130,7 @@ export default function Payment() {
             body: JSON.stringify(paymentFormData),
           }
         );
+        console.log('Payment response:', response);
 
         if (!token) {
           setErrorMessage('Please log in.'); // message si la personne n'est pas connectée
@@ -177,7 +178,7 @@ export default function Payment() {
               }),
             }
           );
-
+          console.log('createOrder:', createOrder);
           // verifier la réponse de la création de la commande
           if (createOrder.ok) {
             clearCart();
