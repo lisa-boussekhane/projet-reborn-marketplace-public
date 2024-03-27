@@ -34,7 +34,7 @@ export default function Header() {
         });
     }
   }, [setIsLoggedIn]);
-  const isAdminTrue = localStorage.getItem('isAdmin');
+  const isAdminTrue = localStorage.getItem('isAdmin') === 'true';
 
   const handleSearch = (event) => {
     event.preventDefault();

@@ -107,3 +107,17 @@
   display: inline-block;
   background-color: lightgrey;
 }
+
+@media (max-width: 768px) {
+  .single-message-container {
+    max-width: 800px;
+    margin-bottom: 20rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .single-message-container {
+    
+    margin-bottom: 42rem;
+  }
+}
