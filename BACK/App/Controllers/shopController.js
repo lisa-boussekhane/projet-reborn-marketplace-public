@@ -164,6 +164,13 @@ const shopController = {
           {
             model: Product,
             attributes: ['title', 'price'],
+            include: [
+              {
+                model: User,
+                as: 'seller',
+                attributes: ['username', 'id'],
+              },
+            ],
           },
           {
             model: User,
