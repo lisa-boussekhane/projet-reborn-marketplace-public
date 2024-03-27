@@ -42,9 +42,11 @@
 .network-logos {
   display: flex;
   gap: 10px;
-  width: 60px;
+  margin-right: -10rem;
+  width: 200px;
   align-items: center;
   cursor: pointer;
+  
 }
 
 /* RESPONSIVE */
@@ -189,7 +191,7 @@
 //   }
 // }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .footer {
     &-content {
       display: flex;
@@ -219,7 +221,7 @@
   }
   .network-logos {
     display: flex;
-   
+   margin-right: 0rem;
     gap: 4px;
     width: 80px;
     align-items: center;
