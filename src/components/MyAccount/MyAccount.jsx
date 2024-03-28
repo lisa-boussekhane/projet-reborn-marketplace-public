@@ -228,21 +228,6 @@ export default function MyAccount() {
     localStorage.setItem('ratedSeller', JSON.stringify(ratedSeller));
   }, [ratedSeller]);
 
-  // Clears message about already rated seller
-  const clearMessage = () => {
-    setMessage('');
-  };
-
-  // Clears message after 3 seconds when it changes
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      clearMessage();
-    }, 3000);
-
-    // Function that cancels a timeout
-    return () => clearTimeout(delay);
-  }, [message]);
-
   const handleRating = (shopNumb, rating, orderId) => {
     if (ratedSeller.includes(orderId)) {
       setMessage('You have already rated this seller.');
@@ -493,42 +478,37 @@ export default function MyAccount() {
                       </p>
                       <p>
                         <strong> Rate seller : </strong>
-                        {message && (
-                          <p
-                            className={`message ${
-                              message.includes('Error') ? 'error' : 'success'
-                            }`}
-                          >
-                            {message}
-                          </p>
-                        )}
                       </p>
-                      <div className="rating-buttons-container">
-                        {[1, 2, 3, 4, 5].map((rating) => (
-                          <button
-                            key={rating}
-                            type="button"
-                            className="star-btn"
-                            onClick={() =>
-                              handleRating(
-                                order.Product.shop_id,
-                                rating,
-                                order.id
-                              )
-                            }
-                          >
-                            <FontAwesomeIcon
-                              icon={faStar}
-                              color={
-                                ratedSeller.includes(order.id) &&
-                                rating <= selectedOrderRating
-                                  ? 'gold'
-                                  : 'gray'
+                      {ratedSeller.includes(order.id) ? (
+                        <p>You've already rated this seller</p>
+                      ) : (
+                        <div className="rating-buttons-container">
+                          {[1, 2, 3, 4, 5].map((rating) => (
+                            <button
+                              key={rating}
+                              type="button"
+                              className="star-btn"
+                              onClick={() =>
+                                handleRating(
+                                  order.Product.shop_id,
+                                  rating,
+                                  order.id
+                                )
                               }
-                            />
-                          </button>
-                        ))}
-                      </div>
+                            >
+                              <FontAwesomeIcon
+                                icon={faStar}
+                                color={
+                                  ratedSeller.includes(order.id) &&
+                                  rating <= selectedOrderRating
+                                    ? 'gold'
+                                    : 'gray'
+                                }
+                              />
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </li>
                 ))}
