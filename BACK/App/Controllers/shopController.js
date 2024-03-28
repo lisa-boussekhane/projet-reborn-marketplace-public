@@ -251,7 +251,7 @@ const shopController = {
               {
                 buyer_id: user_id,
                 product_id: productId,
-                seller_id: sellerIds[productIds.indexOf(productId)],
+                seller_id: sellerIds,
                 date: new Date(),
                 status: 'Paid',
                 order_number: await orderNumber(),
