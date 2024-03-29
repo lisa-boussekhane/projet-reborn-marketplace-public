@@ -203,3 +203,9 @@
 .navbar__item_admin {
   color: white;
 }
+
+@media screen and (max-width: 1280px) {
+  .navbar {
+    font-size: 15px;
+  }
+}
