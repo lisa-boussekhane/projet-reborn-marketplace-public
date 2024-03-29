@@ -166,4 +166,16 @@ body {
     margin-left: 1.7rem;
     display: block;
   }
+
+  .categories__menu {
+    position: fixed;
+    left: 0;
+    top: 20%;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border: 2px solid lightgray;
+    border-left: none;
+  }
 }
