@@ -91,120 +91,16 @@
 }
 
 /*RESPONSIVE*/
-
-.container {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-/* xs */
-@media (min-width: 350px) {
-  .seller__title {
-    display: block;
-    margin-left: 15rem;
-  }
-
-  .seller__button input {
-    display: flex;
-    justify-content: space-evenly;
-    margin-right: 10rem;
-    float: none;
-  }
-}
-
-/* lg */
-@media (min-width: 1024px) {
-  .seller__container {
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: row;
-    align-items: center;
-  }
-
+@media (max-width: 768px) {
   .seller__title h2 {
-    font-size: 2rem;
-    border-bottom: 1px solid v.$midGrey;
-    line-height: 2;
-    color: #313131;
-    margin-right: 65rem;
-    margin-left: 10rem;
+    display: block;
+    margin-left: 5rem;
   }
 
-  .seller__cta {
-    display: none;
-  }
   .seller__buttons {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
-    margin-top: 5rem;
-  }
-
-  .seller__button input {
-    float: right;
-    font-size: 1.3em;
-    color: #fff;
-    margin-right: 1rem;
-    margin-top: -4rem;
-    background: v.$blue;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .seller__button input:hover {
-    background: #7e94e2;
-    transition: background 0.3s ease;
-  }
-
-  .seller__card {
-    display: grid;
-    grid-template-columns: 350px 350px 350px;
-
-    margin-left: 15rem;
-    margin-top: 5rem;
-    margin-bottom: 8rem;
-  }
-
-  .products__card__item .card-content {
-    margin-top: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  .trash-icon {
-    font-size: 22px !important;
-    cursor: pointer;
-  }
-
-  .product-title {
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-
-  .products__card {
-    position: relative;
-  }
-
-  .vendu-banner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(255, 0, 0, 0.322);
-    color: white;
-    padding: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  .vendu-image {
-    filter: blur(5px);
+    margin-top: 8rem;
+    margin-left: -60rem;
   }
 }

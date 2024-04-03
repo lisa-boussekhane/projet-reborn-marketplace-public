@@ -152,30 +152,33 @@ h3 {
 
 /*RESPONSIVE*/
 
-
 /* xs */
 
 @media (min-width: 350px) {
   .sell__col3 textarea {
     display: block;
     margin-top: 25rem;
-    margin-left: -18rem;
+    margin-left: -30rem;
+  }
+
+  .sell__wrapper {
+    margin-left: -5rem;
   }
 }
 
 /* lg */
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .larger-input {
     min-width: 230px;
     margin-right: 12rem;
   }
-  
-.sell__wrapper > * {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-  
+
+  .sell__wrapper > * {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
   .sell__wrapper {
     display: flex;
     flex-direction: row;
@@ -185,7 +188,11 @@ h3 {
   }
 
   .sell__col3 textarea {
-    margin-left: -4rem;
+    margin-left: -30rem;
+  }
+
+  .sell__container .sell__btn {
+    margin-left: -3rem;
   }
 }
 

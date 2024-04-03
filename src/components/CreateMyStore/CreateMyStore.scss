@@ -160,11 +160,13 @@
 /* md */
 @media (min-width: 768px) {
   .cms-form form {
-    margin-right: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .cms-form_item_right {
-    margin-right: 10rem;
+    margin-right: 25rem;
   }
 }
 

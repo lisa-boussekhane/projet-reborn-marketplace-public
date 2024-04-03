@@ -98,6 +98,7 @@ body {
   .products__wrapper {
     display: grid;
     grid-template-columns: 350px 350px;
+    margin-top: 3rem;
     margin-left: 3rem;
     align-items: stretch;
   }
@@ -146,7 +147,7 @@ body {
   .products__wrapper {
     display: grid;
     grid-template-columns: 350px 350px 350px;
-    margin-left: 8rem;
+    margin-left: 1.5rem;
     align-items: stretch;
   }
 }
