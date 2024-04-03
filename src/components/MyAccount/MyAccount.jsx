@@ -133,6 +133,7 @@ export default function MyAccount() {
     const fetchUserSales = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
+        console.log('Fetching user sales....');
         const sales = await fetch(
           `${import.meta.env.REACT_APP_API_URL}/user/sales`,
           {
@@ -144,7 +145,7 @@ export default function MyAccount() {
         );
 
         if (!sales.ok) {
-          throw new Error('Error fetching user orders');
+          throw new Error('Error fetching user sales');
         }
 
         const salesData = await sales.json();
@@ -226,21 +227,6 @@ export default function MyAccount() {
   useEffect(() => {
     localStorage.setItem('ratedSeller', JSON.stringify(ratedSeller));
   }, [ratedSeller]);
-
-  // Clears message about already rated seller
-  const clearMessage = () => {
-    setMessage('');
-  };
-
-  // Clears message after 3 seconds when it changes
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      clearMessage();
-    }, 3000);
-
-    // Function that cancels a timeout
-    return () => clearTimeout(delay);
-  }, [message]);
 
   const handleRating = (shopNumb, rating, orderId) => {
     if (ratedSeller.includes(orderId)) {
@@ -492,42 +478,37 @@ export default function MyAccount() {
                       </p>
                       <p>
                         <strong> Rate seller : </strong>
-                        {message && (
-                          <p
-                            className={`message ${
-                              message.includes('Error') ? 'error' : 'success'
-                            }`}
-                          >
-                            {message}
-                          </p>
-                        )}
                       </p>
-                      <div className="rating-buttons-container">
-                        {[1, 2, 3, 4, 5].map((rating) => (
-                          <button
-                            key={rating}
-                            type="button"
-                            className="star-btn"
-                            onClick={() =>
-                              handleRating(
-                                order.Product.shop_id,
-                                rating,
-                                order.id
-                              )
-                            }
-                          >
-                            <FontAwesomeIcon
-                              icon={faStar}
-                              color={
-                                ratedSeller.includes(order.id) &&
-                                rating <= selectedOrderRating
-                                  ? 'gold'
-                                  : 'gray'
+                      {ratedSeller.includes(order.id) ? (
+                        <p>You've already rated this seller</p>
+                      ) : (
+                        <div className="rating-buttons-container">
+                          {[1, 2, 3, 4, 5].map((rating) => (
+                            <button
+                              key={rating}
+                              type="button"
+                              className="star-btn"
+                              onClick={() =>
+                                handleRating(
+                                  order.Product.shop_id,
+                                  rating,
+                                  order.id
+                                )
                               }
-                            />
-                          </button>
-                        ))}
-                      </div>
+                            >
+                              <FontAwesomeIcon
+                                icon={faStar}
+                                color={
+                                  ratedSeller.includes(order.id) &&
+                                  rating <= selectedOrderRating
+                                    ? 'gold'
+                                    : 'gray'
+                                }
+                              />
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </li>
                 ))}
@@ -540,15 +521,15 @@ export default function MyAccount() {
             <h1>Products sold</h1>
           </div>
           <div className="order__container">
-            {userSales.length === 0 ? (
+            {!userInfo || userSales.length === 0 ? (
               <p>You haven't sold any products yet</p>
             ) : (
               <ul className="order__list">
-                {(!userInfo || userSales.length === 0) && (
+                {userSales.length === 0 && (
                   <p>You haven't sold any products yet</p>
                 )}
-                {userSales.map((soldProduct, index) => (
-                  <li key={index} className="order__item">
+                {userSales.map((soldProduct) => (
+                  <li key={soldProduct.id} className="order__item">
                     <div className="order__details">
                       <Link
                         to={`/messages/${soldProduct.buyer.id}`}

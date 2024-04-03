@@ -39,3 +39,16 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .chat-container {
+  margin: 10px auto;
+  padding: 20px;
+  margin-bottom: 36rem;
+
+  h2 {
+    
+    font-size: 22px;
+  }
+}
+}

@@ -4,7 +4,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import App from '@/components/App/App';
 import { BrowserRouter } from 'react-router-dom';
 
-
 import { AuthProvider } from './components/React-Context/AuthContext';
 import { CartProvider } from './components/React-Context/CartContext';
 

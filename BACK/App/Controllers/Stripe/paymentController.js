@@ -12,7 +12,7 @@ const paymentController = {
         currency: 'usd',
         payment_method: paymentMethodId,
         confirm: true,
-        return_url: `${process.env.REACT_APP_IMAGES_URL}/payment`,
+        return_url: `${process.env.PAYMENT_URL}/payment`,
       });
       console.log('PaymentIntent crée:', paymentIntent);
       console.log('PaymentIntent statut:', paymentIntent.status);

@@ -92,6 +92,8 @@ export default function Payment() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    console.log('Starting payment process...');
+
     if (!stripe || !elements) return;
 
     const cardElement = elements.getElement(CardElement);
@@ -128,6 +130,7 @@ export default function Payment() {
             body: JSON.stringify(paymentFormData),
           }
         );
+        console.log('Payment response:', response);
 
         if (!token) {
           setErrorMessage('Please log in.'); // message si la personne n'est pas connectée
@@ -161,6 +164,7 @@ export default function Payment() {
           console.log('User information updated!');
           const productIds = cart.map((item) => item.id);
           const sellerIds = cart.map((item) => item.seller.id);
+          console.log('sellerIds:', sellerIds);
           const createOrder = await fetch(
             `${import.meta.env.REACT_APP_API_URL}/createorder`,
             {
@@ -175,7 +179,7 @@ export default function Payment() {
               }),
             }
           );
-
+          console.log('createOrder:', createOrder);
           // verifier la réponse de la création de la commande
           if (createOrder.ok) {
             clearCart();

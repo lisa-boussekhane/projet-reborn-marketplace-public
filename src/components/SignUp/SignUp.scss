@@ -73,7 +73,7 @@
 /* RESPONSIVE */
 
 /* xs */
-@media (min-width: 350px) {
+@media (max-width: 767px) {
   .form__wrapper {
     margin-left: 12rem;
     padding-bottom: 80px;
@@ -81,28 +81,8 @@
   }
 }
 
-@media (min-width: 475px) {
-  .form__wrapper {
-    margin-left: 14rem;
-  }
-}
 
-/* sm */
-@media (min-width: 640px) {
-  .form__wrapper {
-    margin-left: 15rem;
-  }
-}
-
-/* md */
-@media (min-width: 768px) {
-  .form__wrapper {
-    margin-left: 20rem;
-  }
-}
-
-/* lg */
-@media (min-width: 1024px) {
+@media (max-width: 1024px) {
   .form__wrapper {
     margin: 0 auto;
     margin-top: 5rem;

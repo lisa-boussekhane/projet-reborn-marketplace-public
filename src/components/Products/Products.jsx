@@ -1,21 +1,16 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import './Products.scss';
 import { useState, useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import { Card, Image, Checkbox } from 'semantic-ui-react';
+import { Card, Image, Checkbox, Button } from 'semantic-ui-react';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [formData, setFormData] = useState({
-    type: false,
-    sculptor: false,
-    gender: false,
-    age_range: false,
-    eyes: false,
-    hair: false,
-    belly_plate: false,
-    authenticity_card: false,
-  });
+  const [selectedSubcategories, setSelectedSubcategories] = useState([]);
+  const [message, setMessage] = useState('');
 
   const { id } = useParams();
 
@@ -38,268 +33,174 @@ export default function Products() {
     fetchProducts();
   }, [id]);
 
-  // Filters
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-  };
+  const filterProducts = async () => {
+    try {
+      let filteredData;
+      if (selectedSubcategories.length > 0) {
+        const response = await fetch(
+          `${import.meta.env.REACT_APP_API_URL}/products`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              subcategory: selectedSubcategories,
+            }),
+          }
+        );
 
-  const handleCheckbox = (filter) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [filter]: !prevFormData[filter], // Inverser la valeur actuelle du filtre
-    }));
+        if (!response.ok) {
+          throw new Error('Failed to fetch filtered products');
+        }
 
-    // // Toggle the visibility of sub-categories
-    // setSubCategoryVisibility((prevVisibility) => ({
-    //   ...prevVisibility,
-    //   [filter]: !prevVisibility[filter], // Inverser la visibilité actuelle du filtre
-    // }));
-  };
+        filteredData = await response.json();
+        if (filteredData.length === 0) {
+          setMessage('No products match your search');
+        }
+      } else {
+        filteredData = products;
+      }
 
-  const filteredProducts = products.filter((product) => {
-    if (!selectedCategory) {
-      return true; // Si aucune catégorie n'est sélectionnée, afficher tous les produits
+      setProducts(filteredData);
+    } catch (error) {
+      console.log('Error fetching filtered products:', error);
     }
-    // Vérifier si la catégorie sélectionnée correspond à une propriété du produit
+  };
+
+  const handleCategoryClick = (category) => {
+    const isSameCategory = selectedCategory === category;
+    if (isSameCategory) {
+      setSelectedCategory(null);
+      setSelectedSubcategories([]);
+    } else {
+      setSelectedCategory(category);
+      setSelectedSubcategories([]);
+    }
+
+    filterProducts();
+  };
+
+  const handleSubcategoryClick = (subcategory) => {
+    let updatedSubcategories;
+    if (selectedSubcategories.includes(subcategory)) {
+      updatedSubcategories = selectedSubcategories.filter(
+        (item) => item !== subcategory
+      );
+    } else {
+      updatedSubcategories = [...selectedSubcategories, subcategory];
+    }
+    setSelectedSubcategories(updatedSubcategories);
+    filterProducts();
+  };
+
+  const renderSubcategories = () => {
+    const subcategoriesMap = {
+      type: ['Vinyl', 'Silicone', 'Cuddle'],
+      sculptor: [
+        'Linde Scherer',
+        'Olga Auer',
+        'Laura Lee Eagles',
+        'Ina Volprich',
+      ],
+      gender: ['Girl', 'Boy', 'None'],
+      age_range: ['Baby', 'Toddler'],
+      eyes: ['Closed', 'Brown', 'Blue', 'Green', 'Other'],
+      hair: [
+        'Bald',
+        'Hair painting',
+        'Brown',
+        'Blonde',
+        'Black',
+        'Red',
+        'Other',
+      ],
+      belly_plate: ['Yes', 'No'],
+      authenticity_card: ['Yes', 'No'],
+    };
+
     return (
-      product.type === selectedCategory ||
-      product.sculptor === selectedCategory ||
-      product.Detail_product.gender === selectedCategory ||
-      product.age_range === selectedCategory ||
-      product.Detail_product.eyes === selectedCategory ||
-      product.Detail_product.hair === selectedCategory ||
-      product.Detail_product.belly_plate === selectedCategory ||
-      product.authenticity_card === selectedCategory
+      <div className="subcategories__container">
+        {subcategoriesMap[selectedCategory].map((subcategory) => (
+          <Button
+            key={subcategory}
+            onClick={() => handleSubcategoryClick(subcategory)}
+            style={{
+              padding: '5px',
+              fontSize: '1.3em',
+              marginLeft: '0.7em',
+            }}
+          >
+            {subcategory}
+          </Button>
+        ))}
+      </div>
     );
-  });
+  };
 
   return (
     <>
-      <div className="products__menu">
-        <h4 onClick={() => handleCategoryClick('type')}>Material</h4>
-
-        <Checkbox
-          label="Vinyl"
-          // checked={formData.type.Vinyl}
-          onChange={() => handleCheckbox('Vinyl')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="Silicone"
-          // checked={formData.type.Silicone}
-          onChange={() => handleCheckbox('Silicone')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="Cuddle"
-          // checked={formData.type.Cuddle}
-          onChange={() => handleCheckbox('Cuddle')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-
-        <h4>Sculptor</h4>
-        <Checkbox
-          label="Linde Scherer"
-          // checked={formData.sculptor['Linde Scherer']}
-          onChange={() => handleCheckbox('Linde Scherer')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="Olga Auer"
-          // checked={formData.sculptor['Olga Auer']}
-          onChange={() => handleCheckbox('Olga Auer')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="Laura Lee Eagles"
-          checked={formData.sculptor['Laura Lee Eagles']}
-          onChange={() => handleCheckbox('Laura Lee Eagles')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="Ina Volprich"
-          // checked={formData.sculptor['Ina Volprich']}
-          onChange={() => handleCheckbox('Ina Volprich')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-
-        <h4>Gender</h4>
-        <Checkbox
-          label="Girl"
-          // checked={formData.gender.Girl}
-          onChange={() => handleCheckbox('Girl')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="Boy"
-          // checked={formData.gender.Boy}
-          onChange={() => handleCheckbox('Boy')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="None"
-          // checked={formData.gender.None}
-          onChange={() => handleCheckbox('None')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <h4>Age range</h4>
-        <Checkbox
-          label="Baby"
-          // checked={formData.age_range.Baby}
-          onChange={() => handleCheckbox('Baby')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="Toddler"
-          // checked={formData.age_range.Toddler}
-          onChange={() => handleCheckbox('Toddler')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-
-        <h4>Eyes</h4>
-        <Checkbox
-          label="Closed"
-          checked={formData.eyes.Closed}
-          onChange={() => handleCheckbox('Closed')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="Brown"
-          checked={formData.eyes.Brown}
-          onChange={() => handleCheckbox('Brown')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="Blue"
-          checked={formData.eyes.Blue}
-          onChange={() => handleCheckbox('Blue')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="Green"
-          checked={formData.eyes.Green}
-          onChange={() => handleCheckbox('Green')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="Other"
-          checked={formData.eyes.Other}
-          onChange={() => handleCheckbox('Other')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-
-        <h4>Hair</h4>
-        <Checkbox
-          label="Bald"
-          checked={formData.hair.Bald}
-          onChange={() => handleCheckbox('Bald')}
-          style={{ fontSize: '1.3em', marginLeft: '0.4em' }}
-        />
-        <Checkbox
-          label="Hair painting"
-          checked={formData.hair['Hair painting']}
-          onChange={() => handleCheckbox('Hair painting')}
-          style={{ fontSize: '1.3em', marginLeft: '0.4em' }}
-        />
-        <Checkbox
-          label="Brown"
-          checked={formData.hair.Brown}
-          onChange={() => handleCheckbox('Brown')}
-          style={{ fontSize: '1.3em', marginLeft: '0.2em' }}
-        />
-        <Checkbox
-          label="Blonde"
-          checked={formData.hair.Blonde}
-          onChange={() => handleCheckbox('Blonde')}
-          style={{ fontSize: '1.3em', marginLeft: '0.2em' }}
-        />
-        <Checkbox
-          label="Black"
-          checked={formData.hair.Black}
-          onChange={() => handleCheckbox('Black')}
-          style={{ fontSize: '1.3em', marginLeft: '0.3em' }}
-        />
-        <Checkbox
-          label="Red"
-          checked={formData.hair.Red}
-          onChange={() => handleCheckbox('Red')}
-          style={{ fontSize: '1.3em', marginLeft: '0.3em' }}
-        />
-        <Checkbox
-          label="Other"
-          checked={formData.hair.Other}
-          onChange={() => handleCheckbox('Other')}
-          style={{ fontSize: '1.3em', marginLeft: '0.3em' }}
-        />
-
-        <h4>Belly plate</h4>
-        <Checkbox
-          label="Yes"
-          checked={formData.belly_plate.Yes}
-          onChange={() => handleCheckbox('Yes')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="No"
-          checked={formData.belly_plate.No}
-          onChange={() => handleCheckbox('No')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-
-        <h4>Authenticity card</h4>
-        <Checkbox
-          label="Yes"
-          checked={formData.authenticity_card.Yes}
-          onChange={() => handleCheckbox('Yes')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
-        <Checkbox
-          label="No"
-          checked={formData.authenticity_card.No}
-          onChange={() => handleCheckbox('No')}
-          style={{ fontSize: '1.3em', marginLeft: '0.7em' }}
-        />
+      <div className="categories__menu">
+        <h4 onClick={() => handleCategoryClick('type')}>Type</h4>
+        {selectedCategory === 'type' && renderSubcategories()}
+        <h4 onClick={() => handleCategoryClick('sculptor')}>Sculptor</h4>
+        {selectedCategory === 'sculptor' && renderSubcategories()}
+        <h4 onClick={() => handleCategoryClick('gender')}>Gender</h4>
+        {selectedCategory === 'gender' && renderSubcategories()}
+        <h4 onClick={() => handleCategoryClick('age_range')}>Age range</h4>
+        {selectedCategory === 'age_range' && renderSubcategories()}
+        <h4 onClick={() => handleCategoryClick('eyes')}>Eyes</h4>
+        {selectedCategory === 'eyes' && renderSubcategories()}
+        <h4 onClick={() => handleCategoryClick('hair')}>Hair</h4>
+        {selectedCategory === 'hair' && renderSubcategories()}
+        <h4 onClick={() => handleCategoryClick('belly_plate')}>Belly plate</h4>
+        {selectedCategory === 'belly_plate' && renderSubcategories()}
+        <h4 onClick={() => handleCategoryClick('authenticity_card')}>
+          Authenticity card
+        </h4>
+        {selectedCategory === 'authenticity_card' && renderSubcategories()}
       </div>
 
-      <div className="products__wrapper">
-        {filteredProducts.map(
-          (product) => (
-            console.log(filteredProducts),
-            (
-              <div
-                key={product.id}
-                className={`products__card ${product.sold ? 'vendu' : ''}`}
-              >
-                <div className="products__card__item">
-                  <Card className="product-img">
-                    <NavLink to={`/product/${product.id}`}>
-                      {product.Media &&
-                        product.Media.length > 0 &&
-                        product.Media[0].photo && (
-                          <Image
-                            src={`${product.Media[0].photo}`}
-                            alt={`Product ${product.id}`}
-                            wrapped
-                            ui={false}
-                            className={product.sold ? 'vendu-image' : ''}
-                          />
-                        )}
-                      <Card.Content>
-                        {product.sold === true && (
-                          <div className="vendu-banner">Sold</div>
-                        )}
+      {message && (
+        <div className="no-results">
+          <p>{message}</p>
+        </div>
+      )}
 
-                        <Card.Header className="product-title">
-                          {product.title}
-                        </Card.Header>
-                      </Card.Content>
-                    </NavLink>
-                  </Card>
-                </div>
-              </div>
-            )
-          )
-        )}
+      <div className="products__wrapper">
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className={`products__card ${product.sold ? 'vendu' : ''}`}
+          >
+            <div className="products__card__item">
+              <Card className="product-img">
+                <NavLink to={`/product/${product.id}`}>
+                  {product.Media &&
+                    product.Media.length > 0 &&
+                    product.Media[0].photo && (
+                      <Image
+                        src={`${product.Media[0].photo}`}
+                        alt={`Product ${product.id}`}
+                        wrapped
+                        ui={false}
+                        className={product.sold ? 'vendu-image' : ''}
+                      />
+                    )}
+                  <Card.Content>
+                    {product.sold === true && (
+                      <div className="vendu-banner">Sold</div>
+                    )}
+
+                    <Card.Header className="product-title">
+                      {product.title}
+                    </Card.Header>
+                  </Card.Content>
+                </NavLink>
+              </Card>
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );

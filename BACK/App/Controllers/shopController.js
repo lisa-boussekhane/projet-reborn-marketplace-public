@@ -156,7 +156,7 @@ const shopController = {
   async sellerOrdersWithDetails(req, res) {
     try {
       const user_id = req.user_id;
-
+      console.log('id du seller : ', user_id);
       const soldProducts = await User_Order_Product.findAll({
         where: { seller_id: user_id },
         attributes: ['date', 'order_number', 'invoice', 'status', 'id'],
@@ -167,6 +167,7 @@ const shopController = {
           },
           {
             model: User,
+            as: 'buyer',
             attributes: [
               'first_name',
               'last_name',
@@ -178,7 +179,6 @@ const shopController = {
               'country',
               'id',
             ],
-            as: 'buyer',
           },
         ],
       });
@@ -243,14 +243,15 @@ const shopController = {
     try {
       const { productIds, sellerIds } = req.body;
       const user_id = req.user_id;
+      const itemsArr = productIds.split(',');
       const orders = await Promise.all(
-        productIds.map(async (productId) => {
+        itemsArr.map(async (productId) => {
           try {
             const order = await User_Order_Product.create(
               {
                 buyer_id: user_id,
                 product_id: productId,
-                seller_id: sellerIds[productIds.indexOf(productId)],
+                seller_id: sellerIds,
                 date: new Date(),
                 status: 'Paid',
                 order_number: await orderNumber(),

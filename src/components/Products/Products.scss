@@ -22,7 +22,8 @@ body {
 .products__wrapper {
   display: grid;
   grid-template-columns: 350px 350px 350px;
-  margin-left: 32rem;
+  margin-left: 15rem;
+  margin-bottom: 10rem;
 }
 
 .product-img {
@@ -54,6 +55,40 @@ body {
 
 .vendu-image {
   filter: blur(5px);
+}
+
+.categories__menu {
+  position: fixed;
+  left: 0;
+  top: 20%;
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  border: 2px solid lightgray;
+  border-left: none;
+
+  h4 {
+    font-size: 2rem;
+  }
+}
+.subcategories__container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.no-results {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 38rem;
+
+  p {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
 }
 
 /*RESPONSIVE*/
@@ -122,7 +157,7 @@ body {
     display: grid;
     grid-template-columns: 350px 350px 350px;
     align-items: stretch;
-    margin-left: 32rem;
+    margin-left: 15rem;
   }
 
   .products__menu {
@@ -130,5 +165,17 @@ body {
     margin-top: 1.5rem;
     margin-left: 1.7rem;
     display: block;
+  }
+
+  .categories__menu {
+    position: fixed;
+    left: 0;
+    top: 20%;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border: 2px solid lightgray;
+    border-left: none;
   }
 }
