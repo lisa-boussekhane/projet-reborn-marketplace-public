@@ -91,6 +91,7 @@
 }
 
 /*RESPONSIVE*/
+
 @media (max-width: 768px) {
   .seller__title h2 {
     display: block;
@@ -99,8 +100,13 @@
 
   .seller__buttons {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     margin-top: 8rem;
     margin-left: -60rem;
+  }
+
+  .add__button {
+    margin-top: -3rem;
   }
 }

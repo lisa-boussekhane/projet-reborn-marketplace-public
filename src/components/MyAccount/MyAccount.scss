@@ -254,30 +254,174 @@
 
 /* RESPONSIVE */
 
-@media (max-width: 768px) {
-  .account__items {
+@media (max-width: 767px) {
+  .account_menu {
+    position: relative;
+    top: 5rem;
+    left: 1rem;
+    bottom: 50px;
+    width: 330px;
+    height: 48vh;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      font-size: 1.8rem;
+      margin-right: -5rem;
+      margin-bottom: 25rem;
+    }
+
+    .account__items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 2rem;
+      width: 100%;
+    }
   }
 
   .account__container {
-    margin-left: -6.5rem;
-  }
-
-  .profile__information,
-  .order__container {
-    width: 300px;
-  }
-
-  .profile__title h1 {
-    margin-top: 5.5rem;
-    margin-left: 2rem;
-  }
-
-  .orders h1 {
     display: flex;
-    margin-top: 0.2rem;
-    margin-left: 1rem;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+
+    h1 {
+      display: flex;
+      margin-left: -15rem;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    #profile,
+    .orders {
+      margin-top: 20px;
+      width: 100%;
+
+      .profile__information,
+      .order__container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        width: 350px;
+        margin-bottom: 20px;
+        margin-left: -1rem;
+        //margin-right: 15rem;
+        background-color: #f5f5f5;
+        margin-top: 5rem;
+
+        .profile__elem {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 15px;
+
+          label {
+            flex-basis: 48%;
+            margin-bottom: 15px;
+            margin-top: 10px;
+            font-weight: bold;
+
+            input {
+              width: 300px;
+              padding: 8px;
+              margin-top: 10px;
+              border: 2px solid #ccc;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .account_menu {
+    position: relative;
+    top: 5rem;
+    left: 4rem;
+    bottom: 50px;
+    width: 530px;
+    height: 48vh;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      font-size: 1.8rem;
+      margin-right: -5rem;
+      margin-bottom: 25rem;
+    }
+
+    .account__items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 2rem;
+      width: 100%;
+    }
+  }
+
+  .account__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+
+    h1 {
+      display: flex;
+      margin-left: -15rem;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    #profile,
+    .orders {
+      margin-top: 20px;
+      width: 100%;
+
+      .profile__information,
+      .order__container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        width: 530px;
+        margin-bottom: 20px;
+        margin-left: 2.8rem;
+        //margin-right: 15rem;
+        background-color: #f5f5f5;
+        margin-top: 5rem;
+
+        .profile__elem {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 15px;
+
+          label {
+            flex-basis: 48%;
+            margin-bottom: 15px;
+            margin-top: 10px;
+            font-weight: bold;
+
+            input {
+              width: 480px;
+              padding: 8px;
+              margin-top: 10px;
+              border: 2px solid #ccc;
+            }
+          }
+        }
+      }
+    }
   }
 }

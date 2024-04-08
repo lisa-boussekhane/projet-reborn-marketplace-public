@@ -77,72 +77,162 @@
 
 /* RESPONSIVE */
 
-/* xs */
-@media (min-width: 350px) {
-  .about-us {
-    margin-left: 12rem;
-  }
-
-  .about-us-buttons {
-    margin-left: 20rem;
-  }
-}
-
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 767px) {
   .about-us {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    margin-left: -7rem;
     &-img {
-      flex: 0 0 auto;
-      width: 40%;
-      margin-top: 3rem;
+      width: 450px;
+      margin-left: 90px;
+      margin-right: 90px;
+      margin-bottom: 50px;
+      margin-top: 30px;
     }
 
     &_text {
       flex: 1;
       font-size: 1.5rem;
+      margin-left: -5rem;
 
       p {
-        margin-left: 0.5rem;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
+        padding: 1.2rem;
+        font-size: 1.8rem;
       }
 
-      h1,
+      h1 {
+        padding: 1rem;
+        font-size: 3rem;
+      }
       h3 {
-        margin-left: 0.5rem;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
+        font-size: 2rem;
       }
     }
 
     &-buttons {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 40px;
+      justify-content: space-around;
+      padding: 10px;
+      margin: 20px;
+      gap: 20px;
       font-size: 1.5rem;
       font-weight: 700;
+      margin-left: 3rem;
 
       button {
-        font-size: 1.5rem;
+        margin-bottom: 10px;
+        font-size: 1.8rem;
       }
 
       img {
-        max-width: 500px;
-        margin-left: 50px;
+        max-width: 330px;
+        margin-left: 2px;
       }
     }
   }
-}
 
-/* lg */
-@media (min-width: 1024px) {
-  .about-us {
-    margin-left: 12rem;
+  #btn-account.secondary__button {
+    background-color: v.$pink;
+    padding: 20px;
+    width: 350px !important;
+    text-align: center;
+    cursor: pointer;
   }
 
-  .about-us-img img {
-    margin-top: -5rem;
+  #btn-adopt.secondary__button {
+    background-color: v.$blue;
+    padding: 20px;
+    width: 350px !important;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  #btn-contact.secondary__button {
+    background-color: v.$yellow;
+    padding: 20px;
+    width: 350px !important;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .about-us {
+    display: flex;
+    align-items: center;
+    margin-left: -7rem;
+    &-img {
+      width: 450px;
+      margin-left: 90px;
+      margin-right: 90px;
+      margin-bottom: 50px;
+      margin-top: 30px;
+    }
+
+    &_text {
+      flex: 1;
+      font-size: 1.5rem;
+      margin-left: -5rem;
+
+      p {
+        padding: 1.2rem;
+        font-size: 1.8rem;
+      }
+
+      h1 {
+        padding: 1rem;
+        font-size: 3rem;
+      }
+      h3 {
+        font-size: 2rem;
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 10px;
+      margin: 20px;
+      gap: 20px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-left: 3rem;
+
+      button {
+        margin-bottom: 10px;
+        font-size: 1.8rem;
+      }
+
+      img {
+        max-width: 630px;
+        margin-left: 2px;
+      }
+    }
+  }
+
+  #btn-account {
+    background-color: v.$pink;
+    padding: 20px;
+    width: 650px !important;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  #btn-adopt {
+    background-color: v.$blue;
+    padding: 20px;
+    width: 650px !important;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  #btn-contact {
+    background-color: v.$yellow;
+    padding: 20px;
+    width: 650px !important;
+    text-align: center;
+    cursor: pointer;
   }
 }

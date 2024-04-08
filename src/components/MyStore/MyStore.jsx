@@ -167,7 +167,7 @@ export default function MyStore() {
               )}
             </div>
             <div className="seller__buttons">
-              <div className="seller__button">
+              <div className="seller__button add__button">
                 <NavLink to="/sellmyreborn">
                   <input type="submit" value="Add an article" />
                 </NavLink>

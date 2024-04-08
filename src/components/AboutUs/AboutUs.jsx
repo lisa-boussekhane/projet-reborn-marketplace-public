@@ -50,19 +50,19 @@ export default function AboutUs() {
 
       <div className="about-us-buttons">
         <NavLink to="/signup">
-          <button type="button" id="btn-account">
+          <button type="button" id="btn-account" className="secondary__button">
             Create an account
           </button>
           <img src="./icon-create-account.jpg" alt="create account" />
         </NavLink>
         <NavLink to="/reborns">
-          <button type="button" id="btn-adopt">
+          <button type="button" id="btn-adopt" className="secondary__button">
             Adopt a reborn
           </button>
           <img src="./icon-aar.jpg" alt="adopt a reborn" />
         </NavLink>
         <NavLink to="/contactus">
-          <button type="button" id="btn-contact">
+          <button type="button" id="btn-contact" className="secondary__button">
             Contact us
           </button>
           <img src="./icon-contact-us.jpg" alt="contact us" />
